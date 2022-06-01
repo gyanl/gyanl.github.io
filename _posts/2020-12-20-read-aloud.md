@@ -2,7 +2,7 @@
 layout: post
 title: Read Aloud for Microsoft Word
 subtitle: Rethinking Text to speech for mobile devices
-tags: work
+tags: misc
 thumbnail: https://gyanl.com/assets/thumbs/default.png
 date modified: 01-06-2022
 ---
