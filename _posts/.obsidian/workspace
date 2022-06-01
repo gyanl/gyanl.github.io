@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Structured Creativity.md",
+            "file": "2020-12-20-read-aloud.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Structured Creativity.md",
+                "file": "2020-12-20-read-aloud.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -112,15 +112,15 @@
   },
   "active": "1ce0c2008bd4d63f",
   "lastOpenFiles": [
+    "2020-12-20-read-aloud.md",
+    "2021-01-01-hindsight-in-2020.md",
+    "2020-12-11-financial-planning.md",
+    "2020-07-13-microsoft.md",
+    "Whiteboard.md",
     "Structured Creativity.md",
     "The Shape of the Tool.md",
-    "Whiteboard.md",
     "Shoes.md",
     "2022-03-17-turning-26.md",
-    "2020-04-17-ginger-beer.md",
-    "2020-06-20-misinformation.md",
-    "2021-01-01-hindsight-in-2020.md",
-    "2019-05-27-unbox-1.md",
-    "2019-11-29-wallpapers.md"
+    "2020-04-17-ginger-beer.md"
   ]
 }
