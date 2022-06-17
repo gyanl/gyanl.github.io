@@ -173,8 +173,12 @@ layout: default
 
       });
 
-      // check if logged in
-      getUserDetails();
+      // Dont't allow editing of post body
+      vbody.contentEditable = "false";
+
+        // check if logged in
+        hideActionBar();
+        getUserDetails();
 
     function updateValues() {
       const updates = {};
