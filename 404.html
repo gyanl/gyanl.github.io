@@ -227,7 +227,7 @@ layout: default
   if (vemail == "gyanlakhwani@gmail.com"){
     //User can edit, show edit access
     document.getElementById('statusOfUser').innerHTML = "Edit Access";
-    console.log("Setting Edit Access");    
+    console.log("Setting Edit Access");
 
 
     // Make text areas editable
@@ -276,6 +276,7 @@ getRedirectResult(auth)
     console.log("i think you are " + user.displayName);
     vdisplayname = user.displayName;
     vphotourl = user.photoURL;
+    vemail = user.email;
     showUserOnPage();
 
   }).catch((error) => {
