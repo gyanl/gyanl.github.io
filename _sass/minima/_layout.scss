@@ -100,7 +100,21 @@
 }
 
 .username{
-  padding-left: 12px;
+  color:var(--text-color-dark);
+}
+
+.userstatus{
+  font-size: 12px;
+  font-weight: 500;
+  color:var(--accent-color-dark);
+}
+
+.userphoto{
+  width:36px;
+  height:36px;
+  margin:0;
+  border-radius:20px;
+  border-radius:36px
 }
 
 .userphoto{
