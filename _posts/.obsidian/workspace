@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "2020-12-20-read-aloud.md",
+            "file": "2019-05-27-unbox-1.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2020-12-20-read-aloud.md",
+                "file": "2019-05-27-unbox-1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -112,15 +112,15 @@
   },
   "active": "1ce0c2008bd4d63f",
   "lastOpenFiles": [
+    "2019-05-27-unbox-1.md",
+    "2019-05-27-unbox-2.md",
+    "Whiteboard.md",
+    "The Shape of the Tool.md",
+    "Structured Creativity.md",
+    "Shoes.md",
+    "2021-04-23-great-portfolios.md",
     "2020-12-20-read-aloud.md",
     "2020-07-13-microsoft.md",
-    "2021-01-01-hindsight-in-2020.md",
-    "2020-12-11-financial-planning.md",
-    "Whiteboard.md",
-    "Structured Creativity.md",
-    "The Shape of the Tool.md",
-    "Shoes.md",
-    "2022-03-17-turning-26.md",
-    "2020-04-17-ginger-beer.md"
+    "2021-01-01-hindsight-in-2020.md"
   ]
 }

@@ -1,9 +1,11 @@
 ---
+thumbnail: https://gyanl.com/assets/thumbs/default.png
 layout: post
 title: Great Portfolio Sites
 subtitle: A list of websites that I think do a great job of showing design work.
 permalink: portfolios
 tags: misc
+date modified: 21-06-2022
 ---
 
 A portfolio is maybe the most important thing for a designer looking for work. I talk to a lot of early career designers who have done great work, but don't adequately show it on their portfolios. Recruiters are also curious about your personality—what drives you? Your side projects or hobbies—something you do for yourself or your community could be what speaks the most about you as a person. 
@@ -12,21 +14,13 @@ This is a list of sites that I think are great to look at for inspiration.
 
 ## Portfolios
 
-1. <https://gyanl.com/v2>
+1. <https://gyanl.com/v2> <br>An older version of my website that worked as a portfolio, and got me an internship at Zomato and a job at Microsoft.
 
-An older version of my website that worked as a portfolio, and got me an internship at Zomato and a job at Microsoft.
+2. <https://abhishk.me/> <br>Abhishek Sharma does a fantastic job of showing his work visually. The website has case studies about his projects and experiences, and also shows off his side projects and experience with code.
 
-2. <https://abhishk.me/>
+3. <https://rishivanukuru.com/> <br>My friend Rishi Vanukuru is a design researcher, and his website focuses on his academic work. Not every website needs to look the same, and this is a great example of carefully picking what you want to show front and centre according to your objectives.
 
-Abhishek Sharma does a fantastic job of showing his work visually. The website has case studies about his projects and experiences, and also shows off his side projects and experience with code.
-
-3. <https://rishivanukuru.com/>
-
-My friend Rishi Vanukuru is a design researcher, and his website focuses on his academic work. Not every website needs to look the same, and this is a great example of carefully picking what you want to show front and centre according to your objectives.
-
-4. <https://fedor.design/>
-
-Fedor Shkliarau has an extremely dynamic portfolio site - he uses a lot of animations and videos to show his work.
+4. <https://fedor.design/> <br>Fedor Shkliarau has an extremely dynamic portfolio site - he uses a lot of animations and videos to show his work.
 
 5. <https://roman.nurik.net/projects/>
 
