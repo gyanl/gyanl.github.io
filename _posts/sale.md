@@ -75,9 +75,14 @@ Intel i5 2.3 GHz + Integrated graphics
 
 #### Logitech G102 Gaming Mouse
 
-Gaming mouse with RGB colors. Scroll wheel doesn't work properly so I'm selling it cheap - great if you play a game that doesn't use the scroll wheel much or you're okay remapping scroll to something else.
+Gaming mouse with RGB colors. Scroll wheel doesn't work properly so I'm selling it cheap - great if you play a game that doesn't use the scroll wheel much or you're okay remapping the scroll action to one of the two programmable side buttons.
+![](https://gyanl.com/assets/sale-logi-mouse.jpg)
+![](https://gyanl.com/assets/sale-logi-mouse.jpg)
+![](https://gyanl.com/assets/sale-logi-mouse.jpg)
 
+**Amazon:** [Logitech G102 Light Sync Gaming Mouse with Customizable RGB Lighting](https://www.amazon.in/gp/product/B08LT9BMPP/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1) (1495)
 
+**My price:** 500
 
 #### Dell Wired USB mouse
 
