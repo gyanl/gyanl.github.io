@@ -1,0 +1,187 @@
+---
+layout: post
+title: Garage Sale
+subtitle: You want stuff? I have stuff. It could be yours.
+tags: misc
+thumbnail: https://gyanl.com/assets/thumbs/default.png
+date modified: 09-07-2022
+permalink: sale
+---
+
+# Hello!
+
+Welcome to my garage sale. Feel free to look around. All items are in Delhi. [Message me on WhatsApp](https://api.whatsapp.com/send/?phone=7982121546&text&type=phone_number) if you have questions or want photos/more details. Also willing to consider trade offers.
+
+  
+
+#### Xbox Series S (1 Controller + 1 Year Gamepass Ultimate)  
+_I don't have as much time as I would have liked to play games so I'm letting my Xbox go. Comes with a code for 1 year of Gamepass ultimate for Xbox + PC._
+
+**Amazon:** [Xbox Series S](https://www.amazon.in/Xbox-Series-S/dp/B08J89D6BW/ref=sr_1_1?crid=2YOU2FSSIS5XV&keywords=xbox&qid=1657347496&sprefix=xbo%2Caps%2C192&sr=8-1) (30,899 + 499/month for Gamepass)
+
+**My price:** 27k for Xbox + Controller + Gamepass | 30k if you also want an Xbox One generation controller (mostly the same as Series S controller except no dedicated share button and micro-usb instead of usb C).
+
+**Status:** 🟢 Available
+
+  
+
+#### Apple Homepod (The big one, not Homepod mini)  
+
+_You can throw a party with just one of these, it sounds really good and gets super loud. It's a solid smart speaker if you're mostly in the Apple ecosystem, and especially if you use Apple music._
+
+![](https://gyanl.com/assets/sale-homepod.jpg)
+
+**Flipkart:** [HomePod](https://www.flipkart.com/apple-homepod-siri-assistant-smart-speaker/p/itmd613189c4a516) (19,900)  
+
+**My price:** 14.5k
+
+**Status:** 🟢 Available
+
+  
+
+#### 15 inch Macbook pro (2015)
+
+_The best MacBook money could buy in 2015. It has USB ports, HDMI out, an SD card reader and holds up surprisingly well in 2022 for moderate workflows._ 
+
+Intel i7 2.2 GHz Quad Core + Iris Pro 1536 MB
+
+16 GB RAM
+
+256 GB SSD
+
+**Apple:** [MacBook Pro (Retina, 15-inch, Mid 2015)](https://support.apple.com/kb/sp719?locale=en_IN)
+
+**My Price:** 60,000
+
+**Status:** 🟢 Available
+
+  
+
+#### 13 inch Macbook Pro (2017)
+
+_Older base model Macbook Pro that got my brother through design school. Still plenty good enough for basic to intermediate tasks._
+
+Intel i5 2.3 GHz + Integrated graphics
+
+8GB RAM
+
+128 GB SSD
+
+**Apple Site:** [MacBook Pro (13-inch, 2017, Two Thunderbolt 3 ports)](https://support.apple.com/kb/SP754?locale=en_IN)  
+
+**My Price:** 40k 
+
+**Status:** 🟢 Available
+
+  
+
+#### Dell Wired USB mouse
+
+_A basic computer mouse. Right and left click work, but scroll wheel doesn't work._
+
+![](https://gyanl.com/assets/sale-dell-mouse.jpg)
+
+**My price:** 200
+
+  
+
+#### HP Envy 14 inch laptop (1080p)
+
+_Old laptop, not in great condition. Has three dead pixel bands on the screen. It does have a generous amount of RAM and a graphics card so it’s not a terrible machine if you’re willing to tinker with it._
+
+Intel Core i5 5200U 2.2 GHz
+
+NVIDIA GeForce GTX 950M
+
+12GB RAM
+
+1 TB HDD
+
+**Amazon:** [HP Envy 14-j007TX 14-inch Laptop](https://www.amazon.in/HP-14-j007TX-14-inch-Windows-Graphics/dp/B013UHS0DS) (listing has 8GB RAM, my model has 12GB).
+
+**My price:** 5k
+
+**Status:** 🟢 Available
+
+  
+
+#### Wacom Drawing Tablet with Stylus
+
+*A great entry-level drawing tablet. Needs to be connected to a computer to work.*
+
+![](https://gyanl.com/assets/sale-wacom.jpg)
+  
+
+  
+
+#### Xiaomi Redmi Note 7 Pro (Android Phone)
+
+_Used to be my daily driver till I switched to a new phone. In decent condition because I always used it with a case and screen guard. The screen guard is chipped but the screen is completely intact._
+
+![](https://gyanl.com/assets/sale-android.jpg)
+
+128 GB Storage | 6 GB RAM 
+
+**Xiaomi website:** [Redmi Note 7 Pro Online - Mi India](https://www.mi.com/in/buy/product/redmi-note-7-pro)
+
+**My Price:** 5k
+
+**Status:** 🟢 Available
+
+  
+
+  
+
+# SOLD
+
+  
+
+#### Asus ROG Gaming PC
+
+_Gaming PC that can play most games at reasonable framerates at 1080p. RGB lights for extra gamer power. Power button is a bit loose and needs to be jiggled a little for initial boot but otherwise in good condition._
+
+Intel Core i5-9400F
+
+8GB DDR4 RAM
+
+512GB SSD (M.2 PCIE) + 1TB HDD
+
+Nvidia GeForce GTX 1660 6GB
+
+**Amazon:** [ASUS Core i5 (9400F)](https://www.amazon.in/ASUS-GeForce-Graphics-Capacity-GL10CS-IN085T/dp/B083DPG31G/ref=sr_1_1?crid=2B5GQ7O7Y2XSX&keywords=asus+rog+pc+i5-9400f&qid=1657347827&sprefix=asus+rog+pc+i5-9400%2Caps%2C179&sr=8-1) - lower model with 1650 and 256GB SSD, but looks similar  
+
+**My price:** 45k
+
+**Status:** ❌ Not Available
+
+  
+
+#### LG 25 inch Ultrawide monitor (2560x1080)
+
+_LG Monitor with a pixel density of ~110 PPI, which makes it one of the few monitors that work well with MacOS at native scaling. Has been my daily driver for about two years, and the colors are good enough to use for design work. Selling it cheap because of some scratches on the screen - not very noticeable unless you're on a plain white screen._ 
+
+![](https://gyanl.com/assets/sale-monitor.jpg)
+
+IPS Panel, SRGB >99%, AMD Freesync, 60Hz, 5ms response, 2x HDMI, audio out
+
+**Amazon:** [Amazon.in: Buy LG 25-inch (64.5 cm) UltraWide Multitasking Monitor](https://www.amazon.in/LG-25UM58-25-inch-UltraWide-Monitor/dp/B01BV1XB2K/ref=sr_1_1?keywords=lg+25+ultrawide+monitor&qid=1657366207&sprefix=lg+25+ultra%2Caps%2C190&sr=8-1) (15,500)
+
+**LG India:** [LG 25UM58 Full HD IPS LED UltraWide Monitor](https://www.lg.com/in/monitors/lg-25UM58) (18,500)  
+
+**My price:** 7,000
+
+**Status:** ❌ Not Available
+
+  
+
+#### Miniso Mint green wireless keyboard and mouse
+
+_I just bought this because it looked really cute._ 
+
+Single wireless USB receiver powers both the mouse and keyboard. Both need a single AA cell each to work.
+
+**Miniso site:** [Wireless Mouse and Keyboard Set (White and Mint Green)](https://www.minisoindia.com/product/wireless-mouse-and-keyboard-set-white-and-mint-green/)  
+
+**My price:** 500
+
+**Status:** ❌ Not Available
