@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "sale.md",
+            "file": "2022-07-09-sale.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "sale.md",
+                "file": "2022-07-09-sale.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -112,7 +112,7 @@
   },
   "active": "1ce0c2008bd4d63f",
   "lastOpenFiles": [
-    "sale.md",
+    "2022-07-09-sale.md",
     "Whiteboard.md",
     "2020-07-19-ui-design-tricks.md",
     "2020-12-11-financial-planning.md",
