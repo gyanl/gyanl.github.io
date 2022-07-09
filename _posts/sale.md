@@ -73,7 +73,11 @@ Intel i5 2.3 GHz + Integrated graphics
 
 **Status:** 🟢 Available
 
-  
+#### Logitech G102 Gaming Mouse
+
+Gaming mouse with RGB colors. Scroll wheel doesn't work properly so I'm selling it cheap - great if you play a game that doesn't use the scroll wheel much or you're okay remapping scroll to something else.
+
+
 
 #### Dell Wired USB mouse
 
@@ -81,7 +85,7 @@ _A basic computer mouse. Right and left click work, but scroll wheel doesn't wor
 
 ![](https://gyanl.com/assets/sale-dell-mouse.jpg)
 
-**My price:** 200
+**My price:** 150
 
   
 
