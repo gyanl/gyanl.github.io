@@ -1,6 +1,11 @@
-Shoes
-
-
+---
+layout: post
+title:
+subtitle:
+tags: 
+thumbnail: https://gyanl.com/assets/thumbs/default.png
+date modified: 16-03-2022
+---
 
 #### Buying better shoes
 
