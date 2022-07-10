@@ -19,3 +19,21 @@ _You can throw a party with just one of these, it sounds really good and gets su
 **My price:** 14.5k
 
 **Status:** 🟢 Available
+
+
+
+#### 15 inch Macbook pro (2015)
+
+_The best MacBook money could buy in 2015. It has USB ports, HDMI out, an SD card reader and holds up surprisingly well in 2022 for moderate workflows._ 
+
+Intel i7 2.2 GHz Quad Core + Iris Pro 1536 MB
+
+16 GB RAM
+
+256 GB SSD
+
+**Apple:** [MacBook Pro (Retina, 15-inch, Mid 2015)](https://support.apple.com/kb/sp719?locale=en_IN)
+
+**My Price:** 50k
+
+**Status:** 🟢 Available
