@@ -3,7 +3,7 @@ layout: post
 thumbnail: https://gyanl.com/assets/thumbs/default.png
 notetype: feed
 date: 03-03-2022
-date modified: 06-03-2022
+date modified: 12-07-2022
 title: Webdev Resources
 subtitle: CSS and JavaScript resources I found useful
 tags: code
@@ -28,6 +28,10 @@ Do you really need a framework library?
 A collection of tools and snippets for working with JavaScript.
 
 ## CSS
+
+#### [A thread of my favorite clever CSS tricks](https://twitter.com/Steve8708/status/1546657470604382208)
+
+A thread of by Steve8708 on Twitter, including some vertical and horizontal scroll effects.
 
 #### [Native Elements](https://native-elements.dev/#/)
 
