@@ -37,3 +37,8 @@ Intel i7 2.2 GHz Quad Core + Iris Pro 1536 MB
 **My Price:** 50k
 
 **Status:** 🟢 Available
+
+
+# Reserved
+
+Items that someone has expressed an interest in, but haven't been paid for and collected it yet. If you want one of these, feel free to ask about it and I'll reach out to you next. 

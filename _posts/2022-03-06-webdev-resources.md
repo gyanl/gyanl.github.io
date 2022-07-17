@@ -3,7 +3,7 @@ layout: post
 thumbnail: https://gyanl.com/assets/thumbs/default.png
 notetype: feed
 date: 03-03-2022
-date modified: 12-07-2022
+date modified: 16-07-2022
 title: Webdev Resources
 subtitle: CSS and JavaScript resources I found useful
 tags: code
@@ -28,6 +28,10 @@ Do you really need a framework library?
 A collection of tools and snippets for working with JavaScript.
 
 ## CSS
+
+#### [Visual CSS Generator](https://webcode.tools/)
+
+Handy graphical generators for things like gradients and box shadows.
 
 #### [A thread of my favorite clever CSS tricks](https://twitter.com/Steve8708/status/1546657470604382208)
 
