@@ -1,33 +1,29 @@
 {
   "main": {
-    "id": "3b405ff6c9b3a96f",
+    "id": "448e8e34c2c27640",
     "type": "split",
     "children": [
       {
-        "id": "1ce0c2008bd4d63f",
+        "id": "a605e268c4862572",
         "type": "leaf",
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "2022-09-15-figma.md",
-            "mode": "source",
-            "source": false
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "8dcc3bed6cbbf29e",
+    "id": "4792026f8d1866ff",
     "type": "split",
     "children": [
       {
-        "id": "45e63adaac523130",
+        "id": "80449694bbb3b569",
         "type": "tabs",
         "children": [
           {
-            "id": "1a23adcbd3bd4b43",
+            "id": "44303986feab16e9",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -35,18 +31,26 @@
             }
           },
           {
-            "id": "1bc2776a07689a40",
+            "id": "e662ec55a70fb573",
             "type": "leaf",
             "state": {
               "type": "search",
               "state": {
-                "query": "portfolio",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
               }
+            }
+          },
+          {
+            "id": "f16d11d8c09b9a04",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
             }
           }
         ]
@@ -56,20 +60,19 @@
     "width": 300
   },
   "right": {
-    "id": "0ccec1e44f2f1da9",
+    "id": "429bb565b11207c4",
     "type": "split",
     "children": [
       {
-        "id": "dd519c17aad6abd4",
+        "id": "235b3dc30693c62f",
         "type": "tabs",
         "children": [
           {
-            "id": "eb7edc0962151795",
+            "id": "1a3ac52aa92ed2ab",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2022-09-15-figma.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -81,19 +84,18 @@
             }
           },
           {
-            "id": "241eccb5c49435d9",
+            "id": "7f33b325275bdb71",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Color Generator.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
             }
           },
           {
-            "id": "4e7a9e6772aece66",
+            "id": "6669513f7fdb9029",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -101,6 +103,14 @@
                 "sortOrder": "frequency",
                 "useHierarchy": true
               }
+            }
+          },
+          {
+            "id": "21aceacf920ac52b",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
             }
           }
         ]
@@ -110,17 +120,6 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "1a23adcbd3bd4b43",
-  "lastOpenFiles": [
-    "2022-07-09-sale.md",
-    "Designer Mobile.md",
-    "whiteboard.md",
-    "The Shape of the Tool.md",
-    "Structured Creativity.md",
-    "Shoes.md",
-    "Sale Extras.md",
-    "A Rant Against Random.md",
-    "2022-02-21-feedback.md",
-    "2022-03-06-webdev-resources.md"
-  ]
+  "active": "a605e268c4862572",
+  "lastOpenFiles": []
 }
