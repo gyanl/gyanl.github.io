@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "2022-07-09-sale-again.md",
+            "file": "2022-09-15-figma.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2022-07-09-sale-again.md",
+                "file": "2022-09-15-figma.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -110,17 +110,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "1a23adcbd3bd4b43",
+  "active": "1ce0c2008bd4d63f",
   "lastOpenFiles": [
+    "2022-07-09-sale-again.md",
     "2022-07-09-sale.md",
     "2022-09-15-figma.md",
     "Designer Mobile.md",
+    "A Rant Against Random.md",
+    "2022-02-10-stories.md",
+    "2022-03-17-turning-26.md",
     "whiteboard.md",
     "The Shape of the Tool.md",
-    "Structured Creativity.md",
-    "Shoes.md",
-    "Sale Extras.md",
-    "A Rant Against Random.md",
-    "2022-02-21-feedback.md"
+    "Structured Creativity.md"
   ]
 }

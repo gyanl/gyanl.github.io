@@ -1,9 +1,10 @@
+---
 layout: post
 title: Garage Sale
 subtitle: You want stuff? I have stuff. It could be yours.
 tags: misc
 thumbnail: https://gyanl.com/assets/thumbs/default.png
-date modified: 15-08-2022
+date modified: 14-09-2022
 permalink: sale
 ---
 
