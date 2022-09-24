@@ -1,17 +1,33 @@
+---
+layout: post
+title: Starting a Career in Design
+subtitle: Creating a portfolio, applying to design school, and getting jobs, internships or freelance projects
+tags: talk
+thumbnail: https://gyanl.com/assets/thumbs/default.png
+date modified: 23-09-2022
+---
+
+### Resume
+
+A design resume should be a single page, and should explain at a glance why you would be a good fit for the role.
+
+### Portfolio
+
+
+#### Dummy projects
 Don't decide the output format at the beginning of the project.
 
 Don't limit yourself by assuming you can't handle a medium. Designers are problem solvers, you can solve problems with different tools. Don't hammer and nail.
 
+## Going to Design School
 
-**Do you need a design degree?**
+### Do you *need* a design degree?
 
 No, you don't. That's not just me saying that, the industry is happy to accept designers who studied engineering, architecture, business, or pretty much anything else. You can be self taught and have a fantastic career as a designer.
 
 Design used to be quite insular, tech not so much. 
 
-
-
-**What does design school help with?**
+### What does design school help with?
 
 Not just the craft, skills, 
 
@@ -21,13 +37,11 @@ Design thinking is thrown around a lot.
 
 Skills as a result of experimenting with tools. 
 
-
 Self taught route you can also focus on these things. Do justice to the problems you are solving. 
 
 Read about unrelated things. Philosophy. Society. Culture. Read about the world to be a better designer. 
 
-
-**Case study recipe.**
+### Case study recipe
 
 - tight narrative
 - every part of the case study contributes to the narrative

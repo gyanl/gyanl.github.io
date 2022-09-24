@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "2022-07-09-sale.md",
+            "file": "2022-09-23-design-career.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2022-07-09-sale.md",
+                "file": "2022-09-23-design-career.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -112,15 +112,15 @@
   },
   "active": "1ce0c2008bd4d63f",
   "lastOpenFiles": [
-    "2022-09-15-figma.md",
+    "The Shape of the Tool.md",
+    "2022-09-23-design-career.md",
+    "What Next?.md",
+    "Transcription in Word.md",
     "Structured Creativity.md",
     "Shoes.md",
-    "Sale Extras.md",
     "Designer Mobile.md",
-    "A Rant Against Random.md",
-    "The Shape of the Tool.md",
-    "Transcription in Word.md",
+    "2022-09-15-figma.md",
     "2022-07-09-sale.md",
-    "2022-03-17-turning-26.md"
+    "Sale Extras.md"
   ]
 }
