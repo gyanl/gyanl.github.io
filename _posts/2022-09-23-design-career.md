@@ -4,7 +4,7 @@ title: Starting a Career in Design
 subtitle: Creating a portfolio, applying to design school, and getting jobs, internships or freelance projects
 tags: talk
 thumbnail: https://gyanl.com/assets/thumbs/default.png
-date modified: 23-09-2022
+date modified: 26-09-2022
 ---
 
 ### Resume
@@ -15,6 +15,7 @@ A design resume should be a single page, and should explain at a glance why you 
 
 
 #### Dummy projects
+
 Don't decide the output format at the beginning of the project.
 
 Don't limit yourself by assuming you can't handle a medium. Designers are problem solvers, you can solve problems with different tools. Don't hammer and nail.
@@ -54,3 +55,5 @@ Read about unrelated things. Philosophy. Society. Culture. Read about the world 
 [@dburka](https://twitter.com/dburka)
 
 reminds us of this beautiful [#quote](https://twitter.com/hashtag/quote?src=hashtag_click) at [http://designup.school](https://t.co/NR7V0ji6Su) grad-day: “Don't make something unless it is both necessary and useful; but if it is both, don't hesitate to make it beautiful.”
+
+Hello

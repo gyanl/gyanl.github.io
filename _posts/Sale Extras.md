@@ -8,17 +8,21 @@ date modified: 10-07-2022
 ---
 
 
-#### Apple Homepod (The big one, not Homepod mini)  
+#### Mi Box 4k (smart TV streaming box)
 
-_You can throw a party with just one of these, it sounds really good and gets super loud. It's a solid smart speaker if you're mostly in the Apple ecosystem, and especially if you use Apple music._
+_Hook this up to your TV or monitor and you now have a streaming device that can run Android TV - supports Netflix, Amazon Prime, Hotstar, etc._
 
-![](https://gyanl.com/assets/sale-homepod.jpg)
 
-**Flipkart:** [HomePod](https://www.flipkart.com/apple-homepod-siri-assistant-smart-speaker/p/itmd613189c4a516) (19,900)  
+![](https://gyanl.com/assets/sale-mi-box-4k.jpg)
 
-**My price:** 14.5k
+
+**Mi Website:** [Mi Box 4k](https://www.mi.com/in/mi-box-4k/) (3,499)
+
+**My price:** (1,499)
 
 **Status:** 🟢 Available
+
+<br>
 
 
 
@@ -73,8 +77,3 @@ _I don't have as much time as I would have liked to play games so I'm letting my
 
 **Status:** 🟢 Available
 
-<br>
-
-# Reserved
-
-Items that someone has expressed an interest in, but haven't been paid for and collected it yet. If you want one of these, feel free to ask about it and I'll reach out to you next. 
