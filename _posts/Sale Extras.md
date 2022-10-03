@@ -77,3 +77,9 @@ _I don't have as much time as I would have liked to play games so I'm letting my
 
 **Status:** 🟢 Available
 
+
+
+
+# Reserved
+
+Items that someone has expressed an interest in, but haven't been paid for and collected it yet. If you want one of these, feel free to ask about it and I'll reach out to you next.
