@@ -4,8 +4,63 @@ title: Starting a Career in Design
 subtitle: Creating a portfolio, applying to design school, and getting jobs, internships or freelance projects
 tags: talk
 thumbnail: https://gyanl.com/assets/thumbs/default.png
-date modified: 26-09-2022
+date modified: 06-10-2022
 ---
+
+## About me
+
+Hey! My name is Gyan. I’m a multidisciplinary designer, and I like fonts, cats and technology.
+
+I have a master’s in Interaction Design from IDC School of Design, IIT Bombay, and I am currently a user experience designer at Microsoft. I have also previously worked with Google, Zomato and over 30 startups and small organisations on design projects.
+
+## What is design?
+
+When I was at design school, pretty much every professor I had asked the class, “what is design?”
+
+Every professor had a different answer.
+
+Is it how it looks? How it works?
+
+- [What is Design? | UIC - School of Design](https://design.uic.edu/what-is-design)
+
+## Types of Design roles
+
+I am going to finish this essay explaining the several types of design, which are the following:
+
+**– Architectural Design:** Project living spaces for the human being: buildings, parks, public squares, houses.
+
+**– Design of Spaces:** It is responsible for carrying out projects of the use and adaptation of the spaces according to specific needs of its usefulness: commercial, residential, educational, labor.
+
+**– Industrial Design:** Projects industrial production objects for human use from a spoon to the body of a car or the fuselage of an airplane, through furniture, tools, artifacts.
+
+**– Graphic Design:** Reproduce significant visual messages: logos and brands, posters, magazines, book covers, websites.
+
+**– Fashion Design:** Design and make clothes and clothing accessories: clothes, shoes, jewelry.
+
+**– Textile Design:** Combination of some methods of Graphic Design with some others of Industrial Design and Fashion Design, consists of conceiving and configuring fabrics and patterns for the textile industry: prints, yarns, embroidery, fibers.
+
+**– Interactive Design:** Focused on the design of digital interfaces and software.
+
+UX Researcher
+
+UX Designer
+
+UI Designer
+
+Career ladder
+
+IC v/s. Manager track
+
+staff.design
+
+How do designers fit into the triad?
+
+Design seat at the table
+
+What should you look for in an early-career design job?
+
+- existing team, you want someone to be able to mentor you, 
+- if there are no other designers you will end up having to teach yourself a lot of things. this is great if you want to fast-track your learning.
 
 ### Resume
 
@@ -50,7 +105,6 @@ Read about unrelated things. Philosophy. Society. Culture. Read about the world 
 - portfolio site doesn't need to have 100% context, just enough to hook someone in. you'll talk more about it in the interview anyway. 
 - if this was a book/movie, how will you keep audience hooked till the end? 
 - surprise, twists?
-
 
 [@dburka](https://twitter.com/dburka)
 
