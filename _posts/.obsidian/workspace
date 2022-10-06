@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Connect.md",
+            "file": "2022-07-09-sale.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Connect.md",
+                "file": "2022-07-09-sale.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -112,8 +112,8 @@
   },
   "active": "1ce0c2008bd4d63f",
   "lastOpenFiles": [
-    "2021-10-21-quotes.md",
     "Connect.md",
+    "2021-10-21-quotes.md",
     "2022-07-09-sale.md",
     "Sale Extras.md",
     "2022-09-23-design-career.md",
