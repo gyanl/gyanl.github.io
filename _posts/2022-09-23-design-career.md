@@ -2,9 +2,9 @@
 layout: post
 title: Starting a Career in Design
 subtitle: Creating a portfolio, applying to design school, and getting jobs, internships or freelance projects
-tags: talk
+tags: talks
 thumbnail: https://gyanl.com/assets/thumbs/default.png
-date modified: 06-10-2022
+date modified: 07-10-2022
 ---
 
 ## About me
