@@ -7,6 +7,10 @@ thumbnail: https://gyanl.com/assets/thumbs/default.png
 date modified: 07-10-2022
 ---
 
+![Title slide for the talk](https://gyanl.com/assets/design-job.jpeg)
+
+###### Title Slide
+
 ## About me
 
 Hey! My name is Gyan. I’m a multidisciplinary designer, and I like fonts, cats and technology.
@@ -15,7 +19,7 @@ I have a master’s in Interaction Design from IDC School of Design, IIT Bombay,
 
 ## What is design?
 
-When I was at design school, pretty much every professor I had asked the class, “what is design?”
+When I was at design school, pretty much every professor I had asked the class, “What is design?”
 
 Every professor had a different answer.
 
@@ -25,23 +29,33 @@ Is it how it looks? How it works?
 
 ## Types of Design roles
 
-I am going to finish this essay explaining the several types of design, which are the following:
+**Architecture**
 
-**– Architectural Design:** Project living spaces for the human being: buildings, parks, public squares, houses.
+Project living spaces for the human being: buildings, parks, public squares, houses.
 
-**– Design of Spaces:** It is responsible for carrying out projects of the use and adaptation of the spaces according to specific needs of its usefulness: commercial, residential, educational, labor.
+**Industrial Design**
 
-**– Industrial Design:** Projects industrial production objects for human use from a spoon to the body of a car or the fuselage of an airplane, through furniture, tools, artifacts.
+Projects industrial production objects for human use from a spoon to the body of a car or the fuselage of an airplane, through furniture, tools, artifacts.
 
-**– Graphic Design:** Reproduce significant visual messages: logos and brands, posters, magazines, book covers, websites.
+**Graphic Design**
 
-**– Fashion Design:** Design and make clothes and clothing accessories: clothes, shoes, jewelry.
+Reproduce significant visual messages: logos and brands, posters, magazines, book covers, websites.
 
-**– Textile Design:** Combination of some methods of Graphic Design with some others of Industrial Design and Fashion Design, consists of conceiving and configuring fabrics and patterns for the textile industry: prints, yarns, embroidery, fibers.
+**Fashion Design**
 
-**– Interactive Design:** Focused on the design of digital interfaces and software.
+Design and make clothes and clothing accessories: clothes, shoes, jewelry.
 
-UX Researcher
+**Textile Design**
+
+Combination of some methods of Graphic Design with some others of Industrial Design and Fashion Design, consists of conceiving and configuring fabrics and patterns for the textile industry: prints, yarns, embroidery, fibers.
+
+**Interaction Design**
+
+Focused on the design of digital interfaces and software.
+
+## Interaction Design roles
+- **UX Researcher**
+  Conduct studies to learn more about user needs and behaviours. Help identify 
 
 UX Designer
 
@@ -111,3 +125,18 @@ Read about unrelated things. Philosophy. Society. Culture. Read about the world 
 reminds us of this beautiful [#quote](https://twitter.com/hashtag/quote?src=hashtag_click) at [http://designup.school](https://t.co/NR7V0ji6Su) grad-day: “Don't make something unless it is both necessary and useful; but if it is both, don't hesitate to make it beautiful.”
 
 Hello
+
+Document your work obsessively!
+
+Make sure images are clear
+
+Don’t put illegible “process” photos
+
+- architecture
+- mass comm
+
+photography sketching
+
+btech
+
+	-
