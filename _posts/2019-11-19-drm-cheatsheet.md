@@ -2,12 +2,14 @@
 layout: post
 title: "Stats for Research Methods"
 subtitle: Research for <del>dummies</del> designers
-tags: slides
+tags: talks
 permalink: /drm-cheatsheet
 thumbnail: https://gyanl.com/assets/thumbs/drm.png
+date modified: 07-10-2022
 ---
 
 ### [Link to PDF slides](https://www.dropbox.com/s/05228sulizdxwqw/Stats%20for%20DRM%20v2.pdf?dl=0)
+
 Fair warning: These might not make sense outside of the context of the course since some of these slides refer to material distributed during the course.
 
 ![Class photo](https://gyanl.com/assets/talk-curves.jpeg)
@@ -15,8 +17,6 @@ Fair warning: These might not make sense outside of the context of the course si
 > Nobody even cracked a smile when I showed this slide, which tells you just how stressed people were about this course. Photo courtesy of [Bhawna](https://www.behance.net/sonibhawna)
 
 In my third semester at IDC, I was a teaching assistant for the Design Research Methods (DRM) course. Students were expected to have prior knowledge of some statistical concepts, but a lot of students hadn't studied math or statistics in a few years and found the class hard to follow. I taught a supplementary class that started with an intuitive (I hoped) understanding of some of these basic ideas.
-
-
 
 # Index of terms
 
@@ -34,11 +34,13 @@ In my third semester at IDC, I was a teaching assistant for the Design Research 
 ### Research question
 
 A question about an area of interest.
+
 Eg. Is the proportion of women in design higher than in engineering?
 
 ### Hypothesis
 
 A statement about the relationship between 2 variables.
+
 Eg. There is no difference between proportion of women in engineering and design.
 
 ## Experiment Design

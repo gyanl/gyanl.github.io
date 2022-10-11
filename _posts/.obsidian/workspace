@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "2022-09-23-design-career.md",
+            "file": "2022-10-07-design-career.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2022-09-23-design-career.md",
+                "file": "2022-10-07-design-career.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -110,17 +110,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "1ce0c2008bd4d63f",
+  "active": "1a23adcbd3bd4b43",
   "lastOpenFiles": [
     "2022-09-15-figma.md",
-    "2022-09-23-design-career.md",
-    "2022-07-09-sale.md",
-    "Connect.md",
-    "2021-10-21-quotes.md",
-    "Sale Extras.md",
+    "2022-10-07-design-career.md",
+    "2019-04-29-devanagari-font.md",
+    "2019-05-27-unbox-1.md",
+    "2019-07-13-microsoft-internship.md",
+    "2019-05-16-numeronyms.md",
+    "2019-03-05-notes-from-typoday.md",
     "2023-01-01-year-in-review.md",
-    "2022-06-28-no-hello.md",
-    "A Rant Against Random.md",
-    "2018-04-5-kea.md"
+    "2019-11-19-drm-cheatsheet.md",
+    "2021-07-26-the-social-tadka.md"
   ]
 }

@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Ginger Beer Recipe
-subtitle: This is my grandfather's recipe for ginger beer, finely tuned over the years.
+title: "Ginger Beer Recipe"
+subtitle: "This is my grandfather's recipe for ginger beer, finely tuned over the years."
 tags: food
 thumbnail: https://gyanl.com/assets/thumbs/ginger.png
 ---
