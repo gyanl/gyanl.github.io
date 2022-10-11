@@ -1,5 +1,5 @@
 ---
 layout: archive
-title: "Archive"
-description: "A list of all posts on this blog."
+title: "Notes Archive"
+description: "A chronological list of all my notes. I treat these as a constant work in progress, so some pages have incomplete thoughts I published anyway."
 ---
