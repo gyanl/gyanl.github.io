@@ -1,4 +1,10 @@
 {
   "baseFontSize": 18,
-  "cssTheme": "Atom"
+  "cssTheme": "",
+  "accentColor": "#9c59a1",
+  "theme": "system",
+  "interfaceFontFamily": "",
+  "textFontFamily": "Inter",
+  "translucency": true,
+  "nativeMenus": false
 }
