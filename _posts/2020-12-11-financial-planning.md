@@ -6,6 +6,7 @@ thumbnail: https://gyanl.com/assets/thumbs/money.png
 tags: misc
 ---
 
+A lot of this page is from a financial planning workshop by [Binu Raj](https://www.linkedin.com/in/binu-raj-317a334)
 
 ## Why save?
 - You want stuff
@@ -132,7 +133,7 @@ Employee Stock Purchase Plan
 
 
 ## Mutual Fund Recommendations 
-From [Binu Raj](https://www.linkedin.com/in/binu-raj-317a334)
+
 
 ### Multicap
 - Franklin India focused Equity fund - multicap
