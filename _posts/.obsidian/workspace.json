@@ -4,23 +4,23 @@
     "type": "split",
     "children": [
       {
-        "id": "96ac08fae548f141",
+        "id": "3ca3ee3be7c10f23",
         "type": "tabs",
         "children": [
           {
-            "id": "1ce0c2008bd4d63f",
+            "id": "0e33cc7dde79f311",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2022-10-07-design-career.md",
+                "file": "2023-01-01-year-in-review.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "993514cf78084bc0",
+            "id": "f89fbb45645a5345",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -131,20 +131,17 @@
     "width": 300,
     "collapsed": true
   },
-  "ribbon": {
-    "mostRecentAction": ""
-  },
-  "active": "993514cf78084bc0",
+  "active": "f89fbb45645a5345",
   "lastOpenFiles": [
+    "2020-07-13-microsoft.md",
     "2022-10-07-design-career.md",
+    "2015-01-01-colophon.md",
+    "2022-11-18-resume.md",
     "2023-01-01-year-in-review.md",
+    "Designer Mobile.md",
+    "2017-08-31-lettuce-party.md",
     "2021-12-15-s-alt.md",
     "What Next.md",
-    "Transcription in Word.md",
-    "The Shape of the Tool.md",
-    "Structured Creativity.md",
-    "Sale Extras.md",
-    "Designer Mobile.md",
-    "I'm Here and Care.md"
+    "Transcription in Word.md"
   ]
 }

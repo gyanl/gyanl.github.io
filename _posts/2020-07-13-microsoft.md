@@ -4,12 +4,13 @@ title: UX Design at Microsoft
 subtitle: Starting my first full time job in the pandemic and working on voice experiences.
 tags: work
 thumbnail: https://gyanl.com/assets/thumbs/microsoft.png
-date modified: 07-03-2022
+date modified: 18-11-2022
 ---
 
 I started my first job as a UX Designer at Microsoft soon after finishing my Master's degree in Interaction Design at IDC School of Design, IIT Bombay. I joined the Canvas Voice team in Noida, which worked on experiences like Dictation, Transcription, Read Aloud and Voice Search across Microsoft apps like Word, Outlook and OneNote.
 
 ![Voice @ Microsoft](https://gyanl.com/assets/ms-voice.png)
+
 ###### Voice @ Microsoft
 
 ## Projects at Microsoft
@@ -34,6 +35,6 @@ Transcription converts audio recordings into a text transcript, with timestamped
 
 You can do a lot with the Office suite of apps, and for years the apps have used the *Ribbon menu* on desktop to organise all the commands. When the WXP Apps were first launched on mobile, they borrowed the structure of the Ribbon to maintain familiarity, with adaptations to the still-new paradigms of mobile apps. I was part of a team that rethought the aging mobile interface, and created new unified design patterns for commanding and navigation across Word, Excel and PowerPoint.
 
-#### I can't talk about this one yet
+#### Microsoft Designer
 
-Working on a mobile app that is yet to be launched
+I can’t share details on this project yet.
