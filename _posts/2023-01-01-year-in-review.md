@@ -4,7 +4,7 @@ title: Year in Review
 subtitle: Was this twenty twenty too? (ha ha)
 tags: misc
 thumbnail: https://gyanl.com/assets/thumbs/default.png
-date modified: 09-11-2022
+date modified: 18-11-2022
 ---
 
 #### Moved out (again)
