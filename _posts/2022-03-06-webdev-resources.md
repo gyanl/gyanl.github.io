@@ -1,9 +1,9 @@
 ---
 layout: post
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: https://gyanl.com/assets/thumbs/code.png
 notetype: feed
 date: 03-03-2022
-date modified: 26-07-2022
+date modified: 21-11-2022
 title: Webdev Resources
 subtitle: CSS and JavaScript resources I found useful
 tags: code
