@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2022-11-18-designer.md",
+                "file": "AA 2022-11-18-designer.md",
                 "mode": "source",
                 "source": false
               }
@@ -102,7 +102,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2022-11-18-designer.md",
+                "file": "AA 2022-11-18-designer.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -145,6 +145,8 @@
   },
   "active": "92d376f5dc50e864",
   "lastOpenFiles": [
+    "2022-07-09-sale.md",
+    "2018-03-17-turning-22.md",
     "2023-01-01-year-in-review.md",
     "2022-11-06-uxnow2022.md",
     "2022-10-07-design-career.md",
@@ -152,8 +154,6 @@
     "Transcription in Word.md",
     "The Shape of the Tool.md",
     "2022-09-15-figma.md",
-    "2022-02-21-feedback.md",
-    "2020-07-13-microsoft.md",
-    "2015-01-01-colophon.md"
+    "2022-02-21-feedback.md"
   ]
 }
