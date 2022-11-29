@@ -15,21 +15,34 @@
   {% endif %}
   <script>
 
-    var currentDate = new Date();
-    var minute = currentDate.getMinutes();
+    // var currentDate = new Date();
+    // var minute = currentDate.getMinutes();
 
-    // Set random color theme
-    var r = document.querySelector(':root');
-    var rs = getComputedStyle(r);
-    var randomHue = minute * 6;
+    // // Set random color theme
+    // var r = document.querySelector(':root');
+    // var rs = getComputedStyle(r);
+    // var randomHue = minute * 6;
 
-    var genAccent = "hsl(" + randomHue + ", 80%, 40%)";
-    var genAccentDark = "hsl(" + randomHue + ", 50%, 35%)";
-    var genAccentLight = "hsla(" + randomHue + ", 20%, 70%, 25%)";
+    // var genAccent = "hsl(" + randomHue + ", 80%, 40%)";
+    // var genAccentDark = "hsl(" + randomHue + ", 50%, 35%)";
+    // var genAccentLight = "hsla(" + randomHue + ", 20%, 70%, 25%)";
+
+    // r.style.setProperty('--accent-color', genAccent);
+    // r.style.setProperty('--accent-color-light', genAccentLight);
+    // r.style.setProperty('--accent-color-dark', genAccentDark);
+
+    function setColorTheme(theme) {
+    
+    console.log(theme);
+    hue = 10;
+    var genAccent = "hsl(" + hue + ", 80%, 40%)";
+    var genAccentDark = "hsl(" + hue + ", 50%, 35%)";
+    var genAccentLight = "hsla(" + hue + ", 20%, 70%, 25%)";
 
     r.style.setProperty('--accent-color', genAccent);
     r.style.setProperty('--accent-color-light', genAccentLight);
     r.style.setProperty('--accent-color-dark', genAccentDark);
+    }
 
     </script>
 </head>
