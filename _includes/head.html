@@ -32,12 +32,27 @@
     // r.style.setProperty('--accent-color-dark', genAccentDark);
 
 
-  let savedTheme = document.cookie;
+    function getCookie(cname) {
+  let name = cname + "=";
+  let ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+  let savedTheme = getCookie(theme);
   if (savedTheme != "") {
    setColorTheme(savedTheme);
    console.log("Theme cookie was: " + savedTheme);
   } else {
-    setColorTheme(3);
+    setColorTheme(0);
     console.log("No theme cookie");
     }
 
@@ -82,7 +97,7 @@
     r.style.setProperty('--accent-color-light', genAccentLight);
     r.style.setProperty('--accent-color-dark', genAccentDark);
     console.log("Set theme " + theme);
-    document.cookie = theme;
+    document.cookie = "theme:" + theme;
   }
 
     </script>
