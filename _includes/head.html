@@ -58,11 +58,15 @@
     }
 
     function setColorTheme(theme) {
+
+      var r = document.querySelector(':root');
+
       switch (theme) {
     case "0":
         var genAccent = "rgb(255 31 82)";
         var genAccentDark = "rgb(205 55 75)";
         var genAccentLight = "rgb(255 86 55 / 15%)";
+        r.style.setProperty('--base-font-family', 'Helvetica');
         break;
 
     case "1":
@@ -93,7 +97,6 @@
         console.log("Invalid input to setColorTheme");
     }
     
-    var r = document.querySelector(':root');
     r.style.setProperty('--accent-color', genAccent);
     r.style.setProperty('--accent-color-light', genAccentLight);
     r.style.setProperty('--accent-color-dark', genAccentDark);
