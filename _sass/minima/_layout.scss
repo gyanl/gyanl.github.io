@@ -38,9 +38,23 @@
 }
 
 .circle{
+  display: inline-block;
   width: 24px;
   height: 24px;
   border-radius: 24px;
+  border: 2px solid var(--background-color);
+}
+
+.circle-active{
+  box-shadow: 0px 0px 0px 1px var(--foreground-color);
+  -webkit-box-shadow: 0px 0px 0px 1px var(--foreground-color);
+  -moz-box-shadow: 0px 0px 0px 1px var(--foreground-color);
+}
+
+.circle:hover{
+  box-shadow: 0px 0px 0px 1px var(--foreground-color);
+  -webkit-box-shadow: 0px 0px 0px 1px var(--foreground-color);
+  -moz-box-shadow: 0px 0px 0px 1px var(--foreground-color);
 }
 
 .color-red{
