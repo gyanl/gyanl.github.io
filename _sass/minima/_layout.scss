@@ -367,7 +367,6 @@
  * Site footer
  */
 .site-footer {
-  // border-top: 1px solid $grey-color-light;
   padding: $spacing-unit 0;
   background: var(--overlay-color);
   border-top: 1px solid var(--overlay-edge-color);
@@ -531,15 +530,10 @@
   border: 1px solid rgba(100, 100, 100, 0.2) inset;
 }
 
-.post-item:hover {
-  // box-shadow: 0 4px 16px 0 rgba(0,0,0,0.15);
-  // transform: translateY(-2px);
-  // background: rgba(255, 255, 255, .05);
-  // border: 1px solid $brand-color;
-}
 /**
  * Posts
  */
+
 .post-header {
   text-align: center;
   padding: 6*$spacing-unit 0;

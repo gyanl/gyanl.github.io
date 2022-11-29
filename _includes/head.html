@@ -32,16 +32,48 @@
     // r.style.setProperty('--accent-color-dark', genAccentDark);
 
     function setColorTheme(theme) {
-    
-    console.log(theme);
-    hue = 10;
-    var genAccent = "hsl(" + hue + ", 80%, 40%)";
-    var genAccentDark = "hsl(" + hue + ", 50%, 35%)";
-    var genAccentLight = "hsla(" + hue + ", 20%, 70%, 25%)";
+      switch (theme)
+    {
+    case 0:
+        var genAccent = "rgb(255 31 82)";
+        var genAccentDark = "rgb(255 86 55 / 15%)";
+        var genAccentLight = "rgb(205 55 75)";
+        break;
 
+    case 1:
+        var genAccent = "hsl(" + 25 + ", 80%, 40%)";
+        var genAccentDark = "hsl(" + 25 + ", 50%, 35%)";
+        var genAccentLight = "hsla(" + 25 + ", 20%, 70%, 25%)";
+        break;
+
+    case 2:
+        var genAccent = "hsl(" + 60 + ", 80%, 40%)";
+        var genAccentDark = "hsl(" + 60 + ", 50%, 35%)";
+        var genAccentLight = "hsla(" + 60 + ", 20%, 70%, 25%)";
+        break;
+
+    case 3:
+        var genAccent = "hsl(" + 170 + ", 80%, 40%)";
+        var genAccentDark = "hsl(" + 170 + ", 50%, 35%)";
+        var genAccentLight = "hsla(" + 170 + ", 20%, 70%, 25%)";
+        break;
+
+    case 4:
+        var genAccent = "hsl(" + 245 + ", 80%, 40%)";
+        var genAccentDark = "hsl(" + 245 + ", 50%, 35%)";
+        var genAccentLight = "hsla(" + 245 + ", 20%, 70%, 25%)";
+        break;
+
+    default:
+        console.log("No theme I guess?");
+    
+    var r = document.querySelector(':root');
     r.style.setProperty('--accent-color', genAccent);
     r.style.setProperty('--accent-color-light', genAccentLight);
     r.style.setProperty('--accent-color-dark', genAccentDark);
+    console.log("Set theme " + theme);
+    }
+
     }
 
     </script>
