@@ -32,7 +32,7 @@
     // r.style.setProperty('--accent-color-dark', genAccentDark);
 
 
-    function getCookie(cname) {
+  function getCookie(cname) {
   let name = cname + "=";
   let ca = document.cookie.split(';');
   for(let i = 0; i < ca.length; i++) {
@@ -47,7 +47,7 @@
   return "";
 }
 
-  let savedTheme = getCookie(theme);
+  let savedTheme = getCookie("theme");
   if (savedTheme != "") {
    setColorTheme(savedTheme);
    console.log("Theme cookie was: " + savedTheme);
