@@ -52,6 +52,8 @@
 }
 
 .circle:hover{
+  width: 28px;
+  height: 28px;
   box-shadow: 0px 0px 0px 1px var(--foreground-color);
   -webkit-box-shadow: 0px 0px 0px 1px var(--foreground-color);
   -moz-box-shadow: 0px 0px 0px 1px var(--foreground-color);
