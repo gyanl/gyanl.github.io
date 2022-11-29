@@ -59,7 +59,7 @@
 
     function setColorTheme(theme) {
       switch (theme) {
-    case 0:
+    case "0":
         var genAccent = "rgb(255 31 82)";
         var genAccentDark = "rgb(205 55 75)";
         var genAccentLight = "rgb(255 86 55 / 15%)";
@@ -71,26 +71,26 @@
         var genAccentLight = "hsla(" + 25 + ", 20%, 70%, 25%)";
         break;
 
-    case 2:
+    case "2":
         var genAccent = "hsl(" + 60 + ", 80%, 40%)";
         var genAccentDark = "hsl(" + 60 + ", 50%, 35%)";
         var genAccentLight = "hsla(" + 60 + ", 20%, 70%, 25%)";
         break;
 
-    case 3:
+    case "3":
         var genAccent = "hsl(" + 170 + ", 80%, 40%)";
         var genAccentDark = "hsl(" + 170 + ", 50%, 35%)";
         var genAccentLight = "hsla(" + 170 + ", 20%, 70%, 25%)";
         break;
 
-    case 4:
+    case "4":
         var genAccent = "hsl(" + 245 + ", 80%, 40%)";
         var genAccentDark = "hsl(" + 245 + ", 50%, 35%)";
         var genAccentLight = "hsla(" + 245 + ", 20%, 70%, 25%)";
         break;
 
     default:
-        console.log("No theme I guess?");
+        console.log("Invalid input to setColorTheme");
     }
     
     var r = document.querySelector(':root');
