@@ -1,10 +1,12 @@
 @charset "utf-8";
 @import url('https://fonts.googleapis.com/css2?family=Besley:wght@700&family=IBM+Plex+Serif:ital,wght@1,300&display=swap'); // Define defaults for each variable.
 
-$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !default;
-$title-font-family: "Besley", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !default;
-$subtitle-font-family: "IBM Plex Serif", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !default;
-$base-font-size: 16px !default;
+:root {
+--base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !default;
+--title-font-family: "Besley", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !default;
+--subtitle-font-family: "IBM Plex Serif", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !default;$base-font-size: 16px !default;
+}
+
 $base-font-weight: 400 !default;
 $heading-font-weight: 700 !default;
 $light-font-weight: 300 !default;
