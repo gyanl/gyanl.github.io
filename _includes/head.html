@@ -31,12 +31,20 @@
     // r.style.setProperty('--accent-color-light', genAccentLight);
     // r.style.setProperty('--accent-color-dark', genAccentDark);
 
+
+  let savedTheme = getCookie("theme");
+  if (savedTheme != "") {
+   setColorTheme(savedTheme);
+  } else {
+    setColorTheme(3);
+    }
+
     function setColorTheme(theme) {
       switch (theme) {
     case 0:
         var genAccent = "rgb(255 31 82)";
-        var genAccentDark = "rgb(255 86 55 / 15%)";
-        var genAccentLight = "rgb(205 55 75)";
+        var genAccentDark = "rgb(205 55 75)";
+        var genAccentLight = "rgb(255 86 55 / 15%)";
         break;
 
     case 1:
@@ -72,6 +80,7 @@
     r.style.setProperty('--accent-color-light', genAccentLight);
     r.style.setProperty('--accent-color-dark', genAccentDark);
     console.log("Set theme " + theme);
+    document.cookie = "theme=" + theme;
   }
 
     </script>
