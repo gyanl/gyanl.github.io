@@ -32,11 +32,13 @@
     // r.style.setProperty('--accent-color-dark', genAccentDark);
 
 
-  let savedTheme = getCookie("theme");
+  let savedTheme = document.cookie;
   if (savedTheme != "") {
    setColorTheme(savedTheme);
+   console.log("Theme cookie was: " + savedTheme);
   } else {
     setColorTheme(3);
+    console.log("No theme cookie");
     }
 
     function setColorTheme(theme) {
@@ -80,7 +82,7 @@
     r.style.setProperty('--accent-color-light', genAccentLight);
     r.style.setProperty('--accent-color-dark', genAccentDark);
     console.log("Set theme " + theme);
-    document.cookie = "theme=" + theme;
+    document.cookie = theme;
   }
 
     </script>
