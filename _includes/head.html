@@ -48,16 +48,16 @@
 }
 
 function updateThemeCookie(theme){
-    var newCookie = document.cookie;
     var searchString = "theme=";
-    var searchPosition = newCookie.indexOf(searchString);
-    console.log("newCookie:" + newCookie);
+    var searchPosition = document.cookie.indexOf(searchString);
     console.log("Search Position:" + searchPosition);
     if (searchPosition>0) {
       newCookie = newCookie.substring(0, searchPosition);
       console.log("Substring position was: " + searchPosition + ". New Cookie: " + document.cookie)
     }
-    document.cookie = newCookie + "; theme=" + theme;
+    else{
+      document.cookie += "; theme=" + theme;
+    }
     console.log("After update cookie: " + document.cookie);
   }
 
