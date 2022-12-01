@@ -48,12 +48,13 @@
 }
 
 function updateThemeCookie(theme){
-  var newCookie = document.cookie;
+    var newCookie = document.cookie;
     var searchString = "theme=";
     var searchPosition = newCookie.indexOf(searchString);
+    console.log("Search Position:" + searchPosition);
     if (searchPosition>0) {
       newCookie = newCookie.substring(0, searchPosition);
-      console.log("Substring was: " + searchPosition + ". New Cookie: " + document.cookie)
+      console.log("Substring position was: " + searchPosition + ". New Cookie: " + document.cookie)
     }
     document.cookie = newCookie + "; theme=" + theme;
     console.log("After update cookie: " + document.cookie);
@@ -114,7 +115,7 @@ function updateThemeCookie(theme){
     console.log("Page theme set to " + theme);
 
     updateThemeCookie(theme);
-    
+
   }
     </script>
 </head>
