@@ -51,6 +51,7 @@ function updateThemeCookie(theme){
     var newCookie = document.cookie;
     var searchString = "theme=";
     var searchPosition = newCookie.indexOf(searchString);
+    console.log("newCookie:" + newCookie);
     console.log("Search Position:" + searchPosition);
     if (searchPosition>0) {
       newCookie = newCookie.substring(0, searchPosition);
@@ -60,16 +61,7 @@ function updateThemeCookie(theme){
     console.log("After update cookie: " + document.cookie);
   }
 
-  let savedTheme = getCookie("theme");
-  if (savedTheme != "") {
-   setColorTheme(savedTheme);
-   console.log("Theme cookie was: " + savedTheme);
-  } else {
-    // setColorTheme(0);
-    console.log("No theme cookie found, value:" + savedTheme);
-    }
-
-    function setColorTheme(theme) {
+function setColorTheme(theme) {
 
       var r = document.querySelector(':root');
 
@@ -117,5 +109,15 @@ function updateThemeCookie(theme){
     updateThemeCookie(theme);
 
   }
+
+  let savedTheme = getCookie("theme");
+  if (savedTheme != "") {
+   setColorTheme(savedTheme);
+   console.log("Theme cookie was: " + savedTheme);
+  } else {
+    // setColorTheme(0);
+    console.log("No theme cookie found, value:" + savedTheme);
+    }
+
     </script>
 </head>
