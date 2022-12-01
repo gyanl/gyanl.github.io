@@ -58,7 +58,6 @@ function updateThemeCookie(theme){
     document.cookie = newCookie + "; theme=" + theme;
     console.log("After update cookie: " + document.cookie);
   }
-}
 
   let savedTheme = getCookie("theme");
   if (savedTheme != "") {
@@ -115,6 +114,7 @@ function updateThemeCookie(theme){
     console.log("Page theme set to " + theme);
 
     updateThemeCookie(theme);
-
+    
+  }
     </script>
 </head>
