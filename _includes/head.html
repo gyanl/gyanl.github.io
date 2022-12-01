@@ -41,7 +41,6 @@
       c = c.substring(1);
     }
     if (c.indexOf(name) == 0) {
-      console.log("CookieGetter got" + c.substring(name.length, c.length))
       return c.substring(name.length, c.length);
     }
   }
@@ -100,8 +99,14 @@
     r.style.setProperty('--accent-color', genAccent);
     r.style.setProperty('--accent-color-light', genAccentLight);
     r.style.setProperty('--accent-color-dark', genAccentDark);
-    console.log("Set theme " + theme);
-    document.cookie = "theme=" + theme;
+    console.log("Page theme set to " + theme);
+    var newCookie = document.cookie;
+    var searchString = "theme";
+    var searchPosition = newCookie.indexOf(searchString);
+    if (searchPosition>0) {
+      newCookie = newCookie.substring(0, searchPosition);
+    }
+    document.cookie = newCookie + "; theme=" + theme;
   }
 
     </script>
