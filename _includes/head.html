@@ -47,6 +47,19 @@
   return "";
 }
 
+function updateThemeCookie(theme){
+  var newCookie = document.cookie;
+    var searchString = "theme=";
+    var searchPosition = newCookie.indexOf(searchString);
+    if (searchPosition>0) {
+      newCookie = newCookie.substring(0, searchPosition);
+      console.log("Substring was: " + searchPosition + ". New Cookie: " + document.cookie)
+    }
+    document.cookie = newCookie + "; theme=" + theme;
+    console.log("After update cookie: " + document.cookie);
+  }
+}
+
   let savedTheme = getCookie("theme");
   if (savedTheme != "") {
    setColorTheme(savedTheme);
@@ -100,14 +113,8 @@
     r.style.setProperty('--accent-color-light', genAccentLight);
     r.style.setProperty('--accent-color-dark', genAccentDark);
     console.log("Page theme set to " + theme);
-    var newCookie = document.cookie;
-    var searchString = "theme";
-    var searchPosition = newCookie.indexOf(searchString);
-    if (searchPosition>0) {
-      newCookie = newCookie.substring(0, searchPosition);
-    }
-    document.cookie = newCookie + "; theme=" + theme;
-  }
+
+    updateThemeCookie(theme);
 
     </script>
 </head>
