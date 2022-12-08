@@ -32,33 +32,23 @@
     // r.style.setProperty('--accent-color-dark', genAccentDark);
 
 
-  function getCookie(cname) {
-  let name = cname + "=";
-  let ca = document.cookie.split(';');
-  for(let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
+function getCookie(cname) {
+  return JSON.parse(localStorage.getItem("gyanl.theme") || "0");
 }
 
 function updateThemeCookie(theme){
-    var searchString = "theme=";
-    var searchPosition = document.cookie.indexOf(searchString);
-    console.log("Search Position:" + searchPosition);
-    if (searchPosition>0) {
-      newCookie = newCookie.substring(0, searchPosition);
-      console.log("Substring position was: " + searchPosition + ". New Cookie: " + document.cookie)
-    }
-    else{
-      document.cookie += "; theme=" + theme;
-    }
-    console.log("After update cookie: " + document.cookie);
+  localStorage.setItem("gyanl.theme", JSON.stringify(theme));
+    // var searchString = "theme=";
+    // var searchPosition = document.cookie.indexOf(searchString);
+    // console.log("Search Position:" + searchPosition);
+    // if (searchPosition>0) {
+    //   newCookie = newCookie.substring(0, searchPosition);
+    //   console.log("Substring position was: " + searchPosition + ". New Cookie: " + document.cookie)
+    // }
+    // else{
+    //   document.cookie += "; theme=" + theme;
+    // }
+    // console.log("After update cookie: " + document.cookie);
   }
 
 function setColorTheme(theme) {
