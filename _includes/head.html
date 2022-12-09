@@ -7,14 +7,13 @@
   <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
   {%- feed_meta -%}
   {%- if jekyll.environment == 'production' and site.google_analytics -%}
-    {%- include google-analytics.html -%}
+  {%- include google-analytics.html -%}
   {%- endif -%}
 
   {% if site.tags != "" %}
-    {% include collecttags.html %}
+  {% include collecttags.html %}
   {% endif %}
   <script>
-
     // var currentDate = new Date();
     // var minute = currentDate.getMinutes();
 
@@ -32,82 +31,70 @@
     // r.style.setProperty('--accent-color-dark', genAccentDark);
 
 
-function getCookie(cname) {
-  return JSON.parse(localStorage.getItem("gyanl.theme") || "0");
-}
+    function getLocalTheme() {
+      return JSON.parse(localStorage.getItem("gyanl.theme") || "0");
+    }
 
-function updateThemeCookie(theme){
-  localStorage.setItem("gyanl.theme", JSON.stringify(theme));
-    // var searchString = "theme=";
-    // var searchPosition = document.cookie.indexOf(searchString);
-    // console.log("Search Position:" + searchPosition);
-    // if (searchPosition>0) {
-    //   newCookie = newCookie.substring(0, searchPosition);
-    //   console.log("Substring position was: " + searchPosition + ". New Cookie: " + document.cookie)
-    // }
-    // else{
-    //   document.cookie += "; theme=" + theme;
-    // }
-    // console.log("After update cookie: " + document.cookie);
-  }
+    function updateLocalTheme(theme) {
+      localStorage.setItem("gyanl.theme", JSON.stringify(theme));
+    }
 
-function setColorTheme(theme) {
+    function applyTheme(theme) {
 
       var r = document.querySelector(':root');
 
       switch (theme) {
-    case "0":
-        var genAccent = "rgb(255 31 82)";
-        var genAccentDark = "rgb(205 55 75)";
-        var genAccentLight = "rgb(255 86 55 / 15%)";
-        r.style.setProperty('--base-font-family', 'Helvetica');
-        break;
+        case "0":
+          var genAccent = "rgb(255 31 82)";
+          var genAccentDark = "rgb(205 55 75)";
+          var genAccentLight = "rgb(255 86 55 / 15%)";
+          r.style.setProperty('--base-font-family', 'Helvetica');
+          break;
 
-    case "1":
-        var genAccent = "hsl(" + 25 + ", 80%, 40%)";
-        var genAccentDark = "hsl(" + 25 + ", 50%, 35%)";
-        var genAccentLight = "hsla(" + 25 + ", 20%, 70%, 25%)";
-        break;
+        case "1":
+          var genAccent = "hsl(" + 25 + ", 80%, 40%)";
+          var genAccentDark = "hsl(" + 25 + ", 50%, 35%)";
+          var genAccentLight = "hsla(" + 25 + ", 20%, 70%, 25%)";
+          break;
 
-    case "2":
-        var genAccent = "hsl(" + 60 + ", 80%, 40%)";
-        var genAccentDark = "hsl(" + 60 + ", 50%, 35%)";
-        var genAccentLight = "hsla(" + 60 + ", 20%, 70%, 25%)";
-        break;
+        case "2":
+          var genAccent = "hsl(" + 60 + ", 80%, 40%)";
+          var genAccentDark = "hsl(" + 60 + ", 50%, 35%)";
+          var genAccentLight = "hsla(" + 60 + ", 20%, 70%, 25%)";
+          break;
 
-    case "3":
-        var genAccent = "hsl(" + 170 + ", 80%, 40%)";
-        var genAccentDark = "hsl(" + 170 + ", 50%, 35%)";
-        var genAccentLight = "hsla(" + 170 + ", 20%, 70%, 25%)";
-        break;
+        case "3":
+          var genAccent = "hsl(" + 170 + ", 80%, 40%)";
+          var genAccentDark = "hsl(" + 170 + ", 50%, 35%)";
+          var genAccentLight = "hsla(" + 170 + ", 20%, 70%, 25%)";
+          break;
 
-    case "4":
-        var genAccent = "hsl(" + 245 + ", 80%, 40%)";
-        var genAccentDark = "hsl(" + 245 + ", 50%, 35%)";
-        var genAccentLight = "hsla(" + 245 + ", 20%, 70%, 25%)";
-        break;
+        case "4":
+          var genAccent = "hsl(" + 245 + ", 80%, 40%)";
+          var genAccentDark = "hsl(" + 245 + ", 50%, 35%)";
+          var genAccentLight = "hsla(" + 245 + ", 20%, 70%, 25%)";
+          break;
 
-    default:
-        console.log("Invalid input to setColorTheme");
-    }
-    
-    r.style.setProperty('--accent-color', genAccent);
-    r.style.setProperty('--accent-color-light', genAccentLight);
-    r.style.setProperty('--accent-color-dark', genAccentDark);
-    console.log("Page theme set to " + theme);
+        default:
+          console.log("Invalid input to applyTheme");
+      }
 
-    updateThemeCookie(theme);
+      r.style.setProperty('--accent-color', genAccent);
+      r.style.setProperty('--accent-color-light', genAccentLight);
+      r.style.setProperty('--accent-color-dark', genAccentDark);
+      console.log("Page theme set to " + theme);
 
-  }
+      updateLocalTheme(theme);
 
-  let savedTheme = getCookie("theme");
-  if (savedTheme != "") {
-   setColorTheme(savedTheme);
-   console.log("Theme cookie was: " + savedTheme);
-  } else {
-    setColorTheme("0");
-    console.log("No theme cookie found, value:" + savedTheme);
     }
 
-    </script>
+    let savedTheme = getLocalTheme("theme");
+    if (savedTheme != "") {
+      applyTheme(savedTheme);
+      console.log("Theme found was: " + savedTheme);
+    } else {
+      applyTheme("0");
+      console.log("No theme found, value:" + savedTheme);
+    }
+  </script>
 </head>
