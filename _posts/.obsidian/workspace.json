@@ -35,8 +35,12 @@
             "id": "92d376f5dc50e864",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "2019-09-19-how-to-circos.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ],
@@ -98,6 +102,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "2019-09-19-how-to-circos.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
