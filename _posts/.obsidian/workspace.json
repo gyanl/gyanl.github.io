@@ -11,8 +11,12 @@
             "id": "7a745914dad66830",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "2021-04-23-great-portfolios.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -73,6 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "2021-04-23-great-portfolios.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -124,15 +129,15 @@
   },
   "active": "7a745914dad66830",
   "lastOpenFiles": [
+    "Untitled.canvas",
     "2023-01-01-year-in-review.md",
+    "2021-07-26-the-social-tadka.md",
+    "2019-05-16-numeronyms.md",
+    "2018-07-18-intro-to-photography.md",
     "2019-09-19-how-to-circos.md",
     "2022-11-18-designer.md",
     "2022-11-06-uxnow2022.md",
     "2022-10-07-design-career.md",
-    "2022-11-18-resume.md",
-    "Transcription in Word.md",
-    "The Shape of the Tool.md",
-    "2022-09-15-figma.md",
-    "2022-02-21-feedback.md"
+    "2022-11-18-resume.md"
   ]
 }
