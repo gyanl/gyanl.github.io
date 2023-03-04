@@ -6,22 +6,20 @@ permalink: now
 ---
 
 #### Work
-- 🎙  Dictation Experience on Microsoft Apps like Word, Outlook and OneNote
-- 📱  Redesign of the Word, Excel and PowerPoint apps on mobile
+- 📝  Designing Microsoft Word for web and iPad
+- 🤖  AI Powered mobile creator experiences for Microsoft Designer
 
 #### Learning 
-- 🇫🇷  Learning French on Duolingo
+- 🎹  Learning to play the keyboard
 - 📈  Learning about personal finance
 
-#### Reading
-- 📚  Reading Tiny Habits
-- 📓  Writing every day — I'm maintaining a journal on paper
+#### Writing
+- 📓  I'm maintaining a journal on paper
+- 💻  Slowly adding older projects to this site
 
 #### Fun
 - 🎷  Listening to a lot of Jazz
-- 🏃🏽‍♂️  Running
+- 👾  Playing Valorant
 
-#### Website
-- 💻  Slowly adding older projects to this site
 
 

@@ -1,4 +1,8 @@
 :root {
+  --base-font-family: sans-serif;
+  --title-font-family: Besley;
+  --subtitle-font-family: "IBM Plex Serif";
+
   --background-color: #ffffff;
   --foreground-color: #000000;
 
@@ -31,6 +35,50 @@
     --overlay-edge-color: rgba(255, 255, 255, .2);
 
 	}
+}
+
+.circles{
+  margin: 7px 0 -7px 0;
+}
+
+.circle{
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 24px;
+  border: 2px solid var(--background-color);
+}
+
+.circle-active{
+  box-shadow: 0px 0px 0px 1px var(--text-color-dark);
+  -webkit-box-shadow: 0px 0px 0px 1px var(--text-color-dark);
+  -moz-box-shadow: 0px 0px 0px 1px var(--text-color-dark);
+}
+
+.circle:hover{
+  box-shadow: 0px 0px 0px 1px var(--text-color-dark);
+  -webkit-box-shadow: 0px 0px 0px 1px var(--text-color-dark);
+  -moz-box-shadow: 0px 0px 0px 1px var(--text-color-dark);
+}
+
+.color-red{
+  background-color: #FF435A;
+}
+
+.color-orange{
+  background-color: #F18017;
+}
+
+.color-yellow{
+  background-color: #FAFF00;
+}
+
+.color-green{
+  background-color: #43FFDD;
+}
+
+.color-blue{
+  background-color: #5243FF;
 }
 
 .loginbutton{
@@ -323,7 +371,6 @@
  * Site footer
  */
 .site-footer {
-  // border-top: 1px solid $grey-color-light;
   padding: $spacing-unit 0;
   background: var(--overlay-color);
   border-top: 1px solid var(--overlay-edge-color);
@@ -422,7 +469,7 @@
  * Page content
  */
 .page-content {
-  background: var(--background-color);
+  // background: var(--background-color);
   padding: $spacing-unit 0;
   flex: 1 0 auto;
 }
@@ -487,15 +534,10 @@
   border: 1px solid rgba(100, 100, 100, 0.2) inset;
 }
 
-.post-item:hover {
-  // box-shadow: 0 4px 16px 0 rgba(0,0,0,0.15);
-  // transform: translateY(-2px);
-  // background: rgba(255, 255, 255, .05);
-  // border: 1px solid $brand-color;
-}
 /**
  * Posts
  */
+
 .post-header {
   text-align: center;
   padding: 6*$spacing-unit 0;

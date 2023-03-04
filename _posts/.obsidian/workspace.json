@@ -4,7 +4,7 @@
     "type": "split",
     "children": [
       {
-        "id": "96ac08fae548f141",
+        "id": "73ce812da2899137",
         "type": "tabs",
         "children": [
           {
@@ -13,50 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2022-10-07-design-career.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "993514cf78084bc0",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2019-11-04-indiahci19.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "dc23e98b97c2b2bf",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2022-10-07-design-career.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "2b37331f13a1a433",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2023-03-17-turning-27.md",
+                "file": "2022-09-15-figma.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -114,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-03-17-turning-27.md",
+                "file": "2022-09-15-figma.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -164,17 +127,17 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "2b37331f13a1a433",
+  "active": "1ce0c2008bd4d63f",
   "lastOpenFiles": [
-    "2022-03-17-turning-26.md",
-    "2022-09-15-figma.md",
     "2023-03-17-turning-27.md",
-    "2022-07-09-sale.md",
-    "2022-10-07-design-career.md",
-    "I'm Here and Care.md",
-    "2022-11-06-uxnow2022.md",
     "A Rant Against Random.md",
-    "2018-07-18-intro-to-photography.md",
-    "2020-05-15-drs-reflections.md"
+    "AA 2022-11-18-designer.md",
+    "2020-07-19-ui-design-tricks.md",
+    "2022-10-07-design-career.md",
+    "2022-09-15-figma.md",
+    "2019-04-29-devanagari-font.md",
+    "2019-05-27-unbox-1.md",
+    "2019-07-13-microsoft-internship.md",
+    "2019-05-16-numeronyms.md"
   ]
 }

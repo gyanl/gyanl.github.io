@@ -7,7 +7,7 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: $title-font-family;
+  font-family: var(--title-font-family);
   font-weight: $heading-font-weight;
   color: var(--text-color-dark);
 }
@@ -75,7 +75,7 @@ ul {
 
 .post-content h1,
 .post-title {
-  font-family: $title-font-family;
+  font-family: var(--title-font-family);
   font-weight: $heading-font-weight;
   margin-top: 0.5em;
   margin-bottom: 0.25em;

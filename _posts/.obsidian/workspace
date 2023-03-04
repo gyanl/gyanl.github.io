@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "2022-10-07-design-career.md",
+            "file": "2020-07-19-ui-design-tricks.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2022-10-07-design-career.md",
+                "file": "2020-07-19-ui-design-tricks.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -110,10 +110,10 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "1a23adcbd3bd4b43",
+  "active": "1ce0c2008bd4d63f",
   "lastOpenFiles": [
-    "2022-09-15-figma.md",
     "2022-10-07-design-career.md",
+    "2022-09-15-figma.md",
     "2019-04-29-devanagari-font.md",
     "2019-05-27-unbox-1.md",
     "2019-07-13-microsoft-internship.md",

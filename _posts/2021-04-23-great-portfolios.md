@@ -5,7 +5,7 @@ title: Great Portfolio Sites
 subtitle: A list of websites that I think do a great job of showing design work.
 permalink: portfolios
 tags: misc
-date modified: 21-06-2022
+date modified: 01-02-2023
 ---
 
 A portfolio is maybe the most important thing for a designer looking for work. I talk to a lot of early career designers who have done great work, but don't adequately show it on their portfolios. Recruiters are also curious about your personality—what drives you? Your side projects or hobbies—something you do for yourself or your community could be what speaks the most about you as a person. 
@@ -33,6 +33,9 @@ This is a list of sites that I think are great to look at for inspiration.
 9. [https://girapatel.co/](https://girapatel.co/)<br>This is a really nice site that shows visual/motion design work.
 
 10. [Gavin Nelson](https://nelson.co/)<br>Just the basics done really well.
+    
+11. [Yuma Naito](https://yumanaito.com/) 
+    Yuma is a Graphic Designer and this website uses a Swiss Grid to show off some great work.
 
 ## Blogs
 

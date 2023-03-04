@@ -4,7 +4,7 @@ title: Starting a Career in Design
 subtitle: Creating a portfolio, applying to design school, and getting jobs, internships or freelance projects
 tags: talks
 thumbnail: https://gyanl.com/assets/thumbs/default.png
-date modified: 07-10-2022
+date modified: 18-11-2022
 ---
 
 ![Title slide for the talk](https://gyanl.com/assets/design-job.jpeg)
@@ -19,13 +19,7 @@ I have a master’s in Interaction Design from IDC School of Design, IIT Bombay,
 
 ## What is design?
 
-When I was at design school, pretty much every professor I had asked the class, “What is design?”
-
-Every professor had a different answer.
-
-Is it how it looks? How it works?
-
-- [What is Design? | UIC - School of Design](https://design.uic.edu/what-is-design)
+When I was at design school, pretty much every professor I had asked the class, “What is design?” Every professor had a different answer. I still find this a hard question to answer, but my personal definition has become *design is finding problems, thinking about them, and finding creative solutions*. 
 
 ## Types of Design roles
 
@@ -54,14 +48,16 @@ Combination of some methods of Graphic Design with some others of Industrial Des
 Focused on the design of digital interfaces and software.
 
 ## Interaction Design roles
-- **UX Researcher**
-  Conduct studies to learn more about user needs and behaviours. Help identify 
 
-UX Designer
+**UX Researcher**
 
-UI Designer
+Conduct studies to learn more about user needs and behaviours.
 
-Career ladder
+ UX Designer
+
+ UI Designer
+
+### Career ladder
 
 IC v/s. Manager track
 
@@ -119,24 +115,7 @@ Read about unrelated things. Philosophy. Society. Culture. Read about the world 
 - portfolio site doesn't need to have 100% context, just enough to hook someone in. you'll talk more about it in the interview anyway. 
 - if this was a book/movie, how will you keep audience hooked till the end? 
 - surprise, twists?
+- Document your work obsessively!
+- Make sure images are clear. Don’t put illegible “process” photos
 
-[@dburka](https://twitter.com/dburka)
-
-reminds us of this beautiful [#quote](https://twitter.com/hashtag/quote?src=hashtag_click) at [http://designup.school](https://t.co/NR7V0ji6Su) grad-day: “Don't make something unless it is both necessary and useful; but if it is both, don't hesitate to make it beautiful.”
-
-Hello
-
-Document your work obsessively!
-
-Make sure images are clear
-
-Don’t put illegible “process” photos
-
-- architecture
-- mass comm
-
-photography sketching
-
-btech
-
-	-
+> “Don't make something unless it is both necessary and useful; but if it is both, don't hesitate to make it beautiful.” - [@Daniel Burka](https://twitter.com/dburka)

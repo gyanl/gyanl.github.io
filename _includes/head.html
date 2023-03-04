@@ -7,29 +7,96 @@
   <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
   {%- feed_meta -%}
   {%- if jekyll.environment == 'production' and site.google_analytics -%}
-    {%- include google-analytics.html -%}
+  {%- include google-analytics.html -%}
   {%- endif -%}
 
   {% if site.tags != "" %}
-    {% include collecttags.html %}
+  {% include collecttags.html %}
   {% endif %}
   <script>
+    // var currentDate = new Date();
+    // var minute = currentDate.getMinutes();
 
-    var currentDate = new Date();
-    var minute = currentDate.getMinutes();
+    // // Set random color theme
+    // var r = document.querySelector(':root');
+    // var rs = getComputedStyle(r);
+    // var randomHue = minute * 6;
 
-    // Set random color theme
-    var r = document.querySelector(':root');
-    var rs = getComputedStyle(r);
-    var randomHue = minute * 6;
+    // var genAccent = "hsl(" + randomHue + ", 80%, 40%)";
+    // var genAccentDark = "hsl(" + randomHue + ", 50%, 35%)";
+    // var genAccentLight = "hsla(" + randomHue + ", 20%, 70%, 25%)";
 
-    var genAccent = "hsl(" + randomHue + ", 80%, 40%)";
-    var genAccentDark = "hsl(" + randomHue + ", 50%, 35%)";
-    var genAccentLight = "hsla(" + randomHue + ", 20%, 70%, 25%)";
+    // r.style.setProperty('--accent-color', genAccent);
+    // r.style.setProperty('--accent-color-light', genAccentLight);
+    // r.style.setProperty('--accent-color-dark', genAccentDark);
 
-    r.style.setProperty('--accent-color', genAccent);
-    r.style.setProperty('--accent-color-light', genAccentLight);
-    r.style.setProperty('--accent-color-dark', genAccentDark);
 
-    </script>
+    function getLocalTheme() {
+      return JSON.parse(localStorage.getItem("gyanl.theme") || "0");
+    }
+
+    function updateLocalTheme(theme) {
+      localStorage.setItem("gyanl.theme", JSON.stringify(theme));
+    }
+
+    function applyTheme(theme) {
+
+      var r = document.querySelector(':root');
+
+      switch (theme) {
+        case "0":
+          var genAccent = "rgb(255 31 82)";
+          var genAccentDark = "rgb(205 55 75)";
+          var genAccentLight = "rgb(255 86 55 / 15%)";
+          r.style.setProperty('--base-font-family', 'Helvetica');
+          break;
+
+        case "1":
+          var genAccent = "hsl(" + 25 + ", 80%, 40%)";
+          var genAccentDark = "hsl(" + 25 + ", 50%, 35%)";
+          var genAccentLight = "hsla(" + 25 + ", 20%, 70%, 25%)";
+          document.body.style.backgroundImage = "url('https://gyanl.com/assets/paper.png')";
+          document.body.style.backgroundRepeat = "repeat";
+          break;
+
+        case "2":
+          var genAccent = "hsl(" + 60 + ", 80%, 40%)";
+          var genAccentDark = "hsl(" + 60 + ", 50%, 35%)";
+          var genAccentLight = "hsla(" + 60 + ", 20%, 70%, 25%)";
+          break;
+
+        case "3":
+          var genAccent = "hsl(" + 170 + ", 80%, 40%)";
+          var genAccentDark = "hsl(" + 170 + ", 50%, 35%)";
+          var genAccentLight = "hsla(" + 170 + ", 20%, 70%, 25%)";
+          break;
+
+        case "4":
+          var genAccent = "hsl(" + 245 + ", 80%, 40%)";
+          var genAccentDark = "hsl(" + 245 + ", 50%, 35%)";
+          var genAccentLight = "hsla(" + 245 + ", 20%, 70%, 25%)";
+          break;
+
+        default:
+          console.log("Invalid input to applyTheme");
+      }
+
+      r.style.setProperty('--accent-color', genAccent);
+      r.style.setProperty('--accent-color-light', genAccentLight);
+      r.style.setProperty('--accent-color-dark', genAccentDark);
+      console.log("Page theme set to " + theme);
+
+      updateLocalTheme(theme);
+
+    }
+
+    // let savedTheme = getLocalTheme();
+    // if (savedTheme != "") {
+    //   applyTheme(savedTheme);
+    //   console.log("Theme found was: " + savedTheme);
+    // } else {
+    //   applyTheme("0");
+    //   console.log("No theme found, value:" + savedTheme);
+    // }
+  </script>
 </head>

@@ -26,9 +26,19 @@
           {%- endfor -%}
         </div> -->
 
-      <div class="social-links desktop-only">
+      <!-- <div class="social-links desktop-only">
         {%- include social.html -%}
-      </div>
+      </div> -->
+
+        <div class="circles">
+          <div class="circle color-red" onclick="applyTheme('0')"> </div>
+          <div class="circle color-orange" onclick="applyTheme('1')"> </div>
+          <div class="circle color-yellow" onclick="applyTheme('2')"> </div>
+          <div class="circle color-green" onclick="applyTheme('3')"> </div>
+          <div class="circle color-blue" onclick="applyTheme('4')"> </div>
+        </div>
+
+
     </nav>
     {%- endif -%}
   </div>
