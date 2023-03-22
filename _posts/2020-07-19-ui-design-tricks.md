@@ -4,7 +4,7 @@ title: Neat UI Design tricks
 subtitle: Some neat tricks I wish I knew earlier
 thumbnail: https://gyanl.com/assets/thumbs/tricks.png 
 tags: misc
-date modified: 25-10-2022
+date modified: 07-02-2023
 ---
 
 ## UI Design
@@ -12,6 +12,12 @@ date modified: 25-10-2022
 #### Component Gallery
 
 [The Component Gallery](https://component.gallery/components/) lists how different design systems document a component. This is useful when deciding the behaviour of a component in your own design system.
+
+#### More references
+
+[Land-book](https://land-book.com/) is a website design inspiration gallery.
+
+[Really Good Emails](https://reallygoodemails.com/) is similiar for emails.
 
 #### ASCII Symbols
 

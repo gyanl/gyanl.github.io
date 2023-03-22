@@ -27,9 +27,11 @@ Rabail and friends
 
 Spent some time with my grandparents
 
-#### Mussoorie Trip
+#### Dehradun and Mussoorie with work 
 
 Short trip with work friends
+
+#### Goa for a month
 
 #### Changed teams
 
