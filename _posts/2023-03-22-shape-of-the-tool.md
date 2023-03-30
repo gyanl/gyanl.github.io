@@ -1,13 +1,11 @@
 ---
 layout: post
 title: The Shape of the Tool
-subtitle: What can you make with a tool?
+subtitle: Tools help people create things. When designing a tool that people will use to create an artefact, it's intriguing to consider how your design decisions will affect the final product created with the tool.
 tags: misc
 thumbnail: https://gyanl.com/assets/thumbs/default.png
 date modified: 23-03-2023
 ---
-
-Tools help people create things. When designing a tool that people will use to create an artefact, it's intriguing to consider how your design decisions will affect the final product created with the tool.
 
 Let's start with an example from calligraphy. Devanagari lettering, used for Hindi and other languages, is traditionally done with a pen angled at around 45 degrees. This angle is what gives Devanagari its characteristic shape, with its sweeping curves and distinctive loops. The shape of the tool, in this case, the angled pen, is what dictates what can be created with it. If you were to try to create Devanagari lettering with a straight pen, or use the 55 degree pen angle typically used by Latin calligraphy, it would look quite different. The character of Devanagari calligraphy is a very direct result of how the pen is shaped.
 

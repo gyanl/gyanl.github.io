@@ -4,30 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "a4001994866fbe6c",
+        "id": "5c637f95ed5ce2f8",
         "type": "tabs",
         "children": [
           {
-            "id": "7a745914dad66830",
+            "id": "003d17f617da2a1f",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2023-03-22-shape-of-the-tool.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           },
           {
-            "id": "4c06b5ed1bbe638a",
+            "id": "9eeab569088a02d1",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "release-notes",
               "state": {
-                "file": "2023-03-22-shape-of-the-tool.md",
-                "mode": "source",
-                "source": false
+                "currentVersion": "1.1.16"
               }
             }
           }
@@ -90,7 +84,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-03-22-shape-of-the-tool.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -140,17 +133,17 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "4c06b5ed1bbe638a",
+  "active": "9eeab569088a02d1",
   "lastOpenFiles": [
-    "2021-07-26-the-social-tadka.md",
-    "2021-05-06-note-taking-app.md",
-    "2021-12-15-s-alt.md",
-    "2021-11-01-chaos.md",
-    "2022-03-17-turning-26.md",
-    "2023-01-01-year-in-review.md",
     "2023-03-22-shape-of-the-tool.md",
-    "2022-06-28-no-hello.md",
-    "2022-09-15-figma.md",
-    "shape-of-the-tool backup.md"
+    "Structured Creativity.md",
+    "Transcription in Word.md",
+    "Shoes.md",
+    "shape-of-the-tool backup.md",
+    "Sale Extras.md",
+    "I'm Here and Care.md",
+    "Designer Mobile.md",
+    "Connect.md",
+    "AA 2022-11-18-designer.md"
   ]
 }
