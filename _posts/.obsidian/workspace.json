@@ -19,9 +19,11 @@
             "id": "9eeab569088a02d1",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
+              "type": "markdown",
               "state": {
-                "currentVersion": "1.1.16"
+                "file": "2020-07-13-microsoft.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -84,6 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "2020-07-13-microsoft.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -135,7 +138,19 @@
   },
   "active": "9eeab569088a02d1",
   "lastOpenFiles": [
+    "2019-07-13-microsoft-internship.md",
+    "2 Years at Microsoft.md",
+    "2022-02-21-feedback.md",
+    "2022-03-06-webdev-resources.md",
+    "2022-03-17-turning-26.md",
+    "2022-06-28-no-hello.md",
+    "2022-07-09-sale.md",
+    "2022-09-15-figma.md",
+    "2022-10-07-design-career.md",
+    "2022-11-06-uxnow2022.md",
     "2023-03-22-shape-of-the-tool.md",
+    "AA 2022-11-18-designer.md",
+    "aa2023-01-01-year-in-review.md",
     "Structured Creativity.md",
     "Transcription in Word.md",
     "Shoes.md",
@@ -143,7 +158,6 @@
     "Sale Extras.md",
     "I'm Here and Care.md",
     "Designer Mobile.md",
-    "Connect.md",
-    "AA 2022-11-18-designer.md"
+    "Connect.md"
   ]
 }
