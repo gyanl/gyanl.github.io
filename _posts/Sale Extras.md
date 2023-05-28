@@ -72,3 +72,21 @@ Intel i7 2.2 GHz Quad Core + Iris Pro 1536 MB
 # Reserved
 
 Items that someone has expressed an interest in, but haven't been paid for and collected it yet. If you want one of these, feel free to ask about it and I'll reach out to you next.
+
+#### 13 inch Macbook Pro (2017)
+
+_Older base model Macbook Pro that got my brother through design school. Still plenty good enough for basic to intermediate tasks._
+
+Intel i5 2.3 GHz + Integrated graphics
+
+8GB RAM
+
+128 GB SSD
+
+**Apple Site:** [MacBook Pro (13-inch, 2017, Two Thunderbolt 3 ports)](https://support.apple.com/kb/SP754?locale=en_IN)  
+
+**My Price:** 30k 
+
+**Status:** 🟢 Available
+
+<br>
