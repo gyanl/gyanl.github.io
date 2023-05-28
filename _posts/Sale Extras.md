@@ -4,7 +4,7 @@ title:
 subtitle:
 tags: 
 thumbnail: https://gyanl.com/assets/thumbs/default.png
-date modified: 10-07-2022
+date modified: 28-05-2023
 ---
 
 
@@ -12,9 +12,7 @@ date modified: 10-07-2022
 
 _Hook this up to your TV or monitor and you now have a streaming device that can run Android TV - supports Netflix, Amazon Prime, Hotstar, etc._
 
-
 ![](https://gyanl.com/assets/sale-mi-box-4k.jpg)
-
 
 **Mi Website:** [Mi Box 4k](https://www.mi.com/in/mi-box-4k/) (3,499)
 
@@ -44,28 +42,6 @@ Intel i7 2.2 GHz Quad Core + Iris Pro 1536 MB
 
 <br>
 
-#### Xbox Series S (with Series X/S Controller)   
-_I don't have as much time as I would have liked to play games so I'm letting my Xbox go. It's in great condition and comes with the original box, HDMI 2.1 cable, power cable and controller._
-
-**Amazon:** [Xbox Series S](https://www.amazon.in/Xbox-Series-S/dp/B08J89D6BW/ref=sr_1_1?crid=2YOU2FSSIS5XV&keywords=xbox&qid=1657347496&sprefix=xbo%2Caps%2C192&sr=8-1) (34,499)
-
-**My price:** 26k
-
-**Status:** 🟢 Available
-
-<br>
-
-#### Xbox One Controller 
-
-*Mostly the same as Series S controller except no dedicated share button and it uses Micro-USB instead of USB-C. Also works with Windows and Apple devices for games via Bluetooth or USB. The standard box doesn't have a Micro-USB cable but I bought one so I'll include that.* 
-
-**Microsoft site:** [Xbox Wireless Controller](https://www.xbox.com/en-IN/accessories/controllers/xbox-white-wireless-controller)
-
-**My price:** 3k
-
-**Status:** 🟢 Available
-
-<br>
 
 #### 1 Year Code for Gamepass Ultimate
 
@@ -77,8 +53,21 @@ _I don't have as much time as I would have liked to play games so I'm letting my
 
 **Status:** 🟢 Available
 
+#### Logitech C310 clip-on 720p Webcam
 
+*Photo clarity is about as good as your average laptop webcam. Connects over USB and clips on to the top of a monitor—see the monitor listing towards the end of this page to see how it looks mounted on the monitor. Also has a built in mic, but it intermittently sounds high pitched so I wouldn't rely on it for audio.*
 
+![](https://gyanl.com/assets/sale-webcam.jpg)
+
+  
+
+**Xiaomi Website:** [Logitech C310 Digital HD Webcam](https://www.amazon.in/Logitech-C310-HD-Webcam-Black/dp/B008QS9KMW/ref=pd_sbs_sccl_3_3/262-5917488-9077814?pd_rd_w=Gg4Vs&content-id=amzn1.sym.d3163d45-cad5-462b-8a7b-a5eb87482d2c&pf_rd_p=d3163d45-cad5-462b-8a7b-a5eb87482d2c&pf_rd_r=8MY779EQ9A49FQ8Q82A4&pd_rd_wg=NQhT0&pd_rd_r=8544c48e-d436-4a1c-acaf-1033681bfe88&pd_rd_i=B008QS9KMW&psc=1)
+
+**My price:** 500
+
+**Status:** 🟢 Available
+
+<br> 
 
 # Reserved
 

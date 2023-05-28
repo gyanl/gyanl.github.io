@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2022-07-09-sale.md",
+                "file": "Sale Extras.md",
                 "mode": "source",
                 "source": false
               }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2022-07-09-sale.md",
+                "file": "Sale Extras.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -129,6 +129,8 @@
   },
   "active": "f520faa9dc0c2043",
   "lastOpenFiles": [
+    "2022-07-09-sale.md",
+    "Sale Extras.md",
     "2020-07-13-microsoft.md",
     "2019-07-13-microsoft-internship.md",
     "2 Years at Microsoft.md",
@@ -136,7 +138,6 @@
     "2022-03-06-webdev-resources.md",
     "2022-03-17-turning-26.md",
     "2022-06-28-no-hello.md",
-    "2022-07-09-sale.md",
     "2022-09-15-figma.md",
     "2022-10-07-design-career.md",
     "2022-11-06-uxnow2022.md",
@@ -147,7 +148,6 @@
     "Transcription in Word.md",
     "Shoes.md",
     "shape-of-the-tool backup.md",
-    "Sale Extras.md",
     "I'm Here and Care.md",
     "Designer Mobile.md",
     "Connect.md"
