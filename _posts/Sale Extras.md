@@ -90,3 +90,22 @@ Intel i5 2.3 GHz + Integrated graphics
 **Status:** 🟢 Available
 
 <br>
+#### Workstation PC
+
+_PC built for productivity, can handle basic gaming as well._
+
+AMD Ryzen 5 3400g with Radeon Vega 11 Graphics
+
+16 GB RAM (2x 8GB Samsung 2666 Mhz)
+
+500GB SSD (Crucial P2 - NVMe PCIe M.2) 
+
+1TB HDD (Seagate Barracuda)
+
+Gigabyte B450M S2H V2 motherboard
+
+**My price:** 32k
+
+**Status:** 🟢 Available
+
+<br>
