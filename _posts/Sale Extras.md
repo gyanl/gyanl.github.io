@@ -8,6 +8,8 @@ date modified: 28-05-2023
 ---
 
 
+
+
 #### Mi Box 4k (smart TV streaming box)
 
 _Hook this up to your TV or monitor and you now have a streaming device that can run Android TV - supports Netflix, Amazon Prime, Hotstar, etc._
@@ -90,22 +92,31 @@ Intel i5 2.3 GHz + Integrated graphics
 **Status:** 🟢 Available
 
 <br>
-#### Workstation PC
+#### Dell Wired USB mouse
 
-_PC built for productivity, can handle basic gaming as well._
+*A basic computer mouse. Right and left click work, but scroll wheel doesn't work. Seriously, what does it take to make a reliable scroll wheel?*
 
-AMD Ryzen 5 3400g with Radeon Vega 11 Graphics
+![](https://gyanl.com/assets/sale-dell-mouse.jpg)
 
-16 GB RAM (2x 8GB Samsung 2666 Mhz)
-
-500GB SSD (Crucial P2 - NVMe PCIe M.2) 
-
-1TB HDD (Seagate Barracuda)
-
-Gigabyte B450M S2H V2 motherboard
-
-**My price:** 32k
+**My price:** 150
 
 **Status:** 🟢 Available
 
+<br>
+
+#### Xiaomi Router 4c
+
+*A compact Wi-Fi router with 4 antennae, great signal for the size. Had my name written on it on paper tape, can be cleaned off. Or don't, and it's a signed collector's item!* 
+
+![](https://gyanl.com/assets/sale-mi-router.jpg)
+
+  
+
+**Xiaomi Website:** [Mi Router 4C](https://store.mi.com/in/item/3184300009)
+
+**My price:** 250
+
+**Status:** 🟢 Available
+
+<br>
 <br>

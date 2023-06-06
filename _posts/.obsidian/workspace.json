@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "2591ef87f4eba314",
+        "id": "7cb8ba511e1e73bf",
         "type": "tabs",
         "children": [
           {
-            "id": "f520faa9dc0c2043",
+            "id": "e474352f46da5fbe",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2022-07-09-sale.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -56,6 +52,14 @@
                 "sortOrder": "alphabetical"
               }
             }
+          },
+          {
+            "id": "7b3b08aac3c4cf56",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
           }
         ]
       }
@@ -77,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2022-07-09-sale.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,10 +130,14 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "f520faa9dc0c2043",
+  "active": "e474352f46da5fbe",
   "lastOpenFiles": [
-    "Sale Extras.md",
     "2022-07-09-sale.md",
+    "Sale Extras.md",
+    "shape-of-the-tool backup.md",
+    "Untitled.canvas",
+    "2019-05-27-unbox.md",
+    "2019-03-05-notes-from-typoday.md",
     "2020-07-13-microsoft.md",
     "2019-07-13-microsoft-internship.md",
     "2 Years at Microsoft.md",
@@ -147,7 +154,6 @@
     "Structured Creativity.md",
     "Transcription in Word.md",
     "Shoes.md",
-    "shape-of-the-tool backup.md",
     "I'm Here and Care.md",
     "Designer Mobile.md",
     "Connect.md"
