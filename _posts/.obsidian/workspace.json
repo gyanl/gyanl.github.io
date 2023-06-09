@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2023-06-02-stonks-ai.md",
+                "file": "2023-05-15-unequal.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-06-02-stonks-ai.md",
+                "file": "2023-05-15-unequal.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,7 +97,7 @@
             }
           },
           {
-            "id": "ecbe6eb69f0ca4ff",
+            "id": "a8c1d53770a7f42d",
             "type": "leaf",
             "state": {
               "type": "smart-connections-view",
@@ -105,7 +105,7 @@
             }
           },
           {
-            "id": "4847beb16c033a04",
+            "id": "7d5a92845f32b2db",
             "type": "leaf",
             "state": {
               "type": "smart-connections-chat-view",
@@ -113,12 +113,11 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -131,8 +130,9 @@
   },
   "active": "36c797e4b164555b",
   "lastOpenFiles": [
-    "2016-05-10-hackindia.md",
     "2023-06-02-stonks-ai.md",
+    "2023-05-15-unequal.md",
+    "2016-05-10-hackindia.md",
     "2023-03-17-turning-27.md",
     "2022-03-17-turning-26.md",
     "2024-03-17-turning-28.md",
@@ -156,7 +156,6 @@
     "2022-10-07-design-career.md",
     "Sale Extras.md",
     "shape-of-the-tool backup.md",
-    "Transcription in Word.md",
     "Untitled.canvas"
   ]
 }
