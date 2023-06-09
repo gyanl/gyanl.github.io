@@ -1,90 +1,108 @@
 {
   "ruleConfigs": {
-    "Format Tags in YAML": {
-      "Remove Hashtags from tags in the YAML frontmatter, as they make the tags there invalid.": true
+    "format-tags-in-yaml": {
+      "enabled": true
     },
-    "Insert YAML attributes": {
-      "Inserts the given YAML attributes into the YAML frontmatter. Put each attribute on a single line.": true,
-      "Text to insert": "layout: post\ntitle:\nsubtitle:\ntags: \nthumbnail: https://gyanl.com/assets/thumbs/default.png"
+    "insert-yaml-attributes": {
+      "enabled": true,
+      "text-to-insert": "layout: post\ntitle:\nsubtitle:\ntags: \nthumbnail: https://gyanl.com/assets/thumbs/default.png"
     },
-    "YAML Timestamp": {
-      "Keep track of the date the file was last edited in the YAML front matter. Gets dates from file metadata.": true,
-      "Date Created": false,
-      "Date Created Key": "date",
-      "Date Modified": true,
-      "Date Modified Key": "date modified",
-      "Format": "DD-MM-YYYY"
+    "yaml-timestamp": {
+      "enabled": true,
+      "date-created": false,
+      "date-created-key": "date",
+      "force-retention-of-create-value": false,
+      "date-modified": true,
+      "date-modified-key": "date modified",
+      "format": "DD-MM-YYYY"
     },
-    "YAML Title": {
-      "Inserts the title of the file into the YAML frontmatter. Gets the title from the first H1 or filename.": false,
-      "Title Key": "title"
+    "yaml-title": {
+      "enabled": false,
+      "title-key": "title",
+      "mode": "first-h1-or-filename-if-h1-missing"
     },
-    "Header Increment": {
-      "Heading levels should only increment by one level at a time": false
+    "capitalize-headings": {
+      "enabled": false,
+      "style": "First Letter",
+      "ignore-case-words": true,
+      "ignore-words": "macOS, iOS, iPhone, iPad, JavaScript, TypeScript, AppleScript",
+      "lowercase-words": "via, a, an, the, and, or, but, for, nor, so, yet, at, by, in, of, on, to, up, as, is, if, it, for, to, with, without, into, onto, per"
     },
-    "File Name Heading": {
-      "Inserts the file name as a H1 heading if no H1 heading exists.": false
+    "file-name-heading": {
+      "enabled": false
     },
-    "Capitalize Headings": {
-      "Headings should be formatted with capitalization": false,
-      "Style": "First Letter",
-      "Ignore Cased Words": true,
-      "Ignore Words": "macOS, iOS, iPhone, iPad, JavaScript, TypeScript, AppleScript",
-      "Lowercase Words": "via, a, an, the, and, or, but, for, nor, so, yet, at, by, in, of, on, to, up, as, is, if, it, for, to, with, without, into, onto, per"
+    "header-increment": {
+      "enabled": false,
+      "start-at-h2": false
     },
-    "Move Footnotes to the bottom": {
-      "Move all footnotes to the bottom of the document.": true
+    "footnote-after-punctuation": {
+      "enabled": false
     },
-    "Re-Index Footnotes": {
-      "Re-indexes footnote keys and footnote, based on the order of occurence (NOTE: This rule deliberately does *not* preserve the relation between key and footnote, to be able to re-index duplicate keys.)": true
+    "move-footnotes-to-the-bottom": {
+      "enabled": true
     },
-    "Footnote after Punctuation": {
-      "Ensures that footnote references are placed after punctuation, not before.": false
+    "re-index-footnotes": {
+      "enabled": false
     },
-    "Remove Multiple Spaces": {
-      "Removes two or more consecutive spaces. Ignores spaces at the beginning and ending of the line. ": true
+    "proper-ellipsis": {
+      "enabled": true
     },
-    "Remove Hyphenated Line Breaks": {
-      "Removes hyphenated line breaks. Useful when pasting text from textbooks.": false
+    "remove-consecutive-list-markers": {
+      "enabled": false
     },
-    "Remove Consecutive List Markers": {
-      "Removes consecutive list markers. Useful when copy-pasting list items.": false
+    "remove-empty-list-markers": {
+      "enabled": false
     },
-    "Remove Empty List Markers": {
-      "Removes empty list markers, i.e. list items without content.": false
+    "remove-hyphenated-line-breaks": {
+      "enabled": false
     },
-    "Proper Ellipsis": {
-      "Replaces three consecutive dots with an ellipsis.": true
+    "remove-multiple-spaces": {
+      "enabled": true
     },
-    "Trailing spaces": {
-      "Removes extra spaces after every line.": false,
-      "Two Space Linebreak": false
+    "compact-yaml": {
+      "enabled": true,
+      "inner-new-lines": false
     },
-    "Heading blank lines": {
-      "All headings have a blank line both before and after (except where the heading is at the beginning or end of the document).": false,
-      "Bottom": true
+    "consecutive-blank-lines": {
+      "enabled": false
     },
-    "Paragraph blank lines": {
-      "All paragraphs should have exactly one blank line both before and after.": true
+    "convert-spaces-to-tabs": {
+      "enabled": false,
+      "tabsize": "4"
     },
-    "Space after list markers": {
-      "There should be a single space after list markers and checkboxes.": true
+    "heading-blank-lines": {
+      "enabled": false,
+      "bottom": true,
+      "empty-line-after-yaml": true
     },
-    "Compact YAML": {
-      "Removes leading and trailing blank lines in the YAML front matter.": true
+    "line-break-at-document-end": {
+      "enabled": true
     },
-    "Consecutive blank lines": {
-      "There should be at most one consecutive blank line.": false
+    "paragraph-blank-lines": {
+      "enabled": true
     },
-    "Convert Spaces to Tabs": {
-      "Converts leading spaces to tabs.": false,
-      "Tabsize": "4"
+    "space-after-list-markers": {
+      "enabled": true
     },
-    "Line Break at Document End": {
-      "Ensures that there is exactly one line break at the end of a document.": true
+    "trailing-spaces": {
+      "enabled": false,
+      "twp-space-line-break": false
     }
   },
   "lintOnSave": true,
+  "recordLintOnSaveLogs": false,
   "displayChanged": true,
-  "foldersToIgnore": []
+  "settingsConvertedToConfigKeyValues": true,
+  "foldersToIgnore": [],
+  "linterLocale": "system-default",
+  "logLevel": 4,
+  "lintCommands": [],
+  "customRegexes": [],
+  "commonStyles": {
+    "aliasArrayStyle": "single-line",
+    "tagArrayStyle": "single-line",
+    "minimumNumberOfDollarSignsToBeAMathBlock": 2,
+    "escapeCharacter": "\"",
+    "removeUnnecessaryEscapeCharsForMultiLineArrays": false
+  }
 }

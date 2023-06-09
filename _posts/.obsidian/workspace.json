@@ -11,24 +11,33 @@
             "id": "e474352f46da5fbe",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
-            }
-          },
-          {
-            "id": "d56b534a47a97091",
-            "type": "leaf",
-            "state": {
               "type": "markdown",
               "state": {
-                "file": "2023-05-05-rome.md",
+                "file": "2022-03-17-turning-26.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
+      },
+      {
+        "id": "303a44d31fb7d2bb",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "36c797e4b164555b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2023-03-17-turning-27.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
       }
     ],
     "direction": "vertical"
@@ -94,7 +103,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-05-05-rome.md",
+                "file": "2023-03-17-turning-27.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -106,29 +115,23 @@
             }
           },
           {
-            "id": "241eccb5c49435d9",
+            "id": "ecbe6eb69f0ca4ff",
             "type": "leaf",
             "state": {
-              "type": "outgoing-link",
-              "state": {
-                "file": "Color Generator.md",
-                "linksCollapsed": false,
-                "unlinkedCollapsed": true
-              }
+              "type": "smart-connections-view",
+              "state": {}
             }
           },
           {
-            "id": "4e7a9e6772aece66",
+            "id": "4847beb16c033a04",
             "type": "leaf",
             "state": {
-              "type": "tag",
-              "state": {
-                "sortOrder": "frequency",
-                "useHierarchy": true
-              }
+              "type": "smart-connections-chat-view",
+              "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -144,33 +147,34 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "1a23adcbd3bd4b43",
+  "active": "36c797e4b164555b",
   "lastOpenFiles": [
-    "2023-05-05-rome.md",
+    "2022-03-17-turning-26.md",
+    "2023-03-17-turning-27.md",
+    "2024-03-17-turning-28.md",
+    "2019-03-17-turning-23.md",
+    "2 Years at Microsoft.md",
+    "2018-03-17-turning-22.md",
+    "2021-12-15-s-alt.md",
+    "2021-07-26-the-social-tadka.md",
+    "2021-03-17-turning-25.md",
+    "2019-05-27-unbox.md",
+    "2019-07-13-microsoft-internship.md",
+    "2020-07-13-microsoft.md",
+    "2020-12-20-read-aloud.md",
+    "2020-12-11-financial-planning.md",
+    "2020-07-14-freelance.md",
+    "2020-07-18-ceed-idc.md",
+    "2021-11-01-chaos.md",
+    "2022-03-06-webdev-resources.md",
     "2022-07-09-sale.md",
+    "2022-10-07-design-career.md",
     "Sale Extras.md",
     "shape-of-the-tool backup.md",
-    "Untitled.canvas",
-    "2019-05-27-unbox.md",
-    "2019-03-05-notes-from-typoday.md",
-    "2020-07-13-microsoft.md",
-    "2019-07-13-microsoft-internship.md",
-    "2 Years at Microsoft.md",
-    "2022-02-21-feedback.md",
-    "2022-03-06-webdev-resources.md",
-    "2022-03-17-turning-26.md",
-    "2022-06-28-no-hello.md",
-    "2022-09-15-figma.md",
-    "2022-10-07-design-career.md",
-    "2022-11-06-uxnow2022.md",
-    "2023-03-22-shape-of-the-tool.md",
-    "AA 2022-11-18-designer.md",
-    "aa2023-01-01-year-in-review.md",
-    "Structured Creativity.md",
     "Transcription in Word.md",
-    "Shoes.md",
-    "I'm Here and Care.md",
-    "Designer Mobile.md",
-    "Connect.md"
+    "AA 2022-11-18-designer.md",
+    "2020-05-15-drs-reflections.md",
+    "2019-04-29-devanagari-font.md",
+    "Untitled.canvas"
   ]
 }
