@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "What Next.md",
+                "file": "2020-07-13-microsoft.md",
                 "mode": "source",
                 "source": false
               }
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "portfolio",
+                "query": "microsoft ",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "What Next.md",
+                "file": "2020-07-13-microsoft.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,7 +97,7 @@
             }
           },
           {
-            "id": "a8c1d53770a7f42d",
+            "id": "bd0d82133c6a2769",
             "type": "leaf",
             "state": {
               "type": "smart-connections-view",
@@ -105,7 +105,7 @@
             }
           },
           {
-            "id": "7d5a92845f32b2db",
+            "id": "86f793e746732bc8",
             "type": "leaf",
             "state": {
               "type": "smart-connections-chat-view",
@@ -113,11 +113,12 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -130,6 +131,14 @@
   },
   "active": "36c797e4b164555b",
   "lastOpenFiles": [
+    "2016-05-10-delhi-dribbble.md",
+    "2015-01-01-colophon.md",
+    "2020-07-13-microsoft.md",
+    "2023-03-17-turning-27.md",
+    "2024-03-17-turning-28.md",
+    "2023-06-02-stonks-ai.md",
+    "Untitled.canvas",
+    "What Next.md",
     "Transcription in Word.md",
     "Structured Creativity.md",
     "Shoes.md",
@@ -143,19 +152,11 @@
     "2022-07-09-sale.md",
     "2022-06-28-no-hello.md",
     "2023-05-15-unequal.md",
-    "2023-06-02-stonks-ai.md",
     "2016-05-10-hackindia.md",
-    "2023-03-17-turning-27.md",
     "2022-03-17-turning-26.md",
-    "2024-03-17-turning-28.md",
     "2021-03-17-turning-25.md",
     "2022-11-06-uxnow2022.md",
     "2019-03-17-turning-23.md",
-    "2 Years at Microsoft.md",
-    "2018-03-17-turning-22.md",
-    "2021-12-15-s-alt.md",
-    "2021-07-26-the-social-tadka.md",
-    "2019-05-27-unbox.md",
-    "Untitled.canvas"
+    "2 Years at Microsoft.md"
   ]
 }
