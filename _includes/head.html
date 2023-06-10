@@ -49,38 +49,42 @@
           var genAccent = "rgb(255 31 82)";
           var genAccentDark = "rgb(205 55 75)";
           var genAccentLight = "rgb(255 86 55 / 15%)";
-          var genAccentBG = "rgb(253 244 238 / 15%)";
+          var genAccentBGL = "rgb(253 244 238 / 15%)";
+          var genAccentBGD = "rgb(253 244 238 / 15%)";
+
           break;
 
         case "1":
           var genAccent = "hsl(" + 25 + ", 80%, 40%)";
           var genAccentDark = "hsl(" + 25 + ", 50%, 35%)";
           var genAccentLight = "hsla(" + 25 + ", 20%, 70%, 25%)";
-          var genAccentBG = "hsla(" + 25 + ", 20%, 70%, 25%)";
+          var genAccentBGL = "hsla(" + 25 + ", 20%, 70%, 25%)";
+          var genAccentBGD = "hsla(" + 25 + ", 20%, 70%, 25%)";
+
           break;
 
         case "2":
-          var genAccent = "hsl(" + 60 + ", 80%, 40%)";
-          var genAccentDark = "hsl(" + 60 + ", 50%, 35%)";
+          var genAccent = "hsl(" + 25 + ", 100%, 25%)";
+          var genAccentDark = "hsl(" + 36 + ", 100%, 22%)";
           var genAccentLight = "hsla(" + 60 + ", 20%, 70%, 25%)";
-          var genAccentBG = "hsla(" + 60 + ", 20%, 70%, 25%)";
-
+          var genAccentBGL = "hsla(" + 50 + ", 100%, 80%, 25%)";
+          var genAccentBGD = "hsla(" + 0 + ", 30%, 12%, 100%)";
           break;
 
         case "3":
           var genAccent = "hsl(" + 170 + ", 80%, 40%)";
           var genAccentDark = "hsl(" + 170 + ", 50%, 35%)";
           var genAccentLight = "hsla(" + 170 + ", 20%, 70%, 25%)";
-          var genAccentBG = "hsla(" + 170 + ", 20%, 70%, 25%)";
-
+          var genAccentBGL = "hsla(" + 170 + ", 20%, 70%, 25%)";
+          var genAccentBGD = "hsla(" + 170 + ", 20%, 70%, 25%)";
           break;
 
         case "4":
           var genAccent = "hsl(" + 245 + ", 80%, 40%)";
           var genAccentDark = "hsl(" + 245 + ", 50%, 35%)";
           var genAccentLight = "hsla(" + 245 + ", 20%, 70%, 25%)";
-          var genAccentBG = "hsla(" + 245 + ", 20%, 70%, 25%)";
-
+          var genAccentBGL = "hsla(" + 245 + ", 20%, 70%, 25%)";
+          var genAccentBGD = "hsla(" + 245 + ", 20%, 80%, 85%)";
           break;
 
         default:
@@ -90,7 +94,8 @@
       r.style.setProperty('--accent-color', genAccent);
       r.style.setProperty('--accent-color-light', genAccentLight);
       r.style.setProperty('--accent-color-dark', genAccentDark);
-      r.style.setProperty('--background-color', genAccentBG);
+      r.style.setProperty('--background-color', genAccentBGL);
+      r.style.setProperty(@media (prefers-color-scheme: dark) {'--background-color', genAccentBGD});
       console.log("Page theme set to " + theme);
 
       updateLocalTheme(theme);
