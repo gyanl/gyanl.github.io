@@ -90,22 +90,15 @@
       updateLocalTheme(theme);
 
 
-    //   // function that generates a random color
-    //    function getRandomColor() { 
-    //      var letters = '0123456789ABCDEF';
-    //       var color = '#';  
-    //       for (var i = 0; i < 6; i++) { 
-    //         color += letters[Math.floor(Math.random() * 16)]; 
-    //       } 
-    // }
+      let savedTheme = getLocalTheme();
+      if (savedTheme != "") {
+        applyTheme(savedTheme);
+        console.log("Theme found was: " + savedTheme);
+      } else {
+        applyTheme("0");
+        console.log("No theme found, value:" + savedTheme);
+      }
 
-    // let savedTheme = getLocalTheme();
-    // if (savedTheme != "") {
-    //   applyTheme(savedTheme);
-    //   console.log("Theme found was: " + savedTheme);
-    // } else {
-    //   applyTheme("0");
-    //   console.log("No theme found, value:" + savedTheme);
-    // }
+      applyTheme(getLocalTheme());
   </script>
 </head>
