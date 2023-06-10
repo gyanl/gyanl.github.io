@@ -95,7 +95,7 @@
       r.style.setProperty('--accent-color-light', genAccentLight);
       r.style.setProperty('--accent-color-dark', genAccentDark);
       r.style.setProperty('--background-color', genAccentBGL);
-      r.style.setProperty(@media (prefers-color-scheme: dark) {'--background-color', genAccentBGD});
+      r.style.setProperty('--background-color-darkmode', genAccentBGD);
       console.log("Page theme set to " + theme);
 
       updateLocalTheme(theme);

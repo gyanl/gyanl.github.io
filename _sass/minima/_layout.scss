@@ -2,8 +2,9 @@
   --base-font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   --title-font-family: Besley;
   --subtitle-font-family: "IBM Plex Serif";
-
+  
   --background-color: #ffffff;
+  --background-color-darkmode: #0c0b1c;
   --foreground-color: #000000;
 
   --text-color-dark: #000;
@@ -20,7 +21,7 @@
 
 @media (prefers-color-scheme: dark) {
 	:root {
-    --background-color: #0c0b1c;
+    --background-color: var(--background-color-darkmode);
     --foreground-color: rgba(0, 0, 0, 0.3);
 
     --text-color-dark: rgba(255, 255, 255, 1);
