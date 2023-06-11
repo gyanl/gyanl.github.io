@@ -126,8 +126,8 @@ img {
 
 .post img {
   transition: 0.1s;
+  border: 1px solid hsla(0, 0%, 50%, 0.25);
   border-radius: 6px;
-  border: 1px solid var(--overlay-color-edge);
 }
 
 .post img:hover {
