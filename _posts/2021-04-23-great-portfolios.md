@@ -34,7 +34,7 @@ This is a list of sites that I think are great to look at for inspiration.
 
 10. [Gavin Nelson](https://nelson.co/)<br>Just the basics done really well.
     
-11. [Yuma Naito](https://yumanaito.com/) 
+11. [Yuma Naito](https://yumanaito.com/) <br>
     Yuma is a Graphic Designer and this website uses a Swiss Grid to show off some great work.
 
 ## Blogs
@@ -57,7 +57,7 @@ These are not necessarily design portfolios, but I like how they are written and
 
 ## Other
 
-1. <https://ikeadrift.com/><br>Use the QWERTY keys on your keypad to play a sick drum beat. I love this site.
+1. <https://ikeadrift.com/><br>Use the QWERTY keys on your keypad to play a sick drum beat. I love this site. Press U for a secret easter egg.
 
 2. <https://amandayeh.com/><br>A whimsical portfolio site that evokes a sense of tech nostalgia with bitmap fonts and Windows 98 style icons.
 
