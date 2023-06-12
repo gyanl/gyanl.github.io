@@ -119,7 +119,6 @@ main {
  * Images
  */
 img {
-  border-radius: 4px;
   width: 100%;
   vertical-align: middle;
   margin: $spacing-unit 0 $spacing-unit/2;
@@ -127,11 +126,14 @@ img {
 
 .post img {
   transition: 0.1s;
+  outline: 1px solid rgba(0,0,0,.15);
+  outline-offset: -1px;
+  border-radius: 6px;
 }
 
 .post img:hover {
-  margin-left: auto;
-  margin-right: auto;
+  // margin-left: auto;
+  // margin-right: auto;
 }
 /**
  * Iframes (added by Gyan)

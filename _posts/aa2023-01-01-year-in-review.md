@@ -5,7 +5,7 @@ subtitle: Shit, here we go again.
 tags: misc
 thumbnail: https://gyanl.com/assets/thumbs/27.png
 date modified: 04-03-2023
-permalink: 27
+
 ---
 
 #### Moved out (again)

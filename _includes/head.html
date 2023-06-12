@@ -49,33 +49,42 @@
           var genAccent = "rgb(255 31 82)";
           var genAccentDark = "rgb(205 55 75)";
           var genAccentLight = "rgb(255 86 55 / 15%)";
-          r.style.setProperty('--base-font-family', 'Helvetica');
+          var genAccentBGL = "rgb(253 244 238 / 15%)";
+          var genAccentBGD = "rgb(253 244 238 / 15%)";
+
           break;
 
         case "1":
           var genAccent = "hsl(" + 25 + ", 80%, 40%)";
           var genAccentDark = "hsl(" + 25 + ", 50%, 35%)";
           var genAccentLight = "hsla(" + 25 + ", 20%, 70%, 25%)";
-          document.body.style.backgroundImage = "url('https://gyanl.com/assets/paper.png')";
-          document.body.style.backgroundRepeat = "repeat";
+          var genAccentBGL = "hsla(" + 25 + ", 20%, 70%, 25%)";
+          var genAccentBGD = "hsla(" + 25 + ", 20%, 70%, 25%)";
+
           break;
 
         case "2":
-          var genAccent = "hsl(" + 60 + ", 80%, 40%)";
-          var genAccentDark = "hsl(" + 60 + ", 50%, 35%)";
+          var genAccent = "hsl(" + 25 + ", 100%, 25%)";
+          var genAccentDark = "hsl(" + 36 + ", 100%, 22%)";
           var genAccentLight = "hsla(" + 60 + ", 20%, 70%, 25%)";
+          var genAccentBGL = "hsla(" + 50 + ", 100%, 80%, 25%)";
+          var genAccentBGD = "hsla(" + 0 + ", 30%, 12%, 100%)";
           break;
 
         case "3":
           var genAccent = "hsl(" + 170 + ", 80%, 40%)";
           var genAccentDark = "hsl(" + 170 + ", 50%, 35%)";
           var genAccentLight = "hsla(" + 170 + ", 20%, 70%, 25%)";
+          var genAccentBGL = "hsla(" + 170 + ", 20%, 70%, 25%)";
+          var genAccentBGD = "hsla(" + 170 + ", 20%, 70%, 25%)";
           break;
 
         case "4":
           var genAccent = "hsl(" + 245 + ", 80%, 40%)";
           var genAccentDark = "hsl(" + 245 + ", 50%, 35%)";
           var genAccentLight = "hsla(" + 245 + ", 20%, 70%, 25%)";
+          var genAccentBGL = "hsla(" + 245 + ", 20%, 70%, 25%)";
+          var genAccentBGD = "hsla(" + 245 + ", 20%, 80%, 85%)";
           break;
 
         default:
@@ -85,27 +94,22 @@
       r.style.setProperty('--accent-color', genAccent);
       r.style.setProperty('--accent-color-light', genAccentLight);
       r.style.setProperty('--accent-color-dark', genAccentDark);
+      // r.style.setProperty('--background-color', genAccentBGL);
+      // r.style.setProperty('--background-color-darkmode', genAccentBGD);
       console.log("Page theme set to " + theme);
 
       updateLocalTheme(theme);
+    }
 
+      let savedTheme = getLocalTheme();
+      if (savedTheme != "") {
+        applyTheme(savedTheme);
+        console.log("Theme found was: " + savedTheme);
+      } else {
+        applyTheme("0");
+        console.log("No theme found, value:" + savedTheme);
+      }
 
-    //   // function that generates a random color
-    //    function getRandomColor() { 
-    //      var letters = '0123456789ABCDEF';
-    //       var color = '#';  
-    //       for (var i = 0; i < 6; i++) { 
-    //         color += letters[Math.floor(Math.random() * 16)]; 
-    //       } 
-    // }
-
-    // let savedTheme = getLocalTheme();
-    // if (savedTheme != "") {
-    //   applyTheme(savedTheme);
-    //   console.log("Theme found was: " + savedTheme);
-    // } else {
-    //   applyTheme("0");
-    //   console.log("No theme found, value:" + savedTheme);
-    // }
+      // applyTheme(getLocalTheme());
   </script>
 </head>
