@@ -15,7 +15,11 @@ Github Copilot has a fascinating interaction where typing a comment suggests a p
 
 ### Assistants with personality
 
-Giving GPT a “persona” helps generate better results in a given domain. Giving the assistant a persona can help users understand what types of results they’ll get and change the persona to suit their use case. There could be a “professor” persona who critiques academic writing and enables plugins for checking plagiarism and finding sources. 
+Giving GPT a “persona” helps generate better results in a given domain. Giving the assistant a persona can help users understand what types of results they’ll get and change the persona to suit their use case. 
+
+There could be a “Professor” persona who critiques academic writing and enables plugins for checking plagiarism and finding sources. 
+
+The “Orator” persona could help critique speeches and presentations to make them crisp and get the point across. An avatar could perhaps even listen to you rehearse and provide live feedback.
 
 ### Further Reading
 
