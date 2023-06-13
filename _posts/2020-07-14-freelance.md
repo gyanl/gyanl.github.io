@@ -3,11 +3,11 @@ layout: post
 title: Getting started with freelancing
 subtitle: Some advice for designers starting out
 thumbnail: https://gyanl.com/assets/thumbs/freelance.png 
-tags: misc
-date modified: 27-02-2022
+tags: resources
+date modified: 13-06-2023
 ---
 
-I worked as a freelance graphic and UI/UX designer for many years before switching to a full-time position at Microsoft. Freelancing can be challenging to get started with—and it's not for everyone, but the freedom to pick your projects, working hours,  location and working style can be appealing reasons to try it.
+I worked as a freelance graphic and UI/UX designer for many years before switching to a full-time position at Microsoft. Freelancing can be challenging to get started with—and it's not for everyone, but the freedom to pick your projects, working hours, location and working style can be appealing reasons to try it.
 
 ### Before starting
 

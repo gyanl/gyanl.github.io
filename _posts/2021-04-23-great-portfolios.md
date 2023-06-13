@@ -4,7 +4,7 @@ layout: post
 title: Great Portfolio Sites
 subtitle: A list of websites that I think do a great job of showing design work.
 permalink: portfolios
-tags: misc
+tags: resources
 date modified: 01-02-2023
 ---
 

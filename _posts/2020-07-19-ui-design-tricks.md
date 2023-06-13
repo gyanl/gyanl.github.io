@@ -3,7 +3,7 @@ layout: post
 title: Neat UI Design tricks
 subtitle: Some neat tricks I wish I knew earlier
 thumbnail: https://gyanl.com/assets/thumbs/tricks.png 
-tags: misc
+tags: resources
 date modified: 07-02-2023
 ---
 

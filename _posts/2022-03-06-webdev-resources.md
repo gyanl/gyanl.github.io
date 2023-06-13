@@ -3,10 +3,10 @@ layout: post
 thumbnail: https://gyanl.com/assets/thumbs/code.png
 notetype: feed
 date: 03-03-2022
-date modified: 21-11-2022
+date modified: 13-06-2023
 title: Webdev Resources
 subtitle: CSS and JavaScript resources I found useful
-tags: code
+tags: resources
 ---
 
 ## JavaScript

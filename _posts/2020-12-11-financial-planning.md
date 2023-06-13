@@ -3,8 +3,8 @@ layout: post
 title: Financial Planning
 subtitle: Some personal notes on managing your money
 thumbnail: https://gyanl.com/assets/thumbs/money.png
-tags: misc
-date modified: 14-11-2022
+tags: resources
+date modified: 13-06-2023
 ---
 
 > A lot of this page is from financial planning workshops by [Binu Raj](https://www.linkedin.com/in/binu-raj-317a334)
