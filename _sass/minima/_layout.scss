@@ -508,6 +508,16 @@
   @include relative-font-size(1);
 }
 
+// test view transitions API
+
+a.post-link{
+  view-transition-name: blog-name;
+}
+
+h1.post-title.p-name{
+  view-transition-name: blog-name;
+}
+
 .post-item {
   // background: white;
   display: flex;
