@@ -4,12 +4,14 @@ title: I don't want to text an AI model
 subtitle: How can you integrate LLMs into interfaces beyond chat?
 tags: ideas
 thumbnail: https://gyanl.com/assets/thumbs/default.png
-date modified: 13-06-2023
+date modified: 14-06-2023
 ---
 
-As I work on Copilot for Microsoft Word, I’ve been thinking about interfaces where humans can interact with LLMs. By adding a prompt box to the Word interface, we merely changed the problem of not knowing what to write on a blank page to not knowing what to write in the prompt box on the blank page. My hot take is that it’s bad UX to expect all users to be good at writing prompts - a skill that requires quite a bit of playing around with LLMs and reading things like 
+As I work on Copilot for Microsoft Word, I’ve been thinking about interfaces where humans can interact with LLMs. By adding a prompt box to the Word interface, we merely changed the problem of not knowing what to write on a blank page to not knowing what to write in the prompt box on the blank page. My hot take is that it’s bad UX to expect all users to be good at writing prompts - a skill that requires being comfortable with writing and knowing what LLMs are good at and how you need to phrase things to them. 
 
-I read a great article by Maggie Appleton[^1] that inspired me to write about some of these thoughts.
+I’ve spent quite a bit of playing around with LLMs and reading things like Awesome ChatGPT Prompts[^1], and I while I’m no authority I don’t think most people are doing this, and nor should they have to. That’s the whole point of designing interfaces - you abstract away the structure of tech
+
+I read a great article by Maggie Appleton[^2] that inspired me to write about some of these thoughts.
 
 ### Autocomplete
 
@@ -29,10 +31,12 @@ Google Docs like rewrite suggestions. Problem: difficult to know what has change
 
 ### Reading Instruction manuals with a search box
 
-Copilot for Docs [^2]
+Copilot for Docs [^3]
 
 ### References
 
-[^1]: Language Model Sketchbook, or Why I Hate Chatbots — [maggieappleton.com](https://maggieappleton.com/lm-sketchbook)
+[^1]: ChatGPT prompt curation to use ChatGPT better [awesome-chatgpt-prompts]((https://github.com/f/awesome-chatgpt-prompts))
 
-[^2]: GitHub Next — [Copilot for Docs](https://githubnext.com/projects/copilot-for-docs/)
+[^2]: Language Model Sketchbook, or Why I Hate Chatbots — [maggieappleton.com](https://maggieappleton.com/lm-sketchbook)
+
+[^3]: GitHub Next — [Copilot for Docs](https://githubnext.com/projects/copilot-for-docs/)
