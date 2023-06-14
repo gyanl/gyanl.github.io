@@ -1,1 +1,0 @@
-I've been working at Microsoft for about two years now. 
