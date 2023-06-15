@@ -3,7 +3,7 @@ layout: post
 thumbnail: https://gyanl.com/assets/thumbs/code.png
 notetype: feed
 date: 03-03-2022
-date modified: 13-06-2023
+date modified: 15-06-2023
 title: Webdev Resources
 subtitle: CSS and JavaScript resources I found useful
 tags: resources
@@ -60,3 +60,11 @@ CSS Shadow Palette Generator via Josh W Comeau
 #### [Highlight images without alt text](https://twitter.com/addyosmani/status/1223872295619330048)
 
 CSS to Highlight any image on your site that doesn’t have alt-text. Via [@addyosmani](https://twitter.com/addyosmani) on Twitter.
+
+#### [Aech](https://kbrgl.github.io/aech/)
+
+An opinionated CSS stylesheet that makes simple projects look good. Uses CSS variables for customisation! By [Kabir Goel](https://kabir.computer/)
+
+#### [Ambilight effect for the Web with CSS)](https://expensive.toys/blog/ambilight-effect)
+
+Some wild svg filter effects I didn’t even know were possible before.
