@@ -1,13 +1,15 @@
 ---
+thumbnail: https://gyanl.com/assets/thumbs/default.png
 layout: post
 title: "Font Resources"
-subtitle: I worked on a tool to search and browse for fonts in my third semester at IDC. I'm documenting some interesting things I found here.
-tags: misc
+subtitle: Ya like fonts?
+tags: resources
+date modified: 15-06-2023
 ---
 
 With an explosion in high quality open source fonts, there are more options available for designers and novices alike, and the aim was to create an interface that used a more ‘natural’ classification of fonts than the default classification of serif, sans-serif, display, handwritten/script and monospace used by most font sites like Google Fonts.
 
-I used a classification created by [O'Donovan et al](http://www.dgp.toronto.edu/~donovan/font/) as the basis for my tool. The paper provided ratings from 0-100 for 200 fonts on 37 attributes (like "warm", "legible", "attention-grabbing"). I utilised a subset of these fonts available on Google Fonts, and removed some of the parameters to create [Font Finder](https://fontfinder.tech/).
+I worked on a tool to search and browse for fonts in my third semester at IDC. I used a classification created by [O'Donovan et al](http://www.dgp.toronto.edu/~donovan/font/) as the basis for my tool. The paper provided ratings from 0-100 for 200 fonts on 37 attributes (like "warm", "legible", "attention-grabbing"). I utilised a subset of these fonts available on Google Fonts, and removed some of the parameters to create [Font Finder](https://fontfinder.tech/).
 
 The results were a bit iffy—not all participants agreed that they were getting the results they hoped for, and some of the attributes (like "artistic", "fresh") were confusing because people did not know what an "artistic" or "fresh" font should look like. In retrospect it would have been a better idea to create my own classification by conducting card sorting activities with participants and creating fewer categories that were more meaningful.
 
@@ -16,6 +18,12 @@ The results were a bit iffy—not all participants agreed that they were getting
 The experience of browsing indic fonts and variable fonts is still not very smooth, and there is scope for designing a simple way to browse character sets and previewing the full design space of variable fonts.
 
 ## Some interesting examples
+
+#### Resource Collections
+
+[Type Design Resources](https://typedesignresources.com)
+
+An open source list of type resources. Contains some of the ones I’m listing as well. Probably more actively maintained than my list.
 
 #### Font Collections
 
@@ -70,9 +78,11 @@ Complex web font tasks where you need to access individual glyphs as shapes can 
 #### Drawing fonts
 
 [OH no Type School](https://ohnotype.co/blog/ohno-type-school-a)
+
 A series of blog posts about how to draw every latin letter from A-Z.
 
 #### Font Taxonomy
 
 [The absurdity of Typographic taxon](https://aisforfonts.com/the-absurdity-of-typographic-taxon)
+
 A blog post by French type designer Emilie Rigaud about type taxonomy.
