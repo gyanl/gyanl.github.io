@@ -112,21 +112,5 @@
 
       // applyTheme(getLocalTheme());
 
-
-      // get all divs with class="slideshow"
-      var slideshows = document.getElementsByClassName("slideshow");
-
-      
-
-      // for each image in slideshow, add an event listener to make that image the main image
-      for (var i = 0; i < slideshows.length; i++) {
-        var images = slideshows[i].getElementsByTagName("img");
-        for (var j = 0; j < images.length; j++) {
-          images[j].addEventListener("click", function () {
-            document.getElementById("mainImage").src = this.src;
-          });
-        }
-      }
-
   </script>
 </head>

@@ -33,5 +33,62 @@
     </div>
 
   </div>
+  <script>
+      // get all <p> tags with class="slideshow"
+      var slideshow = document.getElementsByClassName("slideshow");
+      var numslideshows = slideshow.length;
+      console.log(numslideshows + " slideshows found");
 
+      var indexPrev = 0;
+      var indexCurrent = 1;
+      var indexNext = 2%numslideshows;
+
+      function setslides() {
+        prev.innerHTML = "<img src='" + imgname + indexPrev + ext + "'>";
+        current.innerHTML = "<img src='" + imgname + indexCurrent + ext + "'>";
+        next.innerHTML = "<img src='" + imgname + indexNext + ext + "'>";
+      } 
+
+      // console.log every slideshow
+      for (var i = 0; i < numslideshows; i++) {
+        // get every img tag in slideshow
+        var slides = slideshow[i].getElementsByTagName("img");
+        var numslides = slides.length;
+        console.log("slideshow " + i + " has " + numslides + " slides");
+
+        // get img src of slides[0]
+        var src = slides[0].src;
+
+        // get imgname and extension
+
+        var imgname = src.substring(0, src.length-5);
+        console.log("Name of image: " + imgname); 
+
+        var ext = src.substring(src.length-4, src.length);
+        console.log("File ext: " + ext); 
+
+        // set innerHTML of slideshow[i]
+        slideshow[i].innerHTML = "<div class='slideshow-container'><div class='slide' id='slideshow-previous'><div class='slide' id='slideshow-current'><div class='slide' id='slideshow-next'></div>";
+
+        var prev = document.getElementById("slideshow-previous");
+        var current = document.getElementById("slideshow-current");
+        var next = document.getElementById("slideshow-next");
+
+        setslides();
+      }
+
+
+
+
+
+      // hide all images inside slideshows
+
+      // for (var i = 0; i < numslides; i++) {
+      //   var slides = slideshows[i].getElementsByTagName("img");
+      //   var numslides = slides.length;
+      //   for (var j = 1; j < numslides; j++) {
+      //     slides[j].style.display = "none";
+      //   }
+      // }
+  </script>
 </footer>

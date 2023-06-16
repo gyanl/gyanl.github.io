@@ -138,10 +138,29 @@ img {
   border-radius: 6px;
 }
 
+.slide-show{
+
+}
+
 .post img:hover {
   // margin-left: auto;
   // margin-right: auto;
 }
+
+.slideshow{
+  position: relative;
+  display: flex;
+  left: 50%;
+  width: fit-content;
+  transform: translateX(-50%);
+  overflow: hidden;
+}
+
+.slideshow > img{
+  margin: 0 6px;
+  width: 720px;
+}
+
 /**
  * Iframes (added by Gyan)
  */
