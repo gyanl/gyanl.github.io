@@ -191,9 +191,10 @@ img {
 @media screen and (max-width: $on-palm) {
 
   .slideshow > img{
-    width: 100%;
+    width: 80%;
     margin: 0 6px;
   }
+
 
   #slideshow-previous:hover{
     transform: translateX(0px);
