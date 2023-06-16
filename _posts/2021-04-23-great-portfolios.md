@@ -5,7 +5,7 @@ title: Great Portfolio Sites
 subtitle: A list of websites that I think do a great job of showing design work.
 permalink: portfolios
 tags: resources
-date modified: 01-02-2023
+date modified: 15-06-2023
 ---
 
 A portfolio is maybe the most important thing for a designer looking for work. I talk to a lot of early career designers who have done great work, but don't adequately show it on their portfolios. Recruiters are also curious about your personality—what drives you? Your side projects or hobbies—something you do for yourself or your community could be what speaks the most about you as a person. 
@@ -32,10 +32,9 @@ This is a list of sites that I think are great to look at for inspiration.
 
 9. [https://girapatel.co/](https://girapatel.co/)<br>This is a really nice site that shows visual/motion design work.
 
-10. [Gavin Nelson](https://nelson.co/)<br>Just the basics done really well.
+10. [Gavin Nelson](https://nelson.co/)<br>Just the basics done really well.  
     
-11. [Yuma Naito](https://yumanaito.com/) <br>
-    Yuma is a Graphic Designer and this website uses a Swiss Grid to show off some great work.
+11. [Yuma Naito](https://yumanaito.com/) <br>Yuma is a Graphic Designer and this website uses a Swiss Grid to show off some great work.
 
 ## Blogs
 
@@ -53,7 +52,12 @@ These are not necessarily design portfolios, but I like how they are written and
 
 6. [Josh W Comeau](https://www.joshwcomeau.com/)<br>Josh writes about web dev and has really nice touches on his website. Audio feedback? For pressing buttons on a website?? I love it.
 
-7. [Daniel Miessler](https://danielmiessler.com/)<br>Daniel writes about knowledge and the meaning of life. It's great.
+7. [Daniel Miessler](https://danielmiessler.com/)<br>Daniel writes about knowledge and the meaning of life. It's great.  
+   
+8. [Kabir Goel](https://kabir.computer/)<br>Kabir writes about design tools and computers. This is a great example of something simple executed very well.  
+   
+10. [Vyshnav Gangadharan](https://vyshnav.xyz/blog/)<br>Vyshnav writes a lot, and documents it all. He’s got a great layout and some very interesting side projects.
+   
 
 ## Other
 
