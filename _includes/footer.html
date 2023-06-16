@@ -39,15 +39,44 @@
       var numslideshows = slideshow.length;
       console.log(numslideshows + " slideshows found");
 
-      var indexPrev = 0;
-      var indexCurrent = 1;
-      var indexNext = 2%numslideshows;
+      var indexPrev = 1;
+      var indexCurrent = 2;
+      var indexNext = 3%numslideshows;
 
       function setslides() {
-        prev.innerHTML = "<img src='" + imgname + indexPrev + ext + "'>";
-        current.innerHTML = "<img src='" + imgname + indexCurrent + ext + "'>";
-        next.innerHTML = "<img src='" + imgname + indexNext + ext + "'>";
+        prev.src = imgname + indexPrev + ext;
+        current.src = imgname + indexCurrent + ext;
+        next.src = imgname + indexNext + ext;
       } 
+
+      function slidePrev() {
+        if (indexPrev == 0) {
+          indexPrev = numslides - 1;
+        } else {
+          indexPrev = indexPrev - 1;
+        }
+
+        if (indexCurrent == 0) {
+          indexCurrent = numslides - 1;
+        } else {
+          indexCurrent = indexCurrent - 1;
+        }
+
+        if (indexNext == 0) {
+          indexNext = numslides - 1;
+        } else {
+          indexNext = indexNext - 1;
+        }
+        setslides();
+      }
+
+
+      function slideNext() {
+        indexPrev = (indexPrev + 1)%numslides;
+        indexCurrent = (indexCurrent + 1)%numslides;
+        indexNext = (indexNext + 1)%numslides;
+        setslides();
+      }
 
       // console.log every slideshow
       for (var i = 0; i < numslideshows; i++) {
@@ -68,7 +97,7 @@
         console.log("File ext: " + ext); 
 
         // set innerHTML of slideshow[i]
-        slideshow[i].innerHTML = "<div class='slideshow-container'><div class='slide' id='slideshow-previous'><div class='slide' id='slideshow-current'><div class='slide' id='slideshow-next'></div>";
+        slideshow[i].innerHTML = "<img onclick='slidePrev()' id='slideshow-previous'><img id='slideshow-current'><img onclick='slideNext()' id='slideshow-next'></div>";
 
         var prev = document.getElementById("slideshow-previous");
         var current = document.getElementById("slideshow-current");

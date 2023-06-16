@@ -151,14 +151,33 @@ img {
   position: relative;
   display: flex;
   left: 50%;
+  justify-content: center;
   width: fit-content;
   transform: translateX(-50%);
-  overflow: hidden;
+}
+
+#slideshow-previous{
+  opacity: .5;
+}
+
+#slideshow-next{
+  opacity: .5;
+}
+
+#slideshow-previous:hover{
+  transform: translateX(-8px);
+  opacity: 1;
+}
+
+#slideshow-next:hover{
+  transform: translateX(8px);
+  opacity: 1;
 }
 
 .slideshow > img{
   margin: 0 6px;
   width: 720px;
+  transition: .6s;
 }
 
 /**
