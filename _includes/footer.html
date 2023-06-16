@@ -39,9 +39,9 @@
       var numslideshows = slideshow.length;
       console.log(numslideshows + " slideshows found");
 
-      var indexPrev = 1;
-      var indexCurrent = 2;
-      var indexNext = 3%numslideshows;
+      var indexPrev = 0;
+      var indexCurrent = 1;
+      var indexNext = 2%numslideshows;
 
       function setslides() {
         prev.src = imgname + indexPrev + ext;
