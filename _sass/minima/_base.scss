@@ -180,7 +180,7 @@ img {
 @media screen and (max-width: $on-palm) {
 
   .slideshow > img{
-    width: calc(100vw - $padding-unit);
+    width: 80%;
   }
 
 }
