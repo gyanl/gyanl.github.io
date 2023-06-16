@@ -41,7 +41,7 @@
 
       var indexPrev = 0;
       var indexCurrent = 1;
-      var indexNext = 2%numslideshows;
+      var indexNext = 2;
 
       function setslides() {
         prev.src = imgname + indexPrev + ext;
@@ -84,6 +84,9 @@
         var slides = slideshow[i].getElementsByTagName("img");
         var numslides = slides.length;
         console.log("slideshow " + i + " has " + numslides + " slides");
+
+        indexNext = 2%numslides; console.log("Next = " + indexNext);
+        console.log(indexPrev + " " + indexCurrent + " " + indexNext);
 
         // get img src of slides[0]
         var src = slides[0].src;

@@ -146,9 +146,9 @@ img {
 .slideshow{
   position: relative;
   display: flex;
-  left: 50%;
   justify-content: center;
-  width: fit-content;
+  width: 100vw;
+  left: 50%;
   transform: translateX(-50%);
 }
 
@@ -158,6 +158,17 @@ img {
 
 #slideshow-next{
   opacity: .5;
+}
+
+#slideshow-previous::after{
+  content: "←";
+  font-size: 24px;
+
+}
+
+#slideshow-next::before{
+  content: "→";
+  font-size: 24px;
 }
 
 #slideshow-previous:hover{
