@@ -161,17 +161,17 @@ img {
 }
 
 #slideshow-previous:hover{
-  transform: translateX(-8px);
+  transform: translateX(12px);
   opacity: 1;
 }
 
 #slideshow-next:hover{
-  transform: translateX(8px);
+  transform: translateX(-12px);
   opacity: 1;
 }
 
 .slideshow > img{
-  margin: 0 6px;
+  margin: 16px 12px 8px 12px;
   width: 720px;
   transition: .6s;
 }
@@ -181,6 +181,7 @@ img {
 
   .slideshow > img{
     width: 100%;
+    margin: 0 6px;
   }
 
   #slideshow-previous:hover{
