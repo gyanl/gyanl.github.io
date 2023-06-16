@@ -138,10 +138,6 @@ img {
   border-radius: 6px;
 }
 
-.slide-show{
-
-}
-
 .post img:hover {
   // margin-left: auto;
   // margin-right: auto;
@@ -178,6 +174,15 @@ img {
   margin: 0 6px;
   width: 720px;
   transition: .6s;
+}
+
+
+@media screen and (max-width: $on-palm) {
+
+  .slideshow > img{
+    width: calc(100vw - $padding-unit);
+  }
+
 }
 
 /**
