@@ -197,10 +197,12 @@ img {
 
   #slideshow-previous:hover{
     transform: translateX(0px);
+    opacity: .5;
   }
   
   #slideshow-next:hover{
     transform: translateX(0px);
+    opacity: .5;
   }
 
 }
