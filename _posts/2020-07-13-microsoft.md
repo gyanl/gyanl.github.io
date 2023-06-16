@@ -28,7 +28,7 @@ I started my first job as a UX Designer at Microsoft soon after finishing my Mas
 
 {: .slideshow }
 
-![OneNote for Android](https://gyanl.com/assets/microsoft-onenote-dictation-1.jpg)![OneNote for Android](https://gyanl.com/assets/microsoft-onenote-dictation-2.jpg)
+![OneNote for Android](https://gyanl.com/assets/microsoft-onenote-dictation-0.jpg)![OneNote for Android](https://gyanl.com/assets/microsoft-onenote-dictation-1.jpg)
 
 ###### OneNote for Android
 
