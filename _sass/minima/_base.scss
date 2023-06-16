@@ -180,7 +180,15 @@ img {
 @media screen and (max-width: $on-palm) {
 
   .slideshow > img{
-    width: 80%;
+    width: 100%;
+  }
+
+  #slideshow-previous:hover{
+    transform: translateX(0px);
+  }
+  
+  #slideshow-next:hover{
+    transform: translateX(0px);
   }
 
 }
