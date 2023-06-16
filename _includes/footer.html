@@ -43,10 +43,22 @@
       var indexCurrent = 1;
       var indexNext = 2;
 
+      function setDots() {
+        var dots = document.getElementsByClassName("dot");
+        // remove active class from all dots
+        for (var i = 0; i < dots.length; i++) {
+          dots[i].classList.remove("active");
+        }
+        // add active class to current dot
+        dots[indexCurrent].classList.add("active");
+      }
+
       function setslides() {
         prev.src = imgname + indexPrev + ext;
         current.src = imgname + indexCurrent + ext;
         next.src = imgname + indexNext + ext;
+
+        setDots();
       } 
 
       function slidePrev() {
@@ -101,6 +113,17 @@
 
         // set innerHTML of slideshow[i]
         slideshow[i].innerHTML = "<img onclick='slidePrev()' id='slideshow-previous'><img id='slideshow-current'><img onclick='slideNext()' id='slideshow-next'></div>";
+        
+        var node = document.querySelector(".slideshow"),
+             ele = document.createElement("div");
+
+        ele.className = "slideshow-indicator";
+        
+        for (var j = 0; j < numslides; j++) {
+          ele.innerHTML+= "<div class='dot'></div>";
+        }
+
+        node.parentNode.insertBefore(ele, node.nextSibling);
 
         var prev = document.getElementById("slideshow-previous");
         var current = document.getElementById("slideshow-current");
@@ -144,6 +167,8 @@
 
         e.preventDefault();
       };
+
+
 
 
 

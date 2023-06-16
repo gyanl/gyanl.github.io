@@ -153,6 +153,20 @@ img {
   overflow-x: hidden;
 }
 
+.dot{
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  border-radius: 8px;
+  margin: 0 4px;
+  background-color: var(--accent-color-light);
+  transition: .2s;
+}
+
+.active{
+  background-color: var(--accent-color);
+}
+
 #slideshow-previous{
   opacity: .5;
 }
