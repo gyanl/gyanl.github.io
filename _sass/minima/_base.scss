@@ -22,13 +22,20 @@ ul {
 }
 
 sup{
-  padding: 1px 4px;
+  padding: 0 4px;
+  margin: 0 0 0 2px;
   background-color: var(--accent-color-light);
   border-radius: 3px;
   font-weight: bold;
   display: inline-block;
   vertical-align: baseline;
+  transform: translateY(-2px);
 }
+
+sup a{
+  border-bottom: none !important; 
+}
+
 
 /**
  * Remove blue highlights on mobile
