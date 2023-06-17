@@ -2,7 +2,7 @@
 layout: post
 title: Plug The Breach
 subtitle: Working on a data breach tracker with Internet Freedom Foundation
-tags: UIUX
+tags: uiux
 thumbnail: https://gyanl.com/assets/thumbs/breach.png
 date modified: 17-06-2023
 ---
