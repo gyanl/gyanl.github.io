@@ -152,7 +152,7 @@
         // var current = document.getElementById("slideshow-current");
         // var next = document.getElementById("slideshow-next");
 
-        // setslides();
+        setdots();
       }
 
       var container = document.querySelector(".slideshow");
@@ -176,13 +176,13 @@
 
         var diffX = initialX - currentX;
 
-          if (diffX > 0) {
+          if (diffX > 40) {
             // swiped left
-            slideNext();
+            slideHandler(indexPrev);
             console.log("swiped left");
-          } else {
+          } else if (diffX < -40) {
             // swiped right
-            slidePrev();
+            slideHandler(indexNext);
             console.log("swiped right");
           }
 

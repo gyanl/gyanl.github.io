@@ -203,8 +203,18 @@ img {
 .slideshow > img{
   margin: 16px 12px 8px 12px;
   width: 720px;
-  transition: .6s;
+  // transition: .6s;
   z-index: 1;
+  animation: widen .25s;
+}
+
+@keyframes widen {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 
