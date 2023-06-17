@@ -153,11 +153,11 @@
 
         var diffX = initialX - currentX;
 
-          if (diffX > 0) {
+          if (diffX > 40) {
             // swiped left
             slideNext();
             console.log("swiped left");
-          } else {
+          } else if (diffX < -40) {
             // swiped right
             slidePrev();
             console.log("swiped right");
