@@ -30,8 +30,6 @@ I started my first job as a UX Designer at Microsoft soon after finishing my Mas
 
 ![OneNote for Android](https://gyanl.com/assets/microsoft-onenote-dictation-0.jpg)![OneNote for Android](https://gyanl.com/assets/microsoft-onenote-dictation-1.jpg)
 
-###### OneNote for Android
-
 - OneNote on mobile devices has a sticky notes for quickly capturing information, as well as fully fledged OneNote notebooks. I conducted user studies to find out how people use voice technologies to capture thoughts - from using recorded memos as reminders, to students recording lectures to review later. 
 - I worked with the OneNote team to introduce voice as a new input method for both sticky notes and Onenote notebooks.
 

@@ -201,10 +201,14 @@ img {
 }
 
 .slideshow > img{
-  margin: 16px 12px 8px 12px;
+  margin: 16px 12px 0px 12px;
   width: 720px;
   transition: .6s;
   z-index: 1;
+}
+
+.slideshow-indicator{
+  margin-bottom: $spacing-unit;
 }
 
 
