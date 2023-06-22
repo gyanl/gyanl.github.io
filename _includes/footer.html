@@ -54,11 +54,15 @@
       }
 
       function setslides() {
+        setDots();
+        slideshow[0].style.transform = "translateY(calc(80vw + 16px))";
+
+        setTimeout ( function(){
         prev.src = imgname + indexPrev + ext;
         current.src = imgname + indexCurrent + ext;
         next.src = imgname + indexNext + ext;
-
-        setDots();
+        }, 100);
+        
       } 
 
       function slidePrev() {
