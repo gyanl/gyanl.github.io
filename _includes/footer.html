@@ -140,27 +140,35 @@ class Slideshow {
 
   startTouch(e) {
     this.initialX = e.touches[0].clientX;
+    this.initialY = e.touches[0].clientY;
   }
 
   moveTouch(e) {
-    if (this.initialX === null) {
+    if (this.initialX === null || this.initialY === null) {
       return;
     }
 
-    var currentX = e.touches[0].clientX;
-    var diffX = this.initialX - currentX;
+    let diffX = e.touches[0].clientX - this.initialX;
+    let diffY = e.touches[0].clientY - this.initialY;
+
+    // Don't trigger if the swipe isn't horizontal or the x offset is less than 20.
+    if (Math.abs(diffX) < Math.abs(diffY) || Math.abs(diffX) < 20) {
+      return;
+    }
+
+    // Prevent vertical scroll when a horizontal swipe is detected.
+    e.preventDefault();
 
     if (diffX > 0) {
-      // swiped left
-      this.slideNext();
-      console.log("swiped left");
-    } else if (diffX < 0) {
-      // swiped right
-      this.slidePrev();
-      console.log("swiped right");
+      // Swiped left.
+      this.updateSlides(-1);
+    } else {
+      // Swiped right.
+      this.updateSlides(1);
     }
 
     this.initialX = null;
+    this.initialY = null;
   }
 }
 
