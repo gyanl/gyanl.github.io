@@ -168,11 +168,11 @@ img {
 }
 
 #slideshow-previous{
-  opacity: .5;
+  opacity: .75;
 }
 
 #slideshow-next{
-  opacity: .5;
+  opacity: .75;
 }
 
 #slideshow-previous::after{
@@ -236,12 +236,14 @@ img {
 
 .move-right{
   transition: .3s;
+  opacity: 1 !important;
   transform: translateX(-744px);
 }
 
 .move-left{
   transition: .3s;
   transform: translateX(744px);
+  opacity: 1 !important;
 }
 
 @media screen and (max-width: $on-palm) {
