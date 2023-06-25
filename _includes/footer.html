@@ -55,17 +55,30 @@
 
       function setslides() {
         setDots();
-        // slideshow[0].style.transform = "translateX(calc(80vw - 50% + 16px))";
 
         setTimeout ( function(){
+
         prev.src = imgname + indexPrev + ext;
         current.src = imgname + indexCurrent + ext;
         next.src = imgname + indexNext + ext;
-        }, 10);
-        
+
+        prev.classList.remove("move-right");
+        current.classList.remove("move-right");
+        next.classList.remove("move-right");
+
+        prev.classList.remove("move-left");
+        current.classList.remove("move-left");
+        next.classList.remove("move-left");
+
+        }, 300);
       } 
 
       function slidePrev() {
+
+        prev.classList.add("move-left");
+        current.classList.add("move-left");
+        next.classList.add("move-left");
+
         if (indexPrev == 0) {
           indexPrev = numslides - 1;
         } else {
@@ -88,6 +101,11 @@
 
 
       function slideNext() {
+
+        prev.classList.add("move-right");
+        current.classList.add("move-right");
+        next.classList.add("move-right");
+
         indexPrev = (indexPrev + 1)%numslides;
         indexCurrent = (indexCurrent + 1)%numslides;
         indexNext = (indexNext + 1)%numslides;
