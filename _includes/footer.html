@@ -58,10 +58,6 @@
 
         setTimeout ( function(){
 
-        prev.src = imgname + indexPrev + ext;
-        current.src = imgname + indexCurrent + ext;
-        next.src = imgname + indexNext + ext;
-
         prev.classList.remove("move-right");
         current.classList.remove("move-right");
         next.classList.remove("move-right");
@@ -69,6 +65,10 @@
         prev.classList.remove("move-left");
         current.classList.remove("move-left");
         next.classList.remove("move-left");
+
+        prev.src = imgname + indexPrev + ext;
+        current.src = imgname + indexCurrent + ext;
+        next.src = imgname + indexNext + ext;
 
         }, 300);
       } 
