@@ -34,161 +34,139 @@
 
   </div>
   <script>
-      // get all <p> tags with class="slideshow"
-      var slideshow = document.getElementsByClassName("slideshow");
-      var numslideshows = slideshow.length;
-      console.log(numslideshows + " slideshows found");
 
-      var indexPrev = 0;
-      var indexCurrent = 1;
-      var indexNext = 2;
+      
 
-      function setDots() {
-        var dots = document.getElementsByClassName("dot");
-        // remove active class from all dots
-        for (var i = 0; i < dots.length; i++) {
-          dots[i].classList.remove("active");
-        }
-        // add active class to current dot
-        dots[indexCurrent].classList.add("active");
+
+
+class Slideshow {
+  constructor(element) {
+    this.element = element;
+    this.slides = this.element.getElementsByTagName("img");
+    this.numslides = this.slides.length;
+    this.indexPrev = 0;
+    this.indexCurrent = 1;
+    this.indexNext = 2 % this.numslides;
+
+    const src = this.slides[0].src;
+    this.imgname = src.substring(0, src.length-5);
+    this.ext = src.substring(src.length-4, src.length);
+
+    this.element.innerHTML = "<img class='slideshow-previous'><img class='slideshow-current'><img class='slideshow-next'>";
+
+    this.prev = this.element.querySelector(".slideshow-previous");
+    this.current = this.element.querySelector(".slideshow-current");
+    this.next = this.element.querySelector(".slideshow-next");
+
+    this.prev.addEventListener('click', () => this.slidePrev());
+    this.next.addEventListener('click', () => this.slideNext());
+
+    // Create slideshow-indicator div outside of the slideshow div
+    this.indicator = document.createElement("div");
+    this.indicator.className = "slideshow-indicator";
+    this.element.parentNode.insertBefore(this.indicator, this.element.nextSibling);
+
+    for (var j = 0; j < this.numslides; j++) {
+      this.indicator.innerHTML+= "<div class='dot'></div>";
+    }
+
+    this.dots = this.indicator.getElementsByClassName("dot");
+
+    this.setslides();
+
+    this.element.addEventListener("touchstart", this.startTouch.bind(this), false);
+    this.element.addEventListener("touchmove", this.moveTouch.bind(this), false);
+  }
+
+
+  setDots() {
+    if(this.dots.length > 0){
+      for (var i = 0; i < this.dots.length; i++) {
+        this.dots[i].classList.remove("active");
       }
+      this.dots[this.indexCurrent].classList.add("active");
+    }
+  }
 
-      function setslides() {
-        setDots();
+  setslides() {
+    this.setDots();
 
-        setTimeout ( function(){
+    setTimeout(() => {
+      ['move-right', 'move-left'].forEach(className => {
+        this.prev.classList.remove(className);
+        this.current.classList.remove(className);
+        this.next.classList.remove(className);
+      });
 
-        prev.classList.remove("move-right");
-        current.classList.remove("move-right");
-        next.classList.remove("move-right");
+      this.prev.src = this.imgname + this.indexPrev + this.ext;
+      this.current.src = this.imgname + this.indexCurrent + this.ext;
+      this.next.src = this.imgname + this.indexNext + this.ext;
+    }, 300);
+  } 
 
-        prev.classList.remove("move-left");
-        current.classList.remove("move-left");
-        next.classList.remove("move-left");
-
-        prev.src = imgname + indexPrev + ext;
-        current.src = imgname + indexCurrent + ext;
-        next.src = imgname + indexNext + ext;
-
-        }, 300);
-      } 
-
-      function slidePrev() {
-
-        prev.classList.add("move-left");
-        current.classList.add("move-left");
-        next.classList.add("move-left");
-
-        if (indexPrev == 0) {
-          indexPrev = numslides - 1;
-        } else {
-          indexPrev = indexPrev - 1;
-        }
-
-        if (indexCurrent == 0) {
-          indexCurrent = numslides - 1;
-        } else {
-          indexCurrent = indexCurrent - 1;
-        }
-
-        if (indexNext == 0) {
-          indexNext = numslides - 1;
-        } else {
-          indexNext = indexNext - 1;
-        }
-        setslides();
-      }
+  slidePrev() {
+    ['prev', 'current', 'next'].forEach(el => this[el].classList.add('move-left'));
 
 
-      function slideNext() {
+    if (this.indexPrev == 0) {
+      this.indexPrev = this.numslides - 1;
+    } else {
+      this.indexPrev = this.indexPrev - 1;
+    }
 
-        prev.classList.add("move-right");
-        current.classList.add("move-right");
-        next.classList.add("move-right");
+    if (this.indexCurrent == 0) {
+      this.indexCurrent = this.numslides - 1;
+    } else {
+      this.indexCurrent = this.indexCurrent - 1;
+    }
 
-        indexPrev = (indexPrev + 1)%numslides;
-        indexCurrent = (indexCurrent + 1)%numslides;
-        indexNext = (indexNext + 1)%numslides;
-        setslides();
-      }
+    if (this.indexNext == 0) {
+      this.indexNext = this.numslides - 1;
+    } else {
+      this.indexNext = this.indexNext - 1;
+    }
+    this.setslides();
+  }
 
-      // console.log every slideshow
-      for (var i = 0; i < numslideshows; i++) {
-        // get every img tag in slideshow
-        var slides = slideshow[i].getElementsByTagName("img");
-        var numslides = slides.length;
-        console.log("slideshow " + i + " has " + numslides + " slides");
+  slideNext() {
+    ['prev', 'current', 'next'].forEach(el => this[el].classList.add('move-right'));
 
-        indexNext = 2%numslides; console.log("Next = " + indexNext);
-        console.log(indexPrev + " " + indexCurrent + " " + indexNext);
 
-        // get img src of slides[0]
-        var src = slides[0].src;
+    this.indexPrev = (this.indexPrev + 1)%this.numslides;
+    this.indexCurrent = (this.indexCurrent + 1)%this.numslides;
+    this.indexNext = (this.indexNext + 1)%this.numslides;
+    this.setslides();
+  }
 
-        // get imgname and extension
+  startTouch(e) {
+    this.initialX = e.touches[0].clientX;
+  }
 
-        var imgname = src.substring(0, src.length-5);
-        console.log("Name of image: " + imgname); 
+  moveTouch(e) {
+    if (this.initialX === null) {
+      return;
+    }
 
-        var ext = src.substring(src.length-4, src.length);
-        console.log("File ext: " + ext); 
+    var currentX = e.touches[0].clientX;
+    var diffX = this.initialX - currentX;
 
-        // set innerHTML of slideshow[i]
-        slideshow[i].innerHTML = "<img onclick='slidePrev()' id='slideshow-previous'><img id='slideshow-current'><img onclick='slideNext()' id='slideshow-next'></div>";
-        
-        var node = document.querySelector(".slideshow"),
-             ele = document.createElement("div");
+    if (diffX > 0) {
+      // swiped left
+      this.slideNext();
+      console.log("swiped left");
+    } else if (diffX < 0) {
+      // swiped right
+      this.slidePrev();
+      console.log("swiped right");
+    }
 
-        ele.className = "slideshow-indicator";
-        
-        for (var j = 0; j < numslides; j++) {
-          ele.innerHTML+= "<div class='dot'></div>";
-        }
+    this.initialX = null;
+  }
+}
 
-        node.parentNode.insertBefore(ele, node.nextSibling);
+var slideshows = document.getElementsByClassName("slideshow");
+Array.from(slideshows).forEach(slideshow => new Slideshow(slideshow));
 
-        var prev = document.getElementById("slideshow-previous");
-        var current = document.getElementById("slideshow-current");
-        var next = document.getElementById("slideshow-next");
-
-        setslides();
-      }
-
-      var container = document.querySelector(".slideshow");
-
-      container.addEventListener("touchstart", startTouch, false);
-      container.addEventListener("touchmove", moveTouch, false);
-
-      // Swipe Up / Down / Left / Right
-      var initialX = null;
-
-      function startTouch(e) {
-        initialX = e.touches[0].clientX;
-      };
-
-      function moveTouch(e) {
-        if (initialX === null) {
-          return;
-        }
-
-        var currentX = e.touches[0].clientX;
-
-        var diffX = initialX - currentX;
-
-          if (diffX > 0) {
-            // swiped left
-            slideNext();
-            console.log("swiped left");
-          } else if (diffX < 0) {
-            // swiped right
-            slidePrev();
-            console.log("swiped right");
-          }
-
-        initialX = null;
-
-        // e.preventDefault();
-      };
 
 
 
