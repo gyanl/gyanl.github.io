@@ -171,8 +171,16 @@ img {
   opacity: .75;
 }
 
+.slideshow-previous:hover{
+  opacity: 1;
+}
+
 .slideshow-next{
   opacity: .75;
+}
+
+.slideshow-next:hover{
+  opacity: 1;
 }
 
 .slideshow-previous::after{
@@ -190,13 +198,6 @@ img {
   z-index: 2;
 }
 
-.slideshow-previous:hover{
-  opacity: 1;
-}
-
-.slideshow-next:hover{
-  opacity: 1;
-}
 
 .slideshow > img{
   margin: 20px 12px 0px 12px;
