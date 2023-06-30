@@ -217,3 +217,15 @@ layout: default
     </p> -->
   </div>
 </div>
+
+<script>
+  // loop to iterate through every div with class post-item
+var postItems = document.getElementsByClassName("post-item");
+var delay = .05;
+// for each post item, add an animation delay of .05*n seconds
+for (var i = 0; i < postItems.length; i++) {
+  postItems[i].style.animationDelay = delay + "s";
+  delay += .05;
+}
+
+</script>
