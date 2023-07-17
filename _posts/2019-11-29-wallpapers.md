@@ -28,3 +28,13 @@ I got really into glitch art, and made this using pixel sorting.
 
 ![Pixel city](https://gyanl.com/assets/pixelcity.png)
 ###### <a href="https://gyanl.com/assets/pixelcity.png" download>Download</a>
+
+
+### Skateboard
+
+Midjourney prompt hacking. My prompt was “Abstract elements in cool, saturated neon gradients on a dark background, flowing layers of materials with reflections, holographic iridescent glass, shadows, 8k, hd render, masterpiece, space themed --s 750 --weird 3000 --ar 16:9”
+
+![Pixel city](https://gyanl.com/assets/skateboard-4k.png)
+###### <a href="https://gyanl.com/assets/skateboard-4k.png" download>Download</a>
+
+
