@@ -21,7 +21,7 @@ permalink: "codeday"
 - [Sign up for Figma](https://www.figma.com/signup?locale=en)
 - Either run it in the browser or optionally [download Figma for Mac/Windows](https://www.figma.com/downloads/)
 - Download the Figma Mirror mobile app for [Android](https://play.google.com/store/apps/details?id=com.figma.mirror)/[iOS](https://apps.apple.com/app/figma-mirror/id1152747299) (fair warning the Android app can be a bit buggy)
-- Open this file: [Rapid Prototyping in Figma - Workshop](https://www.figma.com/file/C2CRd3mXBcyL2ySwBASqVp/Figma-Basics?node-id=0%3A1)
+- Open this file: [Link](https://www.figma.com/file/ekpDzSICk6p5LeMRpD1pZz/Code-Day-Delhi---Design-Workshop?type=design&node-id=11%3A60&mode=design&t=hL14Q2U7H6yOJx5f-1)
 
 ## It's good to fail
 
