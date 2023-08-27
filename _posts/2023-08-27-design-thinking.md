@@ -5,7 +5,7 @@ subtitle: Everyone can be creative
 tags: talks
 thumbnail: https://gyanl.com/assets/thumbs/designthinking.png
 date modified: 27-08-2023
-permalink: codeday
+permalink: "codeday"
 ---
 
 > This is some of my material for my talk on Design Thinking at Code Day Delhi at IIT Delhi. 
