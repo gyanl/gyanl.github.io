@@ -4,20 +4,13 @@ title: Design Thinking
 subtitle: Everyone can be creative
 tags: talks
 thumbnail: https://gyanl.com/assets/thumbs/designthinking.png
-date modified: 27-08-2023
+date modified: 29-08-2023
 permalink: "codeday"
 ---
 
 > This is some of my material for my talk on Design Thinking at Code Day Delhi at IIT Delhi. 
 
-
-
-## The double diamond design process
-- Research/exploring the problem space
-- Picking a narrow problem statement
-- Divergent ideation
-- Converge on a single solution
-## Setup
+## Figma Setup
 - [Sign up for Figma](https://www.figma.com/signup?locale=en)
 - Either run it in the browser or optionally [download Figma for Mac/Windows](https://www.figma.com/downloads/)
 - Download the Figma Mirror mobile app for [Android](https://play.google.com/store/apps/details?id=com.figma.mirror)/[iOS](https://apps.apple.com/app/figma-mirror/id1152747299) (fair warning the Android app can be a bit buggy)
@@ -32,6 +25,11 @@ You find an underground bunker and work non-stop for 6 months. You don't shower,
 - When testing solutions, it's good to fail as early in the process as possible - make quick and dirty prototypes, learn from them, and then iterate.
 - Building digital products out in code takes time and effort, creating lower fidelity prototypes is a faster way to validate ideas.
 
+## The double diamond design process
+- Research/exploring the problem space
+- Picking a narrow problem statement
+- Divergent ideation
+- Converge on a single solution
 
 ## Levels of prototyping fidelity
 
