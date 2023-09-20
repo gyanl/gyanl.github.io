@@ -10,30 +10,8 @@ date modified: 20-09-2023
 
 ![HackIndia banner](https://gyanl.com/assets/freestand-logo.png)
 
+###### Check out the website at <www.freestand.in>
+
 ![HackIndia banner](https://gyanl.com/assets/freestand-app-icon.png)
 
-###### Check out the website at <https://kea.ai/>
-
-Kea is a Voice AI startup that helps restaurants accept phone orders without needing a human to answer the phone and transcribe the order. Their technology directly integrates with Point-Of-Sales (POS) systems, and phone orders show up at the restaurant as tickets similiar to online orders.
-
-I worked with [Kea](www.kea.ai) to develop a brand identity for their startup, marketing material for pitches to early clients, and contributed to the UI Design for their internal and customer-facing websites.
-
-![Kea logo and Phone with kea website](https://gyanl.com/assets/kea-brand.png)
-
-###### The branding leaned towards making Kea feel friendly and efficient, and was pitched as easy to integrate with existing workflows while saving on dull, repetitive labor.
-
-![Kea logo and icon](https://gyanl.com/assets/kea-logo-icon.png)
-
-###### The logo uses a red dot to indicate recording, and bold, lowercase typography for a friendly, modern appearance. I designed dark and light versions of the logo in rectangular and square versions for use in different situations.
-
-![Colors and Typography](https://gyanl.com/assets/kea-color-type.png)
-
-###### The logo uses League Spartan, and text is typeset in Rubik.
-
-![Business Card](https://gyanl.com/assets/kea-card.png)
-
-###### Business card sample
-
-![Pizza/Pisa](https://gyanl.com/assets/kea-pizza.png)
-
-###### Oops: an error state illustration showing a pizza/Pisa mixup.
+###### Explorations for app icon
