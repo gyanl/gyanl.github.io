@@ -16,5 +16,6 @@
   "promptDelete": false,
   "legacyEditor": false,
   "livePreview": true,
-  "foldHeading": false
+  "foldHeading": false,
+  "propertiesInDocument": "source"
 }
