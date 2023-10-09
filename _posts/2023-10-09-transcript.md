@@ -8,7 +8,7 @@ date modified: 09-10-2023
 ---
   
 
-##### Kinnari (Moderator)
+###### Kinnari (Moderator)
 
 We're very happy to see so many young professionals joining us today. Without further ado, let's begin with the most awaited event of the evening.
 
@@ -28,56 +28,111 @@ Now, let's discuss the rules. We will give one allegation per team, and the othe
 
 Thank you for joining us on the panel. I'm supporting Team Developers. Who else is in for Team Developers? (Laughter) Okay, okay. So, I think AJ sir, if he's around, was also supporting Team Developers. For those who don't know, AJ sir has a B.Tech in Computer Science from IIT Bombay. So, when he comes here, he'll be supporting Team Developers, not Team Designers. Let's hand it over to Bhavna, who will also be the moderator for the event. Over to you, Bhavna, the limelight is all yours.
 
-##### Bhavna (Moderator)
+###### Bhavna (Moderator)
 
-We'll start with Team Designers and Team Developers. The first allegation from designers to developers is that you occasionally prioritize speed over quality, leading to rushed solutions. Designers, you'll have the opportunity to add to this allegation before developers justify themselves. The same goes for developers; you can add to the allegations before designers defend themselves.
+We'll start with Team Designers and Team Developers. The first allegation from designers to developers is that **you occasionally prioritize speed over quality, leading to rushed solutions.** Designers, you'll have the opportunity to add to this allegation before developers justify themselves. The same goes for developers; you can add to the allegations before designers defend themselves.
 
-##### Divya (Designer)
+###### Divya (Designer)
 
 Sure, I can go first. There have been instances where we have an ideal scenario with everything ready on our end: all the Figma files, documentation, etc. We hand them off to developers, and the first reaction is often, "We can’t do this," or "That's not possible." Sometimes, it's not even a matter of possibility; it's just that it will take too much time or is deemed impossible. This compromise impacts the quality and overall product experience. The end-user doesn't care about our technical constraints; they just want to use the product. That's how some of the projects I've worked on have panned out.
 
-##### Gyan (Designer)
+###### Gyan (Designer)
 
 Let me go next. I understand the need for speed in fast-paced environment. There’s always constraints with time. Something I would like to hear from you is, about the accumulation of design debt over time when we keep prioritizing speed over quality? And do you think there are instances where it's justified to prioritize speed over quality?
 
-##### Nagaraj (Developer)
+###### Nagaraj (Developer)
 
 Yeah, it's a valid point, and this is our business scenario. We need to deliver more to get more user trials. The demand has changed; people are now waiting for new features and we're catering to different market segments. By rushing solutions and prioritizing time-to-market, we can get the feedback we need to improve. That would be one reason why we might prioritize speed over quality.
 
 So, I'm not saying quality is not important, but quality is not the only thing, right? We need to provide solutions as well. It has to be through several iteration cycles to get to know user opinions and market trends. Only then can we develop a good solution over time.
 
-##### Ayush (Developer)
+###### Ayush (Developer)
 
 I'd like to add to this. Perfection is rarely achieved in the first round. It takes several iterations. You need to understand user opinions in the market. Only then you can have a good solution over time.
 
-##### Nikhil (Developer)
+###### Nikhil (Developer)
 
 There's something called a POC (Proof of Concept). First, we need a POC. If you're not launching something in the market, what's the point? Products need to be monetized. Many products are coming into the market one by one, but those that launch first get more attention. Bard came after ChatGPT, but ChatGPT got more attention. Why? Because it was launched first. They’ll keep improving - 3.5, 4, 4.5 will come along. Launching first gives you a strong foothold in the market.
 
+###### Kinnari (Moderator)
+
+So we have developers here, right? How many of you all are supporting team developers or have worked as developers? Yeah, so you would definitely like to take this.
+
+###### Manish (Audience)
+
+Everything in tech, business, product—everything is about trade-offs. What trade-offs are you ready to make? Sometimes you want to achieve quality, you want to make a product perfect, but there's no such thing as perfect. You crave for perfection but lose your customer in the end. So sometimes, in design or some things, you have to compromise. As Nikhil said, we are actively getting feedback about how the product is doing as part of business and monetization. Then we can make incremental releases, but definitely quality is one thing you have to maintain consistently, so that's also a considerable point.
+
+###### Kinnari (Moderator)
+
+Thanks a lot, Manish. Let's give it to team designers now. Let's have some claps going on!
+
+###### Bhavna (Moderator)
+
+Designers, if you have more points, you can bring them up. 
+
+###### Gyan (Designer)
+
+I understand the point of first building a minimum viable product, getting it to market, getting feedback. Iterating—the first version doesn't need to be perfect. Done is definitely better than perfect. Also, when you're a team with limited resources and a limited number of engineering hours, you are going to try and optimize for time. For any given task, there's an effort required and an impact you think it might achieve. 
+
+I feel the challenge is that anything that has low impact just gets ignored altogether. Anything that's high impact but low effort gets done immediately. That's what you tend to focus on. And anything that's high effort and high impact, you put in the backlog and then never get to. So there are certain things which would make a real impact on the user experience, but because they will take effort to understand, they are difficult challenges, it feels like a lot of times we just never get to those things, and then they remain a user pain point forever. Any thoughts on that?
+
+###### Nikhil (Developer)
+
+So, you talked about the backlog we are creating. If the feature or the experience is of that much importance, then we'll get that feedback from the ground. If the product requires that, then it will become a P0 point, a top priority. We are constantly getting feedback, so if we have pushed some things to backlog and we are getting that priority, we will eventually develop that. We will not push all design feedbacks or all design things, experience-wise, to the backlog. We have to prioritize because there are many things that are crucial—security-related features, production situations—so we have to compromise on something. 
+
+###### Nagaraj (Developer)
+
+We also have to see how many people we are actually blocking. If development teams are able to progress, then only will the next cycle or phase start. There are also other scenarios. It's not always just about low effort and high importance. It's also about how frequently you are about to use that feature, based on different market analyses. Even those scenarios would come into the picture.
+
+###### Nikhil (Developer)
+
+There's an 80-20 concept; if 80% of people are using only 20% of features, we focus more on those.
+
+###### Divya (Designer)
+
+I want to add something to conclude. As designers, we can be idealistic because of the nature of our craft. We don’t build the things, the engineers do, but we envision how they could be, and sometimes that may not be feasible to code. So what’s worked for us - and this remains a debate in design - if designers understand the conceptual model of how code works, that can help bridge the gap between idealism and pragmatism. This helps in presenting more effective designs that can actually be developed.
+
+###### Bhavna (Moderator)
+
+So, are you ready for the next allegation? It's an allegation against designers from the developers. The allegation is that **designers create visually appealing designs that are difficult to implement within the given timeline**. Before designers start answering, developers would you like to add anything to the allegation?
+
+###### Nagaraj (Developer)
+
+Yes, I would like to give an example: look at the advent of VFX in movies like Bahubali or Openheimer. These effects are stunning, and they make you go wow. But applying such concepts everywhere is impractical. If you were to do it in say a web application, it would involves complex layering, software, and hardware enhancements. We cannot do this all the time.
+
+###### Nachiket (Designer)
+
+I understand the concerns, but as designers, we're taught to think outside the box. Our job is to create delightful experiences for users and stay ahead in the market. This innovative approach can impact the technical side, but without pushing these boundaries, exponential growth in various industries like e-commerce would be difficult. Sometimes it's our job to push the technical constraints to deliver a better experience for the user.
+
+
+
+
+
+
+that help businesses thrive. Sometimes these designs do challenge technical feasibility, but pushing those boundaries can also result in exponential growth. Technologies like AR and VR were once considered too futuristic, but now they're becoming a reality. Our job is to keep pushing the envelope to deliver better experiences for the user.
+
 https://www.youtube.com/live/nWLDTyY4z2w?si=L10hfBkz4IxBeMYv&t=7636
 
-##### (Developer)
+The following is an automatically generated transcript from a panel between developers and designers. Clean up the text and fix possible transcription mistakes, but keep as much of the original text as possible. Mark speakers with ###### Speakername when possible. Do not provide follow up questions.
+
+###### (Developer)
 
 It's more about trade-offs in tech, business, and product. You have to decide what trade-off you're willing to make. Sometimes you aim for perfection but lose your customers in the end. Compromises have to be made, but as we receive feedback on how the product is doing as part of the business and monetization strategy, we can make incremental releases. However, maintaining quality consistently is also a considerable point.
 
-##### Moderator
+###### Moderator
 
 Thanks, thanks a lot, Manish. Let's give it to team designers now, let's have some collabs going on.
 
-##### Designer1
+###### Designer1
 
 I understand the point of building an MVP (Minimum Viable Product) first and getting it to market. We're a team with limited resources, so we try to focus on tasks that are high impact but low effort, leaving things in the backlog that are high effort and high impact. Those tasks can improve the user experience but often get ignored, causing persistent pain points for users.
 
-##### Developer5
+###### Developer5
 
 If a feature or experience is important, we'll get that feedback from the ground. Those items become priority zero and need to be developed immediately to prevent product failure. We have to prioritize, especially when dealing with crucial security-related features or production situations. We also focus on unblocking development teams to keep the cycle moving forward.
 
-##### Developer6
+###### Developer6
 
-We take into account not just low effort and high importance, but also feature frequency and market analysis. There's an 80-20 concept; if 80% of people are using only 20% of features, we focus more on those.
-
-##### Designer2
-
-As designers, we can be idealistic. We envision things that may not be feasible to code. However, understanding the conceptual model of how code works can help bridge the gap between idealism and pragmatism. This helps in presenting more effective designs that can actually be developed.
+We take into account not just low effort and high importance, but also feature frequency and market analysis. 
 
 This discussion illustrates the tension between the priorities and approaches of designers and developers. Both sides recognize the constraints of limited resources and the need for prioritization, but they differ in their focus. Designers worry about leaving impactful but difficult tasks in the backlog, while developers prioritize based on immediate feedback and security needs.
