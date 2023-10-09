@@ -106,7 +106,67 @@ Yeah, so I understand where you're coming from, but as designers, we're taught a
 
 #### Divya (Designer)
 
-I would also like to unpack what visually good design is. As designers we’re taught a very old philosophy that "form follows function." Functionality should be in place, and then the form scaffolds over it. 
+I would also like to unpack what visually good design is. Because as designers, we are taught a very old philosophy, which is 'form follows function.' Your functionality should be in place, and then the form sort of scaffolds over it. There are projects where you can do a minimum viable experience—do it in Comic Sans font if you want to and make the buttons clickable. But some products do need that high level of fidelity. You can't compromise on visual design or aesthetics there because maybe competitors are doing way better, and you need to get it out there. Creating something that's not visually appealing will not engage users, which becomes a tricky situation with the dev teams. We know that this will increase build time, but it will also increase the number of people who are using the product or engaging with the product.
+
+#### Nikhil (Developer)
+
+User experience that increases the product usage, which comes up into the picture after a long amount of time. This means if we are scaling something or if we are improving something at that point, correct? So, in the first phase, feature-wise, there are sometimes some things that are not needed but have been placed into that particular domain. There are times when we try to convince designers that this should not be in this particular domain. Then why are we considering it? They come with the argument that they have been in the market, they have researched it, and know that it is important. It can create some kind of droppable situation for users if there is some user experience around it that we've created. Say we added an animation, but user is not waiting for that value. Some sort of optimization needs to be done if a search box is wasting more resources than the total amount generated on that particular platform. Then what’s the use of that?
+
+#### Gyan (Designer)
+
+I think what you're saying is sometimes there's no reason for some kinds of visual enhancements to exist. There’s no reason for something to animate in, or there’s no reason for a button to have extra ornamentation. And in those cases I’m completely aligned with you. If we're doing something that actually degrades the user experience, then that's just bad design. If you're building something that actively harms the user experience, I also agree it's a mistake. Obviously, you try your best to not end up in those scenarios. We try to do user research and make sure that what we're building is actually required by users. Otherwise, you don’t have product-market fit, nobody will use what you built, and your product will die.
+
+However, I think maybe the original allegation was that visually appealing designs take time to create. Something I find interesting these days is that Design tools are moving more and more towards code. For instance, if you use Figma, it has variables, and components variants that can represent different states. You can animate between a hover state and a click state. You can use variables that affect other components. Design prototypes are approaching the complexity of code. Webflow can generate responsive websites. Even with Figma, you can get designs detailed to a degree where you can maybe use a plug-in and export it as working code. So sometimes it becomes difficult for me to understand why it can't be implemented if I can do it in the design software that maps one-to-one with how something gets implemented. The tools can export CSS values and motion curves and animations can play back in reasonable file sizes with Lottie.
+
+#### Nagaraj (Developer)
+
+You’re put across a good point, and I hear the same thing from a lot of designers. What is the configuration of the system where the Designer runs Figma tool or any other software designers use to design and play back? It’s probably a high-end processor, but that's not the end-user environment. We are not going to give Macs and iPhones to everyone. We’re in a market where UPI Lite is also successful, right? We have to consider a range of devices from very low end segment to very high end segment. Lottie is a great example where we are bringing down the speed of execution when an animation is playing and some other process is also coming in a printer or a small embedded phone. The moment we say embedded, we need to have a definite response time - the user cannot wait two minutes, usually we’re talking in seconds. So with these consraints, we cannot deliver rich experiences on all platforms. That is our major concern whenever we say it's difficult to implement because the visual aspect would take up almost all of the CPU, leaving less for the actual business logic.
+
+#### Bhavna (Moderator)
+
+So I guess we can conclude that designers are getting better tools for their creative expressions compared to developers. 
+
+#### Nagaraj (Developer)
+
+We need to be creative; otherwise, we will continue the same experience for decades. But we also need to consider the environment or domain where it is going to be applied.
+
+#### Gyan (Designer)
+
+Bhavna I think I see what you’re doing there and I’m going to add something. I understand wanting everyone to have an experience that works, and if your experience doesn’t work at all on low end devices then that’s also bad. But I also don’t think you shouldn't only design for the worst possible device and not have progressive enhancements for better devices. I don't think we’re at the point where animating a little button will take up 100% of the CPU. We can have some nice things; I think we deserve a little treat now and then. A little explosive animation when you subscribe to a channel. I think we can have that much fun.
+
+#### Nagaraj (Developer)
+
+Phone? I don't think so, yeah. I'm not saying in respect to phones. I'm working with printers these days. During a job, if there are heavy animations, the printer is going to hang in a medium—not in a high end. So in a high-end environment, you can do more animations, but there are different environments, exactly.
+
+#### Gyan (Designer)
+
+Fair enough. 
+
+#### Kinnari (Moderator)
+
+I think Manish also has something to add.
+
+#### Manish (Audience)
+
+Thanks. Just to add, we are concerned about this because there's Google page ranking. When you search something, your website should come up first. What devs want is for you to be searchable, to be number one. And that's based on how fast your page loads. That little animation that you added increased page load by 2 seconds, and dropped our ranking to 10. So, now whenever somebody searches, they get nine other products in the market, and your system falls behind. That's one concern that devs have.
+
+#### Ayush (Developer)
+
+As part of our ranking team, I can say for sure that it's not based on animations. The top pages that load up are always about relatable and filtered content. 
+
+#### Nachiket (Designer)
+
+When we talk about ranking and speed and SEO, there's also another side to consider. The majority of the audience we cater to and the businesses impacted need to realize that there are also products and services where people line up, waiting an entire day just to experience that. So the quality of experiences is equally important, if not less so, for bringing in more business.
+
+#### Divya (Designer)
+
+At the end of the day, it really depends on the sort of project you're working on. Not everything has to be super functional, and not everything has to be super aesthetic. It's highly dependent on what you're working on.
+
+#### Bhavna (Moderator)
+
+With a little trade-off here, we are moving to the next topic. But it's a really great discussion.
+
+—
 
 https://www.youtube.com/live/nWLDTyY4z2w?si=Yw5B0s6JWywEnLZd&t=8287
 
@@ -145,5 +205,3 @@ If a feature or experience is important, we'll get that feedback from the ground
 #### Developer6
 
 We take into account not just low effort and high importance, but also feature frequency and market analysis. 
-
-This discussion illustrates the tension between the priorities and approaches of designers and developers. Both sides recognize the constraints of limited resources and the need for prioritization, but they differ in their focus. Designers worry about leaving impactful but difficult tasks in the backlog, while developers prioritize based on immediate feedback and security needs.
