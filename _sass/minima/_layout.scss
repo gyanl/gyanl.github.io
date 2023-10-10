@@ -522,7 +522,7 @@ h1.post-title.p-name{
   // background: white;
   display: flex;
   // margin: 0 $spacing-unit/2 $spacing-unit 0;
-  padding: $spacing-unit/2 0;
+  padding: $spacing-unit/4 0;
   transition: 0.2s;
   border-radius: 4px;
   animation: fadeInUp .5s ease-in-out;
@@ -547,6 +547,16 @@ h1.post-title.p-name{
   width: 48px;
   height: 48px;
   margin: 0 $spacing-unit 0 0;
+  outline: 1px solid rgba(0,0,0,0.15);
+  outline-offset: -1px;
+}
+
+.thumbnail-small{
+  padding: 0;
+  border-radius: 2px;
+  width: 24px;
+  height: 24px;
+  margin: 0 $spacing-unit/2 0 0;
   outline: 1px solid rgba(0,0,0,0.15);
   outline-offset: -1px;
 }
