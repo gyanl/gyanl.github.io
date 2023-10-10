@@ -4,7 +4,8 @@ layout: post
 title: "Chana Masoor"
 subtitle: "I'm having chana dal. I'm having masoor dal. I'm having combination chana dal and masoor dal."
 tags: food
-date modified: 09-10-2023
+date modified: 10-10-2023
+date: 09-10-2023
 ---
 
 A slightly complicated dal prepared in two stages to ensure each type of dal is cooked to the right consistency.
@@ -13,7 +14,7 @@ A slightly complicated dal prepared in two stages to ensure each type of dal is 
 
 Approximately 4-5 servings (confirm)
 
-### Ingredients
+#### Ingredients
 
 - Chana Dal, 75 grams
 - Lal Masoor Dal, 75 grams

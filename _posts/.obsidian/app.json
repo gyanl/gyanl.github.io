@@ -19,5 +19,6 @@
   "foldHeading": false,
   "propertiesInDocument": "source",
   "showInlineTitle": false,
-  "showLineNumber": true
+  "showLineNumber": true,
+  "attachmentFolderPath": "./assets"
 }
