@@ -164,9 +164,43 @@ At the end of the day, it really depends on the sort of project you're working o
 
 #### Bhavna (Moderator)
 
-With a little trade-off here, we are moving to the next topic. But it's a really great discussion.
+With a little trade-off here, we are moving to the next topic. The allegation to developers is that you may not fully prioritize scalability in design, which makes future changes challenging. Designers, do you want to add something before developers start defending?
 
-—
+#### Gyan (Designer)
+
+Firstly, I'd like a clarification over what this is supposed to mean. Are we talking about scalability in being able to handle more users? If so, I'm not sure that's an allegation I've ever had for developers.
+
+#### Bhavna (Moderator)
+
+The concern is that designers design for certain use cases, but when it gets implemented, technical feasibility takes over. Future changes and scalability are often not considered, creating technical and UX debt for both teams.
+
+#### Kinnari (Moderator)
+
+I think let's have the audience also add to this now yeah sure because we have so many bright young designers here—anybody wants to add?
+
+#### Audience Member
+
+Actually, tools like Adobe XD already have scalability considerations built in. This allegation is false; the tools make it easy for development, not just for design.
+
+#### Developer 1:
+
+So the allegation is that we, as developers, are not focusing on scalability, correct? There may be some instances where this has happened in the past, but as we grow more product understanding, this issue becomes minimal.
+
+#### Developer 2:
+
+Most of my examples are from the printing world, and we do need to design for different sizes and functionalities. However, we strive to create a common behavior across all devices.
+
+#### Designer 3:
+
+I'm with the engineers here. It's hard enough to match the design specs as they are. Thinking about undefined future scalability seems a bit much.
+
+#### Developer 3:
+
+When it comes to Legacy code, if we can't make changes, it's not entirely our fault. It's a technical constraint that needs to be dealt with at a higher level.
+
+#### Designer 4:
+
+I think the design tools have become very user-friendly, making it easier for us to provide accurate CSS code for developers. The tools also help in creating better responsive and adaptive designs. Is there a gap for a similar tool for developers to speed up their processes?
 
 https://www.youtube.com/live/nWLDTyY4z2w?si=Yw5B0s6JWywEnLZd&t=8287
 
