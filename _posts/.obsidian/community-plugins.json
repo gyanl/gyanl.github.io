@@ -2,5 +2,8 @@
   "obsidian-linter",
   "obsidian-smart-typography",
   "templater-obsidian",
-  "obsidian-minimal-settings"
+  "obsidian-minimal-settings",
+  "obsidian-auto-link-title",
+  "copilot",
+  "obsidian-style-settings"
 ]
