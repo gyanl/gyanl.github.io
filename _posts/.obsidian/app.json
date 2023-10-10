@@ -18,5 +18,6 @@
   "livePreview": true,
   "foldHeading": false,
   "propertiesInDocument": "source",
-  "showInlineTitle": false
+  "showInlineTitle": false,
+  "showLineNumber": true
 }

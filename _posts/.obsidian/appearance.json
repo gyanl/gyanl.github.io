@@ -7,5 +7,6 @@
   "textFontFamily": "",
   "translucency": true,
   "nativeMenus": false,
-  "monospaceFontFamily": "JetBrains Mono"
+  "monospaceFontFamily": "JetBrains Mono",
+  "showViewHeader": true
 }
