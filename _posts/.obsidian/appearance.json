@@ -1,10 +1,12 @@
 {
-  "baseFontSize": 16,
+  "baseFontSize": 15,
   "cssTheme": "",
-  "accentColor": "#ff2969",
-  "theme": "moonstone",
+  "accentColor": "#89ff29",
+  "theme": "obsidian",
   "interfaceFontFamily": "",
-  "textFontFamily": "Inter",
+  "textFontFamily": "",
   "translucency": true,
-  "nativeMenus": false
+  "nativeMenus": false,
+  "monospaceFontFamily": "JetBrains Mono",
+  "showViewHeader": true
 }

@@ -33,5 +33,141 @@
     </div>
 
   </div>
+  <script>
 
+
+class Slideshow {
+  constructor(element) {
+    this.element = element;
+    this.slides = this.element.getElementsByTagName("img");
+    this.numslides = this.slides.length;
+    this.indexPrev = 0;
+    this.indexCurrent = 1;
+    this.indexNext = 2 % this.numslides;
+
+    const src = this.slides[0].src;
+    this.imgname = src.substring(0, src.length-5);
+    this.ext = src.substring(src.length-4, src.length);
+
+    this.element.innerHTML = "<img class='slideshow-previous'><img class='slideshow-current'><img class='slideshow-next'>";
+
+    this.prev = this.element.querySelector(".slideshow-previous");
+    this.current = this.element.querySelector(".slideshow-current");
+    this.next = this.element.querySelector(".slideshow-next");
+
+    this.prev.addEventListener('click', () => this.slidePrev());
+    this.next.addEventListener('click', () => this.slideNext());
+
+    // Create slideshow-indicator div outside of the slideshow div
+    this.indicator = document.createElement("div");
+    this.indicator.className = "slideshow-indicator";
+    this.element.parentNode.insertBefore(this.indicator, this.element.nextSibling);
+
+    for (var j = 0; j < this.numslides; j++) {
+      this.indicator.innerHTML+= "<div class='dot'></div>";
+    }
+
+    this.dots = this.indicator.getElementsByClassName("dot");
+
+    this.setslides();
+
+    this.element.addEventListener("touchstart", this.startTouch.bind(this), false);
+    this.element.addEventListener("touchmove", this.moveTouch.bind(this), false);
+  }
+
+
+  setDots() {
+    if(this.dots.length > 0){
+      for (var i = 0; i < this.dots.length; i++) {
+        this.dots[i].classList.remove("active");
+      }
+      this.dots[this.indexCurrent].classList.add("active");
+    }
+  }
+
+  setslides() {
+    this.setDots();
+
+    setTimeout(() => {
+      ['move-right', 'move-left'].forEach(className => {
+        this.prev.classList.remove(className);
+        this.current.classList.remove(className);
+        this.next.classList.remove(className);
+      });
+
+      this.prev.src = this.imgname + this.indexPrev + this.ext;
+      this.current.src = this.imgname + this.indexCurrent + this.ext;
+      this.next.src = this.imgname + this.indexNext + this.ext;
+    }, 300);
+  } 
+
+  slidePrev() {
+    ['prev', 'current', 'next'].forEach(el => this[el].classList.add('move-left'));
+
+
+    if (this.indexPrev == 0) {
+      this.indexPrev = this.numslides - 1;
+    } else {
+      this.indexPrev = this.indexPrev - 1;
+    }
+
+    if (this.indexCurrent == 0) {
+      this.indexCurrent = this.numslides - 1;
+    } else {
+      this.indexCurrent = this.indexCurrent - 1;
+    }
+
+    if (this.indexNext == 0) {
+      this.indexNext = this.numslides - 1;
+    } else {
+      this.indexNext = this.indexNext - 1;
+    }
+    this.setslides();
+  }
+
+  slideNext() {
+    ['prev', 'current', 'next'].forEach(el => this[el].classList.add('move-right'));
+
+
+    this.indexPrev = (this.indexPrev + 1)%this.numslides;
+    this.indexCurrent = (this.indexCurrent + 1)%this.numslides;
+    this.indexNext = (this.indexNext + 1)%this.numslides;
+    this.setslides();
+  }
+
+  startTouch(e) {
+    this.initialX = e.touches[0].clientX;
+  }
+
+  moveTouch(e) {
+    if (this.initialX === null) {
+      return;
+    }
+
+    var currentX = e.touches[0].clientX;
+    var diffX = this.initialX - currentX;
+
+    if (diffX > 0) {
+      // swiped left
+      this.slideNext();
+      console.log("swiped left");
+    } else if (diffX < 0) {
+      // swiped right
+      this.slidePrev();
+      console.log("swiped right");
+    }
+
+    this.initialX = null;
+  }
+}
+
+var slideshows = document.getElementsByClassName("slideshow");
+Array.from(slideshows).forEach(slideshow => new Slideshow(slideshow));
+
+
+
+
+
+
+  </script>
 </footer>

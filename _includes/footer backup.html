@@ -1,0 +1,203 @@
+<footer class="site-footer h-card">
+  <data class="u-url" href="{{ "/" | relative_url }}"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+
+      <div class="footer-col one-half">
+        <h2 class="footer-heading">{{ site.title | escape }}</h2>
+        <ul class="contact-list">
+          <p>{{- site.description | escape -}}</p>
+          <!-- <li class="p-name">
+            {%- if site.author -%}
+              {{ site.author | escape }}
+            {%- endif -%}
+            </li>
+            {%- if site.email -%}
+            <li><a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+            {%- endif -%} -->
+        </ul>
+      </div>
+
+      <div class="footer-col one-half">
+        <h2 class="footer-heading"></h2>
+        <a href="archive">Notes Archive</a> | <a href="now">Now Page</a>
+        <div class="social-links">
+          {%- include social.html -%}
+        </div>
+
+        <!-- <p>{{- site.description | escape -}}</p> -->
+      </div>
+
+    </div>
+
+  </div>
+  <script>
+
+      
+
+
+
+      // get all <p> tags with class="slideshow"
+      var slideshow = document.getElementsByClassName("slideshow");
+      var numslideshows = slideshow.length;
+      console.log(numslideshows + " slideshows found");
+
+      var indexPrev = 0;
+      var indexCurrent = 1;
+      var indexNext = 2;
+
+      function setDots() {
+        var dots = document.getElementsByClassName("dot");
+        // remove active class from all dots
+        for (var i = 0; i < dots.length; i++) {
+          dots[i].classList.remove("active");
+        }
+        // add active class to current dot
+        dots[indexCurrent].classList.add("active");
+      }
+
+      function setslides() {
+        setDots();
+
+        setTimeout ( function(){
+
+        prev.classList.remove("move-right");
+        current.classList.remove("move-right");
+        next.classList.remove("move-right");
+
+        prev.classList.remove("move-left");
+        current.classList.remove("move-left");
+        next.classList.remove("move-left");
+
+        prev.src = imgname + indexPrev + ext;
+        current.src = imgname + indexCurrent + ext;
+        next.src = imgname + indexNext + ext;
+
+        }, 300);
+      } 
+
+      function slidePrev() {
+
+        prev.classList.add("move-left");
+        current.classList.add("move-left");
+        next.classList.add("move-left");
+
+        if (indexPrev == 0) {
+          indexPrev = numslides - 1;
+        } else {
+          indexPrev = indexPrev - 1;
+        }
+
+        if (indexCurrent == 0) {
+          indexCurrent = numslides - 1;
+        } else {
+          indexCurrent = indexCurrent - 1;
+        }
+
+        if (indexNext == 0) {
+          indexNext = numslides - 1;
+        } else {
+          indexNext = indexNext - 1;
+        }
+        setslides();
+      }
+
+
+      function slideNext() {
+
+        prev.classList.add("move-right");
+        current.classList.add("move-right");
+        next.classList.add("move-right");
+
+        indexPrev = (indexPrev + 1)%numslides;
+        indexCurrent = (indexCurrent + 1)%numslides;
+        indexNext = (indexNext + 1)%numslides;
+        setslides();
+      }
+
+      // console.log every slideshow
+      for (var i = 0; i < numslideshows; i++) {
+        // get every img tag in slideshow
+        var slides = slideshow[i].getElementsByTagName("img");
+        var numslides = slides.length;
+        console.log("slideshow " + i + " has " + numslides + " slides");
+
+        indexNext = 2%numslides; console.log("Next = " + indexNext);
+        console.log(indexPrev + " " + indexCurrent + " " + indexNext);
+
+        // get img src of slides[0]
+        var src = slides[0].src;
+
+        // get imgname and extension
+
+        var imgname = src.substring(0, src.length-5);
+        console.log("Name of image: " + imgname); 
+
+        var ext = src.substring(src.length-4, src.length);
+        console.log("File ext: " + ext); 
+
+        // set innerHTML of slideshow[i]
+        slideshow[i].innerHTML = "<img onclick='slidePrev()' id='slideshow-previous'><img id='slideshow-current'><img onclick='slideNext()' id='slideshow-next'></div>";
+        
+        var node = document.querySelector(".slideshow"),
+             ele = document.createElement("div");
+
+        ele.className = "slideshow-indicator";
+        
+        for (var j = 0; j < numslides; j++) {
+          ele.innerHTML+= "<div class='dot'></div>";
+        }
+
+        node.parentNode.insertBefore(ele, node.nextSibling);
+
+        var prev = document.getElementById("slideshow-previous");
+        var current = document.getElementById("slideshow-current");
+        var next = document.getElementById("slideshow-next");
+
+        setslides();
+      }
+
+      var container = document.querySelector(".slideshow");
+
+      container.addEventListener("touchstart", startTouch, false);
+      container.addEventListener("touchmove", moveTouch, false);
+
+      // Swipe Up / Down / Left / Right
+      var initialX = null;
+
+      function startTouch(e) {
+        initialX = e.touches[0].clientX;
+      };
+
+      function moveTouch(e) {
+        if (initialX === null) {
+          return;
+        }
+
+        var currentX = e.touches[0].clientX;
+
+        var diffX = initialX - currentX;
+
+          if (diffX > 0) {
+            // swiped left
+            slideNext();
+            console.log("swiped left");
+          } else if (diffX < 0) {
+            // swiped right
+            slidePrev();
+            console.log("swiped right");
+          }
+
+        initialX = null;
+
+        // e.preventDefault();
+      };
+
+
+
+
+
+  </script>
+</footer>

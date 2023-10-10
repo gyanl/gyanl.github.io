@@ -4,12 +4,18 @@ layout: post
 title: "Font Resources"
 subtitle: Ya like fonts?
 tags: resources
-date modified: 15-06-2023
+date modified: 10-10-2023
 ---
 
 With an explosion in high quality open source fonts, there are more options available for designers and novices alike, and the aim was to create an interface that used a more ‘natural’ classification of fonts than the default classification of serif, sans-serif, display, handwritten/script and monospace used by most font sites like Google Fonts.
 
-I worked on a tool to search and browse for fonts in my third semester at IDC. I used a classification created by [O'Donovan et al](http://www.dgp.toronto.edu/~donovan/font/) as the basis for my tool. The paper provided ratings from 0-100 for 200 fonts on 37 attributes (like "warm", "legible", "attention-grabbing"). I utilised a subset of these fonts available on Google Fonts, and removed some of the parameters to create [Font Finder](https://fontfinder.tech/).
+I worked on a tool to search and browse for fonts in my third semester at IDC. I used a classification created by [O'Donovan et al](http://www.dgp.toronto.edu/~donovan/font/) as the basis for my tool. The paper provided ratings from 0-100 for 200 fonts on 37 attributes (like "warm", "legible", "attention-grabbing"). I utilised a subset of these fonts available on Google Fonts, and removed some of the parameters to create [Font Finder](https://gyanl.com/font-finder).
+
+{: .slideshow }
+
+![One](https://gyanl.com/assets/font-finder-1.png)![Two](https://gyanl.com/assets/font-finder-2.png)![Three](https://gyanl.com/assets/font-finder-3.png)
+
+###### Font Finder interface
 
 The results were a bit iffy—not all participants agreed that they were getting the results they hoped for, and some of the attributes (like "artistic", "fresh") were confusing because people did not know what an "artistic" or "fresh" font should look like. In retrospect it would have been a better idea to create my own classification by conducting card sorting activities with participants and creating fewer categories that were more meaningful.
 

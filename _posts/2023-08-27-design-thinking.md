@@ -1,0 +1,171 @@
+---
+layout: post
+title: Design Thinking
+subtitle: Everyone can be creative
+tags: talks
+thumbnail: https://gyanl.com/assets/thumbs/default.png
+date modified: 03-10-2023
+permalink: codeday
+---
+
+> This is some of my material for my talk on Design Thinking at Code Day Delhi at IIT Delhi. 
+
+## Figma Setup
+- [Sign up for Figma](https://www.figma.com/signup?locale=en)
+- Either run it in the browser or optionally [download Figma for Mac/Windows](https://www.figma.com/downloads/)
+- Download the Figma Mirror mobile app for [Android](https://play.google.com/store/apps/details?id=com.figma.mirror)/[iOS](https://apps.apple.com/app/figma-mirror/id1152747299) (fair warning the Android app can be a bit buggy)
+- Open this file: [Link](https://www.figma.com/file/ekpDzSICk6p5LeMRpD1pZz/Code-Day-Delhi---Design-Workshop?type=design&node-id=11%3A60&mode=design&t=hL14Q2U7H6yOJx5f-1)
+
+## It's good to fail
+
+You have an idea. It's brilliant! It's the best idea ever!
+
+You find an underground bunker and work non-stop for 6 months. You don't shower, which I don't advise. You come out and show it to the world, but nobody wants it. Plus you smell funny.
+
+- When testing solutions, it's good to fail as early in the process as possible - make quick and dirty prototypes, learn from them, and then iterate.
+- Building digital products out in code takes time and effort, creating lower fidelity prototypes is a faster way to validate ideas.
+
+## The double diamond design process
+- Research/exploring the problem space
+- Picking a narrow problem statement
+- Divergent ideation
+- Converge on a single solution
+
+## Levels of prototyping fidelity
+
+#### Pen and paper
+
+Hard to beat. It's pen and paper. It's great to start here. 
+
+#### Wireframes
+
+Outline versions of the interface. Great when you don't want to get bogged down by visual design decisions like colors, fonts, spacing, etc.
+
+- [Balsamiq](https://balsamiq.com/)
+
+#### UI Design/Mockups
+
+Visually detailed "mockups" of the app. Can look visually indistinguishable from the working code. 
+
+- [Figma](https://www.figma.com/)
+- [Sketch](https://www.sketch.com/)
+- [Adobe XD](https://www.adobe.com/products/xd.html)
+
+#### High fidelity Prototyping
+
+Allow a higher level of detail, can access things like device keyboard or location, has conditional logic.
+
+- [ProtoPie](https://www.protopie.io/)
+- [Principle](https://principleformac.com/)
+- [Origami Studio](https://origami.design/)
+
+#### Low code/No-code tools
+
+GUI editor that spits out working code, you can write custom code as well.
+
+- [Webflow](https://webflow.com)
+- [Framer](https://www.framer.com/)
+
+#### Working code
+
+Wow, you built an app!
+
+## Figma community
+
+Other Figma users upload their files, you can create a copy and modify it to your needs.
+
+- People upload these voluntarily so it's perfectly fine to use them
+- Some files will have a few demo screens and then a payment link to access the full version
+
+## Figma basics
+
+#### Pages
+- (Practically) Infinite 2D pages with "frames" on them
+- Scroll in any direction
+- Pinch to zoom
+
+#### Frame
+- A container for content, typically the mockup for a screen goes into a frame
+- Figma has presets for the size that works best for some popular devices 
+- Keyboard shortcut F to select Frame tool, then draw the frame rectangle
+- Click on the name of the frame to select, then click and drag to move frames around
+- Frames crop content that goes outside their boundaries, but this can be changed using the "clip content" toggle
+
+#### Groups
+
+Groups are similiar to frames in Figma, except they always fit the content exactly while frames can be resized. Frames also have the ability to use autolayout or be turned into components.
+
+#### Text
+- Text will keep going on in a single line unless you set a width for the textbox.
+
+#### Components
+
+Sometimes when you click on a group or frame, it'll have a purple outline. This means it's a component, which is a feature in Figma that's only useful once you know the basics. For now, if you are struggling to edit a component, right click on it and select "detach instance". 
+
+#### Autolayout
+
+Autolayout maintains padding values automatically between elements. It must be enabled for each frame, but if the screens you are trying to use have it enabled it can be disabled. 
+
+## Prototyping in Figma
+
+#### Design / Prototype / Inspect
+
+The right menu in Figma has 3 modes:
+
+- Design lets you edit properties of objects
+- Prototype lets you connect screens and decide transition animations
+- Inspect lets you view design details in a dev-friendly format, and generates some code
+
+#### Connecting screens
+
+Go to prototype mode and then
+
+- Click on the object you want as a starting point
+- Drag the prototype handle to the screen you want to open
+- Pick the event type (On click, while hovering, after delay, etc)
+- Pick the animation type - smart animate will automatically add transitions between any objects on the starting and ending frame that share the same name.
+
+>**Fun fact:** The official term for the lines indicating the prototype linkages is 'noodle'!
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">just don&#39;t make figma spaghetti at 2am and you&#39;ll be fine <a href="https://t.co/olPhsyOuN1">pic.twitter.com/olPhsyOuN1</a></p>&mdash; GYAN! (@gyanl) <a href="https://twitter.com/gyanl/status/1352658956989067264?ref_src=twsrc%5Etfw">January 22, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+#### Exporting as image from Figma
+- Export option in the bottom of the right menu
+- Right click on frame name and select 
+
+## Additional Resources
+
+#### Fonts
+
+Figma already has the Google fonts library built into it (some newer additions take a while to show up, but most are just automatically there.)
+
+- [Google Fonts](https://fonts.google.com/)
+- [Fontshare](https://www.fontshare.com/)
+
+#### Visual design references
+- [Dribbble](https://dribbble.com/)
+- [Behance](https://www.behance.net/)
+
+#### Stock Photos
+- [Unsplash](https://unsplash.com/)
+
+#### Stock Illustrations
+- [Humaaans](https://www.humaaans.com/)
+- [unDraw](https://undraw.co/illustrations)
+
+#### Icon packs
+
+I'm linking to the websites, but these are also available as Figma files if you search for them in Figma community.
+
+- [Material Icons - Google](https://fonts.google.com/icons?selected=Material+Icons)
+- [SF Symbols - Apple](https://developer.apple.com/sf-symbols/)
+- [Feather Icons](https://feathericons.com/)
+- [Font Awesome](https://fontawesome.com/)
+- [https://phosphoricons.com](https://t.co/4pVscE9MGF) 
+- [https://icons.radix-ui.com](https://t.co/k5whzmGAyT) 
+- [https://iconoir.com](https://t.co/yPWi7GDv5l)
+- [https://iconic.app](https://t.co/5bPjq5bTVU) 
+- [https://remixicon.com](https://t.co/ybypTajbCS)
+- [https://heroicons.com](https://t.co/CVIIRw1O11) 
+- [https://tablericons.com](https://t.co/s0lLP4smub)

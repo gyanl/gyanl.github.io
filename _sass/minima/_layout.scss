@@ -39,7 +39,7 @@
 }
 
 .circles{
-  margin: 7px 0 -7px 0;
+  margin: 7px 12px -7px 0;
 }
 
 .circle{
@@ -525,10 +525,15 @@ h1.post-title.p-name{
   padding: $spacing-unit/2 0;
   transition: 0.2s;
   border-radius: 4px;
+  animation: fadeInUp .5s ease-in-out;
   // border: 1px solid rgba(0,0,0,0.05);
   // border-bottom: 4px solid;
   // border-right: 4px solid;
   // border-color: #ddd;
+}
+
+.home > h5{
+  animation: fadeIn 1s ease-in-out;
 }
 
 .post-item-text {
