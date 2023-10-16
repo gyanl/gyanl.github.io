@@ -1,12 +1,4 @@
 {
-  "editor:insert-tag": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "T"
-    }
-  ],
   "templater-obsidian:Obsidian Templates/Image.md": [
     {
       "modifiers": [
@@ -21,6 +13,20 @@
       "modifiers": [
         "Mod",
         "Shift"
+      ],
+      "key": "T"
+    }
+  ],
+  "templater-obsidian:insert-templater": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "e"
+    },
+    {
+      "modifiers": [
+        "Mod"
       ],
       "key": "T"
     }

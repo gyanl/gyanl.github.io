@@ -1,6 +1,162 @@
 {
   "recentFiles": [
     {
+      "basename": "🌞 Today",
+      "path": "Tasks/🌞 Today.md"
+    },
+    {
+      "basename": "🌞 Tomorrow",
+      "path": "Tasks/🌞 Tomorrow.md"
+    },
+    {
+      "basename": "👍 Done Today",
+      "path": "Tasks/👍 Done Today.md"
+    },
+    {
+      "basename": "Microsoft",
+      "path": "Tasks/Microsoft.md"
+    },
+    {
+      "basename": "Banking",
+      "path": "Tasks/Banking.md"
+    },
+    {
+      "basename": "Misc",
+      "path": "Tasks/Misc.md"
+    },
+    {
+      "basename": "Styles",
+      "path": "Tasks/Styles.md"
+    },
+    {
+      "basename": "House",
+      "path": "Tasks/House.md"
+    },
+    {
+      "basename": "Find & Replace",
+      "path": "Tasks/Find & Replace.md"
+    },
+    {
+      "basename": "Borkowski",
+      "path": "Tasks/Borkowski.md"
+    },
+    {
+      "basename": "2016-05-10-hackindia",
+      "path": "2016-05-10-hackindia.md"
+    },
+    {
+      "basename": "Digital Gardens",
+      "path": "Digital Gardens.md"
+    },
+    {
+      "basename": "2017-09-02-zomato",
+      "path": "2017-09-02-zomato.md"
+    },
+    {
+      "basename": "Task",
+      "path": "Obsidian Templates/Task.md"
+    },
+    {
+      "basename": "What Next",
+      "path": "What Next.md"
+    },
+    {
+      "basename": "Image",
+      "path": "Obsidian Templates/Image.md"
+    },
+    {
+      "basename": "🔲 All Tasks",
+      "path": "Tasks/🔲 All Tasks.md"
+    },
+    {
+      "basename": "🔲 Pending",
+      "path": "Tasks/🔲 Pending.md"
+    },
+    {
+      "basename": "2019-11-19-drm-cheatsheet",
+      "path": "2019-11-19-drm-cheatsheet.md"
+    },
+    {
+      "basename": "2021-04-23-great-portfolios",
+      "path": "2021-04-23-great-portfolios.md"
+    },
+    {
+      "basename": "Color Fluent Icons",
+      "path": "Color Fluent Icons.md"
+    },
+    {
+      "basename": "Personal",
+      "path": "Personal.md"
+    },
+    {
+      "basename": "Todo List",
+      "path": "Obsidian Templates/Todo List.md"
+    },
+    {
+      "basename": "Image Carousel",
+      "path": "Obsidian Templates/Image Carousel.md"
+    },
+    {
+      "basename": "Project",
+      "path": "Obsidian Templates/Project.md"
+    },
+    {
+      "basename": "Recipe",
+      "path": "Obsidian Templates/Recipe.md"
+    },
+    {
+      "basename": "Structured Creativity",
+      "path": "Structured Creativity.md"
+    },
+    {
+      "basename": "Shoes",
+      "path": "Shoes.md"
+    },
+    {
+      "basename": "shape-of-the-tool backup",
+      "path": "shape-of-the-tool backup.md"
+    },
+    {
+      "basename": "Sale Extras",
+      "path": "Sale Extras.md"
+    },
+    {
+      "basename": "MS Transcription in Word",
+      "path": "MS Transcription in Word.md"
+    },
+    {
+      "basename": "MS Tables on Word iPad",
+      "path": "MS Tables on Word iPad.md"
+    },
+    {
+      "basename": "MS Designer Mobile",
+      "path": "MS Designer Mobile.md"
+    },
+    {
+      "basename": "handoffs",
+      "path": "handoffs.md"
+    },
+    {
+      "basename": "Connect 2023",
+      "path": "Connect 2023.md"
+    },
+    {
+      "basename": "2023-10-03-rajma",
+      "path": "2023-10-03-rajma.md"
+    },
+    {
+      "basename": "2016-11-01-brush-lettering",
+      "path": "2016-11-01-brush-lettering.md"
+    },
+    {
+      "basename": "2015-01-01-colophon",
+      "path": "2015-01-01-colophon.md"
+    },
+    {
+      "basename": "2016-05-10-delhi-dribbble",
+      "path": "2016-05-10-delhi-dribbble.md"
+    },
+    {
       "basename": "2023-09-30-handoffs",
       "path": "2023-09-30-handoffs.md"
     },
@@ -9,16 +165,8 @@
       "path": "2023-10-09-transcript.md"
     },
     {
-      "basename": "2015-01-01-colophon",
-      "path": "2015-01-01-colophon.md"
-    },
-    {
       "basename": "2023-08-27-design-thinking",
       "path": "2023-08-27-design-thinking.md"
-    },
-    {
-      "basename": "2023-10-03-rajma",
-      "path": "2023-10-03-rajma.md"
     },
     {
       "basename": "2023-09-30-roti",
@@ -33,68 +181,8 @@
       "path": "2024-03-17-turning-28.md"
     },
     {
-      "basename": "Untitled",
-      "path": "Untitled.md"
-    },
-    {
-      "basename": "Find & Replace",
-      "path": "Find & Replace.md"
-    },
-    {
-      "basename": "Connect 2023",
-      "path": "Connect 2023.md"
-    },
-    {
-      "basename": "handoffs",
-      "path": "handoffs.md"
-    },
-    {
-      "basename": "I'm Here and Care",
-      "path": "I'm Here and Care.md"
-    },
-    {
-      "basename": "MS Tables on Word iPad",
-      "path": "MS Tables on Word iPad.md"
-    },
-    {
-      "basename": "MS Designer Mobile",
-      "path": "MS Designer Mobile.md"
-    },
-    {
-      "basename": "MS Transcription in Word",
-      "path": "MS Transcription in Word.md"
-    },
-    {
-      "basename": "Sale Extras",
-      "path": "Sale Extras.md"
-    },
-    {
-      "basename": "shape-of-the-tool backup",
-      "path": "shape-of-the-tool backup.md"
-    },
-    {
-      "basename": "Shoes",
-      "path": "Shoes.md"
-    },
-    {
-      "basename": "Structured Creativity",
-      "path": "Structured Creativity.md"
-    },
-    {
-      "basename": "Test Note",
-      "path": "Test Note.md"
-    },
-    {
-      "basename": "What Next",
-      "path": "What Next.md"
-    },
-    {
       "basename": "Nav Pane - Search Bar Dropdown",
       "path": "assets/Nav Pane - Search Bar Dropdown.png"
-    },
-    {
-      "basename": "☀️ Today",
-      "path": "Todo Lists/☀️ Today.md"
     }
   ],
   "omittedPaths": [],

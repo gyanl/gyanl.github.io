@@ -5,7 +5,8 @@ title: Great Portfolio Sites
 subtitle: A list of websites that I think do a great job of showing design work.
 permalink: portfolios
 tags: resources
-date modified: 05-09-2023
+date modified: 16-10-2023
+date: 16-06-2023
 ---
 
 A portfolio is maybe the most important thing for a designer looking for work. I talk to a lot of early career designers who have done great work, but don't adequately show it on their portfolios. Recruiters are also curious about your personality—what drives you? Your side projects or hobbies—something you do for yourself or your community could be what speaks the most about you as a person. 
@@ -57,7 +58,6 @@ These are not necessarily design portfolios, but I like how they are written and
 8. [Kabir Goel](https://kabir.computer/)<br>Kabir writes about design tools and computers. This is a great example of something simple executed very well.  
    
 10. [Vyshnav Gangadharan](https://vyshnav.xyz/blog/)<br>Vyshnav writes a lot, and documents it all. He’s got a great layout and some very interesting side projects.
-   
 
 ## Other
 
@@ -73,4 +73,4 @@ These are not necessarily design portfolios, but I like how they are written and
 
 7. <https://www.english-editor.com/><br>This is not a design portfolio, but the site is very well designed and the information is extremely well organised.
    
-8. [Receipt - Minimal Portfolio Template](https://receipt.framer.website><br>Show your work receipts with this cool template
+8. [Receipt - Minimal Portfolio Template](https://receipt.framer.website)<br>Show your work receipts with this cool template

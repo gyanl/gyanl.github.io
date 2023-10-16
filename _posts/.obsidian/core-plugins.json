@@ -1,19 +1,13 @@
 [
-  "file-explorer",
   "global-search",
-  "switcher",
   "outgoing-link",
   "tag-pane",
   "properties",
   "page-preview",
-  "note-composer",
+  "templates",
   "command-palette",
   "slash-command",
   "editor-status",
-  "bookmarks",
-  "markdown-importer",
-  "random-note",
   "outline",
-  "word-count",
   "file-recovery"
 ]

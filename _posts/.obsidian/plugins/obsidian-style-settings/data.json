@@ -1,0 +1,22 @@
+{
+  "sanctum@@nav-folder-indicators": false,
+  "sanctum@@colorful-active-nav": false,
+  "sanctum@@hide-vault-title": true,
+  "sanctum@@wrap-nav-titles": false,
+  "sanctum@@h1-font": "Besley",
+  "sanctum@@h2-font": "Besley",
+  "sanctum@@h3-font": "Besley",
+  "sanctum@@h4-font": "Besley",
+  "sanctum@@h5-font": "Besley",
+  "sanctum@@h6-line": true,
+  "sanctum@@h1-weight": "800",
+  "sanctum@@h2-weight": "800",
+  "sanctum@@h3-weight": "700",
+  "sanctum@@h4-weight": "700",
+  "sanctum@@color-accent-rgb-l": "165, 119, 218",
+  "sanctum@@color-accent-rgb-d": "92, 153, 124",
+  "sanctum@@stendig": false,
+  "sanctum@@calendar-flip": true,
+  "sanctum@@no-sanctum-icons": false,
+  "sanctum@@light-mode-contrast-mode": "sanctum-contrast-light"
+}

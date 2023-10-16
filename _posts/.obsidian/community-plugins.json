@@ -1,13 +1,16 @@
 [
   "obsidian-linter",
   "obsidian-smart-typography",
-  "templater-obsidian",
   "obsidian-minimal-settings",
   "obsidian-auto-link-title",
-  "copilot",
   "obsidian-style-settings",
   "obsidian-tasks-plugin",
   "recent-files-obsidian",
   "url-into-selection",
-  "obsidian-paste-image-rename"
+  "obsidian-paste-image-rename",
+  "obsidian-day-planner",
+  "obsidian-checklist-plugin",
+  "calendar",
+  "make-md",
+  "dataview"
 ]

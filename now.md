@@ -6,20 +6,17 @@ permalink: now
 ---
 
 #### Work
-- 📝  Designing Microsoft Word for web and iPad
-- 🤖  AI Powered mobile creator experiences for Microsoft Designer
+- 📝  Designing Microsoft Word for web
 
 #### Learning 
-- 🎹  Learning to play the keyboard
-- 📈  Learning about personal finance
+- 🤖  Trying out Generative AI tools
+- 🥦  Learning to meal prep and efficiently cook my meals
+
+#### Code
+- 📓  Creating a digital garden with Obsidian and merging it with my existing Jekyll blog
 
 #### Writing
-- 📓  I'm maintaining a journal on paper
 - 💻  Slowly adding older projects to this site
 
 #### Fun
-- 🎷  Listening to a lot of Jazz
 - 👾  Playing Valorant
-
-
-

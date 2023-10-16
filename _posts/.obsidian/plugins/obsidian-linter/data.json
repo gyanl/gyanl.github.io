@@ -243,7 +243,6 @@
   "displayLintOnFileChangeNotice": false,
   "settingsConvertedToConfigKeyValues": true,
   "foldersToIgnore": [
-    "Todo Lists",
     "Obsidian Templates",
     "assets"
   ],
