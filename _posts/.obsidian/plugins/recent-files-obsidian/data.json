@@ -1,44 +1,68 @@
 {
   "recentFiles": [
     {
-      "basename": "🌞 Today",
-      "path": "Tasks/🌞 Today.md"
+      "basename": "Borkowski",
+      "path": "Tasks/Borkowski.md"
     },
     {
-      "basename": "🌞 Tomorrow",
-      "path": "Tasks/🌞 Tomorrow.md"
+      "basename": "🔲 Pending",
+      "path": "Tasks/🔲 Pending.md"
     },
     {
-      "basename": "👍 Done Today",
-      "path": "Tasks/👍 Done Today.md"
-    },
-    {
-      "basename": "Microsoft",
-      "path": "Tasks/Microsoft.md"
-    },
-    {
-      "basename": "Banking",
-      "path": "Tasks/Banking.md"
-    },
-    {
-      "basename": "Misc",
-      "path": "Tasks/Misc.md"
-    },
-    {
-      "basename": "Styles",
-      "path": "Tasks/Styles.md"
+      "basename": "Done Today",
+      "path": "Tasks/Done Today.md"
     },
     {
       "basename": "House",
       "path": "Tasks/House.md"
     },
     {
+      "basename": "🔲 All Tasks",
+      "path": "Tasks/🔲 All Tasks.md"
+    },
+    {
+      "basename": "🌞 Tomorrow",
+      "path": "Tasks/🌞 Tomorrow.md"
+    },
+    {
+      "basename": "Today",
+      "path": "Tasks/Today.md"
+    },
+    {
+      "basename": "Microsoft",
+      "path": "Tasks/Microsoft.md"
+    },
+    {
       "basename": "Find & Replace",
       "path": "Tasks/Find & Replace.md"
     },
     {
-      "basename": "Borkowski",
-      "path": "Tasks/Borkowski.md"
+      "basename": "2023-10-16",
+      "path": "2023-10-16.md"
+    },
+    {
+      "basename": "2022-03-06-webdev-resources",
+      "path": "2022-03-06-webdev-resources.md"
+    },
+    {
+      "basename": "2020-06-20-misinformation",
+      "path": "2020-06-20-misinformation.md"
+    },
+    {
+      "basename": "handoffs",
+      "path": "handoffs.md"
+    },
+    {
+      "basename": "Styles",
+      "path": "Tasks/Styles.md"
+    },
+    {
+      "basename": "Misc",
+      "path": "Tasks/Misc.md"
+    },
+    {
+      "basename": "Banking",
+      "path": "Tasks/Banking.md"
     },
     {
       "basename": "2016-05-10-hackindia",
@@ -63,14 +87,6 @@
     {
       "basename": "Image",
       "path": "Obsidian Templates/Image.md"
-    },
-    {
-      "basename": "🔲 All Tasks",
-      "path": "Tasks/🔲 All Tasks.md"
-    },
-    {
-      "basename": "🔲 Pending",
-      "path": "Tasks/🔲 Pending.md"
     },
     {
       "basename": "2019-11-19-drm-cheatsheet",
@@ -131,10 +147,6 @@
     {
       "basename": "MS Designer Mobile",
       "path": "MS Designer Mobile.md"
-    },
-    {
-      "basename": "handoffs",
-      "path": "handoffs.md"
     },
     {
       "basename": "Connect 2023",

@@ -1,3 +1,6 @@
+---
+sticker: emoji//1f44d
+---
 # Done Today
 
 ```tasks 

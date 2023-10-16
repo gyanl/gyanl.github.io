@@ -17,7 +17,7 @@
   "legacyEditor": false,
   "livePreview": true,
   "foldHeading": false,
-  "propertiesInDocument": "source",
+  "propertiesInDocument": "visible",
   "showInlineTitle": false,
   "showLineNumber": true,
   "attachmentFolderPath": "./assets"
