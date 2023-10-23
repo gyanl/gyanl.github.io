@@ -525,7 +525,9 @@ h1.post-title.p-name{
   padding: $spacing-unit/4 0;
   transition: 0.2s;
   border-radius: 4px;
+  opacity: 0;
   animation: fadeInUp .5s ease-in-out;
+  animation-fill-mode: forwards;
   // border: 1px solid rgba(0,0,0,0.05);
   // border-bottom: 4px solid;
   // border-right: 4px solid;

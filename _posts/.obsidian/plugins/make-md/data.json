@@ -38,20 +38,32 @@
     "_posts": [],
     "Pinned": [
       "Tasks",
-      "Tasks"
+      "Tasks",
+      "Obsidian Templates",
+      "Tasks",
+      "Tasks/Microsoft",
+      "Tasks/Microsoft",
+      "Tasks/Microsoft",
+      "Tasks/Microsoft",
+      "Tasks/Microsoft",
+      "Tasks/Microsoft",
+      "Tasks/Microsoft",
+      "Tasks/Microsoft",
+      "Tasks/Microsoft",
+      "Tasks/Microsoft"
     ]
   },
   "expandedSpaces": [
     "/",
     null,
     "Pinned",
+    "_posts",
     null
   ],
   "expandFolderOnClick": true,
   "openFolders": [],
   "fileIcons": [],
   "cachedSpaces": [
-    "Pinned",
     "_posts"
   ],
   "menuTriggerChar": "/",
@@ -77,7 +89,7 @@
   "spacesSyncTimeoutSeconds": 10,
   "spacesAutoBackup": true,
   "spacesAutoBackupInterval": 10,
-  "spacesAutoBackupLast": 1697436202280,
+  "spacesAutoBackupLast": 1698081164209,
   "spacesUseAlias": false,
   "precreateVaultSpace": true,
   "fmKeyAlias": "aliases",
