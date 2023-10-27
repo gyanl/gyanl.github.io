@@ -35,7 +35,9 @@
   "showRibbon": true,
   "deleteFileOption": "trash",
   "expandedFolders": {
-    "_posts": [],
+    "_posts": [
+      "Obsidian Templates"
+    ],
     "Pinned": [
       "Tasks",
       "Tasks",
