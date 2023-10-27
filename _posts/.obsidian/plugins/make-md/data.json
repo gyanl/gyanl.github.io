@@ -57,8 +57,8 @@
     "/",
     null,
     "Pinned",
-    "_posts",
-    null
+    null,
+    "_posts"
   ],
   "expandFolderOnClick": true,
   "openFolders": [],
@@ -89,7 +89,7 @@
   "spacesSyncTimeoutSeconds": 10,
   "spacesAutoBackup": true,
   "spacesAutoBackupInterval": 10,
-  "spacesAutoBackupLast": 1698081164209,
+  "spacesAutoBackupLast": 1698384331295,
   "spacesUseAlias": false,
   "precreateVaultSpace": true,
   "fmKeyAlias": "aliases",
