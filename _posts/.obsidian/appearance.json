@@ -1,8 +1,8 @@
 {
   "baseFontSize": 15,
-  "cssTheme": "",
-  "accentColor": "#ff4343",
-  "theme": "moonstone",
+  "cssTheme": "Border",
+  "accentColor": "#e55848",
+  "theme": "system",
   "interfaceFontFamily": "",
   "textFontFamily": "",
   "translucency": true,
