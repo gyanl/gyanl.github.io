@@ -59,7 +59,7 @@ These are not necessarily design portfolios, but I like how they are written and
    
 10. [Vyshnav Gangadharan](https://vyshnav.xyz/blog/)<br>Vyshnav writes a lot, and documents it all. He’s got a great layout and some very interesting side projects.
 
-11. [Timecapsule](https://timecapsule.co.in/)<br>Siddharth Jha is a UX engineer, and his websites showcases some really neat touches that tend to only happen when you are a designer who can code. 
+11. [Timecapsule](https://timecapsule.co.in/)<br>Siddharth’s scrapbook with thoughts on design, personal reflections, music and everything in between.
 
 ## Interesting interactions
 
