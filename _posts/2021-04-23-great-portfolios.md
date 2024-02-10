@@ -5,7 +5,7 @@ title: Great Portfolio Sites
 subtitle: A list of websites that I think do a great job of showing design work.
 permalink: portfolios
 tags: resources
-date modified: 16-10-2023
+date modified: 10-02-2024
 date: 16-06-2023
 ---
 
@@ -59,7 +59,9 @@ These are not necessarily design portfolios, but I like how they are written and
    
 10. [Vyshnav Gangadharan](https://vyshnav.xyz/blog/)<br>Vyshnav writes a lot, and documents it all. He’s got a great layout and some very interesting side projects.
 
-## Other
+11. [Timecapsule](https://timecapsule.co.in/)<br>Siddharth Jha is a UX engineer, and his websites showcases some really neat touches that tend to only happen when you are a designer who can code. 
+
+## Interesting interactions
 
 1. <https://ikeadrift.com/><br>Use the QWERTY keys on your keypad to play a sick drum beat. I love this site. Press U for a secret easter egg.
 
@@ -67,10 +69,12 @@ These are not necessarily design portfolios, but I like how they are written and
 
 3. <https://paco.sh/><br>This site looks almost confusingly minimal till you hit the command icon and realise you can find everything from there. Not sure I would recommend this approach as the only way to find content on your site, but I did find it cool.
 
-4. <https://www.sid.today/> + <https://www.siddharthjha.com/><br>Siddharth Jha's is a UX engineer, and his websites showcases some really neat touches that tend to only happen when you are a designer who can code. Check out the cool animation on the home page, and slick hover states for links!I also really like the idea of public-by-default sites (you can see the mess of partly written thoughts I have at <https://gyanl.com/archive/>) and I hope this becomes more common. It's cool to see more raw, in-progress writing on the internet. [Siddharth writes about this here.](https://www.siddharthjha.com/blog/what-blogs-used-to-be-like)
-   
-6. [https://akshayverma.net/](https://akshayverma.net/)<br>Great typography. Akshay runs [Prophecy](https://prophecy.one/), which also has a great website.
+4. [https://akshayverma.net/](https://akshayverma.net/)<br>Great typography. Akshay runs [Prophecy](https://prophecy.one/), which also has a great website.
 
-7. <https://www.english-editor.com/><br>This is not a design portfolio, but the site is very well designed and the information is extremely well organised.
-   
-8. [Receipt - Minimal Portfolio Template](https://receipt.framer.website)<br>Show your work receipts with this cool template
+5. <https://www.english-editor.com/><br>This is not a design portfolio, but the site is very well designed and the information is extremely well organised.
+
+6. [Receipt - Minimal Portfolio Template](https://receipt.framer.website)<br>Show your work receipts with this cool template
+
+7. [AMAN'S GENERAL MISHMASH OF DESIGN, DATA & CODE](https://aman.bh/)<br>Aman’s artisanal, hand-crafted website is unlike any other website you’ll see. Showcases some of his data vis work and a lot more. 
+
+8. [Leffin - Portfolio](https://leff.in/)<br>Leffin’s portfolio uses slick new CSS page transitions to move between states.

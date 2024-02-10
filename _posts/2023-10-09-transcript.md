@@ -4,13 +4,13 @@ title: Transcript for ACM Talk
 subtitle: Designers v/s Developers
 tags: misc
 thumbnail: https://gyanl.com/assets/thumbs/default.png
-date modified: 09-10-2023
+date modified: 06-02-2024
+date: 09-10-2023
 ---
-  
 
 #### Kinnari (Moderator)
 
-We're very happy to see so many young professionals joining us today. Without further ado, let's begin with the most awaited event of the evening.
+We're very happy to see so many young professionals joining us today. Without further ado, let's begin with the most awaited event of the evening. 
 
 On Team Designers, we have Gyan. Gyan is a Product Designer at Microsoft and also an IDC alumnus. Gyan is particularly happy to be here because he feels we don't invite him to IDC enough. You're always welcome here, Gyan. At Microsoft, he's working on Microsoft Word. In his free time, he's a recreational coder, a typography enthusiast, and enjoys reading science fiction.
 
