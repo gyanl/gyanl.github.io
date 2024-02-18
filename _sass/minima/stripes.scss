@@ -18,6 +18,14 @@ $anim-delay: 200ms;
     animation-delay: calc(var(--$anim-delay) * 4);
 }
 
+.delay-5{
+    animation-delay: calc(var(--$anim-delay) * 5);
+}
+
+.delay-6{
+    animation-delay: calc(var(--$anim-delay) * 6);
+}
+
 
 // Stretch-in animation
 
