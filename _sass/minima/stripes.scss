@@ -1,0 +1,84 @@
+// Set up delays in multiples of $anim-delay
+
+$anim-delay: .1s;
+
+.delay-1{
+    animation-delay: $anim-delay;
+}
+
+.delay-2{
+    animation-delay: $anim-delay * 2;
+}
+
+.delay-3{
+    animation-delay: $anim-delay * 3;
+}
+
+.delay-4{
+    animation-delay: $anim-delay * 4;
+}
+
+
+// Stretch-in animation
+
+.anim-stretch-in {
+    animation: stretch-in 1s both;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1)
+}
+
+@keyframes stretch-in {
+    0% {
+        transform: scaleY(0);
+        transform-origin: 0% 100%;
+        opacity: 1;
+    }
+
+    100% {
+        transform: scaleY(1);
+        transform-origin: 0% 100%;
+        opacity: 1;
+    }
+}
+
+
+// Common css for all boxes
+
+.entry-box {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: -1;
+}
+
+
+// 4 background stripes
+
+.bg-top {
+    background-color: var(--accent-color-dark);
+    width: 100%;
+    height: 100%;
+    margin-top: 0px;
+}
+
+.bg-mid {
+    background-color: var(--accent-color);
+    margin-top: 10px;
+}
+
+.bg-bottom {
+    background-color: var(--accent-color-light);
+    width: 100%;
+    height: 100%;
+    margin-top: 20px;
+}
+
+.bg-background {
+    background-color: var(--background-color);
+    width: 100%;
+    height: 100%;
+    margin-top: 30px;
+}

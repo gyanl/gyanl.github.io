@@ -47,4 +47,4 @@ $on-large: $on-laptop !default; // Use media queries like this:
   font-size: $base-font-size * $ratio;
 }
 // Import partials.
-@import "minima/base", "minima/type", "minima/layout", "minima/syntax-highlighting", "minima/pell";
+@import "minima/base", "minima/type", "minima/layout", "minima/syntax-highlighting", "minima/pell", "minima/stripes";
