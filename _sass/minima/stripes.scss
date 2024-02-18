@@ -1,29 +1,23 @@
-// Set up delays in multiples of $anim-delay
-
-$anim-delay: 200ms;
+// Set up delays
 
 .delay-1{
-    animation-delay: $anim-delay;
+    animation-delay: 200ms !important;
 }
 
 .delay-2{
-    animation-delay: calc(var(--$anim-delay) * 2);
+    animation-delay: 400ms !important;
 }
 
 .delay-3{
-    animation-delay: calc(var(--$anim-delay) * 3);
+    animation-delay: 600ms !important;
 }
 
 .delay-4{
-    animation-delay: calc(var(--$anim-delay) * 4);
+    animation-delay: 800ms !important;
 }
 
 .delay-5{
-    animation-delay: calc(var(--$anim-delay) * 5);
-}
-
-.delay-6{
-    animation-delay: calc(var(--$anim-delay) * 6);
+    animation-delay: 1000ms !important;
 }
 
 
