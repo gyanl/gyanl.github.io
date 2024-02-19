@@ -71,17 +71,17 @@
 // 4 background stripes
 
 .bg-top {
-    background-color: $col-top;
+    background-color: var(--col-top);
     margin-top: 0px;
 }
 
 .bg-mid {
-    background-color: $col-mid;
+    background-color: var(--col-mid);
     margin-top: 10px;
 }
 
 .bg-bot {
-    background-color: $col-bot;
+    background-color: var(--col-bot);
     margin-top: 20px;
 }
 
