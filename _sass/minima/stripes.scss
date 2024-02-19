@@ -1,28 +1,37 @@
+:root {
+    --col-top: #f5f5f5;
+    --col-mid: #f0f0f0;
+    --col-bot: #eaeaea;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+      :root {
+        --col-top: #1a1a1a;
+        --col-mid: #2a2a2a;
+        --col-bot: #3a3a3a;
+      }
+  }
+
 // Set up delays
 
 .delay-1{
-    animation-delay: 150ms !important;
+    animation-delay: 120ms !important;
 }
 
 .delay-2{
-    animation-delay: 300ms !important;
+    animation-delay: 240ms !important;
 }
 
 .delay-3{
-    animation-delay: 450ms !important;
+    animation-delay: 360ms !important;
 }
 
 .delay-4{
-    animation-delay: 600ms !important;
+    animation-delay: 480ms !important;
 }
 
 .delay-5{
-    animation-delay: 750ms !important;
-}
-
-
-#bg-1, #bg-2, #bg-3{
-    opacity: 0.05;
+    animation-delay: 600ms !important;
 }
 
 // Stretch-in animation
@@ -62,17 +71,17 @@
 // 4 background stripes
 
 .bg-top {
-    background-color: var(--accent-color-dark);
+    background-color: $col-top;
     margin-top: 0px;
 }
 
 .bg-mid {
-    background-color: var(--accent-color);
+    background-color: $col-mid;
     margin-top: 10px;
 }
 
-.bg-bottom {
-    background-color: var(--accent-color-light);
+.bg-bot {
+    background-color: $col-bot;
     margin-top: 20px;
 }
 
@@ -80,3 +89,5 @@
     background-color: var(--background-color);
     margin-top: 30px;
 }
+
+
