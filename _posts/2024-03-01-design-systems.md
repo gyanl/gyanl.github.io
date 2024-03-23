@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Design Systems in Figma
+title: Figma Fun Friday @ NowForm
 subtitle: Constraints, Autolayout, Components, Variants
 tags: 
 thumbnail: https://gyanl.com/assets/thumbs/figma.png
@@ -10,9 +10,9 @@ date modified: 23-03-2024
 
 ![Description](https://gyanl.com/assets/fff-title.png)
 
-###### Title slide for the session
+###### Figma Fun Friday
 
-Some shots from my Figma workshop last Friday at the NowForm studio. I cover Constraints, Autolayout, Components, Variants and other Figma tips and tricks to speed up your workflows and maintain consistent design systems. Reach out if you’d like me to run this for your org!
+I conducted a Design Systems in Figma workshop at the [NowForm](https://nowform.co/)studio. I use my experience as a UX Designer at Microsoft where I’ve contributed to design systems that power robust experiences used by millions of people to give practical tips to speed up workflows and maintain consistent, scalable design systems. I also explain the mental models required to think about Constraints, Autolayout, Components, Variants and other advanced Figma features.
 
 ![Description](https://gyanl.com/assets/fff-gyan.jpg)
 
@@ -21,3 +21,5 @@ Some shots from my Figma workshop last Friday at the NowForm studio. I cover Con
 ![Description](https://gyanl.com/assets/fff-audience.jpg)
 
 ###### Keyboard shortcuts!
+
+> I am actively looking for teaching and speaking opportunities. Reach out if you’d like me to run this training workshop for your org!
