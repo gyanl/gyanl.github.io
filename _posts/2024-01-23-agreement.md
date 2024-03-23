@@ -1,17 +1,19 @@
 ---
 layout: post
 title: Design Agreement
-subtitle: A template for drafting an agreement with clients for design projects
+subtitle: An agreement that I share with clients before starting any design project.
 tags: 
 thumbnail: https://gyanl.com/assets/thumbs/default.png
 date: 23-01-2024
-date modified: 18-02-2024
+date modified: 23-03-2024
 ---
-> This is an agreement that I share with clients before starting any design project. The purpose of this document is to be on the same page about the scope and the fees, everything else is somewhat optional. Having a signed contract will only help you with having a document to refer back to in case there are disagreements later (and in fact simply, by creating this written document some of those issues are automatically avoided).
+> The purpose of this document is to be on the same page about the scope, fees and timelines, and everything else is somewhat optional. 
+> 
+> While this is a legal document, it’s very unlikely that it’ll be worth it for you as a freelancer to go after a client who breaches the agreement. Having a signed agreement will largely only help you with having a document to refer back to in case there are disagreements later. I’ve found that by creating such a written document, some of those potential disagreements about scope, payment and timelines are automatically avoided.
 
 ## App Design Agreement
 
-This Agreement, dated 23 February, 2017 for App Design Services (the “Agreement”) is between Gyan Lakhwani (“The Designer”), and Client Name (“The Client”) (together known as the “Parties”), for the performance of Design Services and the production of Deliverables (specified in section 2).
+This Agreement, dated 5 February, 2023 for App Design Services (the “Agreement”) is between Gyan Lakhwani (“The Designer”), and Client Name (“The Client”) (together known as the “Parties”), for the performance of Design Services and the production of Deliverables (specified in section 2).
 
 ### 1. Fees
 
