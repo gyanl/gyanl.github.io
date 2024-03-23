@@ -1,11 +1,11 @@
 ---
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: https://gyanl.com/assets/thumbs/diwaloween.png
 layout: post
 title: Diwaloween Fundraising Posters
 subtitle: I'm celebrating Diwali. I'm celebrating Halloween. I'm celebrating combination Diwali and Halloween.
 tags:
   - food
-date modified: 27-10-2023
+date modified: 237-310-24023
 date: 25-10-2023
 ---
 
