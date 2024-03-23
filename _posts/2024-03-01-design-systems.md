@@ -2,7 +2,8 @@
 layout: post
 title: Figma Fun Friday @ NowForm
 subtitle: Constraints, Autolayout, Components, Variants
-tags: 
+tags:
+  - talks
 thumbnail: https://gyanl.com/assets/thumbs/figma.png
 date: 23-03-2024
 date modified: 23-03-2024
