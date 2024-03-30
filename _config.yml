@@ -6,6 +6,10 @@ description: > # this means to ignore newlines until "show_excerpts:"
 
 show_excerpts: false # set to true to show excerpts on the homepage
 
+exclude:
+  - _posts/Drafts/
+
+
 permalink: /:title
 
 # Minima date format
