@@ -4,13 +4,13 @@ title: Plutonium Sans
 subtitle: Designing my second typeface
 tags: fonts
 thumbnail: https://gyanl.com/assets/thumbs/plutonium.png
+date: 23-09-2022
+date modified: 31-03-2024
 ---
 
 ![Plutonium Sans](https://gyanl.com/assets/plutonium.png)
 
 A few months ago, I worked on a script typeface based on my handwriting. I called it [Lettuce Party](/lettuce-party). It was my first foray into type design, and I came out of the experience with a lot of insights into what not to do when you are trying to design a typeface. This summer, I read [Never Use Futura](http://www.neverusefutura.com/) and decided to work on my own sans serif inspired by the geometric forms of Futura. This was the result.
-
-
 
 ![Plutonium Sans](https://gyanl.com/assets/plutonium-weights.png)
 

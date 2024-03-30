@@ -4,7 +4,8 @@ title: UX Design at Microsoft
 subtitle: Starting my first full time job in the pandemic and working on voice experiences.
 tags: work
 thumbnail: https://gyanl.com/assets/thumbs/microsoft.png
-date modified: 27-08-2023
+date modified: 31-03-2024
+date: 23-09-2022
 ---
 
 I started my first job as a UX Designer at Microsoft soon after finishing my Master's degree in Interaction Design at IDC School of Design, IIT Bombay. I joined the Canvas Voice team in Noida, which worked on experiences like Dictation, Transcription, Read Aloud and Voice Search across Microsoft apps like Word, Outlook and OneNote. I later worked on Microsoft Designer, and then Microsoft Word.
@@ -12,7 +13,6 @@ I started my first job as a UX Designer at Microsoft soon after finishing my Mas
 ![Voice @ Microsoft](https://gyanl.com/assets/ms-voice.png)
 
 ###### An internal logo that I designed for Voice @ Microsoft
-
 
 ### Rethinking Read Aloud for Word mobile
 
@@ -56,3 +56,5 @@ I started my first job as a UX Designer at Microsoft soon after finishing my Mas
 
 ### Microsoft Word for Web
 - Designing next generation of Office experiences to feel more modern and intuitive.
+
+> Are you interested in design positions at Microsoft? I may be able to refer you for open positions. See [This Page](gyanl.com/work-at-ms) and reach out to me.
