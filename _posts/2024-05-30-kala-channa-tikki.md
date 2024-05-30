@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Kala Chana Tikki
-subtitle: 
+subtitle: My mom's recipe for black chickpea patties
 tags:
   - food
 thumbnail: https://gyanl.com/assets/thumbs/default.png
@@ -18,9 +18,9 @@ date modified: 30-05-2024
 
 - 1 tsp garam masala
 
-- 7 green chilies
+- 7 green chillies
 
-- 1/4 cup red chilies
+- 1/4 spoon red chilli powder
 
 - Ginger-garlic paste (to taste)
 
@@ -36,17 +36,17 @@ date modified: 30-05-2024
 
 3. Grind the boiled kala chana coarsely in a mixer.
 
-4. Add the soaked soya granules to the mixture and mix well.
+4. Break down the soaked soya granules, add to the mixture and mix well.
 
 5. Add 2 slices of bread to the mixture.
 
 6. Mix in 1 tsp of garam masala.
 
-7. Add 7 green chilies (finely chopped).
+7. Add 7 green chillies (finely chopped).
 
-8. Add 1/4 cup of red chilies (finely chopped).
+8. Add 1/4 spoon red chilli powder.
 
-9. Grind ginger and garlic together and add to the mixture.
+9. Grind ginger and garlic and add to the mixture.
 
 10. Add salt to taste.
 
@@ -54,7 +54,7 @@ date modified: 30-05-2024
 
 12. Shape the mixture into small tikkis (patties).
 
-13. Cook the tikkis on a heated pan with a little oil until golden brown on both sides.
+13. Either deep fry the tikkis of shallow fry on a heated pan with a little oil until golden brown on both sides.
 
 #### Serving Suggestion:
 
