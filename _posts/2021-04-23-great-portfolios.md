@@ -5,7 +5,7 @@ title: Great Portfolio Sites
 subtitle: A list of websites that I think do a great job of showing design work.
 permalink: portfolios
 tags: resources
-date modified: 10-02-2024
+date modified: 29-05-2024
 date: 16-06-2023
 ---
 
@@ -36,6 +36,8 @@ This is a list of sites that I think are great to look at for inspiration.
 10. [Gavin Nelson](https://nelson.co/)<br>Just the basics done really well.  
     
 11. [Yuma Naito](https://yumanaito.com/) <br>Yuma is a Graphic Designer and this website uses a Swiss Grid to show off some great work.
+    
+12. [Vedant Jain](https://www.vedantja.in/)<br>Vedant’s website has some neat case studies and a grainy VCR background that I love.
 
 ## Blogs
 

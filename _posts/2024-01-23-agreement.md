@@ -5,7 +5,7 @@ subtitle: An agreement that I share with clients before starting any design proj
 tags: 
 thumbnail: https://gyanl.com/assets/thumbs/default.png
 date: 23-01-2024
-date modified: 23-03-2024
+date modified: 15-04-2024
 ---
 > The purpose of this document is to be on the same page about the scope, fees and timelines, and everything else is somewhat optional. 
 > 
@@ -43,13 +43,12 @@ The Designer will provide the following deliverables to the Client : 
 
 Payment shall be made to xx, Account No. xx at Bank of Baroda, Karol Bagh branch with IFSC code xx according to the schedule below : 
 
-|   |   |   |   |   |
-|---|---|---|---|---|
-|S.No.|Task|Description|Percentage|INR|
-|1|Project advance|Payment on accepting proposal|20%|x|
-|2|Static screen completion|Payment on completion of iOS static screens|50%|y|
-|3|Asset deliverables + prototype|Payment on completion of iOS prototype and asset handover|30%|z|
-||||100%|x+y+z|
+| Task                                                                                            | Percentage | INR   |
+| ----------------------------------------------------------------------------------------------- | ---------- | ----- |
+| **Project advance**<br>Payment on accepting proposal                                            | 20%        | x     |
+| **Static screen completion**<br>Payment on completion of iOS static screens                     | 50%        | y     |
+| **Asset deliverables + prototype**<br>Payment on completion of iOS prototype and asset handover | 30%        | z     |
+|                                                                                                 | 100%       | x+y+z |
 
 ### 4. Reviews and Revisions
 
@@ -93,7 +92,5 @@ The parties expressly acknowledge that this Agreement does not create an exclusi
 
  By signing this document both parties agree to all the clauses in this document.
 
-|   |   |
-|---|---|
-|||
-|…………………………………………………..<br><br>  <br><br>CLIENT <br><br>Client Name <br><br>Date : |…………………………………………………..<br><br>  <br><br>DESIGNER<br><br>Gyan Lakhwani<br><br>Date : 29 March 2017 |
+| …………………………………………………..<br><br>  <br><br>CLIENT <br><br>Client Name <br><br>Date : | …………………………………………………..<br><br>  <br><br>DESIGNER<br><br>Gyan Lakhwani<br><br>Date : 29 March 2017 |
+| -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |

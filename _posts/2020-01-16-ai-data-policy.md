@@ -5,15 +5,20 @@ subtitle: "These are my lab notes from PS:626 AI, Data & Policy, an elective off
 tags: idc
 thumbnail: https://gyanl.com/assets/thumbs/ai-theory.png
 permalink: ai
+date: 23-09-2022
+date modified: 29-05-2024
 ---
 
 ### Why did I take this elective?
+
 The fourth and last semester of the IDC M.Des. program has a research project and a design project, but no lectures. Masters students at IIT, however, can choose to take one of a [set of electives](http://www.iitb.ac.in/newacadhome/Instituteelectivelist2019.pdf). I thought it would be interesting to make the most of being a design school in IIT Bombay, and take a course offerred by another department. I took the AI, Data and Policy partly because I follow [Prof. Guha on Twitter](https://twitter.com/anupam_guha) and I happened to see his tweet about the course, and partly because my internship at Microsoft in Summer 2019 involved working with AI, and I felt a little crippled by my inability to actually prototype anything as a designer and wanted to learn more.
 
 ### Initial impressions
+
 I was especially interested in how the course was pitched - over the past year I've realised my limitations as a designer being able to create any real impact in social problems without significant policy intervention, and I wanted to see what looking at AI through such a lens could look like. There are two classes a week (Monday and Thursday from 2pm - 3:30pm) and classes alternate between theory classes discussing the socio-political aspect of AI, and coding classes that cover Machine Learning in Python. I thought this was a very interesting approach to the problem, since understanding AI requires both an understanding of the technical aspect and the social, political, ethical and economic impact of AI.
 
 ### Managing courseload (IDC M.Des)
+
 IDC courseload is heavy as it is, and so I checked with my faculty advisor and project guide before taking this course. They said it was a good idea to be exposed to courses outside IDC, but warned me about the courseload and suggested that I could take it as an audit course. DRS and P3 are 12 and 30 credits respectively, and the elective is 6, which adds up to a 48 credit semester. It is possible to take courses as audit courses or as additional learning courses, which do not impact your CPI. I have currently taken the course as an additional learning course.
 
 ### Some thoughts about the first class and [this paper](https://royalsocietypublishing.org/doi/full/10.1098/rsta.2018.0087)
@@ -29,6 +34,7 @@ Vidushi Marda’s paper on AI Policy in India [[3]](https://royalsocietypublishi
 This is despite the 2015 striking down of Section 66A of India’s Information Technology Act by the Supreme Court because it was said to have a ‘chilling effect on free speech’. In a 2017 statement, the Indian supreme court also recognised informational privacy as a fundamental right. With practice preceding policy, there is a void on clear policy against the use of AI by the state in a way that violates fundamental freedoms of the citizens.
 
 #20 Jan 2020
+
 Monday, 2pm
 
 ### References
@@ -36,14 +42,17 @@ Monday, 2pm
 [1] [Twitter thread by Yonatan Zunger](https://twitter.com/yonatanzunger/status/975545004205654016)
 
 [2] [Google ‘fixed’ its racist algorithm by removing gorillas from its image-labeling tech](
+
 https://www.theverge.com/2018/1/12/16882408/google-racist-gorillas-photo-recognition-algorithm-ai)
 
 [3] [Artificial intelligence policy in India: a framework for engaging the limits of data-driven decision-making](https://royalsocietypublishing.org/doi/full/10.1098/rsta.2018.0087)
 
 [4] [Delhi Police Is Now Using Facial Recognition Software to Screen 'Habitual Protestors'](
+
 https://thewire.in/government/delhi-police-is-now-using-facial-recognition-software-to-screen-habitual-protestors)
 
 # Reading List
+
 Readings assigned during the course.
 
 - Artificial intelligence policy in India: a framework for engaging the limits of data-driven decision-making.  
@@ -54,7 +63,7 @@ Readings assigned during the course.
 *Google AI*  
 [PDF](https://ai.google/static/documents/perspectives-on-issues-in-ai-governance.pdf)
 
-- National Strategy for Artificial Intelligence #AIFORALL   
+- National Strategy for Artificial Intelligence AIFORALL   
 *Niti Aayog*  
 [PDF](https://niti.gov.in/writereaddata/files/document_publication/NationalStrategy-for-AI-Discussion-Paper.pdf)
 
@@ -73,5 +82,6 @@ Readings assigned during the course.
 # Things to check out
 
 ### ELIZA
+
 Chatbot created in the 1960s at MIT Artificial Intelligence Laboratory.   
 [Try here](http://psych.fullerton.edu/mbirnbaum/psych101/Eliza.htm)
