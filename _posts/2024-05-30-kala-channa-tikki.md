@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Kala Chana Tikki
-subtitle: My mom's recipe for black chickpea patties
+subtitle: My grandmother's recipe for black chickpea patties
 tags:
   - food
 thumbnail: https://gyanl.com/assets/thumbs/default.png
