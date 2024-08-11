@@ -2,9 +2,10 @@
 layout: post
 title: UX Design at Microsoft
 subtitle: Starting my first full time job in the pandemic and working on voice experiences.
-tags: work
+tags:
+  - work
 thumbnail: https://gyanl.com/assets/thumbs/microsoft.png
-date modified: 31-03-2024
+date modified: 29-07-2024
 date: 23-09-2022
 ---
 
@@ -57,4 +58,4 @@ I started my first job as a UX Designer at Microsoft soon after finishing my Mas
 ### Microsoft Word for Web
 - Designing next generation of Office experiences to feel more modern and intuitive.
 
-> Are you interested in design positions at Microsoft? I may be able to refer you for open positions. See [This Page](gyanl.com/work-at-ms) and reach out to me.
+> Are you interested in design positions at Microsoft? I may be able to refer you for open positions. Read [these instructions](gyanl.com/work-at-ms) and reach out to me.
