@@ -105,15 +105,12 @@ layout: default
       {%- endfor -%}
     </ul>
 
-    <h5>
-      <a href="tag/branding">Branding [{{ site.tags["branding"].size }}]</a>
-    </h5>
+    <h5><a href="tag/uiux">UI/UX [{{ site.tags["uiux"].size }}]</a></h5>
     <ul class="post-list">
-      {%- for post in site.tags["branding"] -%}
+      {%- for post in site.tags["uiux"] -%}
 
       <li class="post-item">
-        <img class="thumbnail-small" src="{{ post.thumbnail | default:
-        "https://gyanl.com/assets/thumbs/default.png" }}">
+        <img class="thumbnail-small" src="{{ post.thumbnail | default: " https://gyanl.com/assets/thumbs/default.png " }}">
         <div class="post-item-text">
             <a class="post-link" href="{{ post.url | relative_url }}">
               {{ post.title | escape }}
@@ -165,12 +162,15 @@ layout: default
       {%- endfor -%}
     </ul>
 
-    <h5><a href="tag/uiux">UI/UX [{{ site.tags["uiux"].size }}]</a></h5>
+    <h5>
+      <a href="tag/branding">Branding [{{ site.tags["branding"].size }}]</a>
+    </h5>
     <ul class="post-list">
-      {%- for post in site.tags["uiux"] -%}
+      {%- for post in site.tags["branding"] -%}
 
       <li class="post-item">
-        <img class="thumbnail-small" src="{{ post.thumbnail | default: " https://gyanl.com/assets/thumbs/default.png " }}">
+        <img class="thumbnail-small" src="{{ post.thumbnail | default:
+        "https://gyanl.com/assets/thumbs/default.png" }}">
         <div class="post-item-text">
             <a class="post-link" href="{{ post.url | relative_url }}">
               {{ post.title | escape }}
@@ -180,6 +180,8 @@ layout: default
 
       {%- endfor -%}
     </ul>
+
+
 
     <!-- <p class="feed-subscribe">
       <a href="{{ 'feed.xml' | relative_url }}">
