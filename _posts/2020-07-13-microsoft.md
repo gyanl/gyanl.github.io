@@ -5,7 +5,7 @@ subtitle: Starting my first full time job in the pandemic and working on voice e
 tags:
   - work
 thumbnail: https://gyanl.com/assets/thumbs/microsoft.png
-date modified: 29-07-2024
+date modified: 21-10-2024
 date: 23-09-2022
 ---
 
@@ -56,6 +56,7 @@ I started my first job as a UX Designer at Microsoft soon after finishing my Mas
 - I work on improving experiences like Tables, Borders, Images to be delightful, platform-native experiences that make sense for touch, keyboard, trackpad, and pencil users on iPads.
 
 ### Microsoft Word for Web
-- Designing next generation of Office experiences to feel more modern and intuitive.
+- I worked on a redesigned navigation pane, a new find and replace experience, checklists and quick templates. 
+- I also worked on a cross-team effort to redesign the colored icon set for Microsoft Word, Excel and PowerPoint to align more closely to the Fluent design language, while retaining semantic color.
 
 > Are you interested in design positions at Microsoft? I may be able to refer you for open positions. Read [these instructions](gyanl.com/work-at-ms) and reach out to me.

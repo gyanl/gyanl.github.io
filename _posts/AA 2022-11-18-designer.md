@@ -2,9 +2,11 @@
 layout: post
 title: Microsoft Designer
 subtitle: An AI powered content creation experience for mobile creators // Everyone is a creator.
-tags: misc
+tags:
+  - misc
 thumbnail: https://gyanl.com/assets/thumbs/default.png
-date modified: 18-11-2022
+date modified: 04-10-2024
+date: 18-11-2022
 ---
 
 In December 2021, I started working on a new project at Microsoft. The PowerPoint Intelligence team had been working on the Designer pane for a while - the feature analysed the content on your current slide, and then intelligently suggested typographic treatments, layouts, media and transitions that could be applied to the slide in one-click. It worked well, and there was a lot of user love for the ability to instantly improve the quality of their slides with a low-effort action.
@@ -26,21 +28,20 @@ Scaling a desktop web app to a mobile device. Context - Showing and hiding menus
 ### Done and cancel
 
 Done only
+
 Done and cancel
 
-
 ### Simplified decision architecture
+
 A key part of the Designer experience was the idea of a novice user to be able to open up the app and be able to create something just by fiddling with the options - the app uses controlled chaos to generate design ideas with a single tap.
 
 For the end user, the app attempts to narrow down decisions from “Which of these 100 options do I like?” to “Do I like this or should I try something else?”
 
-
 ### Using generative AI with Dall-E 2
 
 Dall-e 2 and other generative AI models have sparked discussions
+
 - are really cool
 - currently hard to use, users have to learn how to nudge the Ai towards results using keywords.
 - black box model where changing just a few characters gives completely different results
 - text is garbage
- 
- 
