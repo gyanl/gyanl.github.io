@@ -9,15 +9,21 @@ date modified: 24-10-2024
 date: 23-09-2022
 ---
 
-I once found myself tasked with adding checklists to Microsoft Word. I initially did not believe that this was too complicated. Checklists are a well understood interface design pattern, and not an area where I felt we needed to reinvent the wheel. You click on a checklist marker, and the item changes to a checked state. Clicking on the marker again switches back to the not-checked state. 
-
-#### Problem Statement
-
-What should the checklists experience for Word be like?
+I once found myself tasked with adding checklists to Microsoft Word. I initially did not believe that this was too complicated. Word already has 3 types of lists—bullet lists, numbered lists, and multi-level lists. The problem statement seemed straightforward. What should the checklists experience for Word be like?
 
 ![Description](https://gyanl.com/assets/wordweb-bullets.png)
 
-###### Write caption here
+###### Bullets, numbering, and multi-level lists. 
+
+Checklists, too, are a well understood interface design pattern, and not an area where I felt we needed to reinvent the wheel. You click on a checklist marker, and the item changes to a checked state. Clicking on the marker again switches back to the not-checked state. I wondered if there was additional value to be gained by introducing a three-state checklist marker that could have a state other than checked/unchecked—such as an urgent state for tasks.
+
+![Description](/assets/wordweb-checklist-types.png)
+
+###### Some potential types of checklists that explored different use cases and visual markers
+
+{: .slideshow }
+
+![Description 0](https://gyanl.com/assets/wordweb-checklist-entry1.png)![Description 1](https://gyanl.com/assets/[-1.png](wordweb-checklist-entry2.png))
 
 ### The challenge
 
