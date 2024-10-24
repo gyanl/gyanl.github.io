@@ -15,15 +15,17 @@ I once found myself tasked with adding checklists to Microsoft Word. I initially
 
 ###### Bullets, numbering, and multi-level lists. 
 
-Checklists, too, are a well understood interface design pattern, and not an area where I felt we needed to reinvent the wheel. You click on a checklist marker, and the item changes to a checked state. Clicking on the marker again switches back to the not-checked state. I wondered if there was additional value to be gained by introducing a three-state checklist marker that could have a state other than checked/unchecked—such as an urgent state for tasks.
+Checklists as a UI pattern are pretty well established. You click a checklist marker, and the item switches to a checked state. Click it again, and it’s back to unchecked. That’s checklist behavior 101. I began exploring whether there was more we could do. What if we introduced a third state? Perhaps an “urgent” state for tasks that require special attention? This simple interaction could potentially add a whole new layer of utility.
 
 ![Description](/assets/wordweb-checklist-types.png)
 
 ###### Some potential types of checklists that explored different use cases and visual markers
 
+From a design perspective, checklists could be treated as a special case of bullet lists, or we could give them a standalone entry point in the ribbon for greater discoverability. The latter approach won out because it was important for users to be able to find this new feature in order to use it.
+
 {: .slideshow }
 
-![Description 0](https://gyanl.com/assets/wordweb-checklist-entry1.png)![Description 1](https://gyanl.com/assets/[-1.png](wordweb-checklist-entry2.png))
+![Description 0](https://gyanl.com/assets/wordweb-checklist-entry-0.png)![Description 1](https://gyanl.com/assets/wordweb-checklist-entry-1.png)
 
 ### The challenge
 
