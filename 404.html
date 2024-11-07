@@ -100,10 +100,10 @@ layout: default
     console.log(pageName);
 
     // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-analytics.js";
-    import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
-    import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics.js";
+    import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
@@ -204,7 +204,18 @@ layout: default
 
     function signInUser() {
       console.log("Trying to sign in...")
-      signInWithRedirect(auth, provider);
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const user = result.user;
+          console.log("Signed in as " + user.displayName);
+          vdisplayname = user.displayName;
+          vphotourl = user.photoURL;
+          vemail = user.email;
+          showUserOnPage();
+        })
+        .catch((error) => {
+          console.error("Sign in error:", error);
+        });
     }
 
     // function showUserOnPage() {
@@ -258,38 +269,18 @@ layout: default
 
     function getUserDetails() {
       console.log("Trying to get user details...");
-
-      const auth = getAuth();
-
-getRedirectResult(auth)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access Google APIs.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-
-    console.log(credential);
-    console.log(token);
-
-    // The signed-in user info.
-    const user = result.user;
-    console.log(user);
-    console.log("i think you are " + user.displayName);
-    vdisplayname = user.displayName;
-    vphotourl = user.photoURL;
-    vemail = user.email;
-    showUserOnPage();
-
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-  });
-
+      
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          console.log("User is signed in:", user.displayName);
+          vdisplayname = user.displayName;
+          vphotourl = user.photoURL;
+          vemail = user.email;
+          showUserOnPage();
+        } else {
+          console.log("No user signed in");
+        }
+      });
     }
 
     // Add event listeners
