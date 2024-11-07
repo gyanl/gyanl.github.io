@@ -5,7 +5,7 @@ title: Great Portfolio Sites
 subtitle: A list of websites that I think do a great job of showing design work.
 permalink: portfolios
 tags: resources
-date modified: 29-05-2024
+date modified: 07-11-2024
 date: 16-06-2023
 ---
 
@@ -15,7 +15,7 @@ This is a list of sites that I think are great to look at for inspiration.
 
 ## Portfolios
 
-1. <https://gyanl.com/v2> <br>An older version of my website that worked as a portfolio, and got me an internship at Zomato and a job at Microsoft.
+1. <https://gyanl.com/v2> <br>An older version of my website that worked as a portfolio, and got me an internship at Zomato and a job at Microsoft. A bit outdated now, but it served me well at the time.
 
 2. <https://abhishk.me/> <br>Abhishek Sharma does a fantastic job of showing his work visually. The website has case studies about his projects and experiences, and also shows off his side projects and experience with code.
 
@@ -38,6 +38,8 @@ This is a list of sites that I think are great to look at for inspiration.
 11. [Yuma Naito](https://yumanaito.com/) <br>Yuma is a Graphic Designer and this website uses a Swiss Grid to show off some great work.
     
 12. [Vedant Jain](https://www.vedantja.in/)<br>Vedant’s website has some neat case studies and a grainy VCR background that I love.
+    
+13. [Eric Zhang](https://www.ekzhang.com)<br>Eric is a is a software engineer, researcher, and designer. His website documents his many open source projects, and I love the clean layout.
 
 ## Blogs
 
