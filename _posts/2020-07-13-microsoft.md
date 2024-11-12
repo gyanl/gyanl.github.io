@@ -2,10 +2,9 @@
 layout: post
 title: UX Design at Microsoft
 subtitle: Starting my first full time job in the pandemic and working on voice experiences.
-tags:
-  - work
+tags: []
 thumbnail: https://gyanl.com/assets/thumbs/microsoft.png
-date modified: 21-10-2024
+date modified: 261-10-2024
 date: 23-09-2022
 ---
 
