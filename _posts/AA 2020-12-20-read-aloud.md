@@ -4,14 +4,15 @@ title: Read Aloud for Microsoft Word
 subtitle: Rethinking Text to speech for mobile devices
 tags: misc
 thumbnail: https://gyanl.com/assets/thumbs/default.png
-date modified: 01-06-2022
+date modified: 04-12-2024
+date: 04-10-2024
 ---
 
 Read Aloud is a text to speech feature in Microsoft Word that lets people listen to their documents as audio, using AI-powered neural voices. 
 
 ![GIF showing Read Aloud in action](https://gyanl.com/assets/ra-what-is.gif)
-###### Read Aloud plays back the text in a Word Document as audio
 
+###### Read Aloud plays back the text in a Word Document as audio
 
 ##### Hypothesis
 
@@ -30,9 +31,6 @@ conduct user research for Read Aloud with Word mobile users, and find out how th
 2. What are the contexts in which consuming audio is preferred over text?
 3. How do existing Read Aloud users 
 4. What 
-
-
-
 
 ##### Multitasking
 
