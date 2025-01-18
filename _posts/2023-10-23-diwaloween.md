@@ -4,8 +4,7 @@ layout: post
 title: Diwaloween Fundraising Posters
 subtitle: I'm celebrating Diwali. I'm celebrating Halloween. I'm celebrating combination Diwali and Halloween.
 tags:
-  - food
-date modified: 237-310-24023
+date modified: 18-01-2025
 date: 25-10-2023
 ---
 
