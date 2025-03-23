@@ -93,3 +93,23 @@ _A comfortable office chair with a red cushioned base. Selling cheap because the
 **Status:** 🟢 Available
 
 <br>
+
+#### Windows PC
+
+_Assembled Desktop PC with Windows installed. It can manage some basic gaming because of the inbuilt graphics. Selling it below the cost of parts because I want to clear up space in my room._
+
+AMD Ryzen 5 3400g with Radeon Vega 11 Graphics (can output 1440p 144hz or 4k 60hz)
+
+16 GB RAM (2x 8GB Samsung 2666 Mhz)
+
+500GB SSD (Crucial P2 - NVMe PCIe M.2) 
+
+1TB HDD (Seagate Barracuda)
+
+Gigabyte B450M S2H V2 motherboard
+
+**My price:** 12.5k
+
+**Status:** 🟢 Available
+
+<br>
