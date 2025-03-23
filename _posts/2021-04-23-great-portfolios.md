@@ -5,7 +5,7 @@ title: Great Portfolio Sites
 subtitle: A list of websites that I think do a great job of showing design work.
 permalink: portfolios
 tags: resources
-date modified: 07-11-2024
+date modified: 21-02-2025
 date: 16-06-2023
 ---
 
@@ -51,19 +51,17 @@ These are not necessarily design portfolios, but I like how they are written and
 
 3. <https://www.gwern.net/index><br>This website is dark magic. I don't know how else to describe it.
 
-4. <https://andymatuschak.org/><br>I find something cool each time I look at Andy Matuschak's website. He also has a really cool [evergreen notes system](https://notes.andymatuschak.org/z4SDCZQeRo4xFEQ8H4qrSqd68ucpgE6LU155C) that I hope he open sources some day.
+4. [Naval](https://nav.al/)<br>This is a cross between a blog and a podcast landing page. Each blog post is the transcript of a podcast clip. The theme and concept is pretty simple but it works well.
 
-5. [Naval](https://nav.al/)<br>This is a cross between a blog and a podcast landing page. Each blog post is the transcript of a podcast clip. The theme and concept is pretty simple but it works well.
+5. [Josh W Comeau](https://www.joshwcomeau.com/)<br>Josh writes about web dev and has really nice touches on his website. Audio feedback? For pressing buttons on a website?? I love it.
 
-6. [Josh W Comeau](https://www.joshwcomeau.com/)<br>Josh writes about web dev and has really nice touches on his website. Audio feedback? For pressing buttons on a website?? I love it.
-
-7. [Daniel Miessler](https://danielmiessler.com/)<br>Daniel writes about knowledge and the meaning of life. It's great.  
+6. [Daniel Miessler](https://danielmiessler.com/)<br>Daniel writes about knowledge and the meaning of life. It's great.  
    
-8. [Kabir Goel](https://kabir.computer/)<br>Kabir writes about design tools and computers. This is a great example of something simple executed very well.  
+7. [Kabir Goel](https://kabir.computer/)<br>Kabir writes about design tools and computers. This is a great example of something simple executed very well.  
    
-10. [Vyshnav Gangadharan](https://vyshnav.xyz/blog/)<br>Vyshnav writes a lot, and documents it all. He’s got a great layout and some very interesting side projects.
+8. [Vyshnav Gangadharan](https://vyshnav.xyz/blog/)<br>Vyshnav writes a lot, and documents it all. He’s got a great layout and some very interesting side projects.
 
-11. [Timecapsule](https://timecapsule.co.in/)<br>Siddharth’s scrapbook with thoughts on design, personal reflections, music and everything in between.
+9. [Timecapsule](https://timecapsule.co.in/)<br>Siddharth’s scrapbook with thoughts on design, personal reflections, music and everything in between.
 
 ## Interesting interactions
 
@@ -82,3 +80,11 @@ These are not necessarily design portfolios, but I like how they are written and
 7. [AMAN'S GENERAL MISHMASH OF DESIGN, DATA & CODE](https://aman.bh/)<br>Aman’s artisanal, hand-crafted website is unlike any other website you’ll see. Showcases some of his data vis work and a lot more. 
 
 8. [Leffin - Portfolio](https://leff.in/)<br>Leffin’s portfolio uses slick new CSS page transitions to move between states.
+
+9. [jzhao.xyz](https://jzhao.xyz)<br>Switch between light and dark mode for a really cool effect
+
+## Digital Gardens
+
+Blogs that are interlinked and written as live, constantly work-in-progress ideas that connect with other ideas.
+
+1. <https://andymatuschak.org/><br>I find something cool each time I look at Andy Matuschak's website. He also has a really cool [evergreen notes system](https://notes.andymatuschak.org/z4SDCZQeRo4xFEQ8H4qrSqd68ucpgE6LU155C) that I hope he open sources some day.
