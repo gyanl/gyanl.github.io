@@ -6,14 +6,17 @@ permalink: now
 ---
 
 #### Work
-- 📝  Designing Microsoft Word for web
+- 📝  Building the new [Public Knowledge](www.publicknowledge.co) website
 
 #### Learning 
+- 💻  [Josh W. Comeau's](https://www.joshwcomeau.com/) React and CSS courses 
 - 🤖  Trying out Generative AI tools
-- 🥦  Learning to meal prep and efficiently cook my meals
 
 #### Code
 - 📓  Creating a digital garden with Obsidian and merging it with my existing Jekyll blog
+
+#### Reading
+- 📚  How to Do Nothing
 
 #### Writing
 - 💻  Slowly adding older projects to this site

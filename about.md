@@ -5,15 +5,17 @@ subtitle: My place on the internet.
 permalink: /about
 ---
 
-Hello, my name is Gyan Lakhwani. I am a designer and a nerd, and this website is a place for me to document my thoughts and try out experiments with code. If you find something broken (which is likely because I keep trying out things), please tweet at me [@gyanl](https://twitter.com/gyanl).
+Hello, my name is Gyan Lakhwani. I am a designer and a nerd, and this website is a place for me to document my thoughts and try out experiments with code. If you find something broken (which is likely because I am constantly trying out things), please tweet at me [@gyanl](https://twitter.com/gyanl).
 
-![A photo of me wearing a cap, trees in the background](https://gyanl.com/assets/shimla-gyan.jpg)
+![A photo of me](https://gyanl.com/assets/gyan-lakhwani-2025.jpg)
 ###### A photo of me
 
 #### Work
-I'm currently working on voice experiences at Microsoft. I have also previously worked on digital products with names like Google and Zomato, as well as a number of smaller startups.
+I'm currently a co-founder at [Public Knowledge Studio](https://publicknowledge.co). Previously, I worked on digital experiences at Microsoft and Zomato. 
 
 #### Education
+In 2025, I taught a course on [Data Visualisation](gyanl.com/dv) at Department of Design, Delhi Technological University.
+
 I have a Master's degree in Interaction Design from IDC School of Design at IIT Bombay and a Bachelor's degree in IT Engineering from IP University, Delhi.
 
 #### Website
