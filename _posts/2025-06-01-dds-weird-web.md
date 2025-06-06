@@ -10,6 +10,8 @@ date: 01-06-2025
 date modified: 07-06-2025
 ---
 
+![Description](https://gyanl.com/assets/dds-iit-delhi-poster.jpg)
+
 ![Description](https://gyanl.com/assets/dds-iit-delhi-title.jpg)
 
 DDS is the Annual Design Degree Showcase at the Department of Design, IIT Delhi. Charu and I conducted a workshop that talked about how we’ve adopted AI tools into our workflows, and some suggestions for how to avoid the cookie-cutter responses you’ll get from LLMs unless you are specific enough with your prompts.

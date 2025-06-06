@@ -8,7 +8,11 @@ date modified: 07-06-2025
 date: 05-06-2025
 ---
 
-###### Try it at [api.gyanl.com](http://api.gyanl.com)
+> I didn’t want to implement rate limiting, so I have $10 in my OpenAI account and this project will stop working when the credits run out. You can fork it yourself and run it on Vercel using the details on the Github project
+
+![Description](https://gyanl.com/assets/anything-api.jpg)
+
+##### Try it at the playground [api.gyanl.com](http://api.gyanl.com)
 
 One of my older AI projects had stopped working because the OpenAI davinci model had become too old and stopped working. I was puttering around with the server code that returned a json with some values and thought… if it can do this, it can probably do anything else too.
 
@@ -37,3 +41,8 @@ const { catchall, fields } = req.query;
       max_tokens: 400,
     });
 ```
+
+#### Why did I make this? 
+
+1. It's kind of funny 
+2. If you want to make, say, a protein tracker app, you could hit /protein-calculator/"1 boiled egg"?fields=protein-grams and get protein in grams without any additional setup.
