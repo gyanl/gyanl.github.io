@@ -20,5 +20,5 @@
   "propertiesInDocument": "visible",
   "showInlineTitle": true,
   "showLineNumber": true,
-  "attachmentFolderPath": "./assets"
+  "attachmentFolderPath": "assets"
 }
