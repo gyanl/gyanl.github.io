@@ -7,14 +7,14 @@ tags:
   - website
 thumbnail: https://gyanl.com/assets/thumbs/default.png
 date: 06-06-2025
-date modified: 07-06-2025
+date modified: 20-06-2025
 ---
 
-I stumbled into teaching a data visualisation course in Jan 2025. I had just quit my job as a product designer at Microsoft, and I wanted to do all of the things I felt a full-time job made it hard to do. After asking around, I found that the Department of Design at DTU had an opening for a guest faculty to teach a semester long course on Data Visualisation. I said yes, and then found myself poring over notebooks from college, finding some long-forgotten notes from workshops I had attended, and looking through open course material from other infoviz courses to use as reference.
+I stumbled into teaching a data visualisation course in Jan 2025. I had just quit my job as a product designer at Microsoft, and I wanted to do all of the things I felt a full-time job made it hard to do. After asking around, I found that the Department of Design at DTU had an opening for a guest faculty to teach a semester long course on Data Visualisation. I said yes, and then found myself poring over notebooks from college, finding some long-forgotten notes from workshops I had attended, and looking through open course material from other infoviz courses to use as reference. 
 
 ![Description](https://gyanl.com/assets/dv-class-photo.jpg)
 
-###### A class photo
+###### A class photo with some of my students
 
 I had a full day of class every Tuesday with a class of 38 B.Des. students in their 3rd year of a 4 year undergraduate degree in design. I made a rough course structure to start with, and then spent my weekends putting together my decks.
 
@@ -29,4 +29,4 @@ Along the way, I had a number of questions I wished I had better answers to, and
 
 ![Description](https://gyanl.com/assets/vizchitra-social.jpg)
 
-###### I’m moderating a “Birds of a Feather” session at Vizchitra 2025 where we’ll discuss some of these things!
+###### I’m moderating a “Birds of a Feather” session at Vizchitra 2025 where we’ll discuss some of these things.

@@ -12,7 +12,7 @@ date: 05-06-2025
 
 ![Description](https://gyanl.com/assets/anything-api.jpg)
 
-##### Try it at the playground [api.gyanl.com](http://api.gyanl.com)
+###### Try it at the playground [api.gyanl.com](http://api.gyanl.com)
 
 One of my older AI projects had stopped working because the OpenAI davinci model had become too old and stopped working. I was puttering around with the server code that returned a json with some values and thought… if it can do this, it can probably do anything else too.
 
