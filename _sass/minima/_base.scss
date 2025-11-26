@@ -77,7 +77,7 @@ body {
 
 a:visited.tag {
   color: var(--accent-color-dark);
-  background: (255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 
 }
 
@@ -109,9 +109,6 @@ a:visited.tag:hover {
  */
 main {
   display: block;
-  // Some padding to avoid sticky header issue.
-  margin-top: 60px;
-  /* Default value of `display` of `main` element is 'inline' in IE 11. */
 }
 
 @media screen and (max-width: $on-palm) {
@@ -399,11 +396,9 @@ pre {
 .wrapper {
   // max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 4));
   // max-width:         calc(#{$content-width} - (#{$spacing-unit} * 4));
-
+  max-width: 720px;
   margin-right: auto;
   margin-left: auto;
-  padding-right: $spacing-unit;
-  padding-left: $spacing-unit;
   @extend %clearfix;
 
   @media screen and (min-width: $on-large) {
