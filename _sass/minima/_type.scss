@@ -24,6 +24,7 @@ h5 {
   text-transform: uppercase;
   letter-spacing: .02em;
   @include relative-font-size(0.9);
+
   @media screen and (min-width: $on-large) {
     @include relative-font-size(0.9);
   }
@@ -42,6 +43,7 @@ h5 a:visited {
 h5 a:hover {
   color: var(--accent-color-dark);
 }
+
 /**
  * Set `margin-bottom` to maintain vertical rhythm
  */
@@ -85,6 +87,7 @@ ul {
   letter-spacing: -1px;
   line-height: 1;
   color: var(--text-color-dark);
+
   @media screen and (min-width: $on-large) {
     @include relative-font-size(2.25);
   }
@@ -93,20 +96,23 @@ ul {
 .post-content {
 
   padding-bottom: 6*$spacing-unit;
+  padding-right: $spacing-unit;
+  padding-left: $spacing-unit;
 
   a {
     border-bottom: 2px solid var(--background-color);
     transition: .2s;
   }
 
-  a:hover{
-      color: var(--accent-color);
-      border-bottom: 2px solid var(--accent-color);
+  a:hover {
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
   }
 
   h2 {
     margin-top: 18px;
     @include relative-font-size(1.75);
+
     @media screen and (min-width: $on-large) {
       @include relative-font-size(2);
     }
@@ -117,6 +123,7 @@ ul {
     margin-bottom: 4px;
     margin-top: 20px;
     @include relative-font-size(1.375);
+
     @media screen and (min-width: $on-large) {
       @include relative-font-size(1.625);
     }
@@ -127,6 +134,7 @@ ul {
     margin-bottom: 4px;
     margin-top: 18px;
     @include relative-font-size(1.125);
+
     @media screen and (min-width: $on-large) {
       @include relative-font-size(1.2);
     }
@@ -140,10 +148,11 @@ ul {
     line-height: 1.6;
     color: var(--accent-color);
     @include relative-font-size(0.8);
+
     @media screen and (min-width: $on-large) {
       @include relative-font-size(0.9);
 
-      strong{
+      strong {
         color: var(--text-color-dark);
       }
     }
