@@ -1,6 +1,6 @@
 :root {
   --base-font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
-  --title-font-family: Besley;
+  --title-font-family: "TASA Explorer";
   --subtitle-font-family: "IBM Plex Serif";
 
   --background-color: #ffffff;
@@ -138,48 +138,38 @@
   }
 }
 
-.circles {
-  margin: 7px 12px -7px 0;
-}
-
-.circle {
+.theme-picker {
   display: inline-block;
-  width: 24px;
-  height: 24px;
-  border-radius: 24px;
-  border: 2px solid var(--background-color);
+  margin: 0 12px 0 0;
+  vertical-align: middle;
 }
 
-.circle-active {
-  box-shadow: 0px 0px 0px 1px var(--text-color-dark);
-  -webkit-box-shadow: 0px 0px 0px 1px var(--text-color-dark);
-  -moz-box-shadow: 0px 0px 0px 1px var(--text-color-dark);
-}
+#theme-dropdown {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: var(--overlay-color);
+  border: 1px solid var(--overlay-edge-color);
+  border-radius: 8px;
+  padding: 6px 28px 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-color-dark);
+  cursor: pointer;
+  outline: none;
+  line-height: 1.4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M3 5l3 3 3-3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  transition: border-color 0.2s;
 
-.circle:hover {
-  box-shadow: 0px 0px 0px 1px var(--text-color-dark);
-  -webkit-box-shadow: 0px 0px 0px 1px var(--text-color-dark);
-  -moz-box-shadow: 0px 0px 0px 1px var(--text-color-dark);
-}
+  &:hover {
+    border-color: var(--accent-color);
+  }
 
-.color-red {
-  background-color: #ff1f52;
-}
-
-.color-orange {
-  background-color: #F18017;
-}
-
-.color-yellow {
-  background-color: #FAFF00;
-}
-
-.color-green {
-  background-color: #14b89c;
-}
-
-.color-blue {
-  background-color: #5243FF;
+  &:focus {
+    border-color: var(--accent-color);
+  }
 }
 
 .loginbutton {
