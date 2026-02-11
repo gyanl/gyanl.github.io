@@ -30,12 +30,15 @@
         {%- include social.html -%}
       </div> -->
 
-        <div class="circles">
-          <div class="circle color-red" onclick="applyTheme('0'); replayAnim()"> </div>
-          <!-- <div class="circle color-orange" onclick="applyTheme('1')"> </div> -->
-          <!-- <div class="circle color-yellow" onclick="applyTheme('2')"> </div> -->
-          <div class="circle color-green" onclick="applyTheme('3'); replayAnim()"> </div>
-          <!-- <div class="circle color-blue" onclick="applyTheme('4')"> </div> -->
+        <div class="theme-picker">
+          <select id="theme-dropdown" onchange="applyTheme(this.value); replayAnim()">
+            <option value="0">Rose</option>
+            <option value="3">Teal</option>
+            <option value="1">Ember</option>
+            <option value="4">Indigo</option>
+            <option value="5">Amber</option>
+            <option value="6">Violet</option>
+          </select>
         </div>
 
 

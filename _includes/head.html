@@ -87,6 +87,22 @@
           var genAccentBGD = "hsla(" + 245 + ", 20%, 80%, 85%)";
           break;
 
+        case "5":
+          var genAccent = "hsl(40, 90%, 42%)";
+          var genAccentDark = "hsl(35, 70%, 35%)";
+          var genAccentLight = "hsla(40, 40%, 65%, 20%)";
+          var genAccentBGL = "hsla(40, 40%, 70%, 25%)";
+          var genAccentBGD = "hsla(40, 30%, 15%, 100%)";
+          break;
+
+        case "6":
+          var genAccent = "hsl(270, 65%, 55%)";
+          var genAccentDark = "hsl(270, 45%, 42%)";
+          var genAccentLight = "hsla(270, 30%, 65%, 20%)";
+          var genAccentBGL = "hsla(270, 30%, 70%, 25%)";
+          var genAccentBGD = "hsla(270, 25%, 15%, 100%)";
+          break;
+
         default:
           console.log("Invalid input to applyTheme");
       }
@@ -99,6 +115,12 @@
       console.log("Page theme set to " + theme);
 
       updateLocalTheme(theme);
+      updateThemeDropdown(theme);
+    }
+
+    function updateThemeDropdown(theme) {
+      var dropdown = document.getElementById('theme-dropdown');
+      if (dropdown) dropdown.value = theme;
     }
 
       let savedTheme = getLocalTheme();
@@ -110,7 +132,9 @@
         console.log("No theme found, value:" + savedTheme);
       }
 
-      // applyTheme(getLocalTheme());
+      document.addEventListener('DOMContentLoaded', function() {
+        updateThemeDropdown(getLocalTheme());
+      });
 
   </script>
 </head>
