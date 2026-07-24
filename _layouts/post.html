@@ -1,36 +1,39 @@
 ---
-
 layout: default
-
 ---
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
-  <header class="post-header">
-    <img src="{{ post.thumbnail | escape }}">
-    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+  <header class="entry-header measure">
+    {%- if page.thumbnail %}
+    <img class="entry-thumbnail" src="{{ page.thumbnail | escape }}" alt="{{ page.title | escape }}">
+    {%- endif %}
 
-    {%- if page.subtitle -%}
-    <div class="sub-title">{{ page.subtitle }}</div>
-    {%- endif -%}
+    <h1 class="entry-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
 
-    <span class="post-meta">
-      <span class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        {{ page.date | date: date_format }}
+    {%- if page.subtitle %}
+    <div class="entry-subtitle">{{ page.subtitle }}</div>
+    {%- endif %}
+
+    <div class="entry-meta">
+      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {{- page.date | date: site.minima.date_format | default: "%b %-d, %Y" -}}
+      </time>
+      {%- if page.author %}
+      <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-author h-card" itemprop="name">{{ page.author | escape }}</span>
       </span>
-      {%- if page.author -%}
-        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author | escape }}</span></span>
-      {%- endif -%}</span>
-      <span>
-        {% for tag in page.tags %}
-          {% capture tag_name %}{{ tag }}{% endcapture %}
-          <a class="tag" href="tag/{{ tag_name }}"><nobr>{{ tag_name }}</nobr>&nbsp;</a>
-        {% endfor %}
-      </span>
-
+      {%- endif %}
+      {%- for tag in page.tags %}
+      <a class="tag" href="{{ tag | slugify | prepend: '/tag/' | relative_url }}">{{ tag }}</a>
+      {%- endfor %}
+    </div>
   </header>
 
-  <div class="post-content e-content" itemprop="articleBody">
+  <div class="prose measure e-content" itemprop="articleBody">
+    {%- comment -%}
+      Resolve Obsidian-style [[Post Title]] wikilinks against post titles before
+      markdownify. Posts are authored in Obsidian, hence the syntax.
+    {%- endcomment -%}
     {% assign contentarray = page.content | split:'[[' %}
     {% for item in contentarray %}
         {% if forloop.index > 1 %}
@@ -48,22 +51,22 @@ layout: default
             {% endif %}
         {% endif %}
     {% endfor %}
-    
+
     {% assign urlarray = urls | split:',' %}
     {% assign linkarray = links | split:',' %}
-    
+
     {% assign replacedcontent = page.content %}
     {% for item in linkarray %}
         {% assign linktext = '<a href="' | append: urlarray[forloop.index0] | append: '">' | append: item | append: '</a>' %}
         {% assign bracketlink = '[[' | append: item | append: ']]' %}
         {% assign replacedcontent = replacedcontent | replace: bracketlink,linktext %}
     {% endfor %}
-    
+
     {{ replacedcontent | markdownify }}
   </div>
 
   {%- if site.disqus.shortname -%}
-    {%- include disqus_comments.html -%}
+  {%- include disqus_comments.html -%}
   {%- endif -%}
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>

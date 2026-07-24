@@ -1,36 +1,22 @@
 ---
-
 layout: default
-
 ---
+<header class="entry-header measure">
+  {%- if page.title %}
+  <h1 class="entry-title">{{ page.title }}</h1>
+  {%- endif %}
+  {%- if page.description %}
+  <div class="entry-subtitle">{{ page.description }}</div>
+  {%- endif %}
+</header>
 
-  <div class="post-header">
-  {%- if page.title -%}
-  <h1 class="post-title">{{ page.title }}</h1>
-  {%- endif -%}
-  <p class="sub-title">{{ page.description }}</p>
-  </div>
+{%- comment -%}
+  Strip first: a page with no body still yields whitespace, which is not "" and
+  would render an empty .prose block — 100px of phantom gap above the listing.
+{%- endcomment -%}
+{%- assign body = content | strip -%}
+{%- if body != "" %}
+<div class="prose measure">{{ content }}</div>
+{%- endif %}
 
-  {{ content }} {%- if site.posts.size > 0 -%}
-  <h2 class="post-list-heading">{{ page.list_title | default: "" }}</h2>
-  <ul class="post-list">
-    {%- for post in site.posts -%}
-    <li class="post-item">
-      <img class="thumbnail" src="{{ post.thumbnail | default:
-      " https://gyanl.com/assets/thumbs/default.png " }}">
-      <div class="post-item-text">
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-        {%- if site.show_excerpts -%} {{ post.excerpt }} {%- endif -%} {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span> {% for tag in post.tags %}
-        <a class="tag" href="tag/{{ tag | slugify }}">{{ tag }}</a> {% endfor %}
-      </div>
-    </li>
-
-    {%- endfor -%}
-  </ul>
-
-  {%- endif -%}
+{% include site/post-list.html posts=site.posts %}

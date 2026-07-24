@@ -1,0 +1,23 @@
+{%- comment -%}
+  Recent writing. The work grid above is thumbnail-led and tag-filtered; this is
+  the plain chronological counterpart for everything else.
+{%- endcomment -%}
+
+<section class="work-section">
+  <div class="section-title">Recent Writing</div>
+
+  <div class="writing-list">
+    {%- for post in site.posts limit: 8 %}
+    <a class="writing-item" href="{{ post.url | relative_url }}">
+      <span>{{ post.title | escape }}</span>
+      <span class="writing-item-date">
+        {{- post.date | date: site.minima.date_format | default: "%b %-d, %Y" -}}
+      </span>
+    </a>
+    {%- endfor %}
+  </div>
+
+  <div class="section-title">
+    <a class="square-button" href="{{ '/writing' | relative_url }}">All writing</a>
+  </div>
+</section>

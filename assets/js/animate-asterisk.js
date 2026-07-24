@@ -133,11 +133,24 @@ class AsteriskAnimation {
   }
 
   /**
+   * How far the page must scroll for the reveal to finish opening.
+   *
+   * Measured off .hero-spacer so the animation and the empty space above the
+   * content stay in sync — retiming the effect is a one-line CSS change. Falls
+   * back to two viewport heights on pages without a spacer.
+   * @returns {number} Distance in pixels
+   */
+  getRevealDistance() {
+    const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    const spacer = document.querySelector('.hero-spacer');
+    return (spacer && spacer.offsetHeight) || viewportHeight * 2;
+  }
+
+  /**
    * Handle scroll events
    */
   handleScroll() {
-    const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-    const scrollProgress = Math.min(window.scrollY / (viewportHeight * 2), 1);
+    const scrollProgress = Math.min(window.scrollY / this.getRevealDistance(), 1);
 
     const newLength = this.config.initialLength + (200 - this.config.initialLength) * scrollProgress;
     const newWidth = this.config.initialWidth + (1500 - this.config.initialWidth) * scrollProgress;

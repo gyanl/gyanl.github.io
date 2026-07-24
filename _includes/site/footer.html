@@ -1,0 +1,173 @@
+<footer class="footer">
+  <div class="container-width footer-equal-columns sans">
+
+    <div class="footer-column space-between">
+      <p class="uppercase">
+        {{ site.title }}
+        <span class="secondary line-height-tight">
+          <br>/ New Delhi, India
+          <br>/ 28.6139° N, 77.2090° E
+          <br>/ <span id="delhi-time"></span>
+        </span>
+      </p>
+      <p class="secondary desktop-only">{{ site.description | strip_html | strip_newlines | strip }}</p>
+    </div>
+
+    <div class="footer-column">
+      <p class="secondary">ELSEWHERE</p>
+      <div class="uppercase">
+        {%- assign social = site.minima.social_links -%}
+        {%- if social.twitter %}<a class="square-button"
+          href="https://twitter.com/{{ social.twitter }}">Twitter</a><br>{% endif %}
+        {%- if social.github %}<a class="square-button"
+          href="https://github.com/{{ social.github }}">GitHub</a><br>{% endif %}
+        {%- if social.dribbble %}<a class="square-button"
+          href="https://dribbble.com/{{ social.dribbble }}">Dribbble</a><br>{% endif %}
+        {%- if social.instagram %}<a class="square-button"
+          href="https://instagram.com/{{ social.instagram }}">Instagram</a><br>{% endif %}
+        {%- if social.linkedin %}<a class="square-button"
+          href="https://linkedin.com/in/{{ social.linkedin }}">LinkedIn</a><br>{% endif %}
+        {%- if site.email %}<a class="square-button" href="mailto:{{ site.email }}">Email</a>{% endif %}
+      </div>
+
+      <p class="secondary">PAGES</p>
+      <div class="uppercase">
+        <a class="square-button" href="{{ '/about' | relative_url }}">About</a><br>
+        <a class="square-button" href="{{ '/writing' | relative_url }}">Writing</a><br>
+        <a class="square-button" href="{{ '/archive' | relative_url }}">Notes Archive</a><br>
+        <a class="square-button" href="{{ '/now' | relative_url }}">Now</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var el = document.getElementById('delhi-time');
+    if (!el) return;
+
+    function updateTime() {
+      var time = new Date().toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
+      });
+      var date = new Date().toLocaleDateString('en-US', {
+        timeZone: 'Asia/Kolkata', weekday: 'long', day: 'numeric', month: 'long'
+      });
+      el.textContent = time + ', ' + date;
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+  })();
+
+  // Asterisk trail that follows the cursor across the footer.
+  window.addEventListener('load', function () {
+    var footer = document.querySelector('.footer');
+    if (!footer || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var SPAWN_INTERVAL = 1000;
+    var REMOVAL_TIME = 5000;
+    var TRAIL_LENGTH = 200;
+    var HUE_STEP = 8;
+
+    var hue = 0;
+    var inFooter = false;
+    var spawnTimer = null;
+    var lastX = 0, lastY = 0, lastSpawnX = 0, lastSpawnY = 0;
+    var active = [];
+
+    function spawn() {
+      if (!inFooter) return;
+      if (spawnTimer) clearTimeout(spawnTimer);
+
+      var asterisk = document.createElement('div');
+      var rect = footer.getBoundingClientRect();
+      asterisk.className = 'asterisk';
+      asterisk.textContent = '*';
+      asterisk.style.left = (lastX - rect.left) + 'px';
+      asterisk.style.top = (lastY - rect.top) + 'px';
+      asterisk.style.color = 'hsl(' + hue + ', 80%, 65%)';
+      hue = (hue + HUE_STEP) % 360;
+
+      footer.appendChild(asterisk);
+      active.push(asterisk);
+      lastSpawnX = lastX;
+      lastSpawnY = lastY;
+
+      setTimeout(function () {
+        var i = active.indexOf(asterisk);
+        if (i > -1) active.splice(i, 1);
+        asterisk.remove();
+      }, REMOVAL_TIME);
+
+      spawnTimer = setTimeout(spawn, SPAWN_INTERVAL);
+    }
+
+    function start(x, y) {
+      inFooter = true;
+      lastX = lastSpawnX = x;
+      lastY = lastSpawnY = y;
+      spawn();
+    }
+
+    function stop() {
+      inFooter = false;
+      if (spawnTimer) {
+        clearTimeout(spawnTimer);
+        spawnTimer = null;
+      }
+      active.forEach(function (a) { a.remove(); });
+      active = [];
+    }
+
+    footer.addEventListener('mouseenter', function (e) { start(e.clientX, e.clientY); });
+    footer.addEventListener('mouseleave', stop);
+    footer.addEventListener('touchend', stop);
+
+    footer.addEventListener('mousemove', function (e) {
+      if (!inFooter) return;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      if (lastX === lastSpawnX && lastY === lastSpawnY) return;
+
+      while (active.length >= TRAIL_LENGTH) {
+        var oldest = active.shift();
+        if (oldest) oldest.remove();
+      }
+      spawn();
+    });
+
+    footer.addEventListener('touchstart', function (e) {
+      var t = e.touches[0];
+      start(t.clientX, t.clientY);
+    });
+
+    footer.addEventListener('touchmove', function (e) {
+      if (!inFooter) return;
+      var t = e.touches[0];
+      lastX = t.clientX;
+      lastY = t.clientY;
+      spawn();
+    });
+  });
+
+  // Accent hue drifts with the current minute.
+  (function () {
+    function updateAccent() {
+      var minutes = new Date().getMinutes();
+      document.documentElement.style.setProperty('--accent-h', Math.floor((minutes / 59) * 255));
+    }
+    updateAccent();
+    setInterval(updateAccent, 60000);
+  })();
+</script>
+
+{%- comment -%} Only posts and pages carry .slideshow markup. {%- endcomment -%}
+{%- unless page.layout == 'home' %}
+<script src="{{ '/assets/js/slideshow.js' | relative_url }}" defer></script>
+{%- endunless %}
+
+</body>
+
+</html>

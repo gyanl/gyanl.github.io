@@ -1,41 +1,13 @@
-<footer class="site-footer h-card">
-  <data class="u-url" href="{{ "/" | relative_url }}"></data>
-
-  <div class="wrapper">
-
-    <div class="footer-col-wrapper">
-
-      <div class="footer-col one-half">
-        <h2 class="footer-heading">{{ site.title | escape }}</h2>
-        <ul class="contact-list">
-          <p>{{- site.description | escape -}}</p>
-          <!-- <li class="p-name">
-            {%- if site.author -%}
-              {{ site.author | escape }}
-            {%- endif -%}
-            </li>
-            {%- if site.email -%}
-            <li><a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a></li>
-            {%- endif -%} -->
-        </ul>
-      </div>
-
-      <div class="footer-col one-half">
-        <h2 class="footer-heading"></h2>
-        <a href="archive">Notes Archive</a> | <a href="now">Now Page</a>
-        <div class="social-links">
-          {%- include social.html -%}
-        </div>
-
-        <!-- <p>{{- site.description | escape -}}</p> -->
-      </div>
-
-    </div>
-
-  </div>
-  <script>
-
-
+/**
+ * Image slideshow used inside posts.
+ *
+ * Markup: a .slideshow element containing <img> tags whose filenames end in an
+ * index (foo-0.png, foo-1.png, ...). The first image's src establishes the
+ * basename and extension; the rest are derived from it.
+ *
+ * Lifted out of _includes/footer.html so it is cached and only loaded on the
+ * pages that use it.
+ */
 class Slideshow {
   constructor(element) {
     this.element = element;
@@ -163,11 +135,3 @@ class Slideshow {
 
 var slideshows = document.getElementsByClassName("slideshow");
 Array.from(slideshows).forEach(slideshow => new Slideshow(slideshow));
-
-
-
-
-
-
-  </script>
-</footer>

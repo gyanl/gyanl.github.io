@@ -1,15 +1,16 @@
 ---
-
 layout: default
-
 ---
 <article class="post">
 
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title | escape }}</h1>
+  <header class="entry-header measure">
+    <h1 class="entry-title">{{ page.title | escape }}</h1>
+    {%- if page.description %}
+    <div class="entry-subtitle">{{ page.description }}</div>
+    {%- endif %}
   </header>
 
-  <div class="post-content">
+  <div class="prose measure">
     {{ content }}
   </div>
 
