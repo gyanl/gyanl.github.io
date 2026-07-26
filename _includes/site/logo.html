@@ -1,0 +1,13 @@
+{%- comment -%}
+  Wordmark. The home page overlays it on the hero (position: absolute) via the
+  `hero` variant; every other page renders it in normal flow above the nav.
+{%- endcomment -%}
+<a class="logo-text{% if include.variant == 'hero' %} logo-text--hero fade-in delay-anim{% endif %}"
+  href="{{ '/' | relative_url }}">
+  <div class="align-left">
+    gyan<span class="sans pad-left-2px">*</span>
+  </div>
+  <div class="align-right">
+    <span class="sans">/</span> lakhwani
+  </div>
+</a>

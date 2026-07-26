@@ -123,10 +123,10 @@
     --spacing-5xl: 80px;
     --spacing-6xl: 100px;
 
-    /* Post thumbnails are square and only 144px on the source side, so this is
-       capped at their native size — anything larger just upscales them. */
-    --project-thumbnail-size: 144px;
-    --project-thumbnail-size-mobile: 96px;
+    /* Post thumbnails are square and only 144px on the source side, so these
+       never exceed that — anything larger just upscales them. */
+    --project-thumbnail-size: 96px;
+    --project-thumbnail-size-mobile: 72px;
 
     /* Radii */
     --border-radius-sm: 4px;
@@ -358,23 +358,35 @@ button {
     }
 }
 
+/* Wordmark. In normal flow by default (every page except home), overlaid on
+   the hero by the --hero variant. */
 .logo-text {
     font-family: var(--font-heading);
     display: flex;
     flex-direction: column;
-    z-index: 11;
-    position: absolute;
-    top: 60px;
-    left: 7vw;
+    align-items: flex-start;
     font-size: var(--font-size-3xl);
     line-height: 1.15;
     letter-spacing: var(--letter-spacing-tight);
-    transition: .2s;
-    width: fit-content;
+    color: var(--text-reg);
+    transition: color var(--transition-fast);
+    /* Same 90vw column as .site-nav, so the wordmark and the bar share a left edge. */
+    width: var(--width-desktop);
+    max-width: var(--max-width);
+    margin: var(--spacing-4xl) auto var(--spacing-lg) auto;
 }
 
 .logo-text:hover {
-    flex-direction: column-reverse;
+    color: var(--accent-color);
+}
+
+.logo-text--hero {
+    position: absolute;
+    top: 60px;
+    left: 7vw;
+    z-index: 11;
+    width: fit-content;
+    margin: 0;
 }
 
 .top-right {
@@ -724,11 +736,6 @@ button {
     font-family: var(--font-heading);
     font-size: var(--font-size-2xl);
     font-weight: 600;
-}
-
-.project-description {
-    font-size: var(--font-size-lg);
-    padding: var(--spacing-xs) 0 var(--spacing-md) 0;
 }
 
 .project-meta {
@@ -1094,10 +1101,6 @@ a.tag:hover {
 
     .project-title {
         font-size: var(--font-size-lg);
-    }
-
-    .project-description {
-        font-size: var(--font-size-md);
     }
 
     .section-title {

@@ -58,9 +58,6 @@
         alt="{{ post.title | escape }}" loading="lazy">
       <div class="project-body">
         <div class="project-title">{{ post.title | escape }}</div>
-        {%- if post.subtitle %}
-        <div class="project-description">{{ post.subtitle }}</div>
-        {%- endif %}
         <div class="project-meta">
           {{- post.date | date: site.minima.date_format | default: "%b %-d, %Y" -}}
         </div>
@@ -81,9 +78,6 @@
         alt="{{ course.title | escape }}" loading="lazy">
       <div class="project-body">
         <div class="project-title">{{ course.title | escape }}</div>
-        {%- if course.subtitle %}
-        <div class="project-description">{{ course.subtitle }}</div>
-        {%- endif %}
         <div class="tag-container">
           {%- for tag in course.tags %}
           <div class="tag">{{ tag }}</div>
