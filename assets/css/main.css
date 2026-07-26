@@ -9,20 +9,21 @@
  * listings → post-embedded widgets → syntax highlighting → mobile overrides.
  */
 
-/* Crimson Pro — variable serif, real italics. Sets headings and display type. */
+/* Instrument Serif — single weight (400) display serif with a real italic.
+   Sets headings and display type; there is no bold, so headings stay at 400. */
 @font-face {
-    font-family: 'Crimson Pro';
-    src: url('../fonts/CrimsonPro-latin.woff2') format('woff2');
-    font-weight: 200 900;
+    font-family: 'Instrument Serif';
+    src: url('../fonts/InstrumentSerif-latin.woff2') format('woff2');
+    font-weight: 400;
     font-style: normal;
     font-display: swap;
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-    font-family: 'Crimson Pro';
-    src: url('../fonts/CrimsonPro-italic-latin.woff2') format('woff2');
-    font-weight: 200 900;
+    font-family: 'Instrument Serif';
+    src: url('../fonts/InstrumentSerif-italic-latin.woff2') format('woff2');
+    font-weight: 400;
     font-style: italic;
     font-display: swap;
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
@@ -73,9 +74,10 @@
     --focus-outline: 2px solid var(--accent-color);
     --focus-outline-offset: 2px;
 
-    /* Typography — Crimson Pro (serif) sets headings and display; Tasa Orbiter
-       (sans) carries body copy and UI chrome. Crimson Pro has a real italic. */
-    --font-heading: 'Crimson Pro', Georgia, serif;
+    /* Typography — Instrument Serif (display serif) sets headings and display;
+       TASA Orbiter (sans) carries body copy and UI chrome. Instrument Serif is
+       a single weight (400) with a real italic, no bold. */
+    --font-heading: 'Instrument Serif', Georgia, serif;
     --font-body: 'TASA Orbiter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --line-height-base: 1.4;
     --line-height-tight: 1.1;
@@ -189,7 +191,7 @@ h2,
 h3,
 h4,
 h5 {
-    font-weight: 600;
+    font-weight: 400;
     font-family: var(--font-heading);
     line-height: var(--line-height-tight);
     margin: 0;
@@ -706,7 +708,7 @@ button {
 .project-title {
     font-family: var(--font-heading);
     font-size: var(--font-size-2xl);
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .project-description {
@@ -747,6 +749,72 @@ a.tag:hover {
     border: 1px solid var(--black-5);
     box-shadow: 0 0 0 1px var(--black-5);
     transform: translateY(-2px);
+}
+
+
+/* ===== Mobile bottom nav ===== */
+
+.tabbar {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .tabbar {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: var(--z-nav);
+        background: var(--footer-background);
+        backdrop-filter: var(--backdrop-blur);
+        -webkit-backdrop-filter: var(--backdrop-blur);
+        border-top: 1px solid var(--black-10);
+        /* Clear the iOS home indicator. */
+        padding-bottom: env(safe-area-inset-bottom, 0);
+    }
+
+    .tabbar .tab {
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        padding: var(--spacing-sm) 0;
+        text-decoration: none;
+        color: var(--text-secondary);
+    }
+
+    .tabbar .tab-img {
+        width: 28px;
+        height: 28px;
+        /* Icons are flat PNGs; desaturate the inactive ones rather than ship
+           a second set. */
+        filter: grayscale(1);
+        opacity: .5;
+        transition: var(--transition-fast);
+    }
+
+    .tabbar .tab-active .tab-img {
+        filter: none;
+        opacity: 1;
+    }
+
+    .tabbar .tab-text {
+        font-family: var(--font-body);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: var(--letter-spacing-wide);
+    }
+
+    .tabbar .tab-active .tab-text {
+        color: var(--text-reg);
+    }
+
+    /* Keep the bar from covering the end of the page. */
+    .footer {
+        padding-bottom: calc(var(--spacing-6xl) + env(safe-area-inset-bottom, 0px));
+    }
 }
 
 
@@ -925,7 +993,9 @@ a.tag:hover {
         display: none;
     }
 
-    .mobile-only {
+    /* :not(.tabbar) so this generic rule doesn't override the tab bar's own
+       display: flex — same specificity, and it comes later in the file. */
+    .mobile-only:not(.tabbar) {
         display: block;
     }
 
@@ -1105,7 +1175,7 @@ a.tag:hover {
 .entry-title {
     font-family: var(--font-heading);
     font-size: var(--font-size-4xl);
-    font-weight: 600;
+    font-weight: 400;
     letter-spacing: var(--letter-spacing-tight);
     line-height: var(--line-height-tight);
     margin: 0;
@@ -1385,7 +1455,7 @@ a.tag:hover {
 .listing-title {
     font-family: var(--font-heading);
     font-size: var(--font-size-lg);
-    font-weight: 600;
+    font-weight: 400;
     margin: 0;
 }
 
