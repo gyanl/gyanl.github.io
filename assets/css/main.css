@@ -9,11 +9,13 @@
  * listings → post-embedded widgets → syntax highlighting → mobile overrides.
  */
 
-/* Instrument Serif — single weight (400) display serif with a real italic.
-   Sets headings and display type; there is no bold, so headings stay at 400. */
+/* Source Serif Pro — text serif with a real italic and a real semibold.
+   Sets headings and display type. Three static weights rather than the
+   variable Source Serif 4, which carries an optical-size axis and is ~4x
+   the bytes for range this design doesn't use. */
 @font-face {
-    font-family: 'Instrument Serif';
-    src: url('../fonts/InstrumentSerif-latin.woff2') format('woff2');
+    font-family: 'Source Serif Pro';
+    src: url('../fonts/SourceSerifPro-400-latin.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -21,8 +23,17 @@
 }
 
 @font-face {
-    font-family: 'Instrument Serif';
-    src: url('../fonts/InstrumentSerif-italic-latin.woff2') format('woff2');
+    font-family: 'Source Serif Pro';
+    src: url('../fonts/SourceSerifPro-600-latin.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Source Serif Pro';
+    src: url('../fonts/SourceSerifPro-400italic-latin.woff2') format('woff2');
     font-weight: 400;
     font-style: italic;
     font-display: swap;
@@ -74,10 +85,11 @@
     --focus-outline: 2px solid var(--accent-color);
     --focus-outline-offset: 2px;
 
-    /* Typography — Instrument Serif (display serif) sets headings and display;
-       TASA Orbiter (sans) carries body copy and UI chrome. Instrument Serif is
-       a single weight (400) with a real italic, no bold. */
-    --font-heading: 'Instrument Serif', Georgia, serif;
+    /* Typography — Source Serif Pro sets headings and display; TASA Orbiter
+       (sans) carries body copy and UI chrome. Source Serif Pro ships a real
+       semibold and a real italic, so headings use 600 and no style is
+       synthesised. */
+    --font-heading: 'Source Serif Pro', Georgia, serif;
     --font-body: 'TASA Orbiter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --line-height-base: 1.4;
     --line-height-tight: 1.1;
@@ -191,7 +203,7 @@ h2,
 h3,
 h4,
 h5 {
-    font-weight: 400;
+    font-weight: 600;
     font-family: var(--font-heading);
     line-height: var(--line-height-tight);
     margin: 0;
@@ -521,6 +533,8 @@ button {
     border-radius: var(--border-radius-md);
     width: var(--width-desktop);
     max-width: var(--max-width);
+    /* border-box so 90vw is the rendered width, matching .footer exactly. */
+    box-sizing: border-box;
     margin: auto;
     background: var(--header-background);
     border: 0.5px solid var(--black-10);
@@ -708,7 +722,7 @@ button {
 .project-title {
     font-family: var(--font-heading);
     font-size: var(--font-size-2xl);
-    font-weight: 400;
+    font-weight: 600;
 }
 
 .project-description {
@@ -811,10 +825,6 @@ a.tag:hover {
         color: var(--text-reg);
     }
 
-    /* Keep the bar from covering the end of the page. */
-    .footer {
-        padding-bottom: calc(var(--spacing-6xl) + env(safe-area-inset-bottom, 0px));
-    }
 }
 
 
@@ -854,17 +864,31 @@ a.tag:hover {
 
 /* ===== Footer ===== */
 
+/* Floats as a glass card, mirroring .site-nav — same width, radius, hairline
+   border, blur and shadow, so the page opens and closes on the same shape. */
 .footer {
     z-index: var(--z-footer);
     position: relative;
-    width: 100%;
+    width: var(--width-desktop);
+    max-width: var(--max-width);
+    margin: var(--spacing-4xl) auto;
     text-align: left;
-    padding: var(--spacing-3xl) 0 var(--spacing-5xl) 0;
-    background-color: var(--footer-background);
-    backdrop-filter: var(--backdrop-blur-footer);
-    -webkit-backdrop-filter: var(--backdrop-blur-footer);
-    border-top: 1px solid var(--glass-edge);
+    padding: var(--spacing-3xl);
+    box-sizing: border-box;
+    border-radius: var(--border-radius-md);
+    background: var(--header-background);
+    border: 0.5px solid var(--black-10);
+    backdrop-filter: var(--backdrop-blur);
+    -webkit-backdrop-filter: var(--backdrop-blur);
+    box-shadow: 0 2px 12px var(--header-shadow);
+    /* Clip the asterisk trail to the card's rounded corners. */
+    overflow: hidden;
     cursor: crosshair;
+}
+
+/* The card already provides the gutter; don't inset the columns again. */
+.footer .container-width {
+    width: 100%;
 }
 
 .footer p {
@@ -1003,12 +1027,10 @@ a.tag:hover {
         width: var(--width-mobile);
     }
 
+    /* The bottom tab bar is the mobile nav; the sticky top bar would just
+       duplicate it and eat vertical space. */
     .site-nav {
-        top: var(--spacing-md);
-        padding: var(--spacing-md) var(--spacing-lg);
-        width: calc(var(--width-mobile) * .95);
-        flex-wrap: wrap;
-        gap: var(--spacing-sm);
+        display: none;
     }
 
     .logo-text {
@@ -1099,10 +1121,12 @@ a.tag:hover {
         font-size: var(--font-size-md);
     }
 
+    /* Keep the floating card on mobile, just narrower and tighter. The bottom
+       margin clears the fixed tab bar (plus the iOS home indicator). */
     .footer {
-        width: 100%;
-        margin: 0;
-        padding: var(--spacing-2xl) 0 var(--spacing-5xl) 0;
+        width: var(--width-mobile);
+        margin: var(--spacing-2xl) auto calc(var(--spacing-5xl) + env(safe-area-inset-bottom, 0px)) auto;
+        padding: var(--spacing-lg);
     }
 
     .footer-column {
@@ -1175,7 +1199,7 @@ a.tag:hover {
 .entry-title {
     font-family: var(--font-heading);
     font-size: var(--font-size-4xl);
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: var(--letter-spacing-tight);
     line-height: var(--line-height-tight);
     margin: 0;
@@ -1455,7 +1479,7 @@ a.tag:hover {
 .listing-title {
     font-family: var(--font-heading);
     font-size: var(--font-size-lg);
-    font-weight: 400;
+    font-weight: 600;
     margin: 0;
 }
 
