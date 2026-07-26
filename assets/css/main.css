@@ -533,7 +533,8 @@ button {
     border-radius: var(--border-radius-md);
     width: var(--width-desktop);
     max-width: var(--max-width);
-    /* border-box so 90vw is the rendered width, matching .footer exactly. */
+    /* border-box so 90vw is the rendered width, padding included — otherwise
+       the bar sits wider than every other 90vw element on the page. */
     box-sizing: border-box;
     margin: auto;
     background: var(--header-background);
@@ -773,19 +774,26 @@ a.tag:hover {
 }
 
 @media (max-width: 800px) {
+    /* Floats as a glass pill, mirroring .site-nav on desktop — same width,
+       hairline border, blur and shadow — so the nav reads as one component
+       that simply moves to the bottom on small screens. */
     .tabbar {
         display: flex;
         position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        /* Sits above the iOS home indicator rather than tucking under it. */
+        bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px));
+        left: 50%;
+        transform: translateX(-50%);
+        width: var(--width-mobile);
+        box-sizing: border-box;
         z-index: var(--z-nav);
-        background: var(--footer-background);
+        padding: var(--spacing-xs) 0;
+        border-radius: var(--border-radius-md);
+        background: var(--header-background);
+        border: 0.5px solid var(--black-10);
         backdrop-filter: var(--backdrop-blur);
         -webkit-backdrop-filter: var(--backdrop-blur);
-        border-top: 1px solid var(--black-10);
-        /* Clear the iOS home indicator. */
-        padding-bottom: env(safe-area-inset-bottom, 0);
+        box-shadow: 0 2px 12px var(--header-shadow);
     }
 
     .tabbar .tab {
@@ -864,31 +872,17 @@ a.tag:hover {
 
 /* ===== Footer ===== */
 
-/* Floats as a glass card, mirroring .site-nav — same width, radius, hairline
-   border, blur and shadow, so the page opens and closes on the same shape. */
 .footer {
     z-index: var(--z-footer);
     position: relative;
-    width: var(--width-desktop);
-    max-width: var(--max-width);
-    margin: var(--spacing-4xl) auto;
-    text-align: left;
-    padding: var(--spacing-3xl);
-    box-sizing: border-box;
-    border-radius: var(--border-radius-md);
-    background: var(--header-background);
-    border: 0.5px solid var(--black-10);
-    backdrop-filter: var(--backdrop-blur);
-    -webkit-backdrop-filter: var(--backdrop-blur);
-    box-shadow: 0 2px 12px var(--header-shadow);
-    /* Clip the asterisk trail to the card's rounded corners. */
-    overflow: hidden;
-    cursor: crosshair;
-}
-
-/* The card already provides the gutter; don't inset the columns again. */
-.footer .container-width {
     width: 100%;
+    text-align: left;
+    padding: var(--spacing-3xl) 0 var(--spacing-5xl) 0;
+    background-color: var(--footer-background);
+    backdrop-filter: var(--backdrop-blur-footer);
+    -webkit-backdrop-filter: var(--backdrop-blur-footer);
+    border-top: 1px solid var(--glass-edge);
+    cursor: crosshair;
 }
 
 .footer p {
@@ -1123,10 +1117,11 @@ a.tag:hover {
 
     /* Keep the floating card on mobile, just narrower and tighter. The bottom
        margin clears the fixed tab bar (plus the iOS home indicator). */
+    /* Bottom padding clears the floating tab bar and the iOS home indicator. */
     .footer {
-        width: var(--width-mobile);
-        margin: var(--spacing-2xl) auto calc(var(--spacing-5xl) + env(safe-area-inset-bottom, 0px)) auto;
-        padding: var(--spacing-lg);
+        width: 100%;
+        margin: 0;
+        padding: var(--spacing-2xl) 0 calc(var(--spacing-6xl) + env(safe-area-inset-bottom, 0px)) 0;
     }
 
     .footer-column {
