@@ -750,6 +750,59 @@ a.tag:hover {
 }
 
 
+/* ===== Teaching ===== */
+
+.teaching-grid {
+    width: var(--width-desktop);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xl);
+}
+
+.teaching-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-card);
+    border: 1px solid var(--black-10);
+    background-color: var(--slightly-warm-gray);
+    color: var(--text-reg);
+    text-decoration: none;
+    transition: transform var(--transition-normal), border-color var(--transition-normal);
+}
+
+.teaching-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-color);
+    color: var(--text-reg);
+}
+
+.teaching-card-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    line-height: var(--line-height-tight);
+}
+
+.teaching-card-desc {
+    font-size: var(--font-size-md);
+    color: var(--text-secondary);
+    flex: 1 1 auto;
+}
+
+.teaching-card-cta {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--accent-color);
+    margin-top: var(--spacing-sm);
+}
+
+
 /* ===== Writing list ===== */
 
 .writing-list {
@@ -990,6 +1043,15 @@ a.tag:hover {
         width: var(--width-mobile);
         gap: var(--spacing-2xl);
         margin: 0 auto;
+    }
+
+    .teaching-grid {
+        width: var(--width-mobile);
+        grid-template-columns: 1fr;
+    }
+
+    .teaching-card {
+        padding: var(--spacing-lg);
     }
 
     /* Square thumbnails stay beside the text here — stacking them would hand a

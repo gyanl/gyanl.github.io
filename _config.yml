@@ -17,6 +17,13 @@ exclude:
 
 permalink: /:title
 
+# Courses shown in the home page Teaching section. output:false means these
+# md files never generate their own pages — each course lives at its own repo
+# (gyanl.com/dv, /ergo, /tech1), and the cards link out there via `link:`.
+collections:
+  teaching:
+    output: false
+
 # Sections shown in the home page work grid, in order. `tag` must match a post
 # tag; `name` is the filter button label. Each also needs a tag/<tag>.md stub.
 home_tags:

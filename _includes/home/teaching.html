@@ -1,0 +1,22 @@
+{%- comment -%}
+  Courses I teach. Each is backed by a file in _teaching/ (a collection with
+  output:false, so no page is generated here) and links out to its own minisite
+  at gyanl.com/<link>, which is a separate repo.
+{%- endcomment -%}
+
+<section class="work-section">
+  <div class="section-title">Teaching</div>
+
+  <div class="teaching-grid">
+    {%- assign courses = site.teaching | sort: "order" -%}
+    {%- for course in courses %}
+    <a class="teaching-card" href="{{ course.link | relative_url }}">
+      <div class="teaching-card-title">{{ course.title }}</div>
+      {%- if course.subtitle %}
+      <div class="teaching-card-desc">{{ course.subtitle }}</div>
+      {%- endif %}
+      <div class="teaching-card-cta">Visit course →</div>
+    </a>
+    {%- endfor %}
+  </div>
+</section>
