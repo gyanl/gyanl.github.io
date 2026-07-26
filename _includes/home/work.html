@@ -1,9 +1,10 @@
 {%- comment -%}
-  Filterable grid of tagged posts. Which tags appear, and in what order, is
-  driven entirely by `home_tags` in _config.yml — adding a section here means
-  adding a line there, not editing this file.
+  Filterable grid of work. Post-backed sections are driven by `home_tags` in
+  _config.yml (each `tag` must be a post tag). The Teaching filter is backed by
+  the `teaching` collection instead of a post tag, so it's handled separately:
+  its cards link out to the course minisites at /dv, /ergo, /tech1.
 
-  Every post carrying one of those tags shows up; "Featured" is the subset with
+  Every post carrying a home_tags tag shows up; "Featured" is the subset with
   `featured: true` in its front matter.
 {%- endcomment -%}
 
@@ -21,6 +22,9 @@
 {%- assign shown_posts = shown_posts | sort: "date" | reverse -%}
 {%- assign featured_posts = shown_posts | where: "featured", true -%}
 
+{%- assign teaching = site.teaching | sort: "order" -%}
+{%- assign total_count = shown_posts.size | plus: teaching.size -%}
+
 <section class="work-section">
   <div class="section-title">The Work</div>
 
@@ -30,7 +34,7 @@
         class="filter-count">{{ featured_posts.size }}</span></button>
     {%- endif %}
     <button class="project-filter{% if featured_posts.size == 0 %} active{% endif %}" data-filter="all">All <span
-        class="filter-count">{{ shown_posts.size }}</span></button>
+        class="filter-count">{{ total_count }}</span></button>
     {%- for t in home_tags %}
     {%- assign tag_size = site.tags[t.tag].size -%}
     {%- if tag_size > 0 %}
@@ -38,6 +42,10 @@
         class="filter-count">{{ tag_size }}</span></button>
     {%- endif %}
     {%- endfor %}
+    {%- if teaching.size > 0 %}
+    <button class="project-filter" data-filter="teaching">Teaching <span
+        class="filter-count">{{ teaching.size }}</span></button>
+    {%- endif %}
   </div>
 
   <div class="project-container">
@@ -58,6 +66,26 @@
         </div>
         <div class="tag-container">
           {%- for tag in post.tags %}
+          <div class="tag">{{ tag }}</div>
+          {%- endfor %}
+        </div>
+      </div>
+    </a>
+    {%- endfor %}
+
+    {%- comment -%} Teaching collection — same card, links to the course minisite. {%- endcomment -%}
+    {%- for course in teaching %}
+    <a class="project" href="{{ course.url | relative_url }}" data-tags="teaching" data-featured="false">
+      <img class="project-thumbnail"
+        src="{{ course.thumbnail | default: 'https://gyanl.com/assets/thumbs/default.png' }}"
+        alt="{{ course.title | escape }}" loading="lazy">
+      <div class="project-body">
+        <div class="project-title">{{ course.title | escape }}</div>
+        {%- if course.subtitle %}
+        <div class="project-description">{{ course.subtitle }}</div>
+        {%- endif %}
+        <div class="tag-container">
+          {%- for tag in course.tags %}
           <div class="tag">{{ tag }}</div>
           {%- endfor %}
         </div>
