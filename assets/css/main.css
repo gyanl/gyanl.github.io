@@ -1508,6 +1508,9 @@ a.tag:hover {
     margin-block: var(--spacing-xl);
 
     display: flex;
+    /* Not the default `stretch`: flex would force every slide to the tallest
+       one's height and distort any image with a different aspect ratio. */
+    align-items: flex-start;
     gap: var(--spacing-md);
     /* Enough inline padding that the first and last slide can reach the centre.
        In vw, not %, because percentage padding resolves against the parent's
@@ -1576,6 +1579,64 @@ a.tag:hover {
     .prose .slideshow>img::scroll-marker:focus-visible {
         outline: var(--focus-outline);
         outline-offset: var(--focus-outline-offset);
+    }
+}
+
+
+/* ===== Image grids (used inside posts) =====
+
+   Same authoring shape as .slideshow — a Kramdown IAL on a paragraph of
+   images:
+
+       {: .img-2col }
+       ![First](…)![Second](…)
+
+   .img-2col  two-up, stacking to one column on narrow screens.
+              Add .no-stack to keep two columns everywhere, which is what
+              portrait plates want.
+   .img-6col  six-up, dropping to two columns on narrow screens. For sets of
+              tall, narrow objects where the point is the set, not the detail.
+
+   Scoped under .prose so they beat `.prose p`, which would otherwise reset
+   the margins. */
+
+.prose .img-2col,
+.prose .img-6col {
+    display: grid;
+    gap: var(--spacing-md);
+    margin: var(--spacing-xl) 0;
+}
+
+.prose .img-2col {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.prose .img-6col {
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--spacing-sm);
+}
+
+.prose .img-2col>img,
+.prose .img-6col>img {
+    width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+@media (max-width: 800px) {
+    .prose .img-2col {
+        grid-template-columns: 1fr;
+    }
+
+    /* Tall portrait plates read fine side by side even on a phone, and look
+       absurd stacked at full width. */
+    .prose .img-2col.no-stack {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+    }
+
+    .prose .img-6col {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
