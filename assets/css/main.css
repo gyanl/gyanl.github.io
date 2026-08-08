@@ -9,35 +9,25 @@
  * listings → post-embedded widgets → syntax highlighting → mobile overrides.
  */
 
-/* Source Serif Pro — text serif with a real italic and a real semibold.
-   Sets headings and display type. Three static weights rather than the
-   variable Source Serif 4, which carries an optical-size axis and is ~4x
-   the bytes for range this design doesn't use. */
+/* TASA Explorer — variable display face, no italic. Sets headings and display
+   type. Self-hosted from Google Fonts, same as its sibling TASA Orbiter: one
+   variable file per subset covers the whole 400–800 range. */
 @font-face {
-    font-family: 'Source Serif Pro';
-    src: url('../fonts/SourceSerifPro-400-latin.woff2') format('woff2');
-    font-weight: 400;
+    font-family: 'TASA Explorer';
+    src: url('../fonts/TASAExplorer-latin.woff2') format('woff2');
+    font-weight: 400 800;
     font-style: normal;
     font-display: swap;
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-    font-family: 'Source Serif Pro';
-    src: url('../fonts/SourceSerifPro-600-latin.woff2') format('woff2');
-    font-weight: 600;
+    font-family: 'TASA Explorer';
+    src: url('../fonts/TASAExplorer-latin-ext.woff2') format('woff2');
+    font-weight: 400 800;
     font-style: normal;
     font-display: swap;
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-    font-family: 'Source Serif Pro';
-    src: url('../fonts/SourceSerifPro-400italic-latin.woff2') format('woff2');
-    font-weight: 400;
-    font-style: italic;
-    font-display: swap;
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 /* TASA Orbiter — variable grotesque, no italic. Body copy and UI chrome. */
@@ -85,11 +75,11 @@
     --focus-outline: 2px solid var(--accent-color);
     --focus-outline-offset: 2px;
 
-    /* Typography — Source Serif Pro sets headings and display; TASA Orbiter
-       (sans) carries body copy and UI chrome. Source Serif Pro ships a real
-       semibold and a real italic, so headings use 600 and no style is
-       synthesised. */
-    --font-heading: 'Source Serif Pro', Georgia, serif;
+    /* Typography — TASA Explorer sets headings and display; TASA Orbiter
+       (sans) carries body copy and UI chrome. Both are variable across
+       400–800, so heading weights interpolate rather than snapping to a
+       static cut. Neither ships an italic. */
+    --font-heading: 'TASA Explorer', Georgia, serif;
     --font-body: 'TASA Orbiter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --line-height-base: 1.4;
     --line-height-tight: 1.1;
@@ -1203,9 +1193,10 @@ a.tag:hover {
     margin: 0;
 }
 
+/* No italic here or on blockquotes: TASA Explorer has no italic cut, and the
+   synthesised oblique reads as a mistake. Size and colour carry the shift. */
 .entry-subtitle {
     font-family: var(--font-heading);
-    font-style: italic;
     font-size: var(--font-size-xl);
     color: var(--text-secondary);
     margin-top: var(--spacing-md);
@@ -1350,7 +1341,6 @@ a.tag:hover {
     background-color: var(--black-3, var(--black-5));
     border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
     font-family: var(--font-heading);
-    font-style: italic;
     font-size: var(--font-size-xl);
 }
 
