@@ -5,10 +5,14 @@ subtitle: A website for Fleetcraft, bringing to life their vision of making the 
 tags:
   - work
   - website
-thumbnail: https://gyanl.com/assets/thumbs/fleetcraft.png
+thumbnail: /assets/thumbs/fleetcraft.png
 date: 11-04-2025
 ---
 
 Fleetcraft is an AI-native aviation startup building tools that help aircraft maintenance teams cut turnaround time by automating paperwork, document retrieval and compliance logging.
 
 We designed and built the website, translating a fairly technical mission into a clear digital presence. Aviation maintenance is an unglamorous, heavily regulated corner of a glamorous industry, and the site had to hold both — credible enough for the people who sign off on airworthiness, ambitious enough for the people funding it.
+
+![The Fleetcraft identity and website, showing voice-to-logbook capture and the data privacy section](/assets/pks-fleetcraft-board.jpg)
+
+###### The site, and the voice-to-logbook flow at the centre of the product.

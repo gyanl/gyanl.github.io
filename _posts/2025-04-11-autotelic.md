@@ -6,12 +6,16 @@ tags:
   - work
   - branding
   - website
-thumbnail: https://gyanl.com/assets/thumbs/autotelic.png
+thumbnail: /assets/thumbs/autotelic.png
 date: 11-04-2025
 ---
 
-Autotelic is building agents that remember, learn and evolve rather than resetting between conversations.
+Autotelic was founded by my friend Diwank as a research lab, with the intention of working with AI systems — starting with [Memory Store](https://gyanl.com/memory-store), their very first product.
 
-We developed the brand identity and website. The brief asked for something futuristic, which is a word that usually produces the same handful of tired signifiers — chrome, gradients, a grid. We tried to get at it differently, through a system that suggests accumulation and continuity, because that's what the product actually does.
+I had previously worked with Diwank on [Kea.ai](https://gyanl.com/kea), so this was a return to a long collaboration. At Public Knowledge Studio we designed an identity and a website that felt as futuristic as their vision.
+
+![Concentric gradient circles in ochre, red, violet and magenta on a warm grey ground](/assets/pks-autotelic-circles.png)
+
+###### From the identity system.
 
 See it live at [autotelic.inc](https://autotelic.inc/).

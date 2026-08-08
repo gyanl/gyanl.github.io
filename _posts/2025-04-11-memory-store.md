@@ -1,17 +1,27 @@
 ---
 layout: post
 title: "Memory Store"
-subtitle: A Dropbox for your agent's context — store, sync and recall context across every AI session. YC P26.
+subtitle: Brand identity, website and launch video for Memory Store — one shared memory for your team and their AI agents. YC Spring 2026.
 tags:
   - work
   - branding
   - website
-thumbnail: https://gyanl.com/assets/thumbs/memory-store.png
+  - video
+thumbnail: /assets/thumbs/memory-store.png
 date: 11-04-2025
 ---
 
-Memory Store is building persistent memory for AI agents: a layer that automatically stores, syncs and recalls context across every session, so an agent retains preferences and project history instead of starting cold each time.
+My friend Diwank reached out about the new AI lab he was working on. That was [Autotelic](https://gyanl.com/autotelic), and Memory Store was its first product. It gives a team and its AI agents a single shared memory — pulling context out of Slack, email and meeting notes and turning it into a company brain that any agent supporting MCP can read from. The problem it solves is a familiar one by now: you run Claude, ChatGPT and Cursor side by side, and none of them know what the others know.
 
-We developed the brand identity and website, giving visual form to a product whose entire value proposition is invisible. The hard part of branding infrastructure is that there's nothing to photograph — the work is finding a form for an idea.
+We did the brand identity, the website, and the launch video.
+
+<video src="/assets/pks-memory-store.mp4"
+  poster="/assets/pks-memory-store-poster.jpg"
+  autoplay muted loop playsinline controls preload="metadata"
+  aria-label="The Memory Store brand in motion"></video>
+
+###### The brand in use.
+
+Memory Store went on to be accepted into Y Combinator's Spring 2026 batch, co-founded by Diwank and Ishita Jindal. You can read more on their [YC company page](https://www.ycombinator.com/companies/memory-store).
 
 See it live at [memory.store](https://memory.store/).
