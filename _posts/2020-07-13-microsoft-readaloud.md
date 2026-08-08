@@ -3,7 +3,7 @@ layout: post
 title: Read Aloud for Word on mobile
 subtitle: Consuming documents on the go with audio
 tags: []
-thumbnail: https://gyanl.com/assets/thumbs/microsoft.png
+thumbnail: /assets/thumbs/microsoft.png
 date modified: 264-10-2024
 date: 23-09-2022
 ---

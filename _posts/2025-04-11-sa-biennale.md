@@ -6,7 +6,7 @@ tags:
   - work
   - branding
   - uiux
-thumbnail: https://gyanl.com/assets/thumbs/sa-biennale.png
+thumbnail: /assets/thumbs/sa-biennale.png
 date: 11-04-2025
 ---
 

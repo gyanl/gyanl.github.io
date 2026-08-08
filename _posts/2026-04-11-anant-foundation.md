@@ -5,7 +5,7 @@ subtitle: A website for AFA, an arts foundation supporting modern and contempora
 tags:
   - work
   - website
-thumbnail: https://gyanl.com/assets/thumbs/anant-foundation.png
+thumbnail: /assets/thumbs/anant-foundation.png
 date: 11-04-2026
 ---
 

@@ -3,7 +3,7 @@ layout: post
 title: Talk by John Samuel Raja.
 subtitle: Part of guest lectures for DE-705 Interactive data visualization
 tags: idc dataviz
-thumbnail: https://gyanl.com/assets/thumbs/data.png
+thumbnail: /assets/thumbs/data.png
 ---
 
 > Talk by John Samuel Raja, economist and journalist.

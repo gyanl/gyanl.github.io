@@ -3,13 +3,13 @@ layout: post
 title: Starting a Career in Design
 subtitle: Creating a portfolio, applying to design school, and getting jobs, internships or freelance projects
 tags: talks
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: /assets/thumbs/default.png
 date modified: 14-06-2023
 ---
 
 > I was invited by [Metvy Learn](https://www.metvy.com/) to give a talk on starting a career in Design. These are some things the talk covered.
 
-![Title slide for the talk](https://gyanl.com/assets/design-job.jpeg)
+![Title slide for the talk](/assets/design-job.jpeg)
 
 ###### Title Slide
 

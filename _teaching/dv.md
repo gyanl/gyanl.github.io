@@ -3,7 +3,7 @@ layout: page
 title: Data Visualisation
 subtitle: Turning data into clear, honest visual stories.
 tags: [Teaching]
-thumbnail: https://gyanl.com/assets/thumbs/data.png
+thumbnail: /assets/thumbs/data.png
 order: 1
 ---
 

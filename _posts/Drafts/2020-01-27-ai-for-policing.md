@@ -11,7 +11,7 @@ In Nanchang, the capital of Jiangxi province in southeast China, a crowd of 60,0
 
 Cameras at the stadium flagged a man in the crowd. Police monitoring the crowd using surveillance software were alerted about a possible match found in a national database of wanted men and women. The police look at the match and could choose to intervene and question or potentially arrest the person.
 
-![UI similiar to China surveillance software](https://gyanl.com/assets/china-policing.png)
+![UI similiar to China surveillance software](/assets/china-policing.png)
 
 They decide that they want to intervene, and police officers reach his seat and arrest him for “economic crimes”.
 

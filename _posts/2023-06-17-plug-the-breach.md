@@ -3,7 +3,7 @@ layout: post
 title: Plug The Breach
 subtitle: Working on a data breach tracker with Internet Freedom Foundation
 tags: uiux
-thumbnail: https://gyanl.com/assets/thumbs/breach.png
+thumbnail: /assets/thumbs/breach.png
 date modified: 19-06-2023
 ---
 
@@ -13,6 +13,6 @@ In the face of this growing digital threat, the Internet Freedom Foundation laun
 
 {: .slideshow }
 
-![Landing Page](https://gyanl.com/assets/plugthebreach-0.jpg)![Landing Page](https://gyanl.com/assets/plugthebreach-1.jpg)![Landing Page](https://gyanl.com/assets/plugthebreach-2.jpg)
+![Landing Page](/assets/plugthebreach-0.jpg)![Landing Page](/assets/plugthebreach-1.jpg)![Landing Page](/assets/plugthebreach-2.jpg)
 
 You can check out [plugthebreach.in](https://plugthebreach.in) now!

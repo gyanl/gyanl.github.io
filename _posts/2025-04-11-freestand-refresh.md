@@ -6,7 +6,7 @@ tags:
   - work
   - branding
   - website
-thumbnail: https://gyanl.com/assets/thumbs/freestand-refresh.png
+thumbnail: /assets/thumbs/freestand-refresh.png
 date: 11-04-2025
 ---
 

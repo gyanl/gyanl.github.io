@@ -3,14 +3,14 @@ layout: post
 title: Checklists in Microsoft Word
 subtitle: Or, when you need time travel to solve a design problem
 tags: []
-thumbnail: https://gyanl.com/assets/thumbs/microsoft.png
+thumbnail: /assets/thumbs/microsoft.png
 date modified: 26-10-2024
 date: 23-09-2022
 ---
 
 I once found myself tasked with adding checklists to Microsoft Word. I initially did not believe that this was too complicated. The problem statement seemed straightforward. Word already has 3 types of lists—bullet lists, numbered lists, and multi-level lists. What should the checklists experience for Word be like?
 
-![Description](https://gyanl.com/assets/wordweb-bullets.png)
+![Description](/assets/wordweb-bullets.png)
 
 ###### Bullets, numbering, and multi-level lists. 
 
@@ -24,7 +24,7 @@ From a design perspective, checklists could be treated as a special case of bull
 
 {: .slideshow }
 
-![Description 0](https://gyanl.com/assets/wordweb-checklist-entry-0.png)![Description 1](https://gyanl.com/assets/wordweb-checklist-entry-1.png)
+![Description 0](/assets/wordweb-checklist-entry-0.png)![Description 1](/assets/wordweb-checklist-entry-1.png)
 
 ### The challenge
 

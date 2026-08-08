@@ -1,5 +1,5 @@
 ---
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: /assets/thumbs/default.png
 layout: post
 title: "Font Resources"
 subtitle: Ya like fonts?
@@ -13,7 +13,7 @@ I worked on a tool to search and browse for fonts in my third semester at IDC. I
 
 {: .slideshow }
 
-![One](https://gyanl.com/assets/font-finder-1.png)![Two](https://gyanl.com/assets/font-finder-2.png)![Three](https://gyanl.com/assets/font-finder-3.png)
+![One](/assets/font-finder-0.png)![Two](/assets/font-finder-1.png)![Three](/assets/font-finder-2.png)
 
 ###### Font Finder interface
 

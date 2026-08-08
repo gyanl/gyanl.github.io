@@ -3,7 +3,7 @@ layout: post
 title: Transcript for ACM Talk
 subtitle: Designers v/s Developers
 tags: misc
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: /assets/thumbs/default.png
 date modified: 06-02-2024
 date: 09-10-2023
 ---

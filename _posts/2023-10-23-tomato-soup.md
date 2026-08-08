@@ -1,5 +1,5 @@
 ---
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: /assets/thumbs/default.png
 layout: post
 title: Roasted Tomato Soup
 subtitle: A roasted tomato soup that’s perfect with a grilled cheese.

@@ -3,10 +3,10 @@ layout: post
 title: Interning at Microsoft
 subtitle: Some thoughts on designing for AI at my internship at Microsoft Hyderabad, where I worked on integrating intelligent assistance in an existing Microsoft app.
 tags: [work, featured]
-thumbnail: https://gyanl.com/assets/thumbs/microsoft.png
+thumbnail: /assets/thumbs/microsoft.png
 ---
 
-![A group of design interns.](https://gyanl.com/assets/microsoft-groupcall.jpg)
+![A group of design interns.](/assets/microsoft-groupcall.jpg)
 
 ###### 2019 Design Interns at the Hyderabad campus (with the interns from the Bangalore campus joining on a Teams video call).
 
@@ -16,7 +16,7 @@ In the summer of 2019, I was part of the Microsoft Foundry program at Microsoft 
 
 The work is covered by an NDA and so I can't give details here, but as the designer on the team I conducted user interviews, found use cases where we could simplify user flows, worked with our Product Management mentor Raunak to create user stories and a spec for each feature, and worked with the engineering interns on my team to understand how we could use Microsoft NLP, AI and cloud technologies to help users achieve their goals.
 
-![Faces of the 4 interns on my team at Microsoft - Anish, me, Himadyuti and Soniya.](https://gyanl.com/assets/microsoft-work-compass.jpg)
+![Faces of the 4 interns on my team at Microsoft - Anish, me, Himadyuti and Soniya.](/assets/microsoft-work-compass.jpg)
 
 ###### Team Work Compass
 

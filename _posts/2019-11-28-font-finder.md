@@ -3,7 +3,7 @@ layout: post
 title: "Font Finder"
 subtitle: Find fonts using combinations of adjective.
 tags: code idc
-thumbnail: https://gyanl.com/assets/thumbs/fontfinder.png
+thumbnail: /assets/thumbs/fontfinder.png
 ---
 
 ###### **“Well chosen words deserve well-chosen letters.”**<br>- Robert Bringhurst, The Elements of Typographic Style

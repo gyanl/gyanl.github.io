@@ -5,14 +5,14 @@ subtitle: Starting my first full time job in the pandemic and working on voice e
 tags:
   - work
   - featured
-thumbnail: https://gyanl.com/assets/thumbs/microsoft.png
+thumbnail: /assets/thumbs/microsoft.png
 date modified: 02-01-2025
 date: 23-09-2022
 ---
 
 I started my first job as a UX Designer at Microsoft soon after finishing my Master's degree in Interaction Design at IDC School of Design, IIT Bombay. I joined the Canvas Voice team in Noida, which worked on experiences like Dictation, Transcription, Read Aloud and Voice Search across Microsoft apps like Word, Outlook and OneNote. I later worked on Microsoft Designer, and then Microsoft Word.
 
-![Voice @ Microsoft](https://gyanl.com/assets/ms-voice.png)
+![Voice @ Microsoft](/assets/ms-voice.png)
 
 ###### An internal logo that I designed for Voice @ Microsoft
 
@@ -30,14 +30,14 @@ I started my first job as a UX Designer at Microsoft soon after finishing my Mas
 
 {: .slideshow }
 
-![OneNote for Android](https://gyanl.com/assets/microsoft-onenote-dictation-0.jpg)![OneNote for Android](https://gyanl.com/assets/microsoft-onenote-dictation-1.jpg)
+![OneNote for Android](/assets/microsoft-onenote-dictation-0.jpg)![OneNote for Android](/assets/microsoft-onenote-dictation-1.jpg)
 
 - OneNote on mobile devices has a sticky notes for quickly capturing information, as well as fully fledged OneNote notebooks. I conducted user studies to find out how people use voice technologies to capture thoughts - from using recorded memos as reminders, to students recording lectures to review later. 
 - I worked with the OneNote team to introduce voice as a new input method for both sticky notes and Onenote notebooks.
 
 ### Transcription in Microsoft Word
 
-![Word Desktop](https://gyanl.com/assets/microsoft-word-transcription.jpg)
+![Word Desktop](/assets/microsoft-word-transcription.jpg)
 
 - Transcription on Word Web converts audio recordings into a text transcript, with timestamped sections separated by speaker. Snippets from the transcript can then be used in the Word document. 
 - I was responsible for using user feedback to improve support for multiple recordings, adding dark mode support, and extending the feature to Windows.

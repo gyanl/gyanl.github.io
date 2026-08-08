@@ -46,7 +46,7 @@ title: "Stats for Research Methods"
 subtitle: Research for <del>dummies</del> designers
 tags: slides
 permalink: /drm-cheatsheet
-thumbnail: https://gyanl.com/assets/thumbs/drm.png
+thumbnail: /assets/thumbs/drm.png
 ---
 ```
 ## SASS

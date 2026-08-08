@@ -2,7 +2,7 @@
 layout: post
 title: Neat UI Design tricks
 subtitle: Some neat tricks I wish I knew earlier
-thumbnail: https://gyanl.com/assets/thumbs/tricks.png 
+thumbnail: /assets/thumbs/tricks.png 
 tags: resources
 date modified: 07-02-2023
 ---
@@ -23,7 +23,7 @@ date modified: 07-02-2023
 
 You can use some ASCII symbols like the [interpunct](https://en.wikipedia.org/wiki/Interpunct) (•) in your designs instead of using icons. You can find a bunch of these symbols at [glyphy.io](https://www.glyphy.io/). These are useful when you want to separate two elements but want to keep them in the same line.
 
-![Screenshot of a tweet pointing out interpunct usage.](https://gyanl.com/assets/twitter-interpunct.png)
+![Screenshot of a tweet pointing out interpunct usage.](/assets/twitter-interpunct.png)
 
 ###### Twitter uses an interpunct between the username and date.
 

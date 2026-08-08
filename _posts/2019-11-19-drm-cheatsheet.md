@@ -4,7 +4,7 @@ title: "Stats for Research Methods"
 subtitle: Research for <del>dummies</del> designers
 tags: talks
 permalink: /drm-cheatsheet
-thumbnail: https://gyanl.com/assets/thumbs/drm.png
+thumbnail: /assets/thumbs/drm.png
 date modified: 07-10-2022
 ---
 
@@ -12,7 +12,7 @@ date modified: 07-10-2022
 
 Fair warning: These might not make sense outside of the context of the course since some of these slides refer to material distributed during the course.
 
-![Class photo](https://gyanl.com/assets/talk-curves.jpeg)
+![Class photo](/assets/talk-curves.jpeg)
 
 > Nobody even cracked a smile when I showed this slide, which tells you just how stressed people were about this course. Photo courtesy of [Bhawna](https://www.behance.net/sonibhawna)
 

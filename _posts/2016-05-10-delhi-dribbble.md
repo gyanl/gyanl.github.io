@@ -3,23 +3,23 @@ subtitle: Hosting a Dribbble meetup in New Delhi
 layout: post
 title: New Delhi Dribbble Meetup
 tags: misc
-thumbnail: https://gyanl.com/assets/thumbs/dribbble.png
+thumbnail: /assets/thumbs/dribbble.png
 date modified: 13-06-2023
 ---
 
-![Dribbble Shot](https://gyanl.com/assets/delhidribbble-meetup.png)
+![Dribbble Shot](/assets/delhidribbble-meetup.png)
 
 ###### Check out the shot on [Dribbble](https://dribbble.com/shots/2474738-Delhi-Dribbble-Meetup).
 
 One day as I was on Dribbble, I stumbled upon their meetups section. I realised there hadn't been one in Delhi, so my friend Raghav and I decided to organise one.
 
-![Meetup attendees at the India Habitat Centre, New Delhi.](https://gyanl.com/assets/delhidribbble-1.jpg)
+![Meetup attendees at the India Habitat Centre, New Delhi.](/assets/delhidribbble-1.jpg)
 
 ###### Meetup attendees at the India Habitat Centre, New Delhi.
 
 We had 14 designers from various fields talk about their experiences with design, their processes, as well as tips they’ve picked up over the years.
 
-![This looks interesting.](https://gyanl.com/assets/delhidribbble-2.jpg)
+![This looks interesting.](/assets/delhidribbble-2.jpg)
 
 ###### This looks interesting.
 

@@ -1,5 +1,5 @@
 ---
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: /assets/thumbs/default.png
 layout: post
 title: Great Portfolio Sites
 subtitle: A list of websites that I think do a great job of showing design work.

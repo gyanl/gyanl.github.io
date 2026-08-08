@@ -7,7 +7,7 @@ permalink: /about
 
 Hello, my name is Gyan Lakhwani. I am a designer and a nerd, and this website is a place for me to document my thoughts and try out experiments with code. If you find something broken (which is likely because I am constantly trying out things), please tweet at me [@gyanl](https://twitter.com/gyanl).
 
-![A photo of me](https://gyanl.com/assets/gyan-lakhwani-2025.jpg)
+![A photo of me](/assets/gyan-lakhwani-2025.jpg)
 ###### A photo of me
 
 #### Work

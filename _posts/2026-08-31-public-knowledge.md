@@ -5,7 +5,7 @@ subtitle: Two and a half years of building a design studio, and what twenty-two 
 tags:
   - work
   - featured
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: /assets/thumbs/default.png
 date: 31-08-2026
 ---
 

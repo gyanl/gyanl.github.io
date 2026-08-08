@@ -49,11 +49,13 @@ title: "Stats for Research Methods"
 subtitle: Research for <del>dummies</del> designers
 tags: slides
 permalink: /drm-cheatsheet
-thumbnail: https://gyanl.com/assets/thumbs/drm.png
+thumbnail: /assets/thumbs/drm.png
 ---
 ```
 
-`permalink` is site-wide `/:title`, so an explicit `permalink:` only overrides the filename slug. `subtitle` is used as the card/listing description. `thumbnail` is an absolute `https://gyanl.com/...` URL, not a relative path; layouts fall back to `assets/thumbs/default.png`.
+`permalink` is site-wide `/:title`, so an explicit `permalink:` only overrides the filename slug. `subtitle` is used as the card/listing description.
+
+**Asset paths are root-relative — `/assets/...`, with the leading slash.** That resolves identically on `localhost:4000` and on `gyanl.com`, because `_config.yml` sets no `baseurl`. Don't write bare `assets/...` (no slash): posts live at `/:title`, so a bare path resolves against the post URL and 404s. Absolute `https://gyanl.com/...` also works in production but breaks every image in local preview, which is why the site moved off it. Nothing on the site puts a thumbnail in `og:image`, so there's no meta-tag reason to keep URLs absolute.
 
 **Thumbnails are square and small** — the existing set is 144×144 (some 100×100). The CSS caps them at 144px rather than upscaling. If you start shipping larger art, raise `--project-thumbnail-size`; until then, don't.
 

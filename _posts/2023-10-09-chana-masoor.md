@@ -1,5 +1,5 @@
 ---
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: /assets/thumbs/default.png
 layout: post
 title: "Chana Masoor"
 subtitle: "I'm having chana dal. I'm having masoor dal. I'm having combination chana dal and masoor dal."

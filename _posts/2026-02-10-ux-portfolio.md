@@ -5,7 +5,7 @@ subtitle: What I look for when reviewing portfolios, and some advice for putting
 tags:
   - resources
   - uiux
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: /assets/thumbs/default.png
 date: 10-02-2026
 ---
 

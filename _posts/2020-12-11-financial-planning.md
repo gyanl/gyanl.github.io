@@ -2,7 +2,7 @@
 layout: post
 title: Financial Planning
 subtitle: Some personal notes on managing your money
-thumbnail: https://gyanl.com/assets/thumbs/money.png
+thumbnail: /assets/thumbs/money.png
 tags: resources
 date modified: 13-06-2023
 ---

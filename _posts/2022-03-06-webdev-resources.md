@@ -1,6 +1,6 @@
 ---
 layout: post
-thumbnail: https://gyanl.com/assets/thumbs/code.png
+thumbnail: /assets/thumbs/code.png
 notetype: feed
 date: 03-03-2022
 date modified: 15-06-2023

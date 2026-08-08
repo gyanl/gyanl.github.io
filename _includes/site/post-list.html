@@ -7,7 +7,7 @@
   {%- for post in include.posts %}
   <a class="listing-item" href="{{ post.url | relative_url }}">
     <img class="listing-thumbnail"
-      src="{{ post.thumbnail | default: 'https://gyanl.com/assets/thumbs/default.png' }}"
+      src="{{ post.thumbnail | default: '/assets/thumbs/default.png' }}"
       alt="{{ post.title | escape }}" loading="lazy">
     <div class="listing-body">
       <h3 class="listing-title">{{ post.title | escape }}</h3>

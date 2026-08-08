@@ -3,7 +3,7 @@ layout: page
 title: Design & Technology
 subtitle: Where design meets code and emerging technology.
 tags: [Teaching]
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: /assets/thumbs/default.png
 order: 3
 ---
 

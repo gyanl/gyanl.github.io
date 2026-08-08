@@ -5,7 +5,7 @@ subtitle: Handoffs and vibe coding in 2026
 tags:
   - code
   - uiux
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: /assets/thumbs/default.png
 date: 10-02-2026
 ---
 

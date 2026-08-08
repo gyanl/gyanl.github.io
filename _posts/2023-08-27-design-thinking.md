@@ -3,7 +3,7 @@ layout: post
 title: Design Thinking
 subtitle: Everyone can be creative
 tags: talks
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: /assets/thumbs/default.png
 date modified: 03-10-2023
 permalink: codeday
 ---

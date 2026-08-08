@@ -3,7 +3,7 @@ layout: post
 title: Design Agreement
 subtitle: An agreement that I share with clients before starting any design project.
 tags: 
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: /assets/thumbs/default.png
 date: 23-01-2024
 date modified: 15-04-2024
 ---

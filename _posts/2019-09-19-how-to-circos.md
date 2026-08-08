@@ -2,7 +2,7 @@
 layout: post
 title: Making chord diagrams with Circos Online
 tags: dataviz idc
-thumbnail: https://gyanl.com/assets/thumbs/circos.png
+thumbnail: /assets/thumbs/circos.png
 ---
 
 ## What is Circos?
@@ -41,7 +41,7 @@ Now that we know what Circos can do, let's try and use it!
 
 You can pick whatever you like, but I decided to visualize the patterns in key issue and return for the media lab at IDC. I used the last two filled pages of the key register, which looks like this:
 
-![Screenshot of spreadsheet on Google Sheets](https://gyanl.com/assets/key-register.jpeg)
+![Screenshot of spreadsheet on Google Sheets](/assets/key-register.jpeg)
 
 #### Formatting the data
 
@@ -57,7 +57,7 @@ Chances are you have your data in a table, isolate just the two values you'd lik
 
 But that poses an issue as Circos can't _technically_ represent tables.
 
-![Screenshot of spreadsheet on Google Sheets](https://gyanl.com/assets/circos-raw-keys.png)
+![Screenshot of spreadsheet on Google Sheets](/assets/circos-raw-keys.png)
 
 #### Wait so why are we doing this then?
 
@@ -66,7 +66,7 @@ What Circos _can_ do is represent _matrices._ What's the difference? In mathemat
 #### Turning tables into matrices
 
 The matrix takes each pair of (key-in-person, key-out-person) data and inserts +1 into the corresponding position on the matrix. I did this manually, but if you can code, it's essentially a matter of [converting key-value pairs into a matrix](https://stackoverflow.com/questions/17173743/create-a-matrix-from-a-list-of-key-value-pairs)
-![Screenshot of matrix on Google Sheets](https://gyanl.com/assets/circos-matrix.png).
+![Screenshot of matrix on Google Sheets](/assets/circos-matrix.png).
 
 Also remember to put the text "labels" on the top left cell, or Circos Online won't accept the input. Make sure your headers don't have any spaces in them, or Circos will fail and throw a bunch of scary looking errors at you.
 
@@ -82,7 +82,7 @@ Upload the .tsv to [Circos Online](http://circos.ca/circos_online). Leave the ch
 
 It may take a few seconds to load, but once it does, you can pat yourself on the back for a beautiful data visualization.
 
-![Chord diagram of key issues](https://gyanl.com/assets/circos-keys.png)
+![Chord diagram of key issues](/assets/circos-keys.png)
 
 You can now download a `large image` or a zip with `data, images (PNG/SVG) and configuration` from Circos online.
 
@@ -124,4 +124,4 @@ After (once again, manually) converting to a matrix, we get this matrix.
 
 The result looks something like this:
 
-![Chord diagram of key issues](https://gyanl.com/assets/circos-education-gender.png)
+![Chord diagram of key issues](/assets/circos-education-gender.png)

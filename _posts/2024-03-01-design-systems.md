@@ -4,12 +4,12 @@ title: Figma Fun Friday @ NowForm
 subtitle: Constraints, Autolayout, Components, Variants
 tags:
   - talks
-thumbnail: https://gyanl.com/assets/thumbs/figma.png
+thumbnail: /assets/thumbs/figma.png
 date: 23-03-2024
 date modified: 31-03-2024
 ---
 
-![Description](https://gyanl.com/assets/fff-title.png)
+![Description](/assets/fff-title.png)
 
 ###### Figma Fun Friday
 
@@ -24,11 +24,11 @@ Additionally, I delved into the mental models required to effectively utilize ad
 
 The workshop aimed to equip participants with the knowledge and skills to streamline their design processes and create more cohesive and efficient design systems.
 
-![Description](https://gyanl.com/assets/fff-gyan.jpg)
+![Description](/assets/fff-gyan.jpg)
 
 ###### Photo with the NowForm team
 
-![Description](https://gyanl.com/assets/fff-audience.jpg)
+![Description](/assets/fff-audience.jpg)
 
 ###### Keyboard shortcuts!
 
