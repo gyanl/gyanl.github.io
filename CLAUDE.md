@@ -63,4 +63,7 @@ Drafts go in `_posts/Drafts/`, excluded in `_config.yml`. Files in `_posts/` who
 
 - **`.measure` owns horizontal padding** on prose pages. A `padding` shorthand on a child (`.entry-header`, etc.) resets it and pulls that element out of line with the body text. Set `padding-top`/`padding-bottom` instead.
 - **Empty content is not `""`.** A layout guarding on `{% if content != "" %}` will still render for a page with no body, because Liquid yields whitespace. `{% assign body = content | strip %}` first.
+- **`.prose p` outspecifies a bare component class.** `.prose p { margin: 0 0 20px 0 }` (0,1,1) beats `.slideshow` (0,1,0), so a component rendered as a `<p>` silently loses its margins. Scope such rules as `.prose .slideshow` — this is why the slideshow's full-bleed margin has to be written that way.
+- **Percentage padding resolves against the parent, not the element.** The slideshow is `100vw` inside the narrow `.measure` column, so its centring padding must be in `vw`; `50%` would measure the column.
+- **The slideshow is CSS-only** — a scroll-snap strip, no JavaScript. `{: .slideshow }` on a paragraph of images; any count, any filenames, alt text preserved. A standalone IAL needs a preceding block, so if it is the first thing after the front matter, put it on the line directly above the images with no blank line (see `_posts/2023-10-23-diwaloween.md`).
 - `_posts/sale backup.md` has uncommitted local changes and is not a valid post filename. Left alone deliberately.

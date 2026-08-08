@@ -163,11 +163,6 @@
   })();
 </script>
 
-{%- comment -%} Only posts and pages carry .slideshow markup. {%- endcomment -%}
-{%- unless page.layout == 'home' %}
-<script src="{{ '/assets/js/slideshow.js' | relative_url }}" defer></script>
-{%- endunless %}
-
 </body>
 
 </html>

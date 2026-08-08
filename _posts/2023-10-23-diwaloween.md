@@ -8,8 +8,7 @@ date modified: 18-01-2025
 date: 25-10-2023
 ---
 
-{: .slideshow }
-
+{: .slideshow tabindex="0" role="group" aria-label="Diwaloween posters" }
 ![Description 0](https://gyanl.com/assets/Diwaloween-0.png)![Description 1](https://gyanl.com/assets/Diwaloween-1.png)![Description 2](https://gyanl.com/assets/Diwaloween-2.png)
 
 ###### Some posters for a Diwali/Halloween fundraising event.

@@ -1493,95 +1493,99 @@ a.tag:hover {
 }
 
 
-/* ===== Slideshow (used inside posts) ===== */
+/* ===== Slideshow (used inside posts) =====
 
-.slideshow {
-    position: relative;
-    display: flex;
-    justify-content: center;
+   No JavaScript. Author it as a paragraph of images with a Kramdown IAL:
+
+       {: .slideshow tabindex="0" role="group" aria-label="Photos from Goa" }
+
+       ![First](…)![Second](…)![Third](…)
+
+   The paragraph becomes a full-bleed scroll-snap strip. Swipe, trackpad,
+   scrollbar drag and arrow keys are all the browser's native scrolling, so
+   there is nothing to keep in sync. Any number of images, any filenames, and
+   the alt text you wrote is the alt text that ships. */
+
+.prose .slideshow {
+    /* The only knob. Slide size and the centring padding both derive from it. */
+    --slide-width: min(720px, 86vw);
+
+    /* Full-bleed out of .measure. The site has no global border-box reset, so
+       set it here or the inline padding below widens the element past 100vw. */
+    box-sizing: border-box;
     width: 100vw;
-    left: 50%;
-    transform: translateX(-50%);
-    overflow-x: hidden;
+    margin-inline: calc(50% - 50vw);
+    margin-block: var(--spacing-xl);
+
+    display: flex;
+    gap: var(--spacing-md);
+    /* Enough inline padding that the first and last slide can reach the centre.
+       In vw, not %, because percentage padding resolves against the parent's
+       width — and the parent here is the narrow .measure column. */
+    padding-inline: max(var(--spacing-md), calc(50vw - var(--slide-width) / 2));
+
+    overflow-x: auto;
+    /* Don't hand a horizontal overscroll to the page or to browser back. */
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+
+    /* The peeking neighbours are the affordance; the scrollbar is noise. */
+    scrollbar-width: none;
 }
 
-.slideshow>img {
-    margin: var(--spacing-lg) var(--spacing-md) 0 var(--spacing-md);
-    width: 720px;
+.prose .slideshow::-webkit-scrollbar {
+    display: none;
+}
+
+/* Overrides .prose img, which is display:block with vertical margins. */
+.prose .slideshow>img {
+    flex: none;
+    width: var(--slide-width);
     max-width: none;
+    height: auto;
+    margin: 0;
     border-radius: var(--border-radius-lg);
-    z-index: 1;
-    animation: fadeIn .1s ease-in-out;
+    scroll-snap-align: center;
 }
 
-.slideshow-previous,
-.slideshow-next {
-    opacity: .75;
-    cursor: pointer;
+@media (prefers-reduced-motion: no-preference) {
+    .prose .slideshow {
+        scroll-behavior: smooth;
+    }
 }
 
-.slideshow-previous:hover,
-.slideshow-next:hover {
-    opacity: 1;
-}
-
-.slideshow-previous::after {
-    content: "←";
-    text-align: right;
-    font-size: var(--font-size-xl);
-    z-index: 2;
-}
-
-.slideshow-next::before {
-    content: "→";
-    text-align: left;
-    font-size: var(--font-size-xl);
-    z-index: 2;
-}
-
-.move-right {
-    transition: .3s;
-    opacity: 1 !important;
-    transform: translateX(-744px);
-}
-
-.move-left {
-    transition: .3s;
-    opacity: 1 !important;
-    transform: translateX(744px);
-}
-
-.slideshow-indicator {
-    margin-bottom: var(--spacing-lg);
-    text-align: center;
-}
-
-.dot {
-    width: 8px;
-    height: 8px;
-    display: inline-block;
-    border-radius: 50%;
-    margin: 0 4px;
-    background-color: var(--black-20);
-    transition: .2s;
-}
-
-.dot.active {
-    background-color: var(--accent-color);
-}
-
-@media (max-width: 800px) {
-    .slideshow>img {
-        width: 86%;
-        margin: var(--spacing-sm) 6px 0 6px;
+/* Dots, generated from the slides themselves. Supporting browsers get one
+   focusable group that arrow-keys between slides; the rest just scroll. */
+@supports selector(::scroll-marker) {
+    .prose .slideshow {
+        scroll-marker-group: after;
     }
 
-    .move-right {
-        transform: translateX(calc(-86vw - 12px));
+    .prose .slideshow::scroll-marker-group {
+        display: flex;
+        justify-content: center;
+        gap: var(--spacing-sm);
+        padding-block-start: var(--spacing-md);
     }
 
-    .move-left {
-        transform: translateX(calc(86vw + 12px));
+    .prose .slideshow>img::scroll-marker {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: var(--black-20);
+        cursor: pointer;
+        transition: background-color .2s;
+    }
+
+    .prose .slideshow>img::scroll-marker:hover,
+    .prose .slideshow>img::scroll-marker:target-current {
+        background-color: var(--accent-color);
+    }
+
+    .prose .slideshow>img::scroll-marker:focus-visible {
+        outline: var(--focus-outline);
+        outline-offset: var(--focus-outline-offset);
     }
 }
 
