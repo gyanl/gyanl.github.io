@@ -7,7 +7,9 @@ tags:
   - uiux
   - strategy
   - branding
-thumbnail: /assets/thumbs/bobo-cakery.png
+  - featured
+thumbnail: /assets/thumbs/pk/bobo-thumbnail.jpg
+external_url: https://bobocakery.com/
 date: 11-04-2025
 ---
 

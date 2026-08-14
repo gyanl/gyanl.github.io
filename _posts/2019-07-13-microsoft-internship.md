@@ -2,7 +2,7 @@
 layout: post
 title: Interning at Microsoft
 subtitle: Some thoughts on designing for AI at my internship at Microsoft Hyderabad, where I worked on integrating intelligent assistance in an existing Microsoft app.
-tags: [work, featured]
+tags: [work]
 thumbnail: /assets/thumbs/microsoft.png
 ---
 

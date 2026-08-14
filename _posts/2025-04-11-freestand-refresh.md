@@ -6,7 +6,8 @@ tags:
   - work
   - branding
   - website
-thumbnail: /assets/thumbs/freestand-refresh.png
+thumbnail: /assets/thumbs/pk/freestand-thumbnail.jpg
+external_url: https://freestand.in/
 date: 11-04-2025
 ---
 

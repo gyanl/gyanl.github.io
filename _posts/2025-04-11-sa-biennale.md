@@ -6,7 +6,7 @@ tags:
   - work
   - branding
   - uiux
-thumbnail: /assets/thumbs/sa-biennale.png
+thumbnail: /assets/thumbs/pk/sa-thumbnail.jpg
 date: 11-04-2025
 ---
 

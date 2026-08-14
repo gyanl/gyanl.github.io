@@ -6,7 +6,8 @@ tags:
   - work
   - uiux
   - branding
-thumbnail: /assets/thumbs/mercury-lawyer.png
+thumbnail: /assets/thumbs/pk/mercury-thumbnail.jpg
+external_url: https://mercury.lawyer/
 date: 11-04-2025
 ---
 

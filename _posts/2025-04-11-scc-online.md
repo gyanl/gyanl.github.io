@@ -6,7 +6,8 @@ tags:
   - work
   - uiux
   - branding
-thumbnail: /assets/thumbs/scc-online.png
+thumbnail: /assets/thumbs/pk/scc-online-thumbnail.jpg
+external_url: https://www.scconline.com/
 date: 11-04-2025
 ---
 

@@ -8,7 +8,9 @@ tags:
   - website
   - strategy
   - dataviz
-thumbnail: /assets/thumbs/literary-map.png
+  - featured
+thumbnail: /assets/thumbs/pk/hammock-thumbnail.jpg
+external_url: https://map.hammockmag.com
 date: 11-04-2025
 ---
 

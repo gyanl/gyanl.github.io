@@ -3,18 +3,23 @@
   "configurations": [
     {
       "name": "jekyll",
-      "runtimeExecutable": "bundle",
-      "runtimeArgs": ["exec", "jekyll", "serve", "--livereload", "--port", "4000"],
-      "port": 4000
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": [
+        "-c",
+        "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 exec bundle exec jekyll serve --host 0.0.0.0 --port 4000 --livereload"
+      ],
+      "port": 4000,
+      "autoPort": false
     },
     {
       "name": "jekyll-4001",
-      "runtimeExecutable": "bundle",
+      "runtimeExecutable": "/bin/sh",
       "runtimeArgs": [
-        "exec", "jekyll", "serve",
-        "--livereload", "--port", "4001", "--livereload-port", "35730"
+        "-c",
+        "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 exec bundle exec jekyll serve --host 0.0.0.0 --port 4001 --livereload --livereload-port 35730"
       ],
-      "port": 4001
+      "port": 4001,
+      "autoPort": false
     }
   ]
 }

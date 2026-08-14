@@ -4,7 +4,7 @@ title: Microsoft Designer
 subtitle: An AI powered content creation experience for mobile creators // Everyone is a creator.
 tags:
   - misc
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: /assets/thumbs/default.png
 date modified: 04-10-2024
 date: 18-11-2022
 ---

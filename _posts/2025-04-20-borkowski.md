@@ -6,7 +6,8 @@ tags:
   - work
   - website
   - branding
-thumbnail: /assets/thumbs/borkowski.png
+thumbnail: /assets/thumbs/pk/borkowski-thumbnail.jpg
+external_url: https://borkowski.co.uk
 date: 20-04-2025
 ---
 

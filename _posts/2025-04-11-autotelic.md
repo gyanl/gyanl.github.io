@@ -6,7 +6,8 @@ tags:
   - work
   - branding
   - website
-thumbnail: /assets/thumbs/autotelic.png
+thumbnail: /assets/thumbs/pk/autotelic-thumbnail.jpg
+external_url: https://autotelic.inc/
 date: 11-04-2025
 ---
 

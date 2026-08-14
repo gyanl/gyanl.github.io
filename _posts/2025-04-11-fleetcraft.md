@@ -5,7 +5,7 @@ subtitle: A website for Fleetcraft, bringing to life their vision of making the 
 tags:
   - work
   - website
-thumbnail: /assets/thumbs/fleetcraft.png
+thumbnail: /assets/thumbs/pk/fleetcraft-thumbnail.jpg
 date: 11-04-2025
 ---
 

@@ -151,16 +151,6 @@
       spawn();
     });
   });
-
-  // Accent hue drifts with the current minute.
-  (function () {
-    function updateAccent() {
-      var minutes = new Date().getMinutes();
-      document.documentElement.style.setProperty('--accent-h', Math.floor((minutes / 59) * 255));
-    }
-    updateAccent();
-    setInterval(updateAccent, 60000);
-  })();
 </script>
 
 </body>

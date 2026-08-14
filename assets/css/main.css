@@ -75,18 +75,23 @@
     --focus-outline: 2px solid var(--accent-color);
     --focus-outline-offset: 2px;
 
-    /* Typography — TASA Explorer sets headings and display; TASA Orbiter
-       (sans) carries body copy and UI chrome. Both are variable across
-       400–800, so heading weights interpolate rather than snapping to a
-       static cut. Neither ships an italic. */
-    --font-heading: 'TASA Explorer', Georgia, serif;
-    --font-body: 'TASA Orbiter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* Typography — SF Pro Rounded now leads both stacks. `ui-rounded` is the
+       token that actually resolves it; the family name alone does not, since it
+       ships as a system-only face, and platforms without the generic skip it.
+       Nunito is the rounded webfont fallback (not self-hosted). Behind those,
+       the previous stacks are unchanged, so nothing regresses where no rounded
+       face exists: TASA Explorer still sets headings and display, TASA Orbiter
+       body copy and UI chrome, both variable across 400–800 with no italic. */
+    --font-heading: ui-rounded, 'SF Pro Rounded', 'Nunito', 'TASA Explorer', Georgia, serif;
+    --font-body: ui-rounded, 'SF Pro Rounded', 'Nunito', 'TASA Orbiter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --line-height-base: 1.4;
     --line-height-tight: 1.1;
     --line-height-sans-base: 1.5;
-    --letter-spacing-tight: -0.03em;
-    --letter-spacing-regular: -0.01em;
-    --letter-spacing-wide: 0.03em;
+    /* Loosened by 0.02em across the board — every rule reads these three, so
+       the whole site's tracking moves together from here. */
+    --letter-spacing-tight: -0.01em;
+    --letter-spacing-regular: 0.01em;
+    --letter-spacing-wide: 0.05em;
     --font-size-base: 1em;
     --font-size-sm: 14px;
     --font-size-md: 16px;
@@ -99,6 +104,10 @@
     /* Layout & spacing */
     --max-width: 1920px;
     --width-desktop: 90vw;
+    /* Narrower column for the home page's own sections (about, work, contact).
+       The rest of the site keeps --width-desktop. */
+    --width-home: 72vw;
+    --max-width-home: 1280px;
     --width-mobile: 90vw;
     /* Reading measure for prose pages; the home grid uses --width-desktop. */
     --measure: 760px;
@@ -113,16 +122,22 @@
     --spacing-5xl: 80px;
     --spacing-6xl: 100px;
 
-    /* Post thumbnails are square and only 144px on the source side, so these
-       never exceed that — anything larger just upscales them. */
+    /* Square thumbnail sizes, still used by post headers (.entry-thumbnail) and
+       archive listings (.listing-thumbnail). The source art is 100-144px, so
+       these never exceed that — anything larger just upscales. */
     --project-thumbnail-size: 96px;
     --project-thumbnail-size-mobile: 72px;
+    /* Work cards are full-bleed, so their thumbnail is capped by height instead.
+       NOTE: the 144px source art upscales badly at this width. */
+    --project-thumbnail-max-height: 480px;
 
     /* Radii */
     --border-radius-sm: 4px;
     --border-radius-md: 8px;
     --border-radius-lg: 10px;
     --border-radius-card: calc(var(--border-radius-lg) + 4px);
+    /* Work-card images carry a heavier round than the rest of the UI. */
+    --border-radius-thumbnail: 24px;
 
     /* Motion */
     --transition-fast: 0.2s ease;
@@ -131,7 +146,6 @@
     --animation-delay-base: 400ms;
     --animation-delay-2: 800ms;
     --animation-delay-3: 1200ms;
-    --animation-delay-scroll-tip: 4s;
 
     /* Z-index scale */
     --z-video: 9;
@@ -141,6 +155,15 @@
     --z-button: 25;
     --z-nav: 100;
     --z-controls: 1000;
+
+    /* One unit of the hero mark's 30x32 coordinate space, in px. Anything that
+       has to line up with the mark should be measured in these rather than in
+       px or vh. animate-g-logo.js overwrites this on <html> every resize to the
+       exact value it is drawing at — this declaration is the same formula
+       (min(vw, vh) * sizeRatio / 32) so the pre-script paint already agrees.
+       It must stay on :root: a copy on a consuming element would shadow the
+       inline value the script sets, and the two would silently diverge. */
+    --mark-unit: calc(min(100vw, 100vh) * 0.0171875);
 
     --backdrop-blur: blur(20px) contrast(130%) saturate(250%);
     --backdrop-blur-footer: blur(20px) contrast(130%) saturate(150%);
@@ -205,9 +228,10 @@ a {
     transition: color var(--transition-fast);
 }
 
+/* Plain black on hover (white in dark mode — --black flips with the scheme). */
 a:hover,
 a:focus {
-    color: var(--accent-color);
+    color: var(--black);
 }
 
 a:focus-visible,
@@ -310,46 +334,246 @@ button {
 
 /* ===== Hero ===== */
 
-#video-container {
+/* The hero mark. A stroked g-logo pinned to the viewport; animate-g-logo.js
+   drives its draw-on and stroke weight from scroll position. */
+/* Sticky, not fixed. It pins for the length of the runway and then releases, so
+   the finished mark scrolls up and away as the About section arrives instead of
+   sitting in the middle of the screen behind it. */
+.hero-mark {
+    position: sticky;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     z-index: var(--z-content);
-    position: fixed;
-    top: 0;
-    left: 0;
+    pointer-events: none;
+    overflow: visible;
+    /* Inked in the body text colour, same as the greeting, so the two read as
+       one thing — and so both follow the dark-mode swap of --text-reg. Picked
+       up below through currentColor. */
+    color: var(--text-reg);
 }
 
-#masked-video {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: relative;
-    top: 0;
-    left: 0;
-    z-index: var(--z-video);
-    background-color: transparent;
-}
-
-#clip-path-wrapper {
+/**
+ * The art itself, sized in mark units and centred.
+ *
+ * The viewBox does the scaling, so nothing about the mark's geometry is computed
+ * in JavaScript any more. That matters during a window drag: the greeting beside
+ * it is positioned in pure CSS, and anything script-driven — even coalesced to a
+ * single frame — lags it by that frame and the two visibly come apart.
+ */
+.hero-mark__art {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 11;
+    top: 50%;
+    left: 50%;
+    width: calc(30 * var(--mark-unit));
+    height: calc(32 * var(--mark-unit));
+    /* --mark-shrink is driven from scroll by animate-g-logo.js; it scales about
+       the box's own centre, so the mark stays centred as it shrinks. */
+    transform: translate(-50%, -50%) scale(var(--mark-shrink, 1));
+    /* The stroke swells past the viewBox; do not let it get clipped. */
+    overflow: visible;
 }
 
-/* Safari compositing fix */
-@supports (-webkit-touch-callout: none) {
-    #video-container {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
+.hero-mark path {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.hero-mark circle {
+    fill: currentColor;
+}
+
+/* Sits over the middle of the hero, where the mark's resting dot is. `ui-rounded`
+   is what resolves to SF Pro Rounded on Apple platforms — the family name alone
+   does not, since it ships as a system-only face. Nunito is the stated fallback;
+   it is not self-hosted like the TASA faces, so on platforms without either the
+   stack lands on the system UI font. */
+/**
+ * Absolute, not sticky: unlike the mark this does not pin, so it scrolls up and
+ * away as soon as the page moves. Anchored to the top of the runway, .hero-spacer.
+ *
+ * Everything here is measured in --mark-unit, one unit of the mark's own 30x32
+ * coordinate space, so the greeting scales and sits with the mark on every
+ * viewport rather than only agreeing at one size. animate-g-logo.js keeps the
+ * property exact; the fallback below is the same formula it uses
+ * (min(vw, vh) * sizeRatio / 32), so the first paint already lines up.
+ *
+ * The vertical anchor is the dot, not the screen: the mark centres at 50vh and
+ * the dot sits at (23.83, 12.39) in a box whose middle is (15, 16), so the dot
+ * is 3.61 units above that centre. The extra 6 units is the gap above it.
+ */
+.hero-greeting {
+    /* The bubble's width, and the height that follows from the artwork's own
+       511x242 box. The photo beside it reads --bubble-height so the two line up
+       whatever this is set to. */
+    --bubble-width: 2.4em;
+    --bubble-height: calc(var(--bubble-width) * 242 / 511);
+    --bubble-gap: 0.12em;
+
+    /* The ball has to sit one period-pitch past the last typed dot, but
+       translate(-100%) only lands the text's right EDGE on it — half a pitch
+       short. Measured against the rendered face, half a pitch is 0.126em. In em,
+       not mark units, so it stays correct when the size below changes. */
+    --greeting-gap: 0.126em;
+    --greeting-drop: 0.074em;
+
+    position: absolute;
+    /* Anchored to the ball, not to the screen. The mark centres on the viewport
+       and its 30x32 box has its middle at (15, 16), so the ball at (23.83, 12.39)
+       sits 8.83 units right of centre and 3.61 above it. Landing the text's end
+       on that point makes the ball the third dot of "Hi..." — the trailing GAP
+       is the space that would have preceded it. */
+    left: calc(50% + 8.83 * var(--mark-unit));
+    top: calc(50vh - 3.61 * var(--mark-unit));
+    white-space: nowrap;
+    /* Vertically this lands the PERIODS on the anchor, not the box: with
+       line-height 1 the baseline sits 0.9268em below the box top and a period's
+       centre 0.0547em above the baseline, so its centre is 0.8721em down. All in
+       em, so it holds at any size. --greeting-drop is the hand-tuned nudge off
+       that computed position. */
+    transform: translate(calc(-100% - var(--greeting-gap)),
+            calc(-0.8721em + var(--greeting-drop)));
+    /* Under the mark. The greeting sits later in the DOM, so at an equal z-index
+       it — and the blob behind it — would paint over the g-logo and hide it as
+       it draws. The blob cannot be lowered on its own: this element is
+       positioned with a z-index, so it forms a stacking context its children
+       cannot escape. */
+    z-index: calc(var(--z-content) - 1);
+    pointer-events: none;
+    text-align: center;
+    font-family: var(--font-body);
+    /* Drives the whole lockup — the bubble, the photo and the gaps are all in em,
+       so this one value scales the group. 12.19 units is the size at which a
+       typed period matches the g-logo's ball exactly (the glyph's dot is 0.1149em
+       in this face, and the ball is one baseStroke, 1.4 units, across); this is
+       that figure scaled to 80%, so the dots now read smaller than the ball. */
+    font-size: calc(9.75 * var(--mark-unit));
+    line-height: 1;
+    color: var(--text-reg);
+}
+
+/* Sat behind the greeting and centred on it. Sized in em so it scales with the
+   type — and therefore with --mark-unit — instead of needing its own maths. */
+.hero-greeting__blob path {
+    fill: var(--black-5);
+}
+
+.hero-greeting__blob {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--bubble-width);
+    height: auto;
+    transform: translate(-50%, -50%);
+    /* Behind the text, which is lifted by .hero-greeting__text below. */
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Sat to the left of the bubble, matched to its height. Absolutely positioned
+   like the bubble: anything in the flow here would widen .hero-greeting, and its
+   width is what the translate(-100%) anchoring measures to line the last dot up
+   with the g-logo's ball. */
+.hero-greeting__photo {
+    position: absolute;
+    top: 50%;
+    /* Right edge lands on the bubble's left edge, less the gap. */
+    right: calc(50% + var(--bubble-width) / 2 + var(--bubble-gap));
+    transform: translateY(-50%);
+    /* A circle the height of the bubble, with the photo cropped to fill it from
+       its centre rather than squashed to fit. */
+    height: var(--bubble-height);
+    width: var(--bubble-height);
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.hero-greeting__text {
+    position: relative;
+    z-index: 1;
+}
+
+/* Dark mode: the grey bubble becomes an iMessage-blue gradient, with the
+   greeting reversed out of it. The gradient itself is declared in the SVG (see
+   _layouts/home.html) because fill: url(#id) resolves against the document. */
+@media (prefers-color-scheme: dark) {
+    .hero-greeting__blob path {
+        fill: url(#ios-blue);
+    }
+
+    .hero-greeting__text {
+        color: #FFFFFF;
     }
 }
 
-/* Wordmark. In normal flow by default (every page except home), overlaid on
-   the hero by the --hero variant. */
+/* At rest the mark is a single dot, so nudging the whole layer reads as the dot
+   bouncing. animate-g-logo.js drops .is-resting on the first scroll and eases
+   whatever transform the bounce was mid-way through back to zero. */
+.hero-mark.is-resting {
+    animation: dot-bounce 2.6s linear infinite;
+}
+
+.hero-mark.is-settling {
+    transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+/**
+ * Impatient, then decaying, then waiting.
+ *
+ * One hard shove up and a fall, a smaller rebound, a smaller one again, then a
+ * long flat hold before it goes round again — the hold is most of the cycle,
+ * which is what makes the bounces read as impatient rather than idle. Rises use
+ * ease-out and falls ease-in, so gravity looks like gravity.
+ */
+@keyframes dot-bounce {
+    0% {
+        transform: translateY(0);
+        animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+    }
+
+    11% {
+        transform: translateY(-34px);
+        animation-timing-function: cubic-bezier(0.7, 0, 0.9, 0.4);
+    }
+
+    22% {
+        transform: translateY(0);
+        animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+    }
+
+    29% {
+        transform: translateY(-14px);
+        animation-timing-function: cubic-bezier(0.7, 0, 0.9, 0.4);
+    }
+
+    36% {
+        transform: translateY(0);
+        animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+    }
+
+    40% {
+        transform: translateY(-4px);
+        animation-timing-function: cubic-bezier(0.7, 0, 0.9, 0.4);
+    }
+
+    44%,
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-mark.is-resting {
+        animation: none;
+    }
+}
+
+/* Wordmark. In normal flow on every page; the home hero carries no text. */
 .logo-text {
     font-family: var(--font-heading);
     display: flex;
@@ -367,76 +591,30 @@ button {
 }
 
 .logo-text:hover {
-    color: var(--accent-color);
-}
-
-.logo-text--hero {
-    position: absolute;
-    top: 60px;
-    left: 7vw;
-    z-index: 11;
-    width: fit-content;
-    margin: 0;
-}
-
-.top-right {
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    max-width: 330px;
-    position: absolute;
-    top: 72px;
-    right: 7vw;
-    gap: var(--spacing-md);
-    z-index: 11;
+    color: var(--black);
 }
 
 /**
- * Scroll runway for the asterisk reveal.
+ * Scroll runway for the g-logo reveal.
  *
- * animate-asterisk.js measures this element and finishes the reveal exactly as it
- * scrolls past, so changing this height is all it takes to retime the effect.
+ * animate-g-logo.js measures this element: the mark inside is sticky, so it pins
+ * for this height less one viewport, and the reveal is timed to finish exactly
+ * as that pin releases. Changing this height retimes the whole effect. The last
+ * 100vh is the mark scrolling up as the About section arrives.
  * Keep it a sized element rather than a margin on .container: margins collapse,
  * and a `margin: 0` in any later breakpoint silently wipes out the whole effect.
  */
 .hero-spacer {
-    height: 150vh;
+    height: 250vh;
     position: relative;
     z-index: 15;
     pointer-events: none;
-}
-
-.scroll-tip {
-    position: absolute;
-    top: 82vh;
-    left: 0;
-    right: 0;
-    font-family: var(--font-body);
-    text-align: center;
-    color: var(--charcoal);
-    animation: bounce var(--animation-duration-bounce) infinite;
-    animation-delay: var(--animation-delay-scroll-tip);
-    will-change: transform;
-}
-
-@keyframes bounce {
-
-    0%,
-    20%,
-    50%,
-    80%,
-    100% {
-        transform: translateY(0);
-    }
-
-    40% {
-        transform: translateY(-30px);
-    }
-
-    60% {
-        transform: translateY(-15px);
-    }
+    /* The mark is centred in a viewport-tall sticky box, so once it shrinks the
+       bottom half of that box is dead space between it and the About copy. This
+       pulls the following content up through it. It does NOT change the runway's
+       height, so the reveal keeps its timing — animate-g-logo.js measures the
+       height, and a margin is outside that. */
+    margin-bottom: -47vh;
 }
 
 .square-button {
@@ -552,7 +730,7 @@ button {
 }
 
 .site-nav a:hover {
-    color: var(--accent-color);
+    color: var(--black);
 }
 
 .nav-links {
@@ -571,11 +749,14 @@ button {
     margin: 0 auto;
 }
 
+/* One child since the "About" label was dropped, so this centres rather than
+   splitting label and copy to opposite edges. */
 .about-section {
     display: flex;
-    justify-content: space-between;
-    width: var(--width-desktop);
-    max-width: var(--max-width);
+    justify-content: center;
+    text-align: center;
+    width: var(--width-home);
+    max-width: var(--max-width-home);
     margin: 0 auto;
     padding: var(--spacing-6xl) 0;
 }
@@ -656,85 +837,81 @@ button {
     margin-left: 2px;
 }
 
+/**
+ * Work cards — the design imported from publicknowledge.co (its _includes/work.html
+ * and the .project rules in its assets/css/style.css), retitled onto this site's
+ * tokens. Cards are full-bleed: a wide thumbnail across the top, then title,
+ * subtitle and tags beneath, two up (three past 1600px).
+ */
 .project-container {
-    width: var(--width-desktop);
-    max-width: var(--max-width);
+    width: var(--width-home);
+    max-width: var(--max-width-home);
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
     margin: 0 auto;
 }
 
-/* Two up on desktop. Held back to 1000px rather than the usual 800px
-   breakpoint: each card spends 144px on its thumbnail, so below this the text
-   column gets too narrow and titles wrap after two words. */
-@media (min-width: 1000px) {
+@media (min-width: 1600px) {
     .project-container {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
 .project {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: var(--spacing-lg);
+    display: block;
     padding: var(--spacing-md);
-    border-radius: var(--border-radius-card);
     position: relative;
-    cursor: pointer;
-    text-decoration: none;
     color: var(--text-reg);
-    transition: margin var(--transition-normal);
-    opacity: 0;
-    transform: translateY(20px);
 }
 
-.project-body {
-    flex: 1 1 auto;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+/* The site's button: a fully rounded grey pill. Used by the work cards' live-site
+   shortcut and by the contact CTA. */
+.pill-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-family: var(--font-body);
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    /* Half the height comfortably exceeds the pill, so the ends stay circular
+       whatever the label length. */
+    border-radius: 999px;
+    background: var(--black-5);
+    color: var(--text-reg);
+    cursor: pointer;
+    transition: background-color var(--transition-normal), color var(--transition-normal),
+        transform var(--transition-normal);
 }
 
-/* Same reasoning as .huge-text: don't hide content when the animation can't run. */
-.no-js .project {
-    opacity: 1;
-    transform: none;
-}
-
-.project:hover {
-    background-color: var(--slightly-warm-gray);
-    color: var(--charcoal);
-    margin-top: calc(var(--spacing-xs) * -1);
-    margin-bottom: var(--spacing-xs);
+.pill-button:hover {
+    background: var(--black-10);
+    color: var(--text-reg);
+    transform: translateY(-2px);
 }
 
 .project-thumbnail {
-    flex: 0 0 var(--project-thumbnail-size);
-    width: var(--project-thumbnail-size);
-    aspect-ratio: 1 / 1;
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--border-radius-thumbnail);
+    width: 100%;
+    max-height: var(--project-thumbnail-max-height);
     object-fit: cover;
-    object-position: center;
+    object-position: top;
     display: block;
     background-color: var(--black-5);
 }
 
 .project-title {
-    font-family: var(--font-heading);
+    margin-top: var(--spacing-md);
+    font-family: var(--font-body);
     font-size: var(--font-size-2xl);
-    font-weight: 600;
 }
 
-.project-meta {
-    font-family: var(--font-body);
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-    padding-bottom: var(--spacing-sm);
-    letter-spacing: var(--letter-spacing-regular);
+.project-description {
+    font-size: var(--font-size-lg);
+    padding: var(--spacing-xs) 0 var(--spacing-md) 0;
 }
+
 
 .tag-container {
     display: flex;
@@ -762,6 +939,114 @@ a.tag:hover {
     box-shadow: 0 0 0 1px var(--black-5);
     transform: translateY(-2px);
 }
+
+
+/* ===== Mini-resume ===== */
+
+/* Two columns: a fixed date rail and the role beside it. Content is hardcoded
+   in _includes/home/resume.html. */
+.resume {
+    padding: var(--spacing-6xl) 0 0 0;
+}
+
+.resume__list {
+    width: var(--width-home);
+    max-width: var(--max-width-home);
+    margin: 0 auto;
+}
+
+/* Shared heading for the home page's own sections (work, experience). Sits in
+   the same narrow column as the content beneath it. */
+.section-heading {
+    width: var(--width-home);
+    max-width: var(--max-width-home);
+    margin: 0 auto var(--spacing-2xl) auto;
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--text-secondary);
+}
+
+.resume__list {
+    list-style: none;
+    padding: 0;
+}
+
+.resume__row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg) 0;
+    border-top: 1px solid var(--black-5);
+}
+
+.resume__row:last-child {
+    border-bottom: 1px solid var(--black-5);
+}
+
+.resume__period {
+    font-family: var(--font-body);
+    font-size: var(--font-size-md);
+    color: var(--text-secondary);
+    /* Dates sit on the same line as the role they label. */
+    padding-top: 2px;
+}
+
+.resume__role {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xl);
+}
+
+.resume__org {
+    font-family: var(--font-body);
+    font-size: var(--font-size-md);
+    color: var(--text-secondary);
+}
+
+
+/* ===== Contact CTA ===== */
+
+/* Sits directly above the footer. The warm fill is on the inner box, not the
+   section, so it reads as a card in the content column rather than a full-bleed
+   band across the page. */
+.contact-cta {
+    background-color: transparent;
+    padding: var(--spacing-6xl) 0;
+}
+
+.contact-cta__inner {
+    width: var(--width-home);
+    max-width: var(--max-width-home);
+    margin: 0 auto;
+    box-sizing: border-box;
+    background-color: var(--slightly-warm-gray);
+    border-radius: var(--border-radius-card);
+    padding: var(--spacing-5xl);
+}
+
+.contact-cta__label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    margin: 0 0 var(--spacing-2xl) 0;
+    color: var(--text-reg);
+}
+
+.contact-cta__headline {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-4xl);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+    margin: 0 0 var(--spacing-3xl) 0;
+}
+
+.contact-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
 
 
 /* ===== Mobile bottom nav ===== */
@@ -926,12 +1211,6 @@ a.tag:hover {
 
 /* ===== Entrance animations ===== */
 
-.rotateIn {
-    animation: rotateIn 1.5s both;
-    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-    will-change: transform, opacity;
-}
-
 .fade-in {
     animation: fadeIn 1s both;
     will-change: opacity;
@@ -951,18 +1230,6 @@ a.tag:hover {
     }
 }
 
-@keyframes rotateIn {
-    0% {
-        opacity: 0;
-        transform: rotate(-90deg);
-    }
-
-    100% {
-        opacity: 1;
-        transform: rotate(0deg);
-    }
-}
-
 @keyframes fadeInUp {
     0% {
         opacity: 0;
@@ -977,9 +1244,7 @@ a.tag:hover {
 
 @media (prefers-reduced-motion: reduce) {
 
-    .rotateIn,
     .fade-in,
-    .scroll-tip,
     .asterisk {
         animation: none;
     }
@@ -1031,20 +1296,6 @@ a.tag:hover {
         padding: 0;
     }
 
-    .top-right {
-        position: static;
-        max-width: none;
-        text-align: left;
-        align-items: flex-start;
-        padding: 180px var(--spacing-lg) 0 var(--spacing-lg);
-    }
-
-    /* The tip itself is desktop-only, but .hero-spacer keeps its height so the
-       reveal still has its runway on touch devices. */
-    .scroll-tip {
-        display: none;
-    }
-
     .container {
         padding-top: var(--spacing-lg);
         position: relative;
@@ -1076,21 +1327,57 @@ a.tag:hover {
     }
 
 
-    /* Square thumbnails stay beside the text here — stacking them would hand a
-       144px image a full-width block. Just shrink the square. */
-    .project {
-        gap: var(--spacing-md);
-        padding: var(--spacing-sm);
-        border: 1px solid var(--black-5);
-    }
-
-    .project-thumbnail {
-        flex-basis: var(--project-thumbnail-size-mobile);
-        width: var(--project-thumbnail-size-mobile);
+    /* One up. The outline and the thumbnail's rounding are inherited from the
+       desktop rules — no flush-to-the-edge variant, since the card is square
+       cornered and the image is the rounded thing. */
+    .project-container {
+        width: var(--width-mobile);
+        grid-template-columns: 1fr;
+        gap: var(--spacing-2xl);
     }
 
     .project-title {
         font-size: var(--font-size-lg);
+    }
+
+    .project-description {
+        font-size: var(--font-size-md);
+    }
+
+    .resume {
+        padding-top: var(--spacing-3xl);
+    }
+
+    .resume__list,
+    .section-heading {
+        width: var(--width-mobile);
+    }
+
+    .resume__row {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xs);
+    }
+
+    .resume__role {
+        font-size: var(--font-size-lg);
+    }
+
+    .contact-cta {
+        padding: var(--spacing-3xl) 0;
+    }
+
+    .contact-cta__inner {
+        width: var(--width-mobile);
+        padding: var(--spacing-2xl);
+    }
+
+    .contact-cta__headline {
+        font-size: var(--font-size-2xl);
+    }
+
+    .pill-button {
+        font-size: var(--font-size-md);
+        padding: var(--spacing-md) var(--spacing-xl);
     }
 
     .section-title {
@@ -1295,8 +1582,8 @@ a.tag:hover {
 }
 
 .prose a:hover {
-    color: var(--accent-color);
-    border-bottom-color: var(--accent-color);
+    color: var(--black);
+    border-bottom-color: var(--black);
 }
 
 .prose img,

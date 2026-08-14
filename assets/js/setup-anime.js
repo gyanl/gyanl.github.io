@@ -5,6 +5,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // Wait for DOM to be fully loaded and verify anime is available
     if (typeof window.anime === 'undefined') {
         console.error('Anime.js library not loaded');
+        // .huge-text starts at opacity 0 in CSS and relies on the animation
+        // below to bring it in, so without the library it would stay invisible.
+        // The .no-js rules cannot cover this — that class is dropped in <head>
+        // as soon as any script runs.
+        document.querySelectorAll('.huge-text').forEach(function (el) {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+        });
         return;
     }
 
@@ -39,27 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
         observer.observe(textElement);
-    });
-
-    // Animate every project inside project-line when it's in view
-    const projectLines = document.querySelectorAll('.project-container');
-    projectLines.forEach(projectLine => {
-        const projectItems = projectLine.querySelectorAll('.project');
-        projectItems.forEach((item, index) => {
-            const observer = new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting) {
-                    window.anime({
-                        targets: item,
-                        translateY: [20, 0],
-                        opacity: [0, 1],
-                        duration: 2000,
-                        delay: 50 + (index * 50) // Stagger each project by .5s
-                    });
-                    observer.disconnect();
-                }
-            });
-            observer.observe(item);
-        });
     });
 
     // Animate every service inside service-container when it's in view

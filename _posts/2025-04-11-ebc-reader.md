@@ -6,7 +6,8 @@ tags:
   - work
   - uiux
   - strategy
-thumbnail: /assets/thumbs/ebc-reader.png
+thumbnail: /assets/thumbs/pk/ebc-reader-thumbnail.jpg
+external_url: https://www.ebcreader.com/
 date: 11-04-2025
 ---
 

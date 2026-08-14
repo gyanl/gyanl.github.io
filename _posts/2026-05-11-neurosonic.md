@@ -5,7 +5,9 @@ subtitle: A landing page for a medical device that makes stroke prevention faste
 tags:
   - work
   - website
-thumbnail: /assets/thumbs/neurosonic.png
+  - featured
+thumbnail: /assets/thumbs/pk/neuro-sonic-thumbnail.jpg
+external_url: https://www.neuro-sonic.com/
 date: 11-05-2026
 ---
 

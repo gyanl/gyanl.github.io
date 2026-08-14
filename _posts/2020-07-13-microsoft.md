@@ -4,7 +4,6 @@ title: UX Design at Microsoft
 subtitle: Starting my first full time job in the pandemic and working on voice experiences.
 tags:
   - work
-  - featured
 thumbnail: /assets/thumbs/microsoft.png
 date modified: 02-01-2025
 date: 23-09-2022

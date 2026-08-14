@@ -5,7 +5,9 @@ subtitle: A website for AFA, an arts foundation supporting modern and contempora
 tags:
   - work
   - website
-thumbnail: /assets/thumbs/anant-foundation.png
+  - featured
+thumbnail: /assets/thumbs/pk/afa-thumbnail.webp
+external_url: https://anantfoundation.art
 date: 11-04-2026
 ---
 

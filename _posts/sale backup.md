@@ -3,15 +3,32 @@ layout: post
 title:
 subtitle:
 tags: 
-thumbnail: https://gyanl.com/assets/thumbs/default.png
+thumbnail: /assets/thumbs/default.png
 date: 11-08-2024
 date modified: 23-03-2025
 ---
+#### Dell 27 Inch 1440p 165Hz Gaming Monitor
+
+_A gaming monitor that I used for gaming as well as design work. The high refresh rate (165 Hz using Displayport cables, 144Hz using HDMI cables) made it a great choice for gaming, and the solid color coverage (98% DCI-P3) meant I was comfortably able to use it for design work in Figma. I’ll throw in a Displayport to USB-C cable that lets you use this monitor at full resolution and highest possible refresh rate over USB-C._
+
+_Bought on Amazon in August 2022, selling because I don’t play video games anymore._
+
+![](/assets/sale-dell-monitor.jpg)
+
+**Specs on Dell Website:** [Dell 27 Inch Gaming Monitor: S2721DGF](https://www.dell.com/en-us/shop/dell-27-gaming-monitor-s2721dgf/apd/210-axeh/monitors-monitor-accessories)
+
+**Original price:** [26,600 on Amazon](https://www.amazon.in/dp/B08FRH6CVM?ref_=ppx_hzod_title_dt_b_fed_asin_title_0_0)
+
+**My price:** 15k
+
+**Status:** 🟢 Available
+
+
 #### Apple Homepod (1st Gen)  
 
 _You can throw a party with just one of these, it sounds really good and gets super loud. It's a solid smart speaker if you're mostly in the Apple ecosystem, and especially if you use Apple music._
 
-![](https://gyanl.com/assets/sale-homepod.jpg)
+![](/assets/sale-homepod.jpg)
 
 **Flipkart:** [HomePod](https://www.flipkart.com/apple-homepod-siri-assistant-smart-speaker/p/itmd613189c4a516) (19,900)  
 
@@ -38,7 +55,7 @@ _Not sold yet, but someone has expressed interest. If you want one of these reac
 
 #### Google Chromecast Audio
 
-![](https://gyanl.com/assets/sale-chromecast-audio.jpg)
+![](/assets/sale-chromecast-audio.jpg)
 
 *Do you have an old pair of speakers lying around that still sound good, but it's just too much hassle to actually use them anymore? Hook up this Chromecast to it with a 3.5mm audio cable and it can now play music over WiFi. (Also supports digital audio but you'll need to separately buy a Mini Toslink to Toslink cable for that.)*
 
@@ -58,7 +75,7 @@ Note: This machine works best with a grind size that’s closer to commercial es
 
 {: .slideshow }
 
-![Front Profile for Caffé Birraio Decoris Home Espresso Machine](https://gyanl.com/assets/sale-caffe-birraio-0.jpg)![Side Profile for Caffé Birraio Decoris Home Espresso Machine](https://gyanl.com/assets/sale-caffe-birraio-1.jpg)![Close up of display for Caffé Birraio Decoris Home Espresso Machine](https://gyanl.com/assets/sale-caffe-birraio-2.jpg)
+![Front Profile for Caffé Birraio Decoris Home Espresso Machine](/assets/sale-caffe-birraio-0.jpg)![Side Profile for Caffé Birraio Decoris Home Espresso Machine](/assets/sale-caffe-birraio-1.jpg)![Close up of display for Caffé Birraio Decoris Home Espresso Machine](/assets/sale-caffe-birraio-2.jpg)
 
 **Original Price:** [30,500 on Caffe Birraio](https://caffebirraio.com/products/decoris-home-espresso-machine?variant=49713223401745)
 
@@ -72,7 +89,7 @@ Note: This machine works best with a grind size that’s closer to commercial es
 
 *My friend [Ratik](https://x.com/ratixyz) bought these sick kicks from VegNonVeg. UK 8, Worn only once. Ask him about them!*
 
-![](https://gyanl.com/assets/sale-ratik-shoes.jpg)
+![](/assets/sale-ratik-shoes.jpg)
 
 **Ratik’s Price:** 9.5k + Shipping
 
@@ -84,7 +101,7 @@ Note: This machine works best with a grind size that’s closer to commercial es
 
 _A comfortable office chair with a red cushioned base. Selling cheap because the back support and height adjustment lever has gone bad. It could probably be fixed, but I don’t have a car and can’t carry it to a repair shop so I don’t really know what to do with it._
 
-![](https://gyanl.com/assets/sale-chair.jpg)
+![](/assets/sale-chair.jpg)
 
 **Original price:** 5k
 
@@ -94,22 +111,6 @@ _A comfortable office chair with a red cushioned base. Selling cheap because the
 
 <br>
 
-#### Windows PC
 
-_Assembled Desktop PC with Windows installed. It can manage some basic gaming because of the inbuilt graphics. Selling it below the cost of parts because I want to clear up space in my room._
-
-AMD Ryzen 5 3400g with Radeon Vega 11 Graphics (can output 1440p 144hz or 4k 60hz)
-
-16 GB RAM (2x 8GB Samsung 2666 Mhz)
-
-500GB SSD (Crucial P2 - NVMe PCIe M.2) 
-
-1TB HDD (Seagate Barracuda)
-
-Gigabyte B450M S2H V2 motherboard
-
-**My price:** 12.5k
-
-**Status:** 🟢 Available
 
 <br>
