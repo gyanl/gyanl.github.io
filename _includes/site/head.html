@@ -16,7 +16,12 @@
   <link rel="preload" as="video" type="video/mp4" href="{{ '/assets/video/radial-flowers.mp4' | relative_url }}">
   {%- endif %}
 
-  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  {%- comment -%}
+    ?v= is the build timestamp. Browsers cache these aggressively enough that an
+    edited stylesheet or script keeps being served from cache after a rebuild;
+    stamping the URL makes each build a new resource.
+  {%- endcomment -%}
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 
   {%- comment -%}
     Phosphor icons, regular weight. Icons are <i class="ph ph-name"></i>.
@@ -24,9 +29,9 @@
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 
   {%- if page.layout == 'home' %}
-  <script src="{{ '/assets/js/animate-g-logo.js' | relative_url }}" defer></script>
+  <script src="{{ '/assets/js/animate-g-logo.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
-  <script src="{{ '/assets/js/setup-anime.js' | relative_url }}" defer></script>
+  <script src="{{ '/assets/js/setup-anime.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   {%- endif %}
 
   {%- seo -%}

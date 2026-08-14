@@ -375,9 +375,11 @@ button {
     overflow: visible;
 }
 
+/* No stroke colour here on purpose: each layer carries its own as a `stroke`
+   attribute, and a CSS declaration would override all of them. The black
+   finisher uses stroke="currentColor" so it still follows the theme. */
 .hero-mark path {
     fill: none;
-    stroke: currentColor;
     stroke-linecap: round;
     stroke-linejoin: round;
 }
@@ -407,11 +409,24 @@ button {
  */
 .hero-greeting {
     /* The bubble's width, and the height that follows from the artwork's own
-       511x242 box. The photo beside it reads --bubble-height so the two line up
-       whatever this is set to. */
-    --bubble-width: 2.4em;
+       511x242 box. --photo-size is deliberately NOT --bubble-height: the two
+       were the same until the bubble was grown on its own, so the photo is
+       pinned to the width the bubble had then (2.4em) and no longer tracks it. */
+    --bubble-width: 1.7em;
     --bubble-height: calc(var(--bubble-width) * 242 / 511);
+    --photo-size: 0.85em;
     --bubble-gap: 0.12em;
+    /* Space between the photo and the bubble's left edge. Separate from
+       --bubble-gap so the two can be tuned independently. */
+    --photo-gap: 0.02em;
+    /* Bubble and photo sit this far below the dots' line. Applied only to those
+       two, so the dots and the g-logo's ball keep their alignment. */
+    --bubble-drop: calc(var(--bubble-height) * 0.38);
+    /* The bubble centres on the text box, but the dot group runs past it: the
+       g-logo's ball sits --bubble-gap beyond the text plus its own radius
+       (baseStroke / 2 = 0.56 mark units). Nudging the bubble right by half of
+       that overhang puts all three dots on its centre. */
+    --bubble-shift: calc((var(--bubble-gap) + 0.56 * var(--mark-unit)) / 2);
 
     /* The ball has to sit one period-pitch past the last typed dot, but
        translate(-100%) only lands the text's right EDGE on it — half a pitch
@@ -467,7 +482,7 @@ button {
     left: 50%;
     width: var(--bubble-width);
     height: auto;
-    transform: translate(-50%, -50%);
+    transform: translate(calc(-50% + var(--bubble-shift)), calc(-50% + var(--bubble-drop)));
     /* Behind the text, which is lifted by .hero-greeting__text below. */
     z-index: 0;
     pointer-events: none;
@@ -480,13 +495,18 @@ button {
 .hero-greeting__photo {
     position: absolute;
     top: 50%;
-    /* Right edge lands on the bubble's left edge, less the gap. */
-    right: calc(50% + var(--bubble-width) / 2 + var(--bubble-gap));
-    transform: translateY(-50%);
-    /* A circle the height of the bubble, with the photo cropped to fill it from
-       its centre rather than squashed to fit. */
-    height: var(--bubble-height);
-    width: var(--bubble-height);
+    /* Right edge lands on the bubble's left edge, less the gap. The bubble is
+       nudged right by --bubble-shift to centre the dots, so that comes off here
+       too or the visible gap would grow by the same amount. */
+    right: calc(50% + var(--bubble-width) / 2 + var(--photo-gap) - var(--bubble-shift));
+    transform: translateY(calc(-50% + var(--bubble-drop)));
+    /* A circle, with the photo cropped to fill it from its centre rather than
+       squashed to fit. Sized off --photo-size so growing the bubble leaves it
+       alone; aspect-ratio pins it square even if one axis is overridden. */
+    height: var(--photo-size);
+    width: var(--photo-size);
+    min-width: var(--photo-size);
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     object-position: center;
     border-radius: 50%;
@@ -496,6 +516,34 @@ button {
 .hero-greeting__text {
     position: relative;
     z-index: 1;
+}
+
+/* inline-block so a transform applies — an inline box would ignore it. */
+.hero-greeting__dot {
+    display: inline-block;
+}
+
+/* Same keyframes the mark bounces on, so the typed dots and the g-logo's ball
+   move identically. Negative delays put these AHEAD of the ball in the cycle, so
+   the bounce travels left to right and finishes on the ball. */
+.hero-greeting.is-resting .hero-greeting__dot:nth-child(1) {
+    animation: dot-bounce 2.6s linear infinite;
+    animation-delay: -0.3s;
+}
+
+.hero-greeting.is-resting .hero-greeting__dot:nth-child(2) {
+    animation: dot-bounce 2.6s linear infinite;
+    animation-delay: -0.15s;
+}
+
+.hero-greeting.is-settling .hero-greeting__dot {
+    transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-greeting.is-resting .hero-greeting__dot {
+        animation: none;
+    }
 }
 
 /* Dark mode: the grey bubble becomes an iMessage-blue gradient, with the

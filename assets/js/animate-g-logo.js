@@ -32,14 +32,16 @@ class GLogoReveal {
       // The mark shrinks over the tail of the runway, finishing at shrinkTo of
       // its drawn size just as it unpins and scrolls away.
       shrinkStart: 0.75,
-      shrinkTo: 0.25,
+      shrinkTo: 0.2,
       ...options
     };
 
     this.elements = {
       mark: document.getElementById('hero-mark'),
+      greeting: document.querySelector('.hero-greeting'),
       art: document.querySelector('.hero-mark__art'),
       path: document.getElementById('g-reveal-path'),
+      layers: [...document.querySelectorAll('.g-reveal-layer')],
       dot: document.getElementById('g-reveal-dot'),
       size: document.getElementById('size'),
       stroke: document.getElementById('stroke')
@@ -140,16 +142,8 @@ class GLogoReveal {
     const { drawEnd, swellStart, finalStroke, shrinkStart, shrinkTo } = this.config;
     const { pathLength } = this.state;
     const progress = Math.min(window.scrollY / this.getRevealDistance(), 1);
-    const path = this.elements.path;
 
-    // Phase 1 — draw the stroke on. This goes all the way to zero: the resting
-    // dot is the <circle>, not a short run of path. Flooring it above zero (as
-    // this used to) leaves a sliver showing under the cap, which reads as a tiny
-    // line rather than a dot.
-    const drawn = this.ease(Math.min(progress / drawEnd, 1));
-    const revealed = pathLength * drawn;
-
-    // Phase 2 — thicken the stroke, so the finished mark sits heavier than the
+    // Phase 1 — thicken the stroke, so the finished mark sits heavier than the
     // dot it grew out of. Widths are in the mark's own 30x32 units. This lands
     // on drawEnd, not on the end of the runway: the weight is done growing the
     // moment the path finishes drawing, and holds from there.
@@ -158,7 +152,7 @@ class GLogoReveal {
 
     const strokeWidth = base + (finalStroke - base) * swell;
 
-    // Phase 3 — over the tail of the runway, scale the whole mark down. Applied
+    // Phase 2 — over the tail of the runway, scale the whole mark down. Applied
     // as a CSS scale on the art box rather than baked into the geometry, so the
     // stroke and dash figures above stay in plain viewBox units.
     const shrunk = this.ease((progress - shrinkStart) / (1 - shrinkStart));
@@ -166,9 +160,19 @@ class GLogoReveal {
 
     // All viewBox units — independent of how large the mark is drawn.
     this.elements.dot.setAttribute('r', strokeWidth / 2);
-    path.setAttribute('stroke-width', strokeWidth);
-    path.setAttribute('stroke-dasharray', pathLength);
-    path.setAttribute('stroke-dashoffset', pathLength - revealed);
+
+    // Phase 3 — draw the stroke on. Each layer starts at its own lag and is remapped so they all finish
+    // together on drawEnd: the gaps between them are what paint the colour
+    // bands, and closing those gaps at the end is what leaves the mark black.
+    this.elements.layers.forEach(layer => {
+      const lag = parseFloat(layer.dataset.lag) || 0;
+      const span = Math.max(drawEnd - lag, 0.0001);
+      const layerDrawn = this.ease((progress - lag) / span);
+
+      layer.setAttribute('stroke-width', strokeWidth);
+      layer.setAttribute('stroke-dasharray', pathLength);
+      layer.setAttribute('stroke-dashoffset', pathLength * (1 - layerDrawn));
+    });
   }
 
   /**
@@ -179,16 +183,21 @@ class GLogoReveal {
    * transition it out, so the dot settles instead of jumping.
    */
   stopBounce() {
-    const mark = this.elements.mark;
-    if (!mark || !mark.classList.contains('is-resting')) return;
+    // The mark and the greeting's typed dots bounce on the same keyframes, so
+    // both have to be settled together or the dots would carry on alone.
+    [this.elements.mark, this.elements.greeting].forEach(el => {
+      if (!el || !el.classList.contains('is-resting')) return;
 
-    mark.style.transform = getComputedStyle(mark).transform;
-    mark.classList.remove('is-resting');
-    mark.classList.add('is-settling');
+      const moving = el === this.elements.mark ? [el] : [...el.querySelectorAll('.hero-greeting__dot')];
+      moving.forEach(node => { node.style.transform = getComputedStyle(node).transform; });
 
-    // Force the frozen transform to be the starting value of the transition.
-    void mark.offsetHeight;
-    mark.style.transform = 'none';
+      el.classList.remove('is-resting');
+      el.classList.add('is-settling');
+
+      // Force the frozen transform to be the starting value of the transition.
+      void el.offsetHeight;
+      moving.forEach(node => { node.style.transform = 'none'; });
+    });
   }
 
   /** Smoothstep, so neither phase starts or stops abruptly. */
