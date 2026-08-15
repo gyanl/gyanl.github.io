@@ -149,6 +149,11 @@
        Deliberately not folded into --background-color: that token is what the
        mix is measured against, and pointing it at its own result would be a
        cycle. Anything that follows the shift mixes against --scheme-t itself. */
+    /* The name pill's fill — a lighter grey than the bubbles, so the header
+       sits back from the thread it heads. */
+    --sender-fill: #F4F4F4;
+    --sender-edge: rgba(0, 0, 0, 0.13);
+
     --scheme-t: 0;
     /* The other two figures animate-g-logo.js publishes from scroll position.
        --hero-progress is the reveal's raw 0..1; --sticker-burst is that same
@@ -281,6 +286,8 @@
         --accent-s: 80%;
         --accent-l: 65%;
 
+        --sender-fill: #303030;
+        --sender-edge: rgba(255, 255, 255, 0.16);
         --slightly-warm-gray: #2C2C2C;
         --charcoal: #E8E8E8;
         --white: #181717;
@@ -458,10 +465,13 @@ button {
        change at a time. If the drift returns on a phone, this line and the two
        that follow it below are the group to move together. */
     height: 100vh;
-    /* Only ever compared against the greeting: .hero-spacer is a stacking
-       context, so this cannot reach past it. What puts the hero under the About
-       section is the spacer's own z-index. */
-    z-index: var(--z-content);
+    /* One above .container, so the plate overlaps the top of the name pill that
+       sits just below it. The spacer around this one has no z-index of its own
+       (see there), so this is compared directly against .container rather than
+       being trapped inside a stacking context. Only the mark comes forward: the
+       spacer's background and the rest of the hero stay behind, which is what
+       keeps this from covering the messages. */
+    z-index: calc(var(--z-content) + 1);
     pointer-events: none;
     overflow: visible;
     /* Declared here, not on the plate: the name label is a sibling and sizes its
@@ -486,70 +496,37 @@ button {
    the box's own unscaled units while the box's half-side stays put, so partway
    down it dipped under half the side and the plate visibly passed through a
    rounded square. A percentage is half the box by definition, at every frame. */
-/* The name under the mark, the way a thread heads itself.
- *
- * Sat below the plate rather than below .hero-mark, whose box is a full 100vh —
- * so its offset is half the plate's ON-SCREEN height (the unscaled side times
- * --mark-shrink) plus a gap, and it tracks the mark all the way down as it
- * settles. Not inside the plate, so the type keeps its own size instead of being
- * scaled to nothing along with it.
- *
- * Fades in on --plate-settle with the plate itself: while the mark is still
- * being drawn there is nothing to label. */
-.hero-mark__name {
-    position: absolute;
-    left: 50%;
-    /* The offset rides in the TRANSFORM, not in `top`.
-     *
-     * It used to be `top: calc(... var(--mark-shrink) ...)`, which meant every
-     * frame of the shrink ran a layout pass to move one line of text. Invisible
-     * on a desktop, and on a phone it is the reveal's whole frame budget spent
-     * on the least important thing in it. A transform is composited: the same
-     * arithmetic, none of the layout. */
-    top: 50%;
-    transform: translate(-50%,
-            calc(32 * var(--mark-unit) * var(--plate-inset) * var(--mark-shrink, 1) / 2 + 0.9em));
-    white-space: nowrap;
-    font-family: var(--font-body);
-    font-size: var(--font-size-sm);
-    font-weight: 600;
-    letter-spacing: var(--letter-spacing-regular);
-    line-height: 1;
-    /* Follows the page across the light-to-dark crossfade — unlike the mark,
-       which keeps its white plate and so stays black throughout. */
-    color: color-mix(in srgb,
-            var(--text-reg) calc(var(--scheme-t) * 100%),
-            rgb(42, 42, 42));
-    opacity: var(--plate-settle, 0%);
-}
 
 .hero-mark__plate {
     position: absolute;
     top: 50%;
     left: 50%;
+    /* Scales with the mark, about the same centre, over the same last quarter of
+       the scroll — --mark-shrink is only off 1 inside that band, so this holds
+       still until the mark starts settling and then comes down with it. */
     width: calc(32 * var(--mark-unit) * var(--plate-inset));
     height: calc(32 * var(--mark-unit) * var(--plate-inset));
-    /* Same transform as the art box, so plate and mark shrink as one object. */
     transform: translate(-50%, -50%) scale(var(--mark-shrink, 1));
     will-change: transform, opacity;
     border-radius: 50%;
-    /* White badge and hairline ring, both FIXED. The whole plate then fades in
-       on opacity alone.
-     *
-       Every part of this used to move per frame: the background was a
-       color-mix against --plate-settle and the ring's spread was
-       calc(1px / var(--mark-shrink)) to hold a true 1px against the scale.
-       A changing box-shadow spread cannot be composited — it repaints — so the
-       plate was repainting on every frame of the shrink. Opacity and transform
-       are the only two things that do not, so those are the only two that move
-       now.
-
-       The spread is 5.5px because the plate finishes at --mark-shrink 0.18, and
-       5.5 x 0.18 is the 1px the ring is meant to land on. It is heavier than
-       that earlier in the shrink, but so is the plate, and it is still mostly
-       transparent while that is true. */
+    /* The badge fades in on opacity rather than on a color-mix background — one
+       compositor property instead of a repaint per frame. */
     background: #FFFFFF;
-    box-shadow: 0 0 0 5.5px var(--black-10);
+    /* 1px ON SCREEN at every size, by dividing out the scale the plate is drawn
+       at. A fixed width cannot do it: at 1px it would thin to a fifth of that
+       by the end, and at the 5.5px that lands on 1px at the end it rendered a
+       chunky ring across the middle of the hero while the plate was still big.
+
+       This is the one thing here that repaints per frame, and only across the
+       last quarter of the scroll. It is a single small element and no layout is
+       involved, which is the cheap end of the trade — the expensive version was
+       the name label positioning itself with `top`, and that is long gone.
+
+       border-box, so the border grows inward and the plate's outer size stays
+       exactly what the width says: the mark centres on that box and would drift
+       if the border pushed it outward. */
+    box-sizing: border-box;
+    border: calc(1px / var(--mark-shrink, 1)) solid var(--black-10);
     opacity: var(--plate-settle, 0%);
 }
 
@@ -906,11 +883,16 @@ button {
     background: color-mix(in srgb,
             var(--background-color) calc(var(--scheme-t) * 100%),
             #FAFAF9);
-    /* Under .container. This is the z-index that actually decides it: positioned
-       with a z-index, the spacer is its own stacking context, so the mark and
-       the greeting inside it can only order against each other — at 15 the whole
-       hero painted over the About section no matter what the mark itself said. */
-    z-index: calc(var(--z-content) - 1);
+    /* NO z-index, deliberately. A z-index here would make the spacer a stacking
+       context, and then nothing inside it could ever be ordered against
+       anything inside .container — the two would stack whole, one entirely in
+       front of the other. Both extremes were tried and both are wrong: below,
+       and the name pill covers the mark's plate; above, and this element's own
+       250vh background covers the messages.
+
+       Left as auto, the spacer paints in flow and its children order against
+       .container individually — which is what lets .hero-mark alone come
+       forward. */
     pointer-events: none;
     /* The mark is centred in a viewport-tall sticky box, so once it shrinks the
        bottom half of that box is dead space between it and the About copy. This
@@ -980,7 +962,13 @@ button {
    there is room for it. */
 @media (max-width: 800px) {
     .hero-stickers {
-        --sticker-size: clamp(4.5rem, 17vmin, 9rem);
+        /* Bigger than they were — 24vmin, the same figure the desktop uses —
+           and the ring pulled in to make room for them. The two go together:
+           the stickers are sized off vmin and PLACED off a vmin-floored radius,
+           so growing them on a narrow window without tightening the ring walks
+           the widest one straight off the edge. */
+        --sticker-size: clamp(5rem, 30vmin, 11rem);
+        --ring-x: max(27vw, 26vmin);
     }
 }
 
@@ -993,6 +981,23 @@ button {
 .hero-stickers:has(.hero-sticker.is-open),
 .hero-stickers:has(.hero-sticker.is-dragging) {
     z-index: calc(var(--z-content) + 1);
+}
+
+/* The shadow comes OFF the moment the ring starts moving, and back on when it
+   settles. A drop-shadow is a blur pass baked into the layer, and six filtered
+   layers being transformed and faded together — which is the whole of the first
+   100px of this page — is the most expensive thing the hero does on a phone.
+   At rest it is one raster and free; in motion it buys nothing, because they
+   are travelling out of frame and fading while it happens. */
+.hero-stickers.is-drifting .hero-sticker__art,
+.hero-stickers.is-drifting .hero-sticker__note {
+    filter: none;
+    /* transition: none is the point. The art carries a filter transition for the
+       drag lift, and without this the shadows would ANIMATE away over 160ms on
+       all six at once — an interpolating drop-shadow on every frame, which is
+       worse than the thing being removed, and starting exactly at the first
+       scroll. */
+    transition: none;
 }
 
 /* Once the burst is spent the ring is at opacity 0 but still a live layer: six
@@ -1047,6 +1052,9 @@ button {
 
     opacity: calc(1 - var(--sticker-burst));
 
+    --sticker-shadow:
+        drop-shadow(calc(var(--shadow-x, 0px) * 0.35) calc(var(--shadow-y, 2px) * 0.35) calc(var(--sticker-size) * 0.035) rgba(0, 0, 0, 0.13)) drop-shadow(var(--shadow-x, 0px) var(--shadow-y, 2px) calc(var(--sticker-size) * 0.13) rgba(0, 0, 0, 0.1));
+
     /* All compositor properties, so say so and the throw runs on its own layer.
        .is-spent drops them entirely once it is done. */
     will-change: transform, translate, opacity;
@@ -1064,6 +1072,13 @@ button {
 .hero-sticker.is-open,
 .hero-sticker.is-dragging {
     z-index: 9;
+}
+
+/* Off the page and into the reader's hand: further, softer and darker, which
+   is the whole of what makes it read as picked up. */
+.hero-sticker.is-dragging {
+    --sticker-shadow:
+        drop-shadow(calc(var(--shadow-x, 0px) * 0.6) calc(var(--shadow-y, 2px) * 0.6) calc(var(--sticker-size) * 0.06) rgba(0, 0, 0, 0.16)) drop-shadow(calc(var(--shadow-x, 0px) * 2.2) calc(var(--shadow-y, 2px) * 2.2 + var(--sticker-size) * 0.05) calc(var(--sticker-size) * 0.26) rgba(0, 0, 0, 0.22));
 }
 
 /* Lifted while held: bigger, and out from under its neighbours. The scale is a
@@ -1132,8 +1147,6 @@ button {
 
        Held in a variable because the drag state swaps it wholesale, and the HDR
        grade below has to prepend to whichever one is in play. */
-    --sticker-shadow:
-        drop-shadow(calc(var(--shadow-x, 0px) * 0.35) calc(var(--shadow-y, 2px) * 0.35) calc(var(--sticker-size) * 0.035) rgba(0, 0, 0, 0.13)) drop-shadow(var(--shadow-x, 0px) var(--shadow-y, 2px) calc(var(--sticker-size) * 0.13) rgba(0, 0, 0, 0.1));
     filter: var(--sticker-shadow);
     /* So the shadow grows into the lift rather than snapping to it. */
     transition: filter 0.16s ease-out;
@@ -1148,10 +1161,7 @@ button {
 
 /* Off the page and into the reader's hand: further, softer and darker, which is
    the whole of what makes it read as picked up. */
-.hero-sticker.is-dragging .hero-sticker__art {
-    --sticker-shadow:
-        drop-shadow(calc(var(--shadow-x, 0px) * 0.6) calc(var(--shadow-y, 2px) * 0.6) calc(var(--sticker-size) * 0.06) rgba(0, 0, 0, 0.16)) drop-shadow(calc(var(--shadow-x, 0px) * 2.2) calc(var(--shadow-y, 2px) * 2.2 + var(--sticker-size) * 0.05) calc(var(--sticker-size) * 0.26) rgba(0, 0, 0, 0.22));
-}
+
 
 @media (dynamic-range: high) {
     /* Grade first, shadows after: filters compose in order, and brightening
@@ -1181,15 +1191,77 @@ button {
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .hero-sticker__hit:hover .hero-sticker__art {
+    .hero-sticker__hit:hover .hero-sticker__art,
+    .hero-sticker__note:hover {
         animation: sticker-wiggle 1.1s ease-in-out infinite;
     }
 
     /* Held still while it is being carried — the wiggle is an invitation to
        pick it up, not something to fight the drag. */
-    .hero-sticker.is-dragging .hero-sticker__art {
+    .hero-sticker.is-dragging .hero-sticker__art,
+    .hero-sticker.is-dragging .hero-sticker__note {
         animation: none;
     }
+}
+
+/* The welcome note: a sticker made of type rather than artwork.
+ *
+ * height: auto because the rest of the ring is sized by height and lets the
+ * image shrink-wrap the width — a block of text is the other way round, so this
+ * one takes a width and lets the words decide how tall it ends up.
+ *
+ * Everything else it inherits: the ring places it, the burst throws it, the
+ * drag moves it, and --tilt sits it slightly askew like the others. */
+.hero-sticker--note {
+    height: auto;
+}
+
+/* Compound selector on purpose: this element carries .hero-sticker__hit too, and
+   that rule zeroes background, padding and height for the image stickers. At
+   equal specificity it would win on order, and the note would come out as bare
+   text on no paper. */
+.hero-sticker--note .hero-sticker__note {
+    /* Roughly square, and sized in em — off its OWN text rather than off the
+       ring's sticker size.
+     *
+       The height falls out of how deep the words wrap, so the width is the only
+       lever and it is solved for rather than chosen. Doing that in em is what
+       keeps it square at both sizes: the font is capped on desktop (below), so
+       a width tied to --sticker-size would keep growing while the text stopped,
+       and the note would stretch into a banner. In em the two move together.
+
+       12em is that solution for this many words. Change the copy and it will
+       want re-solving. */
+    box-sizing: border-box;
+    width: 12em;
+    height: auto;
+    padding: 1.1em;
+
+    /* The same tilt and the same shadow the artwork gets — this is a sticker,
+       it should sit on the page like one. Both live on .hero-sticker__art for
+       the image ones; the note has no image, so it wears them itself. */
+    transform: rotate(var(--tilt, 0deg));
+    filter: var(--sticker-shadow);
+    transition: filter 0.16s ease-out;
+
+    /* Paper, not a card: square corners, a warmer yellow at the bottom where a
+       real note curls away from the wall, and no radius at all. */
+    background: linear-gradient(170deg, #FFF3A8 0%, #FDE96B 100%);
+    color: #4A4023;
+
+    font-family: var(--font-body);
+    /* Scaled off the ring's own size, but capped: at the desktop sticker size
+       a straight proportion runs to 22px, which reads as a paragraph rather
+       than a note scribbled on paper. */
+    font-size: min(calc(var(--sticker-size) * 0.115), 15px);
+    font-weight: 500;
+    line-height: 1.35;
+    text-align: left;
+    text-wrap: pretty;
+}
+
+.hero-sticker--note .hero-sticker__note p {
+    margin: 0;
 }
 
 /* The hit area. A button, so it answers hover, tap and the keyboard alike
@@ -1563,12 +1635,19 @@ button {
    splitting label and copy to opposite edges. */
 .about-section {
     display: flex;
-    justify-content: center;
+    /* A column now, because the name pill sits above the thread as its own
+       child. align-items centres the pill on the section — and the section is
+       centred on the screen, which is where the mark above it is. */
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     width: var(--width-home);
     max-width: var(--max-width-home);
     margin: 0 auto;
-    padding: var(--spacing-6xl) 0;
+    /* Tighter at the top than the bottom: the g mark settles directly above the
+       thread and the name pill belongs to it, so the two want to read as one
+       lockup rather than as two sections that happen to meet. */
+    padding: var(--spacing-2xl) 0 var(--spacing-6xl) 0;
 }
 
 /* ===== The about thread =====
@@ -1594,8 +1673,11 @@ button {
     max-width: 34em;
     margin: 0 auto;
     /* Room for the tail, which hangs 1.45 tails left of the bubble's own box and
-       would otherwise sit outside the column. */
-    padding-left: calc(var(--chat-tail-size) * 1.45);
+       would otherwise sit outside the column. Named, because the sender's name
+       above has to cancel exactly this much to centre on the column — and the
+       mobile rules set it to zero. */
+    --chat-tail-gutter: calc(var(--chat-tail-size) * 1.45);
+    padding-left: var(--chat-tail-gutter);
     text-align: left;
 }
 
@@ -1662,6 +1744,62 @@ button {
        Stated rather than left to source order. Both sit entirely outside the
        bubble's own box, so neither can reach the text. */
     z-index: 1;
+}
+
+/* The sender's name heading the thread. Centred on the column rather than
+   left-aligned with the bubbles, so it lines up under the mark that settles
+   above it — the same way a message thread names who is talking. */
+.chat__sender {
+    /* A pill that hugs the name, centred over the thread — the capsule iMessage
+       puts the sender's name in under their avatar. width: max-content is what
+       makes the background hug the text rather than span the column. */
+    width: max-content;
+    max-width: 100%;
+    /* Pulled up under the plate so the mark overlaps the top of the pill, the
+       way an avatar sits over its name label. The plate's bottom lands a fixed
+       34px above this once the mark unpins — measured, and constant from there
+       on, because the two scroll together after that — so this is that distance
+       plus the overlap. The extra vertical padding is what keeps the name clear
+       of the plate covering its top edge. */
+    margin: -40px auto var(--spacing-2xl) auto;
+
+    padding: 0.6em 1.1em;
+
+    /* A gradient hairline around a light fill — glass, without the cost of
+       actually blurring anything behind it. Two background layers do the work:
+       the fill is clipped to the padding box, the gradient to the border box,
+       and a transparent border lets the second show through only in that 1px
+       ring. The gradient runs bright at the top-left to dark at the
+       bottom-right, which is what reads as a lit edge rather than a drawn one.
+
+       No backdrop-filter on purpose. It would be the real thing, but it
+       re-rasterises against whatever is behind it as the page scrolls, and this
+       page has spent a lot of effort getting per-frame work down. */
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background:
+        linear-gradient(var(--sender-fill), var(--sender-fill)) padding-box,
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.95) 0%,
+            rgba(255, 255, 255, 0.45) 28%,
+            rgba(255, 255, 255, 0) 48%,
+            rgba(0, 0, 0, 0.06) 72%,
+            rgba(0, 0, 0, 0.14) 100%) border-box,
+        /* A solid ring UNDER the gradient. Without it the border vanished
+           wherever the gradient passed through its transparent midpoint —
+           which, at 145deg, was the bottom-right. The gradient now only lights
+           and shades an edge that is always there. */
+        linear-gradient(var(--sender-edge), var(--sender-edge)) border-box;
+    /* The inner catch-light along the top edge. */
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    color: var(--text-reg);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    letter-spacing: var(--letter-spacing-regular);
+    line-height: 1.3;
+    text-align: center;
 }
 
 /* The send animation, scrubbed by scroll rather than transitioned.
@@ -2253,13 +2391,16 @@ a.tag:hover {
     }
 
     .about-section {
-        padding: var(--spacing-3xl) 0;
+        padding: var(--spacing-lg) 0 var(--spacing-3xl) 0;
     }
 
     /* Left-aligned rather than centred, and against the column's own edge — a
        thread hung off the left is what a phone actually shows. */
     .about-section {
-        justify-content: flex-start;
+        /* stretch, not centre: the thread has to fill the column so its bubbles
+           stay hard against the left edge. The pill still centres itself, on
+           its own margins. */
+        align-items: stretch;
         text-align: left;
         /* The same column the rest of the page uses, so the thread's left edge
            lines up with EXPERIENCE and everything below it. --width-home is
@@ -2281,6 +2422,7 @@ a.tag:hover {
         /* Flush to the column, tail and all: the bubbles start on the page's own
            left edge and the tail hangs out into the gutter beside it. */
         margin: 0;
+        --chat-tail-gutter: 0px;
         padding-left: 0;
     }
 

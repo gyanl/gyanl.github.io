@@ -87,6 +87,10 @@ class GLogoReveal {
   }
 
   init() {
+    // Published once, not per frame: the plate is drawn at the size the mark
+    // settles to, so main.css needs the figure but never needs it to change.
+    document.documentElement.style.setProperty('--mark-shrink-to', this.config.shrinkTo);
+
     this.setupEventListeners();
     this.render();
   }
@@ -346,6 +350,10 @@ class GLogoReveal {
     // not a class write every frame.
     if (this.elements.stickers) {
       this.elements.stickers.classList.toggle('is-spent', burst >= 1);
+      // Drops the stickers' drop-shadows for as long as they are moving — see
+      // .is-drifting in main.css. Toggled only on the crossings, so this is two
+      // class writes for the whole run rather than one a frame.
+      this.elements.stickers.classList.toggle('is-drifting', burst > 0 && burst < 1);
     }
     document.documentElement.style.setProperty('--hero-progress', progress);
 

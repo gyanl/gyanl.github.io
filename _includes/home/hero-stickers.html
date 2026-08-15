@@ -38,7 +38,7 @@
 {%- endcomment -%}
 <div class="hero-stickers" id="hero-stickers">
   {%- comment -%} Left — wide, and the ellipse is at its widest here. {%- endcomment -%}
-  <div class="hero-sticker" style="--dx: -1.00; --dy: -0.42; --shadow-x: -6px; --shadow-y: 2px; --sticker-scale: 0.56; --tilt: -7deg; --float-delay: -0.4s;">
+  <div class="hero-sticker" style="--dx: -1.00; --dy: -0.50; --shadow-x: -6px; --shadow-y: 1px; --sticker-scale: 0.56; --tilt: -7deg; --float-delay: -0.4s;">
     <button class="hero-sticker__hit" type="button" aria-label="I recently went to Hong Kong!">
       <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/hk-cab.webp' | relative_url }}" alt=""
         width="512" height="199">
@@ -47,7 +47,7 @@
   </div>
 
   {%- comment -%} Top left — the one portrait sticker, so it takes the full scale. {%- endcomment -%}
-  <div class="hero-sticker hero-sticker--tip-up" style="--dx: -0.52; --dy: -0.92; --shadow-x: -3px; --shadow-y: -1px; --sticker-scale: 1.01; --tilt: 6deg; --float-delay: -1.9s;">
+  <div class="hero-sticker hero-sticker--tip-up" style="--dx: -0.70; --dy: -0.95; --shadow-x: -4px; --shadow-y: -2px; --sticker-scale: 1.01; --tilt: 6deg; --float-delay: -1.9s;">
     <button class="hero-sticker__hit" type="button" aria-label="My garden is my happy place">
       <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/plant.webp' | relative_url }}" alt=""
         width="398" height="512">
@@ -56,7 +56,7 @@
   </div>
 
   {%- comment -%} Top right. {%- endcomment -%}
-  <div class="hero-sticker hero-sticker--tip-up" style="--dx: 0.60; --dy: -0.86; --shadow-x: 4px; --shadow-y: -1px; --sticker-scale: 0.89; --tilt: -5deg; --float-delay: -3.1s;">
+  <div class="hero-sticker hero-sticker--tip-up" style="--dx: 0.22; --dy: -1.05; --shadow-x: 1px; --shadow-y: -2px; --sticker-scale: 0.89; --tilt: -5deg; --float-delay: -3.1s;">
     <button class="hero-sticker__hit" type="button" aria-label="I made this delicious mango sticky rice!">
       <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/mango-sticky.webp' | relative_url }}" alt=""
         width="512" height="502">
@@ -65,7 +65,7 @@
   </div>
 
   {%- comment -%} Right. {%- endcomment -%}
-  <div class="hero-sticker" style="--dx: 1.04; --dy: -0.10; --shadow-x: 6px; --shadow-y: 3px; --sticker-scale: 0.76; --tilt: 8deg; --float-delay: -2.4s;">
+  <div class="hero-sticker hero-sticker--tip-up" style="--dx: 0.92; --dy: -0.45; --shadow-x: 5px; --shadow-y: 1px; --sticker-scale: 0.76; --tilt: 8deg; --float-delay: -2.4s;">
     <button class="hero-sticker__hit" type="button"
       aria-label="I love cats! Here's Zara with my collection of cat figurines">
       <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/cat.webp' | relative_url }}" alt=""
@@ -76,7 +76,7 @@
   </div>
 
   {%- comment -%} Bottom right — the other wide one. {%- endcomment -%}
-  <div class="hero-sticker" style="--dx: 0.72; --dy: 0.80; --shadow-x: 4px; --shadow-y: 9px; --sticker-scale: 0.57; --tilt: -9deg; --float-delay: -0.9s;">
+  <div class="hero-sticker" style="--dx: 0.80; --dy: 0.46; --shadow-x: 5px; --shadow-y: 7px; --sticker-scale: 0.57; --tilt: -9deg; --float-delay: -0.9s;">
     <button class="hero-sticker__hit" type="button"
       aria-label="I co-founded Public Knowledge Studio, a design agency for startups">
       <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/pk-asterisks.webp' | relative_url }}" alt=""
@@ -87,7 +87,7 @@
   </div>
 
   {%- comment -%} Bottom left. {%- endcomment -%}
-  <div class="hero-sticker" style="--dx: -0.78; --dy: 0.74; --shadow-x: -5px; --shadow-y: 8px; --sticker-scale: 0.89; --tilt: 5deg; --float-delay: -4.2s;">
+  <div class="hero-sticker" style="--dx: -0.90; --dy: 0.40; --shadow-x: -5px; --shadow-y: 6px; --sticker-scale: 0.89; --tilt: 5deg; --float-delay: -4.2s;">
     <button class="hero-sticker__hit" type="button"
       aria-label="I worked on a refresh for the Microsoft Word interface as a designer at Microsoft">
       <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/word.webp' | relative_url }}" alt=""
@@ -95,5 +95,19 @@
       <span class="hero-sticker__tip" aria-hidden="true">I worked on a refresh for the Microsoft Word interface as a
         designer at Microsoft</span>
     </button>
+  </div>
+
+  {%- comment -%}
+    The welcome note. A sticker like the rest — it drags, it wiggles, it is
+    thrown out with the others — but it is type rather than artwork, so it sizes
+    itself off its own text instead of off an image's aspect. Not aria-hidden
+    and not a button: the words are real content, and there is nothing to press.
+  {%- endcomment -%}
+  <div class="hero-sticker hero-sticker--note"
+    style="--dx: 0.05; --dy: 1.05; --shadow-x: 0px; --shadow-y: 10px; --tilt: -2deg;">
+    <div class="hero-sticker__hit hero-sticker__note">
+      <p>Welcome to my website! Here are some stickers that tell you a bit about me as a person. Scroll down to see more
+        about me as a designer.</p>
+    </div>
   </div>
 </div>

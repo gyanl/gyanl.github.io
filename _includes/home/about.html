@@ -10,6 +10,19 @@
   said the same thing twice.
 {%- endcomment -%}
 <div class="about-section">
+  {%- comment -%}
+    The sender's name, as a message thread heads itself — sat under the g mark
+    that settles just above it. It lived inside .hero-mark until it turned out
+    that every child of that element recomputes on every frame of the reveal;
+    here it is ordinary static text and costs nothing.
+
+    A sibling of .chat rather than a child, so it centres on the SECTION — which
+    is the screen's centre, under the mark — instead of on the thread, which is
+    narrower than the section and left-hung on mobile. aria-hidden because the
+    page's real h1 already carries the name, and this is the same words twice.
+  {%- endcomment -%}
+  <p class="chat__sender" aria-hidden="true">Gyan Lakhwani</p>
+
   <div class="chat" id="about-chat">
     <div class="chat__stack">
       <p class="chat__bubble">My name is Gyan.</p>

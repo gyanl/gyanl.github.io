@@ -125,10 +125,40 @@ document.addEventListener('DOMContentLoaded', function () {
         held.style.setProperty('--drag-y', (baseY + dy) + 'px');
     });
 
+    /**
+     * Point the sticker's shadow away from the middle of the ring, from
+     * wherever it now sits.
+     *
+     * --shadow-x/y are authored in the markup off each sticker's own --dx/--dy,
+     * which stops being true the moment the reader moves one: a sticker carried
+     * from the left of the ring to the right kept a shadow falling the wrong
+     * way. The convention is the same one the markup uses — the direction out
+     * from the centre, times six, plus a few pixels of downward bias so the
+     * group still reads as lit from above rather than purely radially.
+     *
+     * On drop, not on every move: the shadow lives in a filter, and rewriting a
+     * filter mid-drag would repaint on every frame of it for no visible gain —
+     * the lifted shadow is showing while the sticker is in the air anyway.
+     */
+    var aimShadow = function (sticker) {
+        var box = sticker.getBoundingClientRect();
+        // The ring is centred on the viewport: .hero-stickers spans the width
+        // and its stickers hang off 50% / 50vh.
+        var x = box.left + box.width / 2 - window.innerWidth / 2;
+        var y = box.top + box.height / 2 - window.innerHeight / 2;
+
+        var length = Math.hypot(x, y);
+        if (!length) return;
+
+        sticker.style.setProperty('--shadow-x', (x / length * 6).toFixed(1) + 'px');
+        sticker.style.setProperty('--shadow-y', (y / length * 6 + 4).toFixed(1) + 'px');
+    };
+
     var release = function () {
         if (!held) return;
 
         if (dragged) {
+            aimShadow(held);
             held.classList.remove('is-dragging');
             // Forcing a reflow between the two classes so the animation
             // restarts even when the same sticker is dropped twice running.
