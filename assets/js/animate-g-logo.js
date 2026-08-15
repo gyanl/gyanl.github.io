@@ -74,6 +74,10 @@ class GLogoReveal {
       // getRevealDistance.
       revealDistance: null,
       measuredWidth: 0,
+      // What was last written to the SVG, so a frame that would write the same
+      // figures writes nothing at all — see render().
+      lastStroke: null,
+      lastOffsets: [],
     };
 
     this.handleScroll = this.handleScroll.bind(this);
@@ -353,20 +357,37 @@ class GLogoReveal {
       this.elements.cue.classList.toggle('is-gone', progress > 0.02);
     }
 
-    // All viewBox units — independent of how large the mark is drawn.
-    this.elements.dot.setAttribute('r', strokeWidth / 2);
-
     // Phase 3 — draw the stroke on. Each layer starts at its own lag and is remapped so they all finish
     // together on drawEnd: the gaps between them are what paint the colour
     // bands, and closing those gaps at the end is what leaves the mark black.
-    this.elements.layers.forEach(layer => {
+    //
+    // Every write here re-rasterises a stroked path, and there are seven of
+    // them, so nothing is written unless it has actually changed. Measured on a
+    // desktop, writing all three attributes on every layer every frame cost
+    // more than double the dash offsets alone, and the dot's radius on its own
+    // cost as much again as all seven put together — on a phone that is the
+    // difference the reveal was juddering over.
+    //
+    // stroke-dasharray is gone entirely: it is the path length, it never
+    // changes, and the markup already carries it.
+    if (strokeWidth !== this.state.lastStroke) {
+      this.state.lastStroke = strokeWidth;
+      // All viewBox units — independent of how large the mark is drawn.
+      this.elements.dot.setAttribute('r', strokeWidth / 2);
+      this.elements.layers.forEach(layer => layer.setAttribute('stroke-width', strokeWidth));
+    }
+
+    this.elements.layers.forEach((layer, index) => {
       const lag = parseFloat(layer.dataset.lag) || 0;
       const span = Math.max(drawEnd - lag, 0.0001);
       const layerDrawn = this.ease((progress - lag) / span);
+      const offset = pathLength * (1 - layerDrawn);
 
-      layer.setAttribute('stroke-width', strokeWidth);
-      layer.setAttribute('stroke-dasharray', pathLength);
-      layer.setAttribute('stroke-dashoffset', pathLength * (1 - layerDrawn));
+      // Once the mark is drawn these all sit at zero and stay there, so past
+      // that point this loop stops touching the DOM at all.
+      if (offset === this.state.lastOffsets[index]) return;
+      this.state.lastOffsets[index] = offset;
+      layer.setAttribute('stroke-dashoffset', offset);
     });
   }
 
