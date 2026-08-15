@@ -15,6 +15,13 @@
   where the typing bubble hangs (just up and right of the mark's centre) and
   nothing sits at bottom dead centre, which is the scroll cue's.
 
+  --shadow-x/--shadow-y are the sticker's own shadow offset, eyeballed off its
+  --dx/--dy rather than computed from them: a downward drop with a nudge away
+  from the centre, so the ring reads as lit from the middle and spreading out.
+
+  The two at the top of the ring carry .hero-sticker--tip-up: their notes hang above them
+  rather than below, so a note does not drop across the mark in the middle.
+
   --sticker-scale is doing real work here, not decoration. The art is sized by
   HEIGHT (.hero-sticker__art is height: 100%, width: auto), so at an equal scale
   a 2.6:1 sticker draws two and a half times the width of a square one and
@@ -31,37 +38,37 @@
 {%- endcomment -%}
 <div class="hero-stickers" id="hero-stickers">
   {%- comment -%} Left — wide, and the ellipse is at its widest here. {%- endcomment -%}
-  <div class="hero-sticker" style="--dx: -1.00; --dy: -0.42; --sticker-scale: 0.56; --tilt: -7deg; --float-delay: -0.4s;">
+  <div class="hero-sticker" style="--dx: -1.00; --dy: -0.42; --shadow-x: -6px; --shadow-y: 2px; --sticker-scale: 0.56; --tilt: -7deg; --float-delay: -0.4s;">
     <button class="hero-sticker__hit" type="button" aria-label="I recently went to Hong Kong!">
-      <img class="hero-sticker__art" src="{{ '/assets/stickers/hk-cab.webp' | relative_url }}" alt=""
+      <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/hk-cab.webp' | relative_url }}" alt=""
         width="512" height="199">
       <span class="hero-sticker__tip" aria-hidden="true">I recently went to Hong Kong!</span>
     </button>
   </div>
 
   {%- comment -%} Top left — the one portrait sticker, so it takes the full scale. {%- endcomment -%}
-  <div class="hero-sticker" style="--dx: -0.52; --dy: -0.92; --sticker-scale: 1.01; --tilt: 6deg; --float-delay: -1.9s;">
+  <div class="hero-sticker hero-sticker--tip-up" style="--dx: -0.52; --dy: -0.92; --shadow-x: -3px; --shadow-y: -1px; --sticker-scale: 1.01; --tilt: 6deg; --float-delay: -1.9s;">
     <button class="hero-sticker__hit" type="button" aria-label="My garden is my happy place">
-      <img class="hero-sticker__art" src="{{ '/assets/stickers/plant.webp' | relative_url }}" alt=""
+      <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/plant.webp' | relative_url }}" alt=""
         width="398" height="512">
       <span class="hero-sticker__tip" aria-hidden="true">My garden is my happy place</span>
     </button>
   </div>
 
   {%- comment -%} Top right. {%- endcomment -%}
-  <div class="hero-sticker" style="--dx: 0.60; --dy: -0.86; --sticker-scale: 0.89; --tilt: -5deg; --float-delay: -3.1s;">
+  <div class="hero-sticker hero-sticker--tip-up" style="--dx: 0.60; --dy: -0.86; --shadow-x: 4px; --shadow-y: -1px; --sticker-scale: 0.89; --tilt: -5deg; --float-delay: -3.1s;">
     <button class="hero-sticker__hit" type="button" aria-label="I made this delicious mango sticky rice!">
-      <img class="hero-sticker__art" src="{{ '/assets/stickers/mango-sticky.webp' | relative_url }}" alt=""
+      <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/mango-sticky.webp' | relative_url }}" alt=""
         width="512" height="502">
       <span class="hero-sticker__tip" aria-hidden="true">I made this delicious mango sticky rice!</span>
     </button>
   </div>
 
   {%- comment -%} Right. {%- endcomment -%}
-  <div class="hero-sticker" style="--dx: 1.04; --dy: -0.10; --sticker-scale: 0.76; --tilt: 8deg; --float-delay: -2.4s;">
+  <div class="hero-sticker" style="--dx: 1.04; --dy: -0.10; --shadow-x: 6px; --shadow-y: 3px; --sticker-scale: 0.76; --tilt: 8deg; --float-delay: -2.4s;">
     <button class="hero-sticker__hit" type="button"
       aria-label="I love cats! Here's Zara with my collection of cat figurines">
-      <img class="hero-sticker__art" src="{{ '/assets/stickers/cat.webp' | relative_url }}" alt=""
+      <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/cat.webp' | relative_url }}" alt=""
         width="512" height="366">
       <span class="hero-sticker__tip" aria-hidden="true">I love cats! Here's Zara with my collection of cat
         figurines</span>
@@ -69,10 +76,10 @@
   </div>
 
   {%- comment -%} Bottom right — the other wide one. {%- endcomment -%}
-  <div class="hero-sticker" style="--dx: 0.72; --dy: 0.80; --sticker-scale: 0.57; --tilt: -9deg; --float-delay: -0.9s;">
+  <div class="hero-sticker" style="--dx: 0.72; --dy: 0.80; --shadow-x: 4px; --shadow-y: 9px; --sticker-scale: 0.57; --tilt: -9deg; --float-delay: -0.9s;">
     <button class="hero-sticker__hit" type="button"
       aria-label="I co-founded Public Knowledge Studio, a design agency for startups">
-      <img class="hero-sticker__art" src="{{ '/assets/stickers/pk-asterisks.webp' | relative_url }}" alt=""
+      <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/pk-asterisks.webp' | relative_url }}" alt=""
         width="512" height="209">
       <span class="hero-sticker__tip" aria-hidden="true">I co-founded Public Knowledge Studio, a design agency for
         startups</span>
@@ -80,10 +87,10 @@
   </div>
 
   {%- comment -%} Bottom left. {%- endcomment -%}
-  <div class="hero-sticker" style="--dx: -0.78; --dy: 0.74; --sticker-scale: 0.89; --tilt: 5deg; --float-delay: -4.2s;">
+  <div class="hero-sticker" style="--dx: -0.78; --dy: 0.74; --shadow-x: -5px; --shadow-y: 8px; --sticker-scale: 0.89; --tilt: 5deg; --float-delay: -4.2s;">
     <button class="hero-sticker__hit" type="button"
       aria-label="I worked on a refresh for the Microsoft Word interface as a designer at Microsoft">
-      <img class="hero-sticker__art" src="{{ '/assets/stickers/word.webp' | relative_url }}" alt=""
+      <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/word.webp' | relative_url }}" alt=""
         width="512" height="512">
       <span class="hero-sticker__tip" aria-hidden="true">I worked on a refresh for the Microsoft Word interface as a
         designer at Microsoft</span>

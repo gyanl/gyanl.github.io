@@ -102,6 +102,17 @@
     initial-value: 0;
 }
 
+/* Registered so the drop animation can INTERPOLATE it. An unregistered custom
+   property is a token stream, and a keyframe can only step between those — the
+   sticker would snap 1.12 → 0.94 → 1 rather than settle. inherits: false: it
+   belongs to the one sticker being dragged, and there is nothing below it that
+   should pick it up. */
+@property --drag-scale {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 1;
+}
+
 :root {
     /* Colours */
     --text-reg: rgb(42, 42, 42);
@@ -961,6 +972,17 @@ button {
     }
 }
 
+/* While a note is showing, the ring comes out from behind the lockup so the
+   note is not read through the mark. Only then — the stickers sit UNDER the
+   mark the rest of the time, which is the arrangement the hero is built on. The
+   same applies while a sticker is being dragged, so it travels over everything
+   rather than behind it. */
+.hero-stickers:has(.hero-sticker__hit:hover),
+.hero-stickers:has(.hero-sticker.is-open),
+.hero-stickers:has(.hero-sticker.is-dragging) {
+    z-index: calc(var(--z-content) + 1);
+}
+
 /* Once the burst is spent the ring is at opacity 0 but still a live layer: six
    composited boxes and six infinite float animations, all ticking behind the
    messages for the rest of the page. display: none takes them out of the frame
@@ -981,25 +1003,85 @@ button {
        shrink-wrap the image. */
     height: calc(var(--sticker-size) * var(--sticker-scale, 1));
 
-    /* The radial move. --dx/--dy are the sticker's own direction, set in the
-       markup; multiplying the whole ring by --push slides it straight out along
-       that vector, which is what makes the motion radial without any angle
-       arithmetic. At rest --push is 1 and this is just the resting ring.
+    /* The radial move.
+     *
+     * The throw is the sticker's WHOLE offset from the centre of the ring
+     * multiplied out — its resting place plus wherever the reader has since
+     * dragged it — so it always leaves along the line it currently sits on
+     * rather than the one it was authored on. Drag one across the hero and it
+     * flies out from its new position, no recalculation required: --drag-x/y
+     * are already in the sum, so the direction falls out of the arithmetic.
+     *
+     * --throw-t is the eased burst times how far out to carry it, and is 0 at
+     * the top of the page, where this reduces to the resting ring.
+     *
+     * The drag itself stays OUT of this, on the independent translate property:
+     * inside the sum it would be multiplied by the throw too, and the sticker
+     * would outrun the cursor once the page had started moving.
+     *
+     * All cheap — this was wrongly suspected of the judder that turned out to
+     * be the idle float animation. A transform and an opacity are both
+     * compositor properties, so the throw moves a layer that is already
+     * rasterised rather than repainting anything. */
+    --throw-t: calc(var(--sticker-burst) * var(--sticker-throw));
+    transform: translate(-50%, -50%) translate(calc(var(--dx) * var(--ring-x) + var(--throw-t) * (var(--dx) * var(--ring-x) + var(--drag-x, 0px))),
+            calc(var(--dy) * var(--ring-y) + var(--throw-t) * (var(--dy) * var(--ring-y) + var(--drag-y, 0px)))) scale(var(--drag-scale, 1));
 
-       This is cheap, and was wrongly suspected of the judder that turned out to
-       be the idle float animation — a transform and an opacity are both
-       compositor properties, so the throw moves a layer that is already
-       rasterised rather than repainting anything. */
-    --push: calc(1 + var(--sticker-burst) * var(--sticker-throw));
-    transform: translate(-50%, -50%) translate(calc(var(--dx) * var(--ring-x) * var(--push)),
-            calc(var(--dy) * var(--ring-y) * var(--push)));
+    /* Where the reader has dragged it to. The independent translate property,
+       NOT another term in the transform above: that composes WITH transform
+       rather than replacing it, and keeps the drag exactly on the cursor while
+       the transform is free to scale the offset for the throw. */
+    translate: var(--drag-x, 0px) var(--drag-y, 0px);
 
     opacity: calc(1 - var(--sticker-burst));
 
-    /* Both of the things that change here are compositor properties, so say so
-       and the throw runs on its own layer. .is-spent drops them entirely once
-       it is done. */
-    will-change: transform, opacity;
+    /* All compositor properties, so say so and the throw runs on its own layer.
+       .is-spent drops them entirely once it is done. */
+    will-change: transform, translate, opacity;
+}
+
+/* Raised above the other stickers whenever it has something to show.
+ *
+ * This has to be on the STICKER, not the note: .hero-sticker carries a
+ * transform, which makes it a stacking context, so the note's own z-index only
+ * ever orders it against its own siblings inside that sticker — it cannot climb
+ * over a neighbouring sticker no matter how high it goes. Lifting the whole
+ * sticker is what actually gets the note clear of the ring. */
+.hero-sticker:has(.hero-sticker__hit:hover),
+.hero-sticker:has(.hero-sticker__hit:focus-visible),
+.hero-sticker.is-open,
+.hero-sticker.is-dragging {
+    z-index: 9;
+}
+
+/* Lifted while held: bigger, and out from under its neighbours. The scale is a
+   variable rather than a literal so the drop animation below can pick up from
+   wherever it was. */
+.hero-sticker.is-dragging {
+    --drag-scale: 1.12;
+    cursor: grabbing;
+}
+
+/* Snapping down onto the page. Runs on scale alone — the drop position is
+   already where the reader left it — so it composes with the drag offset
+   without disturbing it. Overshoots small, then settles: a sticker pressed flat
+   rather than a ball landing. */
+.hero-sticker.is-applied {
+    animation: sticker-apply 0.34s cubic-bezier(0.3, 0.9, 0.4, 1);
+}
+
+@keyframes sticker-apply {
+    0% {
+        --drag-scale: 1.12;
+    }
+
+    45% {
+        --drag-scale: 0.94;
+    }
+
+    100% {
+        --drag-scale: 1;
+    }
 }
 
 /* The tilt is a static transform, not an animation. There was an idle float on
@@ -1014,10 +1096,35 @@ button {
     height: 100%;
     width: auto;
     transform: rotate(var(--tilt, 0deg));
-    /* No shadow here: it is baked into the artwork. A CSS drop-shadow is a
-       blur pass per element per raster, and the art already carries a white
-       die-cut border, so painting one at runtime bought nothing the file
-       cannot carry for free. */
+    /* An <img> is a native drag source: press and move and the browser starts
+       its own image drag, which cancels the pointer stream the sticker drag is
+       built on. The markup carries draggable="false" as well — belt and braces,
+       since the two are honoured unevenly across browsers. */
+    -webkit-user-drag: none;
+    user-select: none;
+    pointer-events: none;
+    /* A die-cut sticker shadow: close and light rather than a soft drop. Two
+       passes, because that is what reads as vinyl — a faint contact shadow
+       hugging the cut edge, which is what makes it look stuck DOWN, and a
+       second, barely-offset blur beneath it for the lift. A single wide blur
+       reads as a card hovering well above the page instead. Both are low in
+       opacity: the art already carries a white die-cut border doing most of the
+       lifting, so a dark shadow under it turns harsh immediately.
+
+       drop-shadow, not box-shadow: the art is transparent around its edges, so
+       a box shadow would trace the image's rectangle rather than the shape
+       inside it. The blurs are sized off --sticker-size so they hold their
+       proportions at every viewport; the OFFSETS are hardcoded per sticker in
+       the markup as --shadow-x/--shadow-y, each pointing a little away from the
+       ring's centre so the group reads as lit from the middle.
+
+       Held in a variable because the drag state swaps it wholesale, and the HDR
+       grade below has to prepend to whichever one is in play. */
+    --sticker-shadow:
+        drop-shadow(calc(var(--shadow-x, 0px) * 0.35) calc(var(--shadow-y, 2px) * 0.35) calc(var(--sticker-size) * 0.035) rgba(0, 0, 0, 0.13)) drop-shadow(var(--shadow-x, 0px) var(--shadow-y, 2px) calc(var(--sticker-size) * 0.13) rgba(0, 0, 0, 0.1));
+    filter: var(--sticker-shadow);
+    /* So the shadow grows into the lift rather than snapping to it. */
+    transition: filter 0.16s ease-out;
 
     /* Let the art use headroom above SDR white where the display has it, so the
        stickers read as lit rather than printed. This is the only thing that
@@ -1027,9 +1134,49 @@ button {
     dynamic-range-limit: no-limit;
 }
 
+/* Off the page and into the reader's hand: further, softer and darker, which is
+   the whole of what makes it read as picked up. */
+.hero-sticker.is-dragging .hero-sticker__art {
+    --sticker-shadow:
+        drop-shadow(calc(var(--shadow-x, 0px) * 0.6) calc(var(--shadow-y, 2px) * 0.6) calc(var(--sticker-size) * 0.06) rgba(0, 0, 0, 0.16)) drop-shadow(calc(var(--shadow-x, 0px) * 2.2) calc(var(--shadow-y, 2px) * 2.2 + var(--sticker-size) * 0.05) calc(var(--sticker-size) * 0.26) rgba(0, 0, 0, 0.22));
+}
+
 @media (dynamic-range: high) {
+    /* Grade first, shadows after: filters compose in order, and brightening
+       after them would lift the shadows too and wash out the contact edge. */
     .hero-sticker__art {
-        filter: brightness(1.04) saturate(1.03);
+        filter: brightness(1.04) saturate(1.03) var(--sticker-shadow);
+    }
+}
+
+/* Hover wiggle — desktop only, since it answers a pointer that can hover.
+ *
+ * On the `rotate` property, not inside `transform`: the two compose, so this
+ * can be a plain literal keyframe while --tilt keeps its own static rotation in
+ * transform below. That matters — a keyframe containing var() cannot be
+ * composited and has to be re-resolved on the main thread every frame, which is
+ * exactly what the old idle float was doing to six elements at once. This runs
+ * on one element, only while it is under the cursor. */
+@keyframes sticker-wiggle {
+    0%,
+    100% {
+        rotate: -6deg;
+    }
+
+    50% {
+        rotate: 6deg;
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .hero-sticker__hit:hover .hero-sticker__art {
+        animation: sticker-wiggle 1.1s ease-in-out infinite;
+    }
+
+    /* Held still while it is being carried — the wiggle is an invitation to
+       pick it up, not something to fight the drag. */
+    .hero-sticker.is-dragging .hero-sticker__art {
+        animation: none;
     }
 }
 
@@ -1046,8 +1193,13 @@ button {
     background: none;
     appearance: none;
     -webkit-appearance: none;
-    cursor: pointer;
+    cursor: grab;
     pointer-events: auto;
+    /* The pointer handler drives the drag, so the browser's own image-drag must
+       not start instead — that is what would otherwise happen on an <img>. */
+    touch-action: manipulation;
+    -webkit-user-drag: none;
+    user-select: none;
     /* The note is on the button as aria-label, so nothing here should be
        announced or selectable in its own right. */
     -webkit-tap-highlight-color: transparent;
@@ -1074,9 +1226,17 @@ button {
     position: absolute;
     top: calc(100% + 0.6rem);
     left: 50%;
-    --tip-shift: calc(-50% - var(--dx, 0) * 50%);
-    transform: translate(var(--tip-shift), 4px);
-    z-index: 1;
+    /* Straight below and centred on the sticker. It used to lean away from the
+       nearest edge, off the ring's own --dx, which kept the outermost notes
+       inside a narrow window at the cost of never sitting where the sticker
+       actually was. --tip-y is the direction it slides in from; the tip-up
+       variant below flips it along with the edge it hangs off. */
+    --tip-x: -50%;
+    --tip-y: 4px;
+    transform: translate(var(--tip-x), var(--tip-y));
+    /* Above its neighbours. .hero-stickers lifts the whole ring while a note is
+       up (see there), so between the two nothing in the hero out-stacks it. */
+    z-index: 10;
 
     /* Wider than any sticker, and narrow enough to wrap to two or three lines
        rather than run across the window. */
@@ -1099,6 +1259,15 @@ button {
         visibility 0s linear 0.16s;
 }
 
+/* The two stickers at the top of the ring hang their notes ABOVE themselves: a
+   note below either of those drops straight across the mark in the middle of
+   the hero. */
+.hero-sticker--tip-up .hero-sticker__tip {
+    --tip-y: -4px;
+    top: auto;
+    bottom: calc(100% + 0.6rem);
+}
+
 /* Shown on hover, on keyboard focus, and on .is-open — which is what a tap
    sets. visibility transitions to a step at 0s on the way in so the bubble is
    there for the fade rather than after it. */
@@ -1106,7 +1275,7 @@ button {
 .hero-sticker.is-open .hero-sticker__tip {
     opacity: 1;
     visibility: visible;
-    transform: translate(var(--tip-shift), 0);
+    transform: translate(var(--tip-x), 0);
     transition-delay: 0s;
 }
 
@@ -1117,7 +1286,7 @@ button {
     .hero-sticker__hit:hover .hero-sticker__tip {
         opacity: 1;
         visibility: visible;
-        transform: translate(var(--tip-shift), 0);
+        transform: translate(var(--tip-x), 0);
         transition-delay: 0s;
     }
 }
@@ -2084,6 +2253,15 @@ a.tag:hover {
            lines up with EXPERIENCE and everything below it. --width-home is
            narrower and centred, which left the bubbles inset on their own. */
         width: var(--width-mobile);
+    }
+
+    /* Centred under the sticker is right on a desktop, where the ring sits well
+       inside the window. On a phone it is not: the ring is only a third of the
+       width out, so a centred note runs off the edge. These lean away from
+       whichever side they are on instead, off the ring's own --dx — -1 resolves
+       to 0% and the note opens rightward, +1 to -100% and it opens leftward. */
+    .hero-sticker__tip {
+        --tip-x: calc(-50% - var(--dx, 0) * 50%);
     }
 
     .chat {

@@ -148,10 +148,61 @@ class GLogoReveal {
 
       const top = chat.getBoundingClientRect().top + window.scrollY
         - this.viewport().height * 0.25;
-      const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      window.scrollTo({ top, behavior: still ? 'auto' : 'smooth' });
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        window.scrollTo({ top, behavior: 'auto' });
+        return;
+      }
+
+      this.glideTo(top);
     });
+  }
+
+  /**
+   * Scroll to a point, slowly, under our own steam.
+   *
+   * NOT behavior: 'smooth'. The native one is tuned for jumping to a heading —
+   * it covers a couple of thousand pixels in a few hundred milliseconds, which
+   * here means the whole reveal (the mark drawing, the stickers leaving, the
+   * page changing scheme, the messages sending) flickers past in one blur. The
+   * point of pressing this button is to WATCH that, so the travel is paced to
+   * the distance and eased at both ends.
+   *
+   * Cancels the moment the reader touches the page themselves — taking the
+   * scroll off someone who has grabbed it is the one thing worse than a fast
+   * animation.
+   */
+  glideTo(top) {
+    const start = window.scrollY;
+    const distance = top - start;
+    if (!distance) return;
+
+    // About 700px a second, held between one and five seconds so a short hop
+    // does not crawl and a long one does not outstay its welcome.
+    const duration = Math.min(Math.max(Math.abs(distance) / 700 * 1000, 1000), 5000);
+    const startedAt = performance.now();
+    let cancelled = false;
+
+    const stop = () => { cancelled = true; };
+    const events = ['wheel', 'touchstart', 'keydown', 'pointerdown'];
+    events.forEach(type => window.addEventListener(type, stop, { passive: true, once: true }));
+
+    const done = () => events.forEach(type => window.removeEventListener(type, stop));
+
+    // Slow at both ends, quickest through the middle.
+    const ease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+    const step = now => {
+      if (cancelled) return done();
+
+      const t = Math.min((now - startedAt) / duration, 1);
+      window.scrollTo(0, start + distance * ease(t));
+
+      if (t < 1) requestAnimationFrame(step);
+      else done();
+    };
+
+    requestAnimationFrame(step);
   }
 
   /** Coalesce bursts of scroll events into one render a frame. */
