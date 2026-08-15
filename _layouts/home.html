@@ -28,7 +28,13 @@
     element — as a margin on .container it collapsed and got clobbered by the
     mobile override, which left the reveal with no runway at all.
   {%- endcomment -%}
-  <div class="hero-spacer" aria-hidden="true">
+  {%- comment -%}
+    Not aria-hidden as a whole any more: the scroll cue inside it is a real
+    button, and a focusable control inside an aria-hidden subtree is announced
+    to nobody while still taking a tab stop. The decorative parts carry their
+    own aria-hidden instead — the mark, the sticker ring and the greeting.
+  {%- endcomment -%}
+  <div class="hero-spacer">
     {%- comment -%}
       The stickers and the scroll cue lead the runway on purpose. Both are
       zero-height sticky layers, so they pin to the viewport for the whole
@@ -42,20 +48,20 @@
     {% include home/hero-stickers.html %}
 
     {%- comment -%}
-      Scroll affordance: a circle with a down arrow at the foot of the hero.
-      Indicator only, not a control — the hero is pointer-events: none
-      throughout, and a button here would have to either skip the reveal it is
-      pointing at or invent a scroll distance nobody asked for. It bobs while
-      the page is at rest and is gone within the first few percent of the
-      runway; see --hero-progress in main.css.
+      Scroll affordance: a circle with a down arrow at the foot of the hero, and
+      a real button — animate-g-logo.js scrolls it down to the messages, running
+      the whole reveal on the way rather than cutting past it. It bobs while the
+      page is at rest and is gone within the first few percent of the runway;
+      see --hero-progress in main.css. Once it has faded it stops taking clicks
+      too — .is-gone in the same file.
     {%- endcomment -%}
-    <div class="hero-scroll-cue">
-      <div class="hero-scroll-cue__ring">
+    <div class="hero-scroll-cue" id="hero-scroll-cue">
+      <button class="hero-scroll-cue__ring" type="button" aria-label="Scroll down to the messages">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
           <path d="M12 5.25V18.75M6.25 13L12 18.75L17.75 13" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round" />
         </svg>
-      </div>
+      </button>
     </div>
 
     {%- comment -%}
@@ -135,7 +141,7 @@
       is a child of the greeting, sized in em, so it tracks the type at any
       viewport rather than needing its own scaling.
     {%- endcomment -%}
-    <div class="hero-greeting is-resting">
+    <div class="hero-greeting is-resting" aria-hidden="true">
       <img class="hero-greeting__photo" src="{{ '/assets/gyan-lakhwani-2025.jpg' | relative_url }}"
         alt="Gyan Lakhwani" width="1440" height="1024">
       <svg class="hero-greeting__blob" viewBox="0 0 511 242" aria-hidden="true" focusable="false">

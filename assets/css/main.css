@@ -120,6 +120,13 @@
     --letter-spacing-regular: 0.01em;
     --letter-spacing-wide: 0.05em;
     --font-size-base: 1em;
+    /* The home page uses three of these and no more — a run of near-sizes read
+       as inconsistency rather than as hierarchy, so what separates one thing
+       from another there is colour and case, not another step on the scale:
+         xl  (mobile lg)  body — messages, experience rows, work cards
+         md  (mobile sm)  labels and chrome — section headings, buttons, footer
+         4xl (mobile 2xl) the one display line, the contact headline
+       The rest of the site still uses the full scale. */
     --font-size-sm: 14px;
     --font-size-md: 16px;
     --font-size-lg: 20px;
@@ -178,7 +185,6 @@
     --z-video: 9;
     --z-content: 10;
     --z-footer: 20;
-    --z-asterisk: 22;
     --z-button: 25;
     --z-nav: 100;
     --z-controls: 1000;
@@ -193,7 +199,6 @@
     --mark-unit: calc(min(100vw, 100vh) * 0.0171875);
 
     --backdrop-blur: blur(20px) contrast(130%) saturate(250%);
-    --backdrop-blur-footer: blur(20px) contrast(130%) saturate(150%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -938,6 +943,16 @@ button {
     opacity: calc(1 - var(--hero-progress) * 18);
 }
 
+/* Once the cue has faded out it has to stop being a control: it is sticky at
+   the foot of the window for the whole runway, so an invisible one would sit
+   there swallowing clicks and holding a tab stop. visibility does both — it
+   takes the button out of hit-testing and out of the tab order, and the fade
+   has already finished by the time this lands. animate-g-logo.js sets the class
+   in the same render pass that fades it. */
+.hero-scroll-cue.is-gone {
+    visibility: hidden;
+}
+
 .hero-scroll-cue__ring {
     position: absolute;
     left: 50%;
@@ -948,6 +963,13 @@ button {
     justify-content: center;
     width: 2.75rem;
     height: 2.75rem;
+    /* A button, so it needs the chrome taken off it and the clicks put back on:
+       .hero-spacer sets pointer-events: none for the whole hero. */
+    padding: 0;
+    border: 0;
+    appearance: none;
+    cursor: pointer;
+    pointer-events: auto;
     border-radius: 50%;
     /* Literal white, like the plate behind the mark, NOT var(--white): that
        token flips to near-black in dark mode, and this sits on the hero's
@@ -964,6 +986,23 @@ button {
 .hero-scroll-cue__ring svg {
     width: 1.15rem;
     height: 1.15rem;
+    transition: transform var(--transition-fast);
+}
+
+/* Hover and press land on the shadow and the arrow, not on the ring's own
+   transform — that one is carrying both the centring and the bob, and a second
+   transform on the same box would simply replace them. */
+.hero-scroll-cue__ring:hover {
+    box-shadow: 0 0 0 1px var(--black-10), 0 4px 16px var(--black-10);
+}
+
+.hero-scroll-cue__ring:hover svg {
+    transform: translateY(2px);
+}
+
+.hero-scroll-cue__ring:focus-visible {
+    outline: 2px solid var(--hero-ink);
+    outline-offset: 3px;
 }
 
 /* A small, slow drop and return — the gesture it is asking for, at the size of
@@ -1183,7 +1222,9 @@ button {
     background: var(--chat-bubble-bg);
     color: var(--chat-bubble-fg);
     font-family: var(--font-body);
-    font-size: var(--font-size-lg);
+    /* The home page's body size, shared with the experience rows and the work
+       cards — see the scale note above --font-size-sm. */
+    font-size: var(--font-size-xl);
     line-height: 1.4;
     /* Cannot exceed the column, and never a lone dangling word. */
     max-width: 100%;
@@ -1230,27 +1271,25 @@ button {
     z-index: 1;
 }
 
-/* The send animation. Each bubble is armed on load and released as it crosses a
-   line near the bottom of the viewport, so the thread is scrolled in one message
-   at a time rather than played on a timer — animate-about-chat.js adds .is-sent
-   per bubble. Without JS nothing is armed and the bubbles are simply here.
+/* The send animation, scrubbed by scroll rather than transitioned.
+   animate-about-chat.js gives each bubble a --send that runs 0 to 1 (with a
+   small overshoot) across its own band of scroll distance, and everything here
+   is derived from it — so the reader scrolls the thread in, and scrolling back
+   up unsends it message by message. Without JS nothing is armed, --send never
+   arrives and the bubbles are simply here.
 
    The iOS send: the bubble scales up from its own bottom edge — growing out of
-   the line it arrives on — and overshoots slightly on the way, rather than
-   sliding in. */
-.chat.is-armed .chat__bubble {
-    opacity: 0;
-    transform: translateY(28px) scale(0.55);
-    transform-origin: 50% 100%;
-}
+   the line it arrives on — rather than sliding in.
 
-.chat.is-armed .chat__bubble.is-sent {
-    opacity: 1;
-    transform: none;
-    /* Opacity resolves early so the bubble is solid while it is still growing —
-       fading over the whole travel reads as a slow dissolve, not a send. */
-    transition: opacity 0.18s ease-out,
-        transform 0.62s cubic-bezier(0.18, 1.3, 0.42, 1);
+   No transition on these. The scalar already moves with the page, and a
+   transition on top would fight it on every frame and lag the scroll. */
+.chat.is-armed .chat__bubble {
+    /* Solid early, so the bubble is opaque while it is still growing — fading
+       across the whole travel reads as a dissolve, not a send. Values over 1
+       are clamped for opacity, so this needs no min() of its own. */
+    opacity: calc(var(--send, 1) * 3);
+    transform: translateY(calc((1 - var(--send, 1)) * 28px)) scale(calc(0.55 + 0.45 * var(--send, 1)));
+    transform-origin: 50% 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1418,14 +1457,18 @@ button {
     background-color: var(--black-5);
 }
 
+/* Title and description are the same size, as the experience rows are: the
+   colour is what separates them. */
 .project-title {
     margin-top: var(--spacing-md);
     font-family: var(--font-body);
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-xl);
 }
 
 .project-description {
-    font-size: var(--font-size-lg);
+    font-family: var(--font-body);
+    font-size: var(--font-size-xl);
+    color: var(--text-secondary);
     padding: var(--spacing-xs) 0 var(--spacing-md) 0;
 }
 
@@ -1479,7 +1522,10 @@ a.tag:hover {
     max-width: var(--max-width-home);
     margin: 0 auto var(--spacing-2xl) auto;
     font-family: var(--font-body);
-    font-size: var(--font-size-lg);
+    /* A label, not a heading in size: uppercase, tracked out and secondary is
+       what marks it as one, so it sits in the small tier with the buttons and
+       the footer rather than taking a step of its own on the scale. */
+    font-size: var(--font-size-md);
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: var(--letter-spacing-wide);
@@ -1493,7 +1539,12 @@ a.tag:hover {
 
 .resume__row {
     display: grid;
-    grid-template-columns: 200px 1fr;
+    /* Each row is its own grid — an <li> apiece — so this figure is what keeps
+       the date rails in a line down the page. It cannot be max-content for the
+       same reason: that sizes each row to its own date and the rail comes out
+       ragged. Wide enough for the longest date at the row's size, which is why
+       the dates are written in short form in _includes/home/resume.html. */
+    grid-template-columns: 260px 1fr;
     gap: var(--spacing-lg);
     padding: var(--spacing-lg) 0;
     border-top: 1px solid var(--black-5);
@@ -1503,22 +1554,18 @@ a.tag:hover {
     border-bottom: 1px solid var(--black-5);
 }
 
-.resume__period {
+/* All three lines of a row are set identically — same family, same size, same
+   weight as the messages above them. Only the colour tells them apart: the role
+   in the page's ink, the date and the org secondary. */
+.resume__period,
+.resume__role,
+.resume__org {
     font-family: var(--font-body);
-    font-size: var(--font-size-md);
-    color: var(--text-secondary);
-    /* Dates sit on the same line as the role they label. */
-    padding-top: 2px;
-}
-
-.resume__role {
-    font-family: var(--font-heading);
     font-size: var(--font-size-xl);
 }
 
+.resume__period,
 .resume__org {
-    font-family: var(--font-body);
-    font-size: var(--font-size-md);
     color: var(--text-secondary);
 }
 
@@ -1543,11 +1590,15 @@ a.tag:hover {
     padding: var(--spacing-5xl);
 }
 
+/* Same treatment as .section-heading — it is the same thing, a label over a
+   section — so the card opens the way the two sections above it do. */
 .contact-cta__label {
     font-family: var(--font-body);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
     margin: 0 0 var(--spacing-2xl) 0;
-    color: var(--text-reg);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--text-secondary);
 }
 
 .contact-cta__headline {
@@ -1678,10 +1729,11 @@ a.tag:hover {
     text-align: left;
     padding: var(--spacing-3xl) 0 var(--spacing-5xl) 0;
     background-color: var(--footer-background);
-    backdrop-filter: var(--backdrop-blur-footer);
-    -webkit-backdrop-filter: var(--backdrop-blur-footer);
+    /* No backdrop-filter: the footer is the last band on the page and nothing
+       scrolls behind it, so the blur cost a compositor layer to filter the page
+       background against itself. The nav, which content does pass under, keeps
+       its own. */
     border-top: 1px solid var(--glass-edge);
-    cursor: crosshair;
 }
 
 .footer p {
@@ -1698,31 +1750,6 @@ a.tag:hover {
 .footer-column {
     flex: 1;
     max-width: 25vw;
-}
-
-.asterisk {
-    font-family: var(--font-body);
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    z-index: var(--z-asterisk);
-    font-size: 80px;
-    transition: var(--transition-fast);
-    animation: fadeOut 7s ease-out forwards;
-    pointer-events: none;
-    margin-top: -40px;
-    margin-left: -26px;
-    color: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
-}
-
-@keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-    }
 }
 
 
@@ -1761,8 +1788,7 @@ a.tag:hover {
 
 @media (prefers-reduced-motion: reduce) {
 
-    .fade-in,
-    .asterisk {
+    .fade-in {
         animation: none;
     }
 
@@ -1843,7 +1869,7 @@ a.tag:hover {
     }
 
     .chat__bubble {
-        font-size: var(--font-size-md);
+        font-size: var(--font-size-lg);
         padding: 9px 14px;
         max-width: 75vw;
     }
@@ -1873,12 +1899,10 @@ a.tag:hover {
         gap: var(--spacing-2xl);
     }
 
-    .project-title {
-        font-size: var(--font-size-lg);
-    }
-
+    /* One step down from desktop, and still one size for the pair. */
+    .project-title,
     .project-description {
-        font-size: var(--font-size-md);
+        font-size: var(--font-size-lg);
     }
 
     .resume {
@@ -1890,12 +1914,15 @@ a.tag:hover {
         width: var(--width-mobile);
     }
 
+    /* Stacked: the date rail becomes the row's first line. */
     .resume__row {
         grid-template-columns: 1fr;
         gap: var(--spacing-xs);
     }
 
-    .resume__role {
+    .resume__period,
+    .resume__role,
+    .resume__org {
         font-size: var(--font-size-lg);
     }
 
@@ -1939,6 +1966,10 @@ a.tag:hover {
         width: 100%;
         margin: 0;
         padding: var(--spacing-2xl) 0 calc(var(--spacing-6xl) + env(safe-area-inset-bottom, 0px)) 0;
+        /* Held at the chrome size rather than following the mobile body down to
+           sm, so the footer is the same tier as the section labels and buttons
+           above it and the page keeps to three sizes on a phone too. */
+        font-size: var(--font-size-md);
     }
 
     .footer-column {

@@ -55,6 +55,7 @@ class GLogoReveal {
       path: document.getElementById('g-reveal-path'),
       layers: [...document.querySelectorAll('.g-reveal-layer')],
       dot: document.getElementById('g-reveal-dot'),
+      cue: document.getElementById('hero-scroll-cue'),
       size: document.getElementById('size'),
       stroke: document.getElementById('stroke')
     };
@@ -91,6 +92,8 @@ class GLogoReveal {
     window.addEventListener('scroll', this.handleScroll, { passive: true });
     document.addEventListener('keydown', this.handleKeydown.bind(this));
 
+    this.bindScrollCue();
+
     ['size', 'stroke'].forEach(id => {
       const input = this.elements[id];
       if (!input) return;
@@ -98,6 +101,34 @@ class GLogoReveal {
         this.updateValue(id);
         this.applySize();
       });
+    });
+  }
+
+  /**
+   * The scroll cue at the foot of the hero: click it and the page runs itself
+   * down to the messages.
+   *
+   * Smooth rather than a jump, because the whole reveal is scroll-driven — the
+   * mark draws, the stickers are thrown and the messages send as the page
+   * travels, so the animation IS the journey. It lands with the thread's top a
+   * quarter of the way down the window, which is past every message's send line
+   * and leaves the first bubble sat under the mark it came from.
+   *
+   * Reduced motion gets the same destination without the travel.
+   */
+  bindScrollCue() {
+    const cue = this.elements.cue;
+    if (!cue) return;
+
+    cue.addEventListener('click', () => {
+      const chat = document.getElementById('about-chat');
+      if (!chat) return;
+
+      const top = chat.getBoundingClientRect().top + window.scrollY
+        - this.viewport().height * 0.25;
+      const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      window.scrollTo({ top, behavior: still ? 'auto' : 'smooth' });
     });
   }
 
@@ -206,6 +237,14 @@ class GLogoReveal {
       this.ease(progress / this.config.burstEnd)
     );
     document.documentElement.style.setProperty('--hero-progress', progress);
+
+    // The cue is faded out by that same figure a few percent in. It is sticky
+    // at the foot of the window for the whole runway, so it also has to stop
+    // taking clicks once it is invisible — the fade alone would leave a live
+    // button sitting under the reader's cursor all the way down.
+    if (this.elements.cue) {
+      this.elements.cue.classList.toggle('is-gone', progress > 0.02);
+    }
 
     // All viewBox units — independent of how large the mark is drawn.
     this.elements.dot.setAttribute('r', strokeWidth / 2);
