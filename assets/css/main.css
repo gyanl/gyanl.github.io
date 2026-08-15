@@ -135,6 +135,7 @@
     --accent-l: 40%;
     --accent-color: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
     --footer-background: rgba(255, 255, 255, 0.92);
+    --footer-ground: #F0EFED;
     --glass-edge: rgba(255, 255, 255, 0.1);
     --focus-outline: 2px solid var(--accent-color);
     --focus-outline-offset: 2px;
@@ -246,6 +247,8 @@
     --border-radius-md: 8px;
     --border-radius-lg: 10px;
     --border-radius-card: calc(var(--border-radius-lg) + 4px);
+    /* The curl on the page's bottom edge where it lifts off the fixed footer. */
+    --border-radius-page: 28px;
     /* Work-card images carry a heavier round than the rest of the UI. */
     --border-radius-thumbnail: 24px;
 
@@ -260,6 +263,15 @@
     /* Z-index scale */
     --z-video: 9;
     --z-content: 10;
+    /* Under the content, not over it: the footer is revealed by the page
+       sliding off it.
+     *
+       NEGATIVE, and it has to be. A fixed element is positioned, so at 0 or
+       above it paints over every in-flow background on the page — at the top of
+       the page the footer covered the hero. At -1 it sits in the one band that
+       is above the root background but below all in-flow content, which is
+       exactly where a thing being revealed belongs. */
+    --z-footer-behind: -1;
     --z-footer: 20;
     --z-button: 25;
     --z-nav: 100;
@@ -301,6 +313,7 @@
         --header-background: rgba(30, 30, 30, 0.4);
         --header-shadow: rgba(0, 0, 0, 0.3);
         --footer-background: rgba(0, 0, 0, 0.9);
+        --footer-ground: #121212;
         --glass-edge: rgba(0, 0, 0, 0.75);
     }
 }
@@ -314,7 +327,17 @@ body {
     letter-spacing: var(--letter-spacing-tight);
     line-height: var(--line-height-base);
     margin: 0;
-    padding: 0;
+    /* The runway the fixed footer is revealed through: a fixed element
+       contributes no height, so without this there is nothing left to scroll
+       once the content ends and the footer never comes out from under it.
+
+       One radius SHORT of the footer's height on purpose. At exactly the full
+       height the page's bottom edge lands on the footer's top edge, and the
+       rounded corners then bite through to the page background rather than to
+       the footer — the curve reads as a notch instead of a curl. Stopping a
+       radius early keeps the content overlapping the top of the footer by
+       exactly the amount the corners cut away, so they always sit on grey. */
+    padding: 0 0 max(0px, calc(var(--footer-height, 0px) - var(--border-radius-page))) 0;
     color: var(--text-reg);
     /* The scheme crossfade, computed here rather than inherited — see the
        note in :root. */
@@ -1053,7 +1076,7 @@ button {
     opacity: calc(1 - var(--sticker-burst));
 
     --sticker-shadow:
-        drop-shadow(calc(var(--shadow-x, 0px) * 0.35) calc(var(--shadow-y, 2px) * 0.35) calc(var(--sticker-size) * 0.035) rgba(0, 0, 0, 0.13)) drop-shadow(var(--shadow-x, 0px) var(--shadow-y, 2px) calc(var(--sticker-size) * 0.13) rgba(0, 0, 0, 0.1));
+        drop-shadow(calc(var(--shadow-x, 0px) * 0.35) calc(var(--shadow-y, 2px) * 0.35) calc(var(--sticker-size) * 0.06) rgba(0, 0, 0, 0.09)) drop-shadow(var(--shadow-x, 0px) var(--shadow-y, 2px) calc(var(--sticker-size) * 0.2) rgba(0, 0, 0, 0.07));
 
     /* All compositor properties, so say so and the throw runs on its own layer.
        .is-spent drops them entirely once it is done. */
@@ -1567,12 +1590,16 @@ button {
     position: relative;
     display: flex;
     flex-direction: column;
-    /* No background of its own: body already paints the page, and an opaque
-       .container sitting a z-index above the hero would clip whatever of the
-       mark it overlapped — which, as the hero exits, is the bottom of the
-       plate's ring. Its content still paints over the mark, which is what the
-       stacking order is actually for. */
-    background-color: transparent;
+    /* Opaque again, and it has to be: the footer is fixed behind the page, so
+       anything see-through would let it show through mid-scroll rather than
+       only at the end. Safe now — .hero-mark sits a z-index above this, so an
+       opaque container no longer clips the plate's ring on the way past.
+
+       The same crossfade body uses, so the two do not seam apart while the
+       page is changing scheme. */
+    background-color: color-mix(in srgb,
+            var(--background-color) calc(var(--scheme-t) * 100%),
+            #FFFFFF);
     padding-top: var(--spacing-4xl);
     z-index: var(--z-content);
     gap: var(--spacing-4xl);
@@ -2120,9 +2147,19 @@ a.tag:hover {
 /* Sits directly above the footer. The warm fill is on the inner box, not the
    section, so it reads as a card in the content column rather than a full-bleed
    band across the page. */
+/* Opaque and above the fixed footer, like everything else the page slides over.
+   Far enough down that the scheme crossfade has finished, so this can take the
+   background colour flat rather than mixing for it. */
 .contact-cta {
-    background-color: transparent;
+    position: relative;
+    z-index: var(--z-content);
+    background-color: var(--background-color);
     padding: var(--spacing-6xl) 0;
+    /* The page's bottom edge, rounded off so it reads as a sheet lifting away
+       from the footer beneath rather than a section that simply stops. This is
+       the LAST thing before the footer, so the corners belong here. */
+    border-bottom-left-radius: var(--border-radius-page);
+    border-bottom-right-radius: var(--border-radius-page);
 }
 
 .contact-cta__inner {
@@ -2267,13 +2304,25 @@ a.tag:hover {
 
 /* ===== Footer ===== */
 
+/* Fixed to the foot of the window, with the page scrolling OVER it — the
+   content is opaque and sits a layer above, so the footer is only uncovered
+   once the page has run out. body's padding-bottom is what makes that possible:
+   a fixed element contributes no height, so without it there is nothing left to
+   scroll and the footer never appears. --footer-height is measured by the
+   script in site/footer.html, since this box is sized by its own contents. */
 .footer {
-    z-index: var(--z-footer);
-    position: relative;
+    z-index: var(--z-footer-behind);
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
     text-align: left;
     padding: var(--spacing-3xl) 0 var(--spacing-5xl) 0;
-    background-color: var(--footer-background);
+    /* A flat light grey, not the old translucent glass: nothing scrolls behind
+       this any more — the page slides OFF it — so there is nothing to see
+       through to, and a solid ground makes the reveal read as a second surface
+       under the page rather than a band of the same one. */
+    background-color: var(--footer-ground);
     /* No backdrop-filter: the footer is the last band on the page and nothing
        scrolls behind it, so the blur cost a compositor layer to filter the page
        background against itself. The nav, which content does pass under, keeps
@@ -2557,10 +2606,18 @@ a.tag:hover {
    Page chrome shared by every non-home page
    ========================================================================== */
 
+/* Every page that is not the home page hangs off this, so it is what covers the
+   fixed footer as those pages scroll. Opaque and a layer above it, same as
+   .container and .contact-cta on the home page. */
 .page-shell {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    position: relative;
+    z-index: var(--z-content);
+    background-color: var(--background-color);
+    border-bottom-left-radius: var(--border-radius-page);
+    border-bottom-right-radius: var(--border-radius-page);
 }
 
 .page-main {

@@ -42,6 +42,31 @@
   </div>
 </footer>
 
+{%- comment -%}
+  The footer is fixed and the page scrolls over it, so body needs a run of
+  padding exactly as tall as the footer for it to be revealed through — and the
+  footer is sized by its own contents, which change with the viewport. Measured
+  here rather than guessed at, and re-measured only when the box actually
+  changes size.
+{%- endcomment -%}
+<script>
+  (function () {
+    var footer = document.querySelector('.footer');
+    if (!footer) return;
+
+    var publish = function () {
+      document.documentElement.style.setProperty('--footer-height', footer.offsetHeight + 'px');
+    };
+
+    publish();
+
+    // Catches wrapping changes and font loading as well as plain resizes, and
+    // fires only when the height genuinely moves.
+    if ('ResizeObserver' in window) new ResizeObserver(publish).observe(footer);
+    else window.addEventListener('resize', publish);
+  })();
+</script>
+
 <script>
   (function () {
     var el = document.getElementById('delhi-time');
