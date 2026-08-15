@@ -5,6 +5,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  {%- comment -%}
+    What mobile Safari tints its status and address bars with. Without it those
+    bars sit in the browser's own grey and the page appears to start below a
+    band that belongs to nothing.
+
+    The home page names the hero's colour in BOTH schemes, because the hero is
+    pinned to light whatever the system is set to (see .hero-spacer in
+    main.css) — a dark bar there would be a seam across the top of the one
+    screen that has no dark version. Every other page follows the scheme.
+  {%- endcomment -%}
+  {%- if page.layout == 'home' %}
+  <meta name="theme-color" content="#FAFAF9">
+  {%- else %}
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+  {%- endif %}
+
   <script>document.documentElement.classList.remove('no-js');</script>
 
   <link rel="preload" href="{{ '/assets/css/main.css' | relative_url }}" as="style">
