@@ -1,42 +1,52 @@
+{%- comment -%}
+  The footer, and there is deliberately not much of it: the mark, one line, and
+  the places to find him. The page scrolls off it (see .footer in main.css), so
+  it is the last thing anyone sees and it earns its keep by being short.
+
+  No page links here any more — the nav carries those, and repeating them at the
+  foot only made the page taller for no one's benefit.
+{%- endcomment -%}
 <footer class="footer">
-  <div class="container-width footer-equal-columns sans">
+  <div class="container-width footer-inner">
 
-    <div class="footer-column space-between">
-      <p class="uppercase">
-        {{ site.title }}
-        <span class="secondary line-height-tight">
-          <br>/ New Delhi, India
-          <br>/ 28.6139° N, 77.2090° E
-          <br>/ <span id="delhi-time"></span>
-        </span>
-      </p>
-      <p class="secondary desktop-only">{{ site.description | strip_html | strip_newlines | strip }}</p>
-    </div>
+    {%- comment -%}
+      The mark, as one continuous subpath — the same geometry the hero draws,
+      minus the dash animation. Decorative: the line beneath it already says
+      whose site this is.
+    {%- endcomment -%}
+    <svg class="footer-mark" viewBox="0 0 30 32" aria-hidden="true" focusable="false">
+      <path
+        d="M23.8326 12.3853C21.5978 3.03697 8.80447 6.61133 8.01136 14.2183C7.71351 17.075 10.366 17.9043 12.1341 17.075C15.035 15.7144 17.9829 10.7714 19.2775 12.4842C18.998 14.8005 18.6154 17.9133 17.9214 20.1594C17.2555 22.3142 16.1714 24.1607 14.2323 25.1695C10.272 27.2297 7.24628 22.7721 11.262 21.0448C13.206 20.2085 15.5549 20.1704 17.9214 20.1594C21.1448 20.1443 24.9709 19.3507 27.207 16.7084C29.2698 14.2708 30.1401 8.34162 25.8142 4.41172C20.209 -0.680449 11.2472 0.280726 5.94998 4.96162C0.652749 9.64251 -1.17446 20.1224 4.39203 26.4434C9.95853 32.7645 24.8036 33.3636 29 22.7418"
+        fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+    </svg>
 
-    <div class="footer-column">
-      <p class="secondary">ELSEWHERE</p>
-      <div class="uppercase">
-        {%- assign social = site.minima.social_links -%}
-        {%- if social.twitter %}<a class="square-button"
-          href="https://twitter.com/{{ social.twitter }}">Twitter</a><br>{% endif %}
-        {%- if social.github %}<a class="square-button"
-          href="https://github.com/{{ social.github }}">GitHub</a><br>{% endif %}
-        {%- if social.dribbble %}<a class="square-button"
-          href="https://dribbble.com/{{ social.dribbble }}">Dribbble</a><br>{% endif %}
-        {%- if social.instagram %}<a class="square-button"
-          href="https://instagram.com/{{ social.instagram }}">Instagram</a><br>{% endif %}
-        {%- if social.linkedin %}<a class="square-button"
-          href="https://linkedin.com/in/{{ social.linkedin }}">LinkedIn</a><br>{% endif %}
-        {%- if site.email %}<a class="square-button" href="mailto:{{ site.email }}">Email</a>{% endif %}
-      </div>
+    <p class="footer-line">Made with love in New Delhi, India</p>
 
-      <p class="secondary">PAGES</p>
-      <div class="uppercase">
-        <a class="square-button" href="{{ '/about' | relative_url }}">About</a><br>
-        <a class="square-button" href="{{ '/writing' | relative_url }}">Writing</a><br>
-        <a class="square-button" href="{{ '/archive' | relative_url }}">Notes Archive</a><br>
-        <a class="square-button" href="{{ '/now' | relative_url }}">Now</a>
-      </div>
+    <div class="footer-socials">
+      {%- assign social = site.minima.social_links -%}
+      {%- if social.twitter %}
+      <a href="https://twitter.com/{{ social.twitter }}" aria-label="Twitter" rel="me noopener" target="_blank"><i
+          class="ph ph-x-logo" aria-hidden="true"></i></a>
+      {%- endif %}
+      {%- if social.github %}
+      <a href="https://github.com/{{ social.github }}" aria-label="GitHub" rel="me noopener" target="_blank"><i
+          class="ph ph-github-logo" aria-hidden="true"></i></a>
+      {%- endif %}
+      {%- if social.dribbble %}
+      <a href="https://dribbble.com/{{ social.dribbble }}" aria-label="Dribbble" rel="me noopener" target="_blank"><i
+          class="ph ph-dribbble-logo" aria-hidden="true"></i></a>
+      {%- endif %}
+      {%- if social.instagram %}
+      <a href="https://instagram.com/{{ social.instagram }}" aria-label="Instagram" rel="me noopener" target="_blank"><i
+          class="ph ph-instagram-logo" aria-hidden="true"></i></a>
+      {%- endif %}
+      {%- if social.linkedin %}
+      <a href="https://linkedin.com/in/{{ social.linkedin }}" aria-label="LinkedIn" rel="me noopener" target="_blank"><i
+          class="ph ph-linkedin-logo" aria-hidden="true"></i></a>
+      {%- endif %}
+      {%- if site.email %}
+      <a href="mailto:{{ site.email }}" aria-label="Email"><i class="ph ph-envelope-simple" aria-hidden="true"></i></a>
+      {%- endif %}
     </div>
 
   </div>
@@ -64,26 +74,6 @@
     // fires only when the height genuinely moves.
     if ('ResizeObserver' in window) new ResizeObserver(publish).observe(footer);
     else window.addEventListener('resize', publish);
-  })();
-</script>
-
-<script>
-  (function () {
-    var el = document.getElementById('delhi-time');
-    if (!el) return;
-
-    function updateTime() {
-      var time = new Date().toLocaleTimeString('en-US', {
-        timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
-      });
-      var date = new Date().toLocaleDateString('en-US', {
-        timeZone: 'Asia/Kolkata', weekday: 'long', day: 'numeric', month: 'long'
-      });
-      el.textContent = time + ', ' + date;
-    }
-
-    updateTime();
-    setInterval(updateTime, 1000);
   })();
 </script>
 

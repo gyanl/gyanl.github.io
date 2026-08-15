@@ -2317,7 +2317,10 @@ a.tag:hover {
     left: 0;
     width: 100%;
     text-align: left;
-    padding: var(--spacing-3xl) 0 var(--spacing-5xl) 0;
+    /* Weighted to the top: the page's rounded edge lifts away from here, and
+       the gap under it is what makes that read as depth. Below the socials
+       there is nothing left to separate them from. */
+    padding: var(--spacing-6xl) 0 var(--spacing-3xl) 0;
     /* A flat light grey, not the old translucent glass: nothing scrolls behind
        this any more — the page slides OFF it — so there is nothing to see
        through to, and a solid ground makes the reveal read as a second surface
@@ -2330,21 +2333,60 @@ a.tag:hover {
     border-top: 1px solid var(--glass-edge);
 }
 
-.footer p {
-    margin-top: 40px;
-    margin-block-end: .5em;
-}
-
-.footer-equal-columns {
+/* Centred stack: mark, line, socials. The footer is short enough now that a
+   column reads better than the two it used to be. */
+.footer-inner {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    text-align: center;
 }
 
-.footer-column {
-    flex: 1;
-    max-width: 25vw;
+.footer-mark {
+    width: 2.75rem;
+    height: 2.75rem;
+    color: var(--text-reg);
+    /* The stroke swells past the viewBox at the cap. */
+    overflow: visible;
 }
+
+.footer-line {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--font-size-md);
+    color: var(--text-secondary);
+}
+
+.footer-socials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    font-size: var(--font-size-xl);
+    line-height: 1;
+}
+
+.footer-socials a {
+    display: inline-flex;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-normal), transform var(--transition-normal);
+}
+
+.footer-socials a:hover {
+    color: var(--text-reg);
+    transform: translateY(-2px);
+}
+
+.footer-socials a:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+    border-radius: var(--border-radius-sm);
+}
+
+
+
 
 
 /* ===== Entrance animations ===== */
@@ -2572,22 +2614,15 @@ a.tag:hover {
     .footer {
         width: 100%;
         margin: 0;
-        padding: var(--spacing-2xl) 0 calc(var(--spacing-6xl) + env(safe-area-inset-bottom, 0px)) 0;
+        padding: var(--spacing-5xl) 0 calc(var(--spacing-2xl) + env(safe-area-inset-bottom, 0px)) 0;
         /* Held at the chrome size rather than following the mobile body down to
            sm, so the footer is the same tier as the section labels and buttons
            above it and the page keeps to three sizes on a phone too. */
         font-size: var(--font-size-md);
     }
 
-    .footer-column {
-        max-width: 100%;
-        gap: var(--spacing-sm);
-    }
-
-    .footer-equal-columns {
-        flex-direction: column;
+    .footer-inner {
         width: var(--width-mobile);
-        gap: var(--spacing-sm);
     }
 
     .controls-panel {
