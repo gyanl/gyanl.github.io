@@ -257,7 +257,6 @@
        It must stay on :root: a copy on a consuming element would shadow the
        inline value the script sets, and the two would silently diverge. */
     --mark-unit: calc(min(100vw, 100vh) * 0.0171875);
-    --mark-unit: calc(min(100vw, 100svh) * 0.0171875);
 
     --backdrop-blur: blur(20px) contrast(130%) saturate(250%);
 }
@@ -441,24 +440,13 @@ button {
     top: 0;
     left: 0;
     width: 100%;
-    /* svh, not vh, and this is the whole reason the mark used to drift
-       vertically on a phone.
-     *
-     * The mark centres on 50% of its own box, so this height IS its vertical
-     * anchor. vh resolves to the LARGE viewport — the window as it is with the
-     * URL bar hidden — which is not what is on screen while the bar is showing.
-     * So the centre sat below the visible middle, and then slid as the bar
-     * animated away, because the bar's retreat changes what you can see without
-     * changing vh at all. svh is the small viewport: a constant, the window at
-     * its shortest. The mark lands in the middle of what is always visible and
-     * stays there whatever the chrome does.
-     *
-     * dvh would track the visible area exactly, but it updates continuously as
-     * the bar moves, which trades a drift for a follow. A fixed anchor is what
-     * this wants. The vh line above it is the fallback for browsers without
-     * svh; they get the old behaviour rather than none. */
+    /* vh, deliberately. The mark centres on 50% of its own box, so this height
+       IS its vertical anchor, and svh was tried here — a constant that would
+       hold the mark still while mobile browser chrome moves. It is reverted
+       because it did not obviously help and the reveal wants isolating one
+       change at a time. If the drift returns on a phone, this line and the two
+       that follow it below are the group to move together. */
     height: 100vh;
-    height: 100svh;
     /* Only ever compared against the greeting: .hero-spacer is a stacking
        context, so this cannot reach past it. What puts the hero under the About
        section is the spacer's own z-index. */
@@ -637,7 +625,6 @@ button {
        is the space that would have preceded it. */
     left: calc(50% + 8.83 * var(--mark-unit));
     top: calc(50vh - 3.61 * var(--mark-unit));
-    top: calc(50svh - 3.61 * var(--mark-unit));
     /* The box is exactly the dot row: a pitch per dot across, one dot tall.
        Stated rather than inherited from a line box, since there is no longer any
        text here to size it — which is the point, a line box was the thing that
@@ -987,7 +974,6 @@ button {
 .hero-sticker {
     position: absolute;
     top: 50vh;
-    top: 50svh;
     left: 50%;
     /* Height, not width — the cut-outs share a height (they came off one sheet
        of 480px cells) but not a width, so sizing by width would blow the narrow

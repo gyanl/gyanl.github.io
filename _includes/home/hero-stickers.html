@@ -8,8 +8,8 @@
   Each one is placed by a direction vector rather than an angle, so the ring can
   be an ellipse fitted to the viewport (--ring-x by --ring-y in main.css) instead
   of a circle that would run off the top and bottom of a landscape window. --dx
-  and --dy are that direction. They stay put and fade as the page scrolls; they
-  used to be thrown out along the same vector, which cost too much on a phone.
+  and --dy are that direction, and also the line each one travels out along as
+  the page scrolls, so a sticker leaves the frame straight out from the centre.
 
   Roughly even around the clock, with two gaps left on purpose: nothing sits
   where the typing bubble hangs (just up and right of the mark's centre) and
@@ -22,12 +22,12 @@
   the stickers out by area instead of by height. The two wide ones are placed
   left and right, where the ellipse is widest and there is room for them.
 
-  The ring is NOT aria-hidden any more. Each sticker that has something to say
-  is a real button — hover on a mouse, tap on a touchscreen — and a focusable
-  control inside an aria-hidden subtree is a tab stop nobody is told about. The
-  button carries the note as its accessible name, so it is read once; the
-  visible bubble is hidden from AT to avoid saying it twice, and the art keeps
-  alt="" because the note already describes it.
+  The ring is NOT aria-hidden any more. Each sticker is a real button — hover on
+  a mouse, tap on a touchscreen — and a focusable control inside an aria-hidden
+  subtree is a tab stop nobody is told about. The button carries the note as its
+  accessible name, so it is read once; the visible bubble is hidden from AT to
+  avoid saying it twice, and the art keeps alt="" because the note already
+  describes it.
 {%- endcomment -%}
 <div class="hero-stickers" id="hero-stickers">
   {%- comment -%} Left — wide, and the ellipse is at its widest here. {%- endcomment -%}
@@ -48,13 +48,13 @@
     </button>
   </div>
 
-  {%- comment -%}
-    Top right. No note on this one yet, so it stays a plain image rather than a
-    button with nothing to announce.
-  {%- endcomment -%}
+  {%- comment -%} Top right. {%- endcomment -%}
   <div class="hero-sticker" style="--dx: 0.60; --dy: -0.86; --sticker-scale: 0.89; --tilt: -5deg; --float-delay: -3.1s;">
-    <img class="hero-sticker__art" src="{{ '/assets/stickers/mango-sticky.webp' | relative_url }}" alt=""
-        aria-hidden="true" width="512" height="502">
+    <button class="hero-sticker__hit" type="button" aria-label="I made this delicious mango sticky rice!">
+      <img class="hero-sticker__art" src="{{ '/assets/stickers/mango-sticky.webp' | relative_url }}" alt=""
+        width="512" height="502">
+      <span class="hero-sticker__tip" aria-hidden="true">I made this delicious mango sticky rice!</span>
+    </button>
   </div>
 
   {%- comment -%} Right. {%- endcomment -%}
