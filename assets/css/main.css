@@ -86,6 +86,14 @@
        mix is measured against, and pointing it at its own result would be a
        cycle. Anything that should follow the shift reads --page-bg directly. */
     --scheme-t: 0;
+    /* The other two figures animate-g-logo.js publishes from scroll position.
+       --hero-progress is the reveal's raw 0..1; --sticker-burst is that same
+       run eased and squeezed into its head, and is what throws the hero's
+       sticker ring outward. Declared here so the page's resting state is
+       correct on first paint and stays correct with no JavaScript at all —
+       stickers sat on their ring, scroll cue showing. */
+    --hero-progress: 0;
+    --sticker-burst: 0;
     --page-bg: color-mix(in srgb,
             var(--background-color) calc(var(--scheme-t) * 100%),
             #FFFFFF);
@@ -773,6 +781,182 @@ button {
        height, so the reveal keeps its timing — animate-g-logo.js measures the
        height, and a margin is outside that. */
     margin-bottom: -47vh;
+    /* The stickers are thrown well past the window on their way out, and a
+       transform that lands right of the viewport is scrollable overflow. clip,
+       NOT hidden: hidden would make this a scroll container and break the
+       sticky pinning of everything inside it, which is the entire hero. clip
+       also lets one axis stay visible, which matters — the runway has to keep
+       overflowing downward. */
+    overflow-x: clip;
+}
+
+/**
+ * The sticker ring.
+ *
+ * Six cut-outs from the Zomato iMessage pack, sat around the mark at rest and
+ * thrown radially out of frame as the page scrolls. The layer pins to the
+ * viewport for the length of the runway exactly as .hero-mark does, so the
+ * stickers stay centred on the mark rather than scrolling off with the page.
+ *
+ * height: 0 is what makes that free. A sticky box holds its place in flow, and
+ * a viewport-tall one here would take 100vh out of the runway and leave the
+ * mark half the pinned run it is timed against. At zero it costs no layout at
+ * all and the stickers hang off it absolutely.
+ */
+.hero-stickers {
+    position: sticky;
+    top: 0;
+    height: 0;
+    /* Under both the mark and the typing bubble, so anything that passes behind
+       the lockup on its way out reads as a layer below it rather than clutter
+       across it. .hero-spacer is the stacking context; this only orders against
+       its siblings inside it. */
+    z-index: calc(var(--z-content) - 2);
+    pointer-events: none;
+
+    /* The ring the stickers rest on, as an ellipse rather than a circle: vmin
+       on both axes would put the top and bottom pair off the edge of a
+       landscape window while leaving the sides bunched against the mark.
+
+       The vmin floor under each axis is what keeps a phone workable. The
+       lockup is sized off min(vw, vh) but the ring would be sized off the
+       narrow axis alone, so on a tall window the two close on each other and
+       the side stickers end up against the typing bubble. The floor holds them
+       off it; on a desktop the viewport term is the larger of the two anyway
+       and the floor never applies. */
+    --ring-x: max(27vw, 35vmin);
+    --ring-y: max(28vh, 24vmin);
+    /* How much further out they are thrown by the end of the burst, as a
+       multiple of the ring. 1.6 clears the corner of a window well before the
+       fade finishes, so nothing is still visibly travelling when it vanishes. */
+    --sticker-throw: 1.6;
+    /* Sized off the shorter axis, so a sticker is the same size relative to the
+       mark on a phone as on a desktop, and clamped at both ends so it stays
+       legible on a small screen without turning into wallpaper on a large one. */
+    --sticker-size: clamp(3.5rem, 12.5vmin, 9rem);
+}
+
+.hero-sticker {
+    position: absolute;
+    top: 50vh;
+    left: 50%;
+    /* Height, not width — the cut-outs share a height (they came off one sheet
+       of 480px cells) but not a width, so sizing by width would blow the narrow
+       ones up to nearly half again the size of the wide ones. Width is left to
+       shrink-wrap the image. */
+    height: calc(var(--sticker-size) * var(--sticker-scale, 1));
+
+    /* The radial move. --dx/--dy are the sticker's own direction, set in the
+       markup; multiplying the whole ring by --push slides it straight out along
+       that vector, which is what makes the motion radial without any angle
+       arithmetic. At rest --push is 1 and this is just the resting ring. */
+    --push: calc(1 + var(--sticker-burst) * var(--sticker-throw));
+    transform: translate(-50%, -50%) translate(calc(var(--dx) * var(--ring-x) * var(--push)),
+            calc(var(--dy) * var(--ring-y) * var(--push)));
+
+    /* Hold, then fade over the last third of the burst. Values outside 0..1 are
+       clamped for opacity, so this needs no min()/max() of its own: it reads as
+       1 until the burst is about two thirds through and lands on 0 with it. */
+    opacity: calc((1 - var(--sticker-burst)) * 3.2);
+}
+
+/* The tilt and the idle float live on the image, not on .hero-sticker: that
+   element's transform is already carrying the radial throw, and a second
+   transform on the same box would simply replace it. */
+.hero-sticker__art {
+    display: block;
+    height: 100%;
+    width: auto;
+    transform: rotate(var(--tilt, 0deg));
+    animation: sticker-float 6s var(--float-delay, 0s) ease-in-out infinite;
+}
+
+/* Each sticker is started at its own negative delay in the markup, so they are
+   already spread across the cycle on the first frame rather than rising and
+   falling as one. The rotation is written relative to --tilt so the float does
+   not flatten out whatever angle the sticker was placed at. */
+@keyframes sticker-float {
+    0%,
+    100% {
+        transform: rotate(var(--tilt, 0deg)) translateY(0);
+    }
+
+    50% {
+        transform: rotate(calc(var(--tilt, 0deg) + 2.5deg)) translateY(-5%);
+    }
+}
+
+/**
+ * Scroll cue — a circle with a down arrow, centred at the foot of the hero.
+ *
+ * Zero-height and sticky like the sticker layer, for the same reason, but with
+ * a `top` that parks it just above the fold. Sticky only ever pushes an element
+ * DOWN to its offset, which is why this sits before .hero-mark in the markup:
+ * from a natural position of 0 it gets pushed to the foot of the window and
+ * holds there.
+ */
+.hero-scroll-cue {
+    position: sticky;
+    top: calc(100vh - 4.25rem);
+    height: 0;
+    z-index: var(--z-content);
+    pointer-events: none;
+    /* Off on the raw progress, not the eased burst: this should read as
+       answered the moment the page moves, and be gone inside the first few
+       percent of the runway. */
+    opacity: calc(1 - var(--hero-progress) * 18);
+}
+
+.hero-scroll-cue__ring {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    /* Literal white, like the plate behind the mark, NOT var(--white): that
+       token flips to near-black in dark mode, and this sits on the hero's
+       pinned-light panel in every scheme. --black-10, --black-5 and --hero-ink
+       below are all redeclared on .hero-spacer for exactly that reason, so
+       those can stay as tokens; --white is not, and reading it here drew the
+       cue as a black disc with a black arrow on it. */
+    background: #FFFFFF;
+    box-shadow: 0 0 0 1px var(--black-10), 0 2px 10px var(--black-5);
+    color: var(--hero-ink);
+    animation: scroll-cue-bob 2.2s ease-in-out infinite;
+}
+
+.hero-scroll-cue__ring svg {
+    width: 1.15rem;
+    height: 1.15rem;
+}
+
+/* A small, slow drop and return — the gesture it is asking for, at the size of
+   a hint. */
+@keyframes scroll-cue-bob {
+    0%,
+    100% {
+        transform: translate(-50%, -50%);
+    }
+
+    50% {
+        transform: translate(-50%, calc(-50% + 5px));
+    }
+}
+
+/* The radial throw itself is scroll-linked, like the rest of the hero, and is
+   left alone: it only ever moves when the reader does. What goes is the motion
+   that runs on its own clock with the page sitting still. */
+@media (prefers-reduced-motion: reduce) {
+
+    .hero-sticker__art,
+    .hero-scroll-cue__ring {
+        animation: none;
+    }
 }
 
 .square-button {

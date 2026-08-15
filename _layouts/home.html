@@ -30,6 +30,35 @@
   {%- endcomment -%}
   <div class="hero-spacer" aria-hidden="true">
     {%- comment -%}
+      The stickers and the scroll cue lead the runway on purpose. Both are
+      zero-height sticky layers, so they pin to the viewport for the whole
+      reveal the way .hero-mark does, without adding a single pixel of flow
+      height — which is what would otherwise eat into the mark's pinned run and
+      retime the whole effect. Their contents are positioned absolutely against
+      them. Sat before the mark because a sticky box is only pushed DOWN to its
+      `top`: put after .hero-mark, their natural position is already 100vh and
+      the cue would start the page below the fold.
+    {%- endcomment -%}
+    {% include home/hero-stickers.html %}
+
+    {%- comment -%}
+      Scroll affordance: a circle with a down arrow at the foot of the hero.
+      Indicator only, not a control — the hero is pointer-events: none
+      throughout, and a button here would have to either skip the reveal it is
+      pointing at or invent a scroll distance nobody asked for. It bobs while
+      the page is at rest and is gone within the first few percent of the
+      runway; see --hero-progress in main.css.
+    {%- endcomment -%}
+    <div class="hero-scroll-cue">
+      <div class="hero-scroll-cue__ring">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+          <path d="M12 5.25V18.75M6.25 13L12 18.75L17.75 13" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </div>
+
+    {%- comment -%}
       The hero mark.
 
       The path data lives here, not in the JS, and ships with its resting dash

@@ -33,6 +33,10 @@ class GLogoReveal {
       // its drawn size just as it unpins and scrolls away.
       shrinkStart: 0.75,
       shrinkTo: 0.18,
+      // The stickers ringing the mark are thrown radially out of frame over the
+      // head of the runway, so they are gone by the time the mark starts
+      // settling onto its plate and the page has the reveal to itself.
+      burstEnd: 0.62,
       // The plate behind the mark: how far its side runs past the 30x32 viewBox.
       // It is a circle at every size (border-radius: 50%), so there is no radius
       // to configure here.
@@ -187,6 +191,21 @@ class GLogoReveal {
       '--scheme-t',
       this.ease((progress - schemeStart) / (1 - schemeStart))
     );
+
+    // Phase 5 — the sticker ring and the scroll cue. Published rather than
+    // driven: main.css does the placing and the throwing off these two figures,
+    // so the geometry stays in CSS with the rest of the hero's and there is no
+    // second scroll listener to drift out of step with this one.
+    //
+    // --sticker-burst is eased and banded like every other phase here.
+    // --hero-progress is the raw figure, which is what the cue wants: it has to
+    // be gone within the first breath of scrolling, and an eased curve barely
+    // leaves zero over that stretch.
+    document.documentElement.style.setProperty(
+      '--sticker-burst',
+      this.ease(progress / this.config.burstEnd)
+    );
+    document.documentElement.style.setProperty('--hero-progress', progress);
 
     // All viewBox units — independent of how large the mark is drawn.
     this.elements.dot.setAttribute('r', strokeWidth / 2);
