@@ -499,8 +499,16 @@ button {
 .hero-mark__name {
     position: absolute;
     left: 50%;
-    top: calc(50% + (32 * var(--mark-unit) * var(--plate-inset) * var(--mark-shrink, 1) / 2) + 0.9em);
-    transform: translateX(-50%);
+    /* The offset rides in the TRANSFORM, not in `top`.
+     *
+     * It used to be `top: calc(... var(--mark-shrink) ...)`, which meant every
+     * frame of the shrink ran a layout pass to move one line of text. Invisible
+     * on a desktop, and on a phone it is the reveal's whole frame budget spent
+     * on the least important thing in it. A transform is composited: the same
+     * arithmetic, none of the layout. */
+    top: 50%;
+    transform: translate(-50%,
+            calc(32 * var(--mark-unit) * var(--plate-inset) * var(--mark-shrink, 1) / 2 + 0.9em));
     white-space: nowrap;
     font-family: var(--font-body);
     font-size: var(--font-size-sm);
@@ -523,22 +531,26 @@ button {
     height: calc(32 * var(--mark-unit) * var(--plate-inset));
     /* Same transform as the art box, so plate and mark shrink as one object. */
     transform: translate(-50%, -50%) scale(var(--mark-shrink, 1));
+    will-change: transform, opacity;
     border-radius: 50%;
-    /* Transparent for the whole draw, filling to white across the shrink — the
-       same band --plate-settle drives the ring on. By the end the plate is the
-       mark's own white badge, which is what keeps the mark black on white once
-       the page has gone dark under it. */
-    background: color-mix(in srgb, #FFFFFF var(--plate-settle, 0%), transparent);
-    /* A box-shadow ring rather than a border: a border is part of the box and
-       would grow the plate. Counter-scaled so the ring holds a true 1px as the
-       plate shrinks, instead of thinning away to nothing.
+    /* White badge and hairline ring, both FIXED. The whole plate then fades in
+       on opacity alone.
+     *
+       Every part of this used to move per frame: the background was a
+       color-mix against --plate-settle and the ring's spread was
+       calc(1px / var(--mark-shrink)) to hold a true 1px against the scale.
+       A changing box-shadow spread cannot be composited — it repaints — so the
+       plate was repainting on every frame of the shrink. Opacity and transform
+       are the only two things that do not, so those are the only two that move
+       now.
 
-       The ring is --black-10 throughout and only its opacity moves:
-       --plate-settle is 0 for the whole draw and ramps to 100% across the
-       shrink, so the plate is simply absent until the mark starts settling. */
-    box-shadow: 0 0 0 calc(1px / var(--mark-shrink, 1)) color-mix(in srgb,
-            var(--black-10) var(--plate-settle, 0%),
-            transparent);
+       The spread is 5.5px because the plate finishes at --mark-shrink 0.18, and
+       5.5 x 0.18 is the 1px the ring is meant to land on. It is heavier than
+       that earlier in the shrink, but so is the plate, and it is still mostly
+       transparent while that is true. */
+    background: #FFFFFF;
+    box-shadow: 0 0 0 5.5px var(--black-10);
+    opacity: var(--plate-settle, 0%);
 }
 
 .hero-mark__art {
