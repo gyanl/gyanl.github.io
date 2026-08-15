@@ -499,6 +499,20 @@ button {
  * is 3.61 units above that centre. The extra 6 units is the gap above it.
  */
 .hero-greeting {
+    /* The two typed dots, drawn as circles rather than set as period glyphs.
+       A period's size and its place in the line box are the font's business, so
+       anywhere ui-rounded does not resolve to SF Pro Rounded — a non-Apple
+       device, or a bolder text setting — the pair came out a different size and
+       off the ball's line. These are geometry and land identically everywhere.
+
+       --dot-size is 1.12 mark units at the font-size below, which is baseStroke
+       in animate-g-logo.js: a dot is exactly the ball's resting diameter.
+       --dot-pitch is centre to centre, the advance the period had in that face.
+       The ball sits one further pitch on, which is what makes the row read as
+       three dots rather than two and a stray. */
+    --dot-size: 0.1149em;
+    --dot-pitch: 0.252em;
+
     /* The bubble's width, and the height that follows from the artwork's own
        511x242 box. --photo-size is deliberately NOT --bubble-height: the two
        were the same until the bubble was grown on its own, so the photo is
@@ -510,21 +524,21 @@ button {
     /* Space between the photo and the bubble's left edge. Separate from
        --bubble-gap so the two can be tuned independently. */
     --photo-gap: 0.02em;
-    /* Bubble and photo sit this far below the dots' line. Applied only to those
-       two, so the dots and the g-logo's ball keep their alignment. */
-    --bubble-drop: calc(var(--bubble-height) * 0.38);
-    /* The bubble centres on the text box, but the dot group runs past it: the
+    /* How far below the dots' row the bubble and photo sit. This element's box
+       IS the row now, so the offset is measured from its centre rather than
+       from a line box — and zero centres the two on the dots, which is where
+       the glyph version worked out to anyway. */
+    --bubble-drop: 0em;
+    /* The bubble centres on the dot row, but the dot group runs past it: the
        g-logo's ball sits --bubble-gap beyond the text plus its own radius
        (baseStroke / 2 = 0.56 mark units). Nudging the bubble right by half of
        that overhang puts all three dots on its centre. */
     --bubble-shift: calc((var(--bubble-gap) + 0.56 * var(--mark-unit)) / 2);
 
-    /* The ball has to sit one period-pitch past the last typed dot, but
-       translate(-100%) only lands the text's right EDGE on it — half a pitch
-       short. Measured against the rendered face, half a pitch is 0.126em. In em,
-       not mark units, so it stays correct when the size below changes. */
-    --greeting-gap: 0.126em;
-    --greeting-drop: 0.074em;
+    /* The ball has to sit one pitch past the last typed dot, but translate(-100%)
+       lands the row's right EDGE on it — and the row ends half a pitch past the
+       last dot's centre, so that half comes off here. */
+    --greeting-gap: calc(var(--dot-pitch) / 2);
 
     position: absolute;
     /* Anchored to the ball, not to the screen. The mark centres on the viewport
@@ -534,14 +548,16 @@ button {
        is the space that would have preceded it. */
     left: calc(50% + 8.83 * var(--mark-unit));
     top: calc(50vh - 3.61 * var(--mark-unit));
-    white-space: nowrap;
-    /* Vertically this lands the PERIODS on the anchor, not the box: with
-       line-height 1 the baseline sits 0.9268em below the box top and a period's
-       centre 0.0547em above the baseline, so its centre is 0.8721em down. All in
-       em, so it holds at any size. --greeting-drop is the hand-tuned nudge off
-       that computed position. */
-    transform: translate(calc(-100% - var(--greeting-gap)),
-            calc(-0.8721em + var(--greeting-drop)));
+    /* The box is exactly the dot row: a pitch per dot across, one dot tall.
+       Stated rather than inherited from a line box, since there is no longer any
+       text here to size it — which is the point, a line box was the thing that
+       moved when the font did. */
+    width: calc(2 * var(--dot-pitch));
+    height: var(--dot-size);
+    /* -50% puts the row's centre, and so both dots' centres, on the ball's own
+       centre line. Nothing font-derived is left to correct for, so the hand
+       nudge that used to ride along here is gone. */
+    transform: translate(calc(-100% - var(--greeting-gap)), -50%);
     /* Under the mark. The greeting sits later in the DOM, so at an equal z-index
        it — and the blob behind it — would paint over the g-logo and hide it as
        it draws. The blob cannot be lowered on its own: this element is
@@ -549,15 +565,11 @@ button {
        cannot escape. */
     z-index: calc(var(--z-content) - 1);
     pointer-events: none;
-    text-align: center;
-    font-family: var(--font-body);
-    /* Drives the whole lockup — the bubble, the photo and the gaps are all in em,
-       so this one value scales the group. 12.19 units is the size at which a
-       typed period matches the g-logo's ball exactly (the glyph's dot is 0.1149em
-       in this face, and the ball is one baseStroke, 1.4 units, across); this is
-       that figure scaled to 80%, so the dots now read smaller than the ball. */
+    /* Sets nothing typographic any more — no text is left here — but every
+       figure in the lockup, the dots included, is in em, so this one value still
+       scales the group. Kept at the size the typed version was set at, so the
+       bubble and photo are untouched by the swap. */
     font-size: calc(9.75 * var(--mark-unit));
-    line-height: 1;
     color: var(--hero-ink);
 }
 
@@ -604,14 +616,33 @@ button {
     z-index: 0;
 }
 
+/* Fills the row and lifts the dots over the blob behind them. */
 .hero-greeting__text {
-    position: relative;
+    position: absolute;
+    inset: 0;
     z-index: 1;
 }
 
-/* inline-block so a transform applies — an inline box would ignore it. */
+/* Each dot centred in its own pitch — where a period sat inside its advance
+   width — and vertically filling the row, which is one dot tall. Placed with
+   left and a margin rather than a transform, because the bounce below needs the
+   transform to itself. */
 .hero-greeting__dot {
-    display: inline-block;
+    position: absolute;
+    top: 0;
+    width: var(--dot-size);
+    height: var(--dot-size);
+    margin-left: calc(var(--dot-size) / -2);
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.hero-greeting__dot:nth-child(1) {
+    left: calc(var(--dot-pitch) / 2);
+}
+
+.hero-greeting__dot:nth-child(2) {
+    left: calc(var(--dot-pitch) * 1.5);
 }
 
 /* Same keyframes the mark bounces on, so the typed dots and the g-logo's ball
