@@ -49,6 +49,59 @@
     unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+/* The scroll-driven scalars, declared as TYPED custom properties.
+ *
+ * animate-g-logo.js rewrites these on :root every scroll frame. Left
+ * unregistered they are token streams the engine cannot reason about, so a
+ * write to any one of them dirties style for the whole document and every frame
+ * of the reveal pays a full recalculation — which is what made the mark stutter
+ * once six stickers were riding the same properties.
+ *
+ * Registered with a syntax they are numbers, so the engine knows exactly which
+ * declarations depend on them and can scope the invalidation to those.
+ * inherits: true because they are set at the root and read deep inside the
+ * hero. The initial values are the at-rest state, so the first paint is correct
+ * before any script has run.
+ *
+ * Progressive: a browser without @property falls back to the old untyped
+ * behaviour, which still works — it is only slower.
+ */
+@property --hero-progress {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
+}
+
+@property --sticker-burst {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
+}
+
+@property --scheme-t {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
+}
+
+@property --mark-shrink {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 1;
+}
+
+@property --plate-settle {
+    syntax: '<percentage>';
+    inherits: true;
+    initial-value: 0%;
+}
+
+@property --send {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
+}
+
 :root {
     /* Colours */
     --text-reg: rgb(42, 42, 42);
@@ -78,13 +131,13 @@
     /* The hero is pinned to light in every scheme (see .hero-spacer), so in dark
        mode the page has to get from that white to its own background somewhere.
        --scheme-t is driven from scroll by animate-g-logo.js over the tail of the
-       reveal, and --page-bg walks between the two across it — the hero fades
-       into the page instead of meeting it at a seam. In light mode both ends are
-       white, so this resolves to a no-op.
+       reveal, and the page's background walks between the two across it — the
+       hero fades into the page instead of meeting it at a seam. In light mode
+       both ends are white, so this resolves to a no-op.
 
        Deliberately not folded into --background-color: that token is what the
        mix is measured against, and pointing it at its own result would be a
-       cycle. Anything that should follow the shift reads --page-bg directly. */
+       cycle. Anything that follows the shift mixes against --scheme-t itself. */
     --scheme-t: 0;
     /* The other two figures animate-g-logo.js publishes from scroll position.
        --hero-progress is the reveal's raw 0..1; --sticker-burst is that same
@@ -94,13 +147,20 @@
        stickers sat on their ring, scroll cue showing. */
     --hero-progress: 0;
     --sticker-burst: 0;
-    --page-bg: color-mix(in srgb,
-            var(--background-color) calc(var(--scheme-t) * 100%),
-            #FFFFFF);
-    /* The ink that goes with it, for anything sitting on the crossfade. */
-    --page-ink: color-mix(in srgb,
-            var(--text-reg) calc(var(--scheme-t) * 100%),
-            rgb(42, 42, 42));
+
+    /* The colours derived from --scheme-t are NOT declared here.
+     *
+     * They used to be: --page-bg, --page-ink and --hero-bg, three color-mix()
+     * expressions on :root. Custom properties inherit, and an unregistered one
+     * inherits as an unresolved token stream — so every element in the document
+     * carried a copy of those expressions, and rewriting --scheme-t on :root
+     * meant re-substituting them tree-wide on the same frames the mark was
+     * being scaled. The mark shared an invalidation group with the entire page.
+     *
+     * There are exactly three consumers, so each now spells its own mix out
+     * against --scheme-t directly. --scheme-t is registered (see @property
+     * above), which keeps it a number the engine can track rather than another
+     * token stream. */
 
     /* Typography — SF Pro Rounded now leads both stacks. `ui-rounded` is the
        token that actually resolves it; the family name alone does not, since it
@@ -197,6 +257,7 @@
        It must stay on :root: a copy on a consuming element would shadow the
        inline value the script sets, and the two would silently diverge. */
     --mark-unit: calc(min(100vw, 100vh) * 0.0171875);
+    --mark-unit: calc(min(100vw, 100svh) * 0.0171875);
 
     --backdrop-blur: blur(20px) contrast(130%) saturate(250%);
 }
@@ -238,7 +299,11 @@ body {
     margin: 0;
     padding: 0;
     color: var(--text-reg);
-    background-color: var(--page-bg);
+    /* The scheme crossfade, computed here rather than inherited — see the
+       note in :root. */
+    background-color: color-mix(in srgb,
+            var(--background-color) calc(var(--scheme-t) * 100%),
+            #FFFFFF);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -376,7 +441,24 @@ button {
     top: 0;
     left: 0;
     width: 100%;
+    /* svh, not vh, and this is the whole reason the mark used to drift
+       vertically on a phone.
+     *
+     * The mark centres on 50% of its own box, so this height IS its vertical
+     * anchor. vh resolves to the LARGE viewport — the window as it is with the
+     * URL bar hidden — which is not what is on screen while the bar is showing.
+     * So the centre sat below the visible middle, and then slid as the bar
+     * animated away, because the bar's retreat changes what you can see without
+     * changing vh at all. svh is the small viewport: a constant, the window at
+     * its shortest. The mark lands in the middle of what is always visible and
+     * stays there whatever the chrome does.
+     *
+     * dvh would track the visible area exactly, but it updates continuously as
+     * the bar moves, which trades a drift for a follow. A fixed anchor is what
+     * this wants. The vh line above it is the fallback for browsers without
+     * svh; they get the old behaviour rather than none. */
     height: 100vh;
+    height: 100svh;
     /* Only ever compared against the greeting: .hero-spacer is a stacking
        context, so this cannot reach past it. What puts the hero under the About
        section is the spacer's own z-index. */
@@ -428,7 +510,9 @@ button {
     line-height: 1;
     /* Follows the page across the light-to-dark crossfade — unlike the mark,
        which keeps its white plate and so stays black throughout. */
-    color: var(--page-ink);
+    color: color-mix(in srgb,
+            var(--text-reg) calc(var(--scheme-t) * 100%),
+            rgb(42, 42, 42));
     opacity: var(--plate-settle, 0%);
 }
 
@@ -553,6 +637,7 @@ button {
        is the space that would have preceded it. */
     left: calc(50% + 8.83 * var(--mark-unit));
     top: calc(50vh - 3.61 * var(--mark-unit));
+    top: calc(50svh - 3.61 * var(--mark-unit));
     /* The box is exactly the dot row: a pitch per dot across, one dot tall.
        Stated rather than inherited from a line box, since there is no longer any
        text here to size it — which is the point, a line box was the thing that
@@ -792,19 +877,25 @@ button {
        Anything added inside .hero-spacer inherits this, which is the intent:
        the whole hero is one light panel and the page goes dark below it.
 
-       The ink stays black rather than fading with --page-bg: cross-fading the
+       The ink stays black rather than fading with the page: cross-fading the
        mark and the ground together would wash both out to the same mid-grey
        halfway through. The mark is scrolling up and out over that stretch
        anyway, so it keeps its contrast for as long as it is worth seeing.
 
-       --hero-ink rather than an override of --text-reg: --page-ink at :root is
-       measured against --text-reg, and shadowing that token here would make
-       --page-ink re-resolve to plain black for anything inside the hero — which
-       is exactly what the name label must not do. */
+       --hero-ink rather than an override of --text-reg: the name label's colour
+       is mixed against --text-reg, and shadowing that token here would resolve
+       it to plain black inside the hero — which is exactly what that label must
+       not do. */
     --hero-ink: rgb(42, 42, 42);
     --black-5: rgba(0, 0, 0, .05);
     --black-10: rgba(0, 0, 0, .1);
-    background: var(--page-bg);
+    /* The hero's own ground: the same crossfade, but starting a shade off
+       white so the panel sits apart from the page below it and the stickers'
+       white die-cut edges have something to read against. It converges on the
+       page's background, so the two meet without a seam. */
+    background: color-mix(in srgb,
+            var(--background-color) calc(var(--scheme-t) * 100%),
+            #FAFAF9);
     /* Under .container. This is the z-index that actually decides it: positioned
        with a z-index, the spacer is its own stacking context, so the mark and
        the greeting inside it can only order against each other — at 15 the whole
@@ -861,20 +952,42 @@ button {
        off it; on a desktop the viewport term is the larger of the two anyway
        and the floor never applies. */
     --ring-x: max(27vw, 35vmin);
-    --ring-y: max(28vh, 24vmin);
-    /* How much further out they are thrown by the end of the burst, as a
-       multiple of the ring. 1.6 clears the corner of a window well before the
-       fade finishes, so nothing is still visibly travelling when it vanishes. */
-    --sticker-throw: 1.6;
+    --ring-y: max(28svh, 24vmin);
     /* Sized off the shorter axis, so a sticker is the same size relative to the
        mark on a phone as on a desktop, and clamped at both ends so it stays
        legible on a small screen without turning into wallpaper on a large one. */
-    --sticker-size: clamp(3.5rem, 12.5vmin, 9rem);
+    /* How much further out they are thrown by the end of the fade, as a
+       multiple of the ring. 1.6 carries them past the corner of the window. */
+    --sticker-throw: 1.6;
+    --sticker-size: clamp(6.75rem, 24vmin, 17.25rem);
+}
+
+/* The ring is sized off vmin but placed off a vmin-floored radius, so on a
+   narrow window the stickers grow as fast as the circle they sit on and stop
+   fitting inside it — at the desktop figure above the widest one hangs 22px off
+   the left edge of a phone and the right-hand one lands on the typing bubble.
+   Held to roughly its old size here; the full size is a desktop effect, where
+   there is room for it. */
+@media (max-width: 800px) {
+    .hero-stickers {
+        --sticker-size: clamp(4.5rem, 17vmin, 9rem);
+    }
+}
+
+/* Once the burst is spent the ring is at opacity 0 but still a live layer: six
+   composited boxes and six infinite float animations, all ticking behind the
+   messages for the rest of the page. display: none takes them out of the frame
+   entirely. Toggled from animate-g-logo.js rather than keyed off the scalar,
+   since CSS cannot branch on a number — and removed again on the way back up,
+   because the burst is scrubbed and scrolling up has to bring them home. */
+.hero-stickers.is-spent {
+    display: none;
 }
 
 .hero-sticker {
     position: absolute;
     top: 50vh;
+    top: 50svh;
     left: 50%;
     /* Height, not width — the cut-outs share a height (they came off one sheet
        of 480px cells) but not a width, so sizing by width would blow the narrow
@@ -885,42 +998,154 @@ button {
     /* The radial move. --dx/--dy are the sticker's own direction, set in the
        markup; multiplying the whole ring by --push slides it straight out along
        that vector, which is what makes the motion radial without any angle
-       arithmetic. At rest --push is 1 and this is just the resting ring. */
+       arithmetic. At rest --push is 1 and this is just the resting ring.
+
+       This is cheap, and was wrongly suspected of the judder that turned out to
+       be the idle float animation — a transform and an opacity are both
+       compositor properties, so the throw moves a layer that is already
+       rasterised rather than repainting anything. */
     --push: calc(1 + var(--sticker-burst) * var(--sticker-throw));
     transform: translate(-50%, -50%) translate(calc(var(--dx) * var(--ring-x) * var(--push)),
             calc(var(--dy) * var(--ring-y) * var(--push)));
 
-    /* Hold, then fade over the last third of the burst. Values outside 0..1 are
-       clamped for opacity, so this needs no min()/max() of its own: it reads as
-       1 until the burst is about two thirds through and lands on 0 with it. */
-    opacity: calc((1 - var(--sticker-burst)) * 3.2);
+    opacity: calc(1 - var(--sticker-burst));
+
+    /* Both of the things that change here are compositor properties, so say so
+       and the throw runs on its own layer. .is-spent drops them entirely once
+       it is done. */
+    will-change: transform, opacity;
 }
 
-/* The tilt and the idle float live on the image, not on .hero-sticker: that
-   element's transform is already carrying the radial throw, and a second
-   transform on the same box would simply replace it. */
+/* The tilt is a static transform, not an animation. There was an idle float on
+   here — a 6s infinite bob — and it was the single most expensive thing the
+   stickers did: measured, removing it alone brought a forced style-and-layout
+   pass back to what it costs with the ring deleted outright. Six elements
+   animating forever, at rest as much as in motion, is simply not worth a 5%
+   wobble on a decorative layer. --float-delay is kept in the markup so the
+   stagger is still there if it ever comes back. */
 .hero-sticker__art {
     display: block;
     height: 100%;
     width: auto;
     transform: rotate(var(--tilt, 0deg));
-    animation: sticker-float 6s var(--float-delay, 0s) ease-in-out infinite;
+    /* No shadow here: it is baked into the artwork. A CSS drop-shadow is a
+       blur pass per element per raster, and the art already carries a white
+       die-cut border, so painting one at runtime bought nothing the file
+       cannot carry for free. */
+
+    /* Let the art use headroom above SDR white where the display has it, so the
+       stickers read as lit rather than printed. This is the only thing that
+       actually unlocks that headroom; the grade below is kept inside a query
+       that matches an HDR screen, since applied unconditionally it would just
+       wash the art out on an ordinary one. */
+    dynamic-range-limit: no-limit;
+}
+
+@media (dynamic-range: high) {
+    .hero-sticker__art {
+        filter: brightness(1.04) saturate(1.03);
+    }
+}
+
+/* The hit area. A button, so it answers hover, tap and the keyboard alike
+   without three separate mechanisms — and .hero-stickers turns pointer events
+   off for the layer, so this is where they come back on. Sized by the art
+   inside it; everything else is stripped back to nothing. */
+.hero-sticker__hit {
+    display: block;
+    position: relative;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    pointer-events: auto;
+    /* The note is on the button as aria-label, so nothing here should be
+       announced or selectable in its own right. */
+    -webkit-tap-highlight-color: transparent;
+}
+
+.hero-sticker__hit:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: calc(var(--focus-outline-offset) * 2);
+    border-radius: 4px;
+}
+
+/* The note itself. Sat under its sticker and free to be wider than it — the
+   stickers are small and the notes are a sentence — so it is positioned from
+   the sticker's centre line rather than its box.
+ *
+ * It leans away from the edge it is nearest, using the same --dx the ring is
+ * built from: the shift is -50% - dx * 50%, so a sticker out at the left of the
+ * ring (dx -1) resolves to 0% and the note opens rightward from its centre, one
+ * at the right (dx +1) resolves to -100% and opens leftward, and anything near
+ * the top or bottom stays centred. Without it the outermost notes ran off the
+ * window — no media query or measurement needed, just the vector already there.
+ */
+.hero-sticker__tip {
+    position: absolute;
+    top: calc(100% + 0.6rem);
+    left: 50%;
+    --tip-shift: calc(-50% - var(--dx, 0) * 50%);
+    transform: translate(var(--tip-shift), 4px);
+    z-index: 1;
+
+    /* Wider than any sticker, and narrow enough to wrap to two or three lines
+       rather than run across the window. */
+    width: max-content;
+    max-width: min(15rem, 60vw);
+    padding: 0.5rem 0.7rem;
+    border-radius: 10px;
+    background: #2A2A2A;
+    color: #FFFFFF;
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    line-height: 1.35;
+    text-align: center;
+    text-wrap: pretty;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.16s ease-out, transform 0.16s ease-out,
+        visibility 0s linear 0.16s;
+}
+
+/* Shown on hover, on keyboard focus, and on .is-open — which is what a tap
+   sets. visibility transitions to a step at 0s on the way in so the bubble is
+   there for the fade rather than after it. */
+.hero-sticker__hit:focus-visible .hero-sticker__tip,
+.hero-sticker.is-open .hero-sticker__tip {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(var(--tip-shift), 0);
+    transition-delay: 0s;
+}
+
+/* Hover only where hovering is real. On a touchscreen :hover latches after a
+   tap, which would leave a note stuck open with no way to dismiss it — taps go
+   through .is-open instead. */
+@media (hover: hover) and (pointer: fine) {
+    .hero-sticker__hit:hover .hero-sticker__tip {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(var(--tip-shift), 0);
+        transition-delay: 0s;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-sticker__tip {
+        transition-duration: 0.01ms;
+    }
 }
 
 /* Each sticker is started at its own negative delay in the markup, so they are
    already spread across the cycle on the first frame rather than rising and
    falling as one. The rotation is written relative to --tilt so the float does
    not flatten out whatever angle the sticker was placed at. */
-@keyframes sticker-float {
-    0%,
-    100% {
-        transform: rotate(var(--tilt, 0deg)) translateY(0);
-    }
-
-    50% {
-        transform: rotate(calc(var(--tilt, 0deg) + 2.5deg)) translateY(-5%);
-    }
-}
 
 /**
  * Scroll cue — a circle with a down arrow, centred at the foot of the hero.
@@ -934,6 +1159,7 @@ button {
 .hero-scroll-cue {
     position: sticky;
     top: calc(100vh - 4.25rem);
+    top: calc(100svh - 4.25rem);
     height: 0;
     z-index: var(--z-content);
     pointer-events: none;
@@ -1102,7 +1328,7 @@ button {
     position: relative;
     display: flex;
     flex-direction: column;
-    /* No background of its own: body already paints --page-bg, and an opaque
+    /* No background of its own: body already paints the page, and an opaque
        .container sitting a z-index above the hero would clip whatever of the
        mark it overlapped — which, as the hero exits, is the bottom of the
        plate's ring. Its content still paints over the mark, which is what the
@@ -1272,11 +1498,15 @@ button {
 }
 
 /* The send animation, scrubbed by scroll rather than transitioned.
-   animate-about-chat.js gives each bubble a --send that runs 0 to 1 (with a
-   small overshoot) across its own band of scroll distance, and everything here
-   is derived from it — so the reader scrolls the thread in, and scrolling back
-   up unsends it message by message. Without JS nothing is armed, --send never
-   arrives and the bubbles are simply here.
+   animate-about-chat.js gives each bubble a --send that runs 0 to 1 across its
+   own band of scroll distance, and everything here is derived from it — so the
+   reader scrolls the thread in, and scrolling back up unsends it message by
+   message. Without JS nothing is armed, --send never arrives and the bubbles
+   are simply here.
+
+   --send is monotonic, never past 1: an overshoot on a value the reader is
+   scrubbing wobbles both ways, so a bubble parked near the end of its band
+   would bounce every time the page nudged.
 
    The iOS send: the bubble scales up from its own bottom edge — growing out of
    the line it arrives on — rather than sliding in.
@@ -1284,12 +1514,22 @@ button {
    No transition on these. The scalar already moves with the page, and a
    transition on top would fight it on every frame and lag the scroll. */
 .chat.is-armed .chat__bubble {
-    /* Solid early, so the bubble is opaque while it is still growing — fading
-       across the whole travel reads as a dissolve, not a send. Values over 1
-       are clamped for opacity, so this needs no min() of its own. */
-    opacity: calc(var(--send, 1) * 3);
+    /* Solid almost at once, so the bubble is opaque for the whole of its growth
+       — the scale is the animation; the opacity is only there to stop it
+       appearing from nothing. Values over 1 are clamped for opacity, so this
+       needs no min() of its own.
+     *
+     * The multiplier was 3, which left the bubble part-faded until it was a
+       third of the way up. Small AND translucent is invisible against white but
+       reads as a grey ghost against a dark page, so it only ever looked like a
+       dark-mode bug. At 10 the fade is done inside the first few pixels of the
+       band and the bubble is never seen half-there. */
+    opacity: calc(var(--send, 1) * 10);
     transform: translateY(calc((1 - var(--send, 1)) * 28px)) scale(calc(0.55 + 0.45 * var(--send, 1)));
-    transform-origin: 50% 100%;
+    /* Bottom LEFT, not bottom centre: the bubbles are left-hung and their tail
+       is on that corner, so growing out of it reads as the message coming from
+       the thread rather than inflating in place. */
+    transform-origin: 0 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {

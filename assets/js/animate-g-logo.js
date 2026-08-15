@@ -33,10 +33,12 @@ class GLogoReveal {
       // its drawn size just as it unpins and scrolls away.
       shrinkStart: 0.75,
       shrinkTo: 0.18,
-      // The stickers ringing the mark are thrown radially out of frame over the
-      // head of the runway, so they are gone by the time the mark starts
-      // settling onto its plate and the page has the reveal to itself.
-      burstEnd: 0.62,
+      // The stickers fade out over this many pixels of scroll. In px, not a
+      // fraction of the runway like the phases above: the runway is 250vh, so a
+      // fraction would make the fade last two and a half times longer on a
+      // desktop than a phone. The ring is a greeting — it should be gone almost
+      // as soon as the reader moves, at any size.
+      burstDistance: 100,
       // The plate behind the mark: how far its side runs past the 30x32 viewBox.
       // It is a circle at every size (border-radius: 50%), so there is no radius
       // to configure here.
@@ -56,6 +58,8 @@ class GLogoReveal {
       layers: [...document.querySelectorAll('.g-reveal-layer')],
       dot: document.getElementById('g-reveal-dot'),
       cue: document.getElementById('hero-scroll-cue'),
+      stickers: document.querySelector('.hero-stickers'),
+      spacer: document.querySelector('.hero-spacer'),
       size: document.getElementById('size'),
       stroke: document.getElementById('stroke')
     };
@@ -66,6 +70,10 @@ class GLogoReveal {
     this.state = {
       frame: null,
       pathLength: this.elements.path.getTotalLength(),
+      // Filled in on first render and kept until a real layout change — see
+      // getRevealDistance.
+      revealDistance: null,
+      measuredWidth: 0,
     };
 
     this.handleScroll = this.handleScroll.bind(this);
@@ -87,8 +95,22 @@ class GLogoReveal {
   }
 
   setupEventListeners() {
-    // No resize listener: the viewBox and --mark-unit keep the mark sized in
-    // CSS, so a resize needs no script at all.
+    // The mark's SIZE still needs no script — the viewBox and --mark-unit keep
+    // that in CSS. This is only about the runway length, which is measured
+    // rather than computed, and so has to be re-measured when the layout truly
+    // changes. Width-only: on a phone a height-only resize is the URL bar
+    // sliding away, and re-measuring on that is exactly the thing that used to
+    // make the reveal hitch mid-scroll.
+    window.addEventListener('resize', () => {
+      if (window.innerWidth === this.state.measuredWidth) return;
+      this.measureRevealDistance();
+      this.render();
+    });
+    window.addEventListener('orientationchange', () => {
+      this.measureRevealDistance();
+      this.render();
+    });
+
     window.addEventListener('scroll', this.handleScroll, { passive: true });
     document.addEventListener('keydown', this.handleKeydown.bind(this));
 
@@ -174,11 +196,35 @@ class GLogoReveal {
    * from drifting apart — the mark finishes drawing on the same pixel it starts
    * scrolling up, so it is never mid-draw while moving. Retiming the whole thing
    * is still a one-line change to .hero-spacer's height.
+   *
+   * MEASURED ONCE, then cached, and this matters on mobile more than anywhere.
+   * It used to run per frame, which was wrong twice over:
+   *
+   *   - offsetHeight forces a synchronous layout, so every scroll frame paid for
+   *     one before it could draw;
+   *   - it measured against visualViewport.height, which on a phone SHRINKS AND
+   *     GROWS as the URL bar hides and returns. .hero-spacer is 250vh, and vh is
+   *     the large viewport, so the runway held still while the figure it was
+   *     divided by moved. Progress jumped by the height of the browser chrome
+   *     mid-scroll, and the mark visibly hitched up and down with it.
+   *
+   * Which is why the recompute below ignores height-only resizes: on a phone
+   * those are the URL bar, not a new layout.
    */
   getRevealDistance() {
-    const spacer = document.querySelector('.hero-spacer');
-    const runway = (spacer && spacer.offsetHeight) || this.viewport().height * 2;
-    return Math.max(runway - this.viewport().height, 1);
+    if (this.state.revealDistance === null) this.measureRevealDistance();
+    return this.state.revealDistance;
+  }
+
+  measureRevealDistance() {
+    // clientHeight, not visualViewport: this is the layout viewport, which is
+    // what vh — and therefore the runway — is resolved against.
+    const height = document.documentElement.clientHeight || window.innerHeight;
+    const spacer = this.elements.spacer;
+    const runway = (spacer && spacer.offsetHeight) || height * 2;
+
+    this.state.revealDistance = Math.max(runway - height, 1);
+    this.state.measuredWidth = window.innerWidth;
   }
 
   render() {
@@ -232,10 +278,20 @@ class GLogoReveal {
     // --hero-progress is the raw figure, which is what the cue wants: it has to
     // be gone within the first breath of scrolling, and an eased curve barely
     // leaves zero over that stretch.
-    document.documentElement.style.setProperty(
-      '--sticker-burst',
-      this.ease(progress / this.config.burstEnd)
-    );
+    // Off raw scrollY rather than `progress`, so the distance is the literal
+    // pixel figure and does not stretch with the runway.
+    const burst = this.ease(window.scrollY / this.config.burstDistance);
+    document.documentElement.style.setProperty('--sticker-burst', burst);
+
+    // Once they are out of frame the ring is invisible but still costing: six
+    // composited layers and six infinite float animations, ticking behind the
+    // messages for the whole rest of the page. .is-spent takes it out of the
+    // frame — and comes off again on the way back up, since the burst is
+    // scrubbed rather than latched. Toggled only on the crossing, so this is
+    // not a class write every frame.
+    if (this.elements.stickers) {
+      this.elements.stickers.classList.toggle('is-spent', burst >= 1);
+    }
     document.documentElement.style.setProperty('--hero-progress', progress);
 
     // The cue is faded out by that same figure a few percent in. It is sticky

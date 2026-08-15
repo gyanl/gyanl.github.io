@@ -36,16 +36,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var frame = null;
 
-    // Back-out: rises past 1, then settles onto it. The same one-overshoot
-    // shape the old transition carried in its cubic-bezier, moved here so it
-    // rides the scroll — CSS has no easing to apply to a value it is only
-    // being handed.
-    var overshoot = function (t) {
+    // Ease-out, and deliberately NOT a back-out: this is scrubbed by scroll, so
+    // an overshoot would run backwards as readily as forwards and a bubble
+    // sitting near the end of its band would wobble past its resting size and
+    // return every time the page moved a few pixels. Monotonic is the right
+    // shape for anything the reader is dragging.
+    var ease = function (t) {
         if (t <= 0) return 0;
         if (t >= 1) return 1;
-        var s = 1.7;
-        var u = t - 1;
-        return u * u * ((s + 1) * u + s) + 1;
+        var u = 1 - t;
+        return 1 - u * u * u;
     };
 
     var update = function () {
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         bubbles.forEach(function (bubble, i) {
             var due = origin + i * SEND_STEP;
-            bubble.style.setProperty('--send', overshoot((window.scrollY - due) / SEND_SPAN));
+            bubble.style.setProperty('--send', ease((window.scrollY - due) / SEND_SPAN));
         });
     };
 

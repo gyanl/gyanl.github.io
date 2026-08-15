@@ -1,52 +1,92 @@
 {%- comment -%}
   The stickers ringing the hero mark.
 
-  These are the Zomato iMessage pack (see /lettuce-party), cut out of the sheet
-  at assets/stickers.png — which is why they belong here and nowhere else on the
-  page: the hero IS an iMessage typing indicator, so the things orbiting it are
-  the stickers that thread would send.
+  The hero IS an iMessage typing indicator, so the things orbiting it are the
+  stickers that thread would send — which is why they belong here and nowhere
+  else on the page.
 
   Each one is placed by a direction vector rather than an angle, so the ring can
   be an ellipse fitted to the viewport (--ring-x by --ring-y in main.css) instead
   of a circle that would run off the top and bottom of a landscape window. --dx
-  and --dy are that direction; the same vector is what they travel along as the
-  page scrolls, so each sticker leaves the frame straight out from the centre.
+  and --dy are that direction. They stay put and fade as the page scrolls; they
+  used to be thrown out along the same vector, which cost too much on a phone.
 
   Roughly even around the clock, with two gaps left on purpose: nothing sits
   where the typing bubble hangs (just up and right of the mark's centre) and
   nothing sits at bottom dead centre, which is the scroll cue's.
 
-  aria-hidden with empty alt: the whole hero is decorative, and the page's real
-  h1 already carries the name.
+  --sticker-scale is doing real work here, not decoration. The art is sized by
+  HEIGHT (.hero-sticker__art is height: 100%, width: auto), so at an equal scale
+  a 2.6:1 sticker draws two and a half times the width of a square one and
+  swamps the ring. Each scale below is roughly sqrt(0.8 / aspect), which evens
+  the stickers out by area instead of by height. The two wide ones are placed
+  left and right, where the ellipse is widest and there is room for them.
+
+  The ring is NOT aria-hidden any more. Each sticker that has something to say
+  is a real button — hover on a mouse, tap on a touchscreen — and a focusable
+  control inside an aria-hidden subtree is a tab stop nobody is told about. The
+  button carries the note as its accessible name, so it is read once; the
+  visible bubble is hidden from AT to avoid saying it twice, and the art keeps
+  alt="" because the note already describes it.
 {%- endcomment -%}
-<div class="hero-stickers" aria-hidden="true">
-  <div class="hero-sticker" style="--dx: -1.00; --dy: -0.42;">
-    <img class="hero-sticker__art" src="{{ '/assets/stickers/sup-dog.png' | relative_url }}" alt=""
-      width="361" height="400" style="--tilt: -7deg; --float-delay: -0.4s;">
+<div class="hero-stickers" id="hero-stickers">
+  {%- comment -%} Left — wide, and the ellipse is at its widest here. {%- endcomment -%}
+  <div class="hero-sticker" style="--dx: -1.00; --dy: -0.42; --sticker-scale: 0.56; --tilt: -7deg; --float-delay: -0.4s;">
+    <button class="hero-sticker__hit" type="button" aria-label="I recently went to Hong Kong!">
+      <img class="hero-sticker__art" src="{{ '/assets/stickers/hk-cab.webp' | relative_url }}" alt=""
+        width="512" height="199">
+      <span class="hero-sticker__tip" aria-hidden="true">I recently went to Hong Kong!</span>
+    </button>
   </div>
 
-  <div class="hero-sticker" style="--dx: -0.52; --dy: -0.92; --sticker-scale: 0.92;">
-    <img class="hero-sticker__art" src="{{ '/assets/stickers/nacho.png' | relative_url }}" alt=""
-      width="319" height="400" style="--tilt: 6deg; --float-delay: -1.9s;">
+  {%- comment -%} Top left — the one portrait sticker, so it takes the full scale. {%- endcomment -%}
+  <div class="hero-sticker" style="--dx: -0.52; --dy: -0.92; --sticker-scale: 1.01; --tilt: 6deg; --float-delay: -1.9s;">
+    <button class="hero-sticker__hit" type="button" aria-label="My garden is my happy place">
+      <img class="hero-sticker__art" src="{{ '/assets/stickers/plant.webp' | relative_url }}" alt=""
+        width="398" height="512">
+      <span class="hero-sticker__tip" aria-hidden="true">My garden is my happy place</span>
+    </button>
   </div>
 
-  <div class="hero-sticker" style="--dx: 0.60; --dy: -0.86; --sticker-scale: 0.95;">
-    <img class="hero-sticker__art" src="{{ '/assets/stickers/lettuce-party.png' | relative_url }}" alt=""
-      width="281" height="400" style="--tilt: -5deg; --float-delay: -3.1s;">
+  {%- comment -%}
+    Top right. No note on this one yet, so it stays a plain image rather than a
+    button with nothing to announce.
+  {%- endcomment -%}
+  <div class="hero-sticker" style="--dx: 0.60; --dy: -0.86; --sticker-scale: 0.89; --tilt: -5deg; --float-delay: -3.1s;">
+    <img class="hero-sticker__art" src="{{ '/assets/stickers/mango-sticky.webp' | relative_url }}" alt=""
+        aria-hidden="true" width="512" height="502">
   </div>
 
-  <div class="hero-sticker" style="--dx: 1.04; --dy: -0.10; --sticker-scale: 0.88;">
-    <img class="hero-sticker__art" src="{{ '/assets/stickers/nuts.png' | relative_url }}" alt=""
-      width="353" height="400" style="--tilt: 8deg; --float-delay: -2.4s;">
+  {%- comment -%} Right. {%- endcomment -%}
+  <div class="hero-sticker" style="--dx: 1.04; --dy: -0.10; --sticker-scale: 0.76; --tilt: 8deg; --float-delay: -2.4s;">
+    <button class="hero-sticker__hit" type="button"
+      aria-label="I love cats! Here's Zara with my collection of cat figurines">
+      <img class="hero-sticker__art" src="{{ '/assets/stickers/cat.webp' | relative_url }}" alt=""
+        width="512" height="366">
+      <span class="hero-sticker__tip" aria-hidden="true">I love cats! Here's Zara with my collection of cat
+        figurines</span>
+    </button>
   </div>
 
-  <div class="hero-sticker" style="--dx: 0.72; --dy: 0.80;">
-    <img class="hero-sticker__art" src="{{ '/assets/stickers/espresso.png' | relative_url }}" alt=""
-      width="375" height="400" style="--tilt: -9deg; --float-delay: -0.9s;">
+  {%- comment -%} Bottom right — the other wide one. {%- endcomment -%}
+  <div class="hero-sticker" style="--dx: 0.72; --dy: 0.80; --sticker-scale: 0.57; --tilt: -9deg; --float-delay: -0.9s;">
+    <button class="hero-sticker__hit" type="button"
+      aria-label="I co-founded Public Knowledge Studio, a design agency for startups">
+      <img class="hero-sticker__art" src="{{ '/assets/stickers/pk-asterisks.webp' | relative_url }}" alt=""
+        width="512" height="209">
+      <span class="hero-sticker__tip" aria-hidden="true">I co-founded Public Knowledge Studio, a design agency for
+        startups</span>
+    </button>
   </div>
 
-  <div class="hero-sticker" style="--dx: -0.78; --dy: 0.74; --sticker-scale: 1.05;">
-    <img class="hero-sticker__art" src="{{ '/assets/stickers/is-this-a-date.png' | relative_url }}" alt=""
-      width="400" height="396" style="--tilt: 5deg; --float-delay: -4.2s;">
+  {%- comment -%} Bottom left. {%- endcomment -%}
+  <div class="hero-sticker" style="--dx: -0.78; --dy: 0.74; --sticker-scale: 0.89; --tilt: 5deg; --float-delay: -4.2s;">
+    <button class="hero-sticker__hit" type="button"
+      aria-label="I worked on a refresh for the Microsoft Word interface as a designer at Microsoft">
+      <img class="hero-sticker__art" src="{{ '/assets/stickers/word.webp' | relative_url }}" alt=""
+        width="512" height="512">
+      <span class="hero-sticker__tip" aria-hidden="true">I worked on a refresh for the Microsoft Word interface as a
+        designer at Microsoft</span>
+    </button>
   </div>
 </div>
