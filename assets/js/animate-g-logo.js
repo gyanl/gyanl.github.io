@@ -32,7 +32,14 @@ class GLogoReveal {
       // The mark shrinks over the tail of the runway, finishing at shrinkTo of
       // its drawn size just as it unpins and scrolls away.
       shrinkStart: 0.75,
-      shrinkTo: 0.2,
+      shrinkTo: 0.18,
+      // The plate behind the mark: how far its side runs past the 30x32 viewBox.
+      // It is a circle at every size (border-radius: 50%), so there is no radius
+      // to configure here.
+      plateInset: 1.28,
+      // Where the page starts crossing from the hero's light panel to the
+      // scheme's own background. Dark mode only — see --page-bg in main.css.
+      schemeStart: 0.8,
       ...options
     };
 
@@ -40,6 +47,7 @@ class GLogoReveal {
       mark: document.getElementById('hero-mark'),
       greeting: document.querySelector('.hero-greeting'),
       art: document.querySelector('.hero-mark__art'),
+      plate: document.querySelector('.hero-mark__plate'),
       path: document.getElementById('g-reveal-path'),
       layers: [...document.querySelectorAll('.g-reveal-layer')],
       dot: document.getElementById('g-reveal-dot'),
@@ -156,7 +164,29 @@ class GLogoReveal {
     // as a CSS scale on the art box rather than baked into the geometry, so the
     // stroke and dash figures above stay in plain viewBox units.
     const shrunk = this.ease((progress - shrinkStart) / (1 - shrinkStart));
-    this.elements.art.style.setProperty('--mark-shrink', 1 - (1 - shrinkTo) * shrunk);
+    const scale = 1 - (1 - shrinkTo) * shrunk;
+    // Published on .hero-mark, not on the art box, so the plate behind the mark
+    // inherits the same figure and the two shrink as one object.
+    this.elements.mark.style.setProperty('--mark-shrink', scale);
+
+    // The plate itself arrives over the same run — ring and white fill both
+    // fully transparent for the whole draw, so it is not there at all while the
+    // mark is being traced, and at full strength by the time the mark has shrunk
+    // to its settled size.
+    // On .hero-mark rather than the plate, so the name label beside it inherits
+    // the same figure and arrives on the same beat.
+    this.elements.mark.style.setProperty('--plate-settle', `${shrunk * 100}%`);
+
+    // Phase 4 — hand the page over from the hero's light panel to whatever the
+    // scheme's background is. --page-bg in main.css walks between the two on
+    // this; in light mode both ends are white and nothing moves. Its own band,
+    // later than the shrink, so the mark is most of the way out before the
+    // ground starts moving under it.
+    const { schemeStart } = this.config;
+    document.documentElement.style.setProperty(
+      '--scheme-t',
+      this.ease((progress - schemeStart) / (1 - schemeStart))
+    );
 
     // All viewBox units — independent of how large the mark is drawn.
     this.elements.dot.setAttribute('r', strokeWidth / 2);

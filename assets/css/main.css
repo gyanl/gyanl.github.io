@@ -75,6 +75,25 @@
     --focus-outline: 2px solid var(--accent-color);
     --focus-outline-offset: 2px;
 
+    /* The hero is pinned to light in every scheme (see .hero-spacer), so in dark
+       mode the page has to get from that white to its own background somewhere.
+       --scheme-t is driven from scroll by animate-g-logo.js over the tail of the
+       reveal, and --page-bg walks between the two across it — the hero fades
+       into the page instead of meeting it at a seam. In light mode both ends are
+       white, so this resolves to a no-op.
+
+       Deliberately not folded into --background-color: that token is what the
+       mix is measured against, and pointing it at its own result would be a
+       cycle. Anything that should follow the shift reads --page-bg directly. */
+    --scheme-t: 0;
+    --page-bg: color-mix(in srgb,
+            var(--background-color) calc(var(--scheme-t) * 100%),
+            #FFFFFF);
+    /* The ink that goes with it, for anything sitting on the crossfade. */
+    --page-ink: color-mix(in srgb,
+            var(--text-reg) calc(var(--scheme-t) * 100%),
+            rgb(42, 42, 42));
+
     /* Typography — SF Pro Rounded now leads both stacks. `ui-rounded` is the
        token that actually resolves it; the family name alone does not, since it
        ships as a system-only face, and platforms without the generic skip it.
@@ -206,7 +225,7 @@ body {
     margin: 0;
     padding: 0;
     color: var(--text-reg);
-    background-color: var(--background-color);
+    background-color: var(--page-bg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -345,13 +364,18 @@ button {
     left: 0;
     width: 100%;
     height: 100vh;
+    /* Only ever compared against the greeting: .hero-spacer is a stacking
+       context, so this cannot reach past it. What puts the hero under the About
+       section is the spacer's own z-index. */
     z-index: var(--z-content);
     pointer-events: none;
     overflow: visible;
+    /* Declared here, not on the plate: the name label is a sibling and sizes its
+       own offset off the same figure. */
+    --plate-inset: 1.28;
     /* Inked in the body text colour, same as the greeting, so the two read as
-       one thing — and so both follow the dark-mode swap of --text-reg. Picked
-       up below through currentColor. */
-    color: var(--text-reg);
+       one thing. Picked up below through currentColor. */
+    color: var(--hero-ink);
 }
 
 /**
@@ -362,6 +386,65 @@ button {
  * it is positioned in pure CSS, and anything script-driven — even coalesced to a
  * single frame — lags it by that frame and the two visibly come apart.
  */
+/* The plate behind the mark.
+
+   50%, not a pixel radius interpolated over the shrink: the radius would be in
+   the box's own unscaled units while the box's half-side stays put, so partway
+   down it dipped under half the side and the plate visibly passed through a
+   rounded square. A percentage is half the box by definition, at every frame. */
+/* The name under the mark, the way a thread heads itself.
+ *
+ * Sat below the plate rather than below .hero-mark, whose box is a full 100vh —
+ * so its offset is half the plate's ON-SCREEN height (the unscaled side times
+ * --mark-shrink) plus a gap, and it tracks the mark all the way down as it
+ * settles. Not inside the plate, so the type keeps its own size instead of being
+ * scaled to nothing along with it.
+ *
+ * Fades in on --plate-settle with the plate itself: while the mark is still
+ * being drawn there is nothing to label. */
+.hero-mark__name {
+    position: absolute;
+    left: 50%;
+    top: calc(50% + (32 * var(--mark-unit) * var(--plate-inset) * var(--mark-shrink, 1) / 2) + 0.9em);
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    letter-spacing: var(--letter-spacing-regular);
+    line-height: 1;
+    /* Follows the page across the light-to-dark crossfade — unlike the mark,
+       which keeps its white plate and so stays black throughout. */
+    color: var(--page-ink);
+    opacity: var(--plate-settle, 0%);
+}
+
+.hero-mark__plate {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(32 * var(--mark-unit) * var(--plate-inset));
+    height: calc(32 * var(--mark-unit) * var(--plate-inset));
+    /* Same transform as the art box, so plate and mark shrink as one object. */
+    transform: translate(-50%, -50%) scale(var(--mark-shrink, 1));
+    border-radius: 50%;
+    /* Transparent for the whole draw, filling to white across the shrink — the
+       same band --plate-settle drives the ring on. By the end the plate is the
+       mark's own white badge, which is what keeps the mark black on white once
+       the page has gone dark under it. */
+    background: color-mix(in srgb, #FFFFFF var(--plate-settle, 0%), transparent);
+    /* A box-shadow ring rather than a border: a border is part of the box and
+       would grow the plate. Counter-scaled so the ring holds a true 1px as the
+       plate shrinks, instead of thinning away to nothing.
+
+       The ring is --black-10 throughout and only its opacity moves:
+       --plate-settle is 0 for the whole draw and ramps to 100% across the
+       shrink, so the plate is simply absent until the mark starts settling. */
+    box-shadow: 0 0 0 calc(1px / var(--mark-shrink, 1)) color-mix(in srgb,
+            var(--black-10) var(--plate-settle, 0%),
+            transparent);
+}
+
 .hero-mark__art {
     position: absolute;
     top: 50%;
@@ -467,7 +550,7 @@ button {
        that figure scaled to 80%, so the dots now read smaller than the ball. */
     font-size: calc(9.75 * var(--mark-unit));
     line-height: 1;
-    color: var(--text-reg);
+    color: var(--hero-ink);
 }
 
 /* Sat behind the greeting and centred on it. Sized in em so it scales with the
@@ -546,18 +629,10 @@ button {
     }
 }
 
-/* Dark mode: the grey bubble becomes an iMessage-blue gradient, with the
-   greeting reversed out of it. The gradient itself is declared in the SVG (see
-   _layouts/home.html) because fill: url(#id) resolves against the document. */
-@media (prefers-color-scheme: dark) {
-    .hero-greeting__blob path {
-        fill: url(#ios-blue);
-    }
-
-    .hero-greeting__text {
-        color: #FFFFFF;
-    }
-}
+/* No dark-mode treatment here on purpose: the hero is pinned to light in every
+   scheme — see .hero-spacer, which redeclares the tokens its children read. The
+   #ios-blue gradient in _layouts/home.html is left in place but unreferenced;
+   the About thread below is where the blue bubble lives now. */
 
 /* At rest the mark is a single dot, so nudging the whole layer reads as the dot
    bouncing. animate-g-logo.js drops .is-resting on the first scroll and eases
@@ -578,6 +653,12 @@ button {
  * which is what makes the bounces read as impatient rather than idle. Rises use
  * ease-out and falls ease-in, so gravity looks like gravity.
  */
+/* The hop heights are in --mark-unit, like the rest of the hero, NOT in px.
+   Hardcoded pixels were the one part of this lockup that did not scale: the
+   bubble is sized off min(vw, vh), so on a phone it is less than half its
+   desktop size while a 34px hop stayed 34px — and the dots bounced clean out
+   through the top of it. These are the old figures divided by the desktop unit
+   they were tuned against (34 / 13.75 ≈ 2.47), so desktop is unchanged. */
 @keyframes dot-bounce {
     0% {
         transform: translateY(0);
@@ -585,7 +666,7 @@ button {
     }
 
     11% {
-        transform: translateY(-34px);
+        transform: translateY(calc(-2.47 * var(--mark-unit)));
         animation-timing-function: cubic-bezier(0.7, 0, 0.9, 0.4);
     }
 
@@ -595,7 +676,7 @@ button {
     }
 
     29% {
-        transform: translateY(-14px);
+        transform: translateY(calc(-1.02 * var(--mark-unit)));
         animation-timing-function: cubic-bezier(0.7, 0, 0.9, 0.4);
     }
 
@@ -605,7 +686,7 @@ button {
     }
 
     40% {
-        transform: translateY(-4px);
+        transform: translateY(calc(-0.29 * var(--mark-unit)));
         animation-timing-function: cubic-bezier(0.7, 0, 0.9, 0.4);
     }
 
@@ -655,7 +736,36 @@ button {
 .hero-spacer {
     height: 250vh;
     position: relative;
-    z-index: 15;
+
+    /* The hero is pinned to light in every scheme: a black mark on white, with
+       the grey typing bubble beside it. Done by redeclaring the tokens its
+       children read rather than by hardcoding colours on each of them — the
+       mark's finisher layer is `stroke="currentColor"`, the bubble is
+       --black-5, the plate's ring is --black-10, and all three inherit from
+       here. The background has to be set too, or dark mode would leave a black
+       mark on a black page.
+
+       Anything added inside .hero-spacer inherits this, which is the intent:
+       the whole hero is one light panel and the page goes dark below it.
+
+       The ink stays black rather than fading with --page-bg: cross-fading the
+       mark and the ground together would wash both out to the same mid-grey
+       halfway through. The mark is scrolling up and out over that stretch
+       anyway, so it keeps its contrast for as long as it is worth seeing.
+
+       --hero-ink rather than an override of --text-reg: --page-ink at :root is
+       measured against --text-reg, and shadowing that token here would make
+       --page-ink re-resolve to plain black for anything inside the hero — which
+       is exactly what the name label must not do. */
+    --hero-ink: rgb(42, 42, 42);
+    --black-5: rgba(0, 0, 0, .05);
+    --black-10: rgba(0, 0, 0, .1);
+    background: var(--page-bg);
+    /* Under .container. This is the z-index that actually decides it: positioned
+       with a z-index, the spacer is its own stacking context, so the mark and
+       the greeting inside it can only order against each other — at 15 the whole
+       hero painted over the About section no matter what the mark itself said. */
+    z-index: calc(var(--z-content) - 1);
     pointer-events: none;
     /* The mark is centred in a viewport-tall sticky box, so once it shrinks the
        bottom half of that box is dead space between it and the About copy. This
@@ -738,7 +848,12 @@ button {
     position: relative;
     display: flex;
     flex-direction: column;
-    background-color: var(--background-color);
+    /* No background of its own: body already paints --page-bg, and an opaque
+       .container sitting a z-index above the hero would clip whatever of the
+       mark it overlapped — which, as the hero exits, is the bottom of the
+       plate's ring. Its content still paints over the mark, which is what the
+       stacking order is actually for. */
+    background-color: transparent;
     padding-top: var(--spacing-4xl);
     z-index: var(--z-content);
     gap: var(--spacing-4xl);
@@ -809,17 +924,136 @@ button {
     padding: var(--spacing-6xl) 0;
 }
 
-.huge-text {
-    font-family: var(--font-heading);
-    font-size: var(--font-size-4xl);
-    letter-spacing: var(--letter-spacing-tight);
-    line-height: var(--line-height-base);
-    opacity: 0;
+/* ===== The about thread =====
+ *
+ * The about copy as an iMessage thread, picking up the hero: that lockup is a
+ * typing indicator, so these are the messages it was typing and they carry the
+ * same colours — grey on light, iMessage blue on dark.
+ *
+ * --chat-bubble-bg is the one knob both the bubble and its tail read, and the
+ * tail's outer cut has to be painted in the colour BEHIND the bubble, which is
+ * .container's --background-color.
+ */
+.chat {
+    /* Solid, not --black-5: the tail is built from two boxes that overlap the
+       bubble, and at 5% alpha every overlap stacks into a visibly darker patch.
+       This is that same grey resolved against the page. */
+    --chat-bubble-bg: #F2F2F2;
+    --chat-bubble-fg: var(--text-reg);
+    --chat-tail-size: 18px;
+
+    /* Narrower than the section so the bubbles wrap after a line or two, the way
+       a real thread reads — a full-width bubble stops looking like a message. */
+    max-width: 34em;
+    margin: 0 auto;
+    /* Room for the tail, which hangs 1.45 tails left of the bubble's own box and
+       would otherwise sit outside the column. */
+    padding-left: calc(var(--chat-tail-size) * 1.45);
+    text-align: left;
 }
 
-/* Without JS the character-stagger animation never runs, so reveal it outright. */
-.no-js .huge-text {
+.chat__stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Tight, as within one sender's run. */
+    gap: 3px;
+}
+
+.chat__bubble {
+    position: relative;
+    margin: 0;
+    padding: 10px 16px;
+    border-radius: 20px;
+    background: var(--chat-bubble-bg);
+    color: var(--chat-bubble-fg);
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.4;
+    /* Cannot exceed the column, and never a lone dangling word. */
+    max-width: 100%;
+    text-wrap: pretty;
+}
+
+/* The tail, the standard two-piece construction:
+ *
+ *   ::before  a rounded square of bubble colour, bulging past the bottom-left
+ *             corner — the nub.
+ *   ::after   a box of PAGE colour laid over the nub's outer part, painted on
+ *             top. Its own bottom-right corner is rounded away, and that missing
+ *             corner is what survives as the tail's concave curl.
+ *
+ * The mask's right edge has to land exactly on the bubble's left edge (left ==
+ * -width): stop it short and it eats a white notch out of the gap between nub
+ * and bubble, overshoot and it bites into the bubble itself.
+ */
+.chat__bubble--tail::before,
+.chat__bubble--tail::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: var(--chat-tail-size);
+}
+
+.chat__bubble--tail::before {
+    left: calc(var(--chat-tail-size) * -0.4);
+    width: var(--chat-tail-size);
+    background: var(--chat-bubble-bg);
+    border-bottom-right-radius: calc(var(--chat-tail-size) * 0.85);
+    z-index: 0;
+}
+
+.chat__bubble--tail::after {
+    /* left == -width, so the right edge sits on the bubble's own left edge. */
+    left: calc(var(--chat-tail-size) * -1.45);
+    width: calc(var(--chat-tail-size) * 1.45);
+    background: var(--background-color);
+    border-bottom-right-radius: calc(var(--chat-tail-size) * 0.55);
+    /* Over the nub — the whole construction depends on this one painting last.
+       Stated rather than left to source order. Both sit entirely outside the
+       bubble's own box, so neither can reach the text. */
+    z-index: 1;
+}
+
+/* The send animation. Each bubble is armed on load and released as it crosses a
+   line near the bottom of the viewport, so the thread is scrolled in one message
+   at a time rather than played on a timer — animate-about-chat.js adds .is-sent
+   per bubble. Without JS nothing is armed and the bubbles are simply here.
+
+   The iOS send: the bubble scales up from its own bottom edge — growing out of
+   the line it arrives on — and overshoots slightly on the way, rather than
+   sliding in. */
+.chat.is-armed .chat__bubble {
+    opacity: 0;
+    transform: translateY(28px) scale(0.55);
+    transform-origin: 50% 100%;
+}
+
+.chat.is-armed .chat__bubble.is-sent {
     opacity: 1;
+    transform: none;
+    /* Opacity resolves early so the bubble is solid while it is still growing —
+       fading over the whole travel reads as a slow dissolve, not a send. */
+    transition: opacity 0.18s ease-out,
+        transform 0.62s cubic-bezier(0.18, 1.3, 0.42, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .chat.is-armed .chat__bubble {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Dark mode: the same swap the hero bubble makes. Flat blue rather than the
+   hero's gradient — that one is graded across a single large blob, and repeating
+   it per bubble would band the stack. */
+@media (prefers-color-scheme: dark) {
+    .chat {
+        --chat-bubble-bg: #0A84FF;
+        --chat-bubble-fg: #FFFFFF;
+    }
 }
 
 .about-links {
@@ -908,21 +1142,34 @@ button {
 
 .project {
     display: block;
-    padding: var(--spacing-md);
+    /* Vertical only. The card has no background of its own, so side padding did
+       not read as inset — it just pushed the thumbnail and title in off the grid
+       column and out of line with everything else on the page. */
+    padding: var(--spacing-md) 0;
     position: relative;
     color: var(--text-reg);
 }
 
 /* The site's button: a fully rounded grey pill. Used by the work cards' live-site
    shortcut and by the contact CTA. */
+/* Used on both <a> and <button>. The button form needs the UA styling taken off
+   explicitly — left alone it renders a 2px outset bevel outside the pill's own
+   radius and a platform font, so the two forms of the same component did not
+   match. `border: 0` is not enough on its own; without appearance:none the
+   native look survives it. */
 .pill-button {
     display: inline-flex;
     align-items: center;
     gap: var(--spacing-xs);
     padding: var(--spacing-sm) var(--spacing-lg);
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
     font-family: var(--font-body);
     font-size: var(--font-size-md);
     font-weight: 600;
+    line-height: var(--line-height-base);
+    text-align: center;
     /* Half the height comfortably exceeds the pill, so the ends stay circular
        whatever the label length. */
     border-radius: 999px;
@@ -931,6 +1178,13 @@ button {
     cursor: pointer;
     transition: background-color var(--transition-normal), color var(--transition-normal),
         transform var(--transition-normal);
+}
+
+/* The native focus ring goes with the native styling, so put one back — keyboard
+   users lose the button entirely otherwise. */
+.pill-button:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
 }
 
 .pill-button:hover {
@@ -1297,7 +1551,6 @@ a.tag:hover {
         animation: none;
     }
 
-    .huge-text,
     .project {
         opacity: 1;
         transform: none;
@@ -1355,8 +1608,29 @@ a.tag:hover {
         padding: var(--spacing-3xl) 0;
     }
 
-    .huge-text {
-        font-size: var(--font-size-2xl);
+    /* Left-aligned rather than centred, and against the column's own edge — a
+       thread hung off the left is what a phone actually shows. */
+    .about-section {
+        justify-content: flex-start;
+        text-align: left;
+        /* The same column the rest of the page uses, so the thread's left edge
+           lines up with EXPERIENCE and everything below it. --width-home is
+           narrower and centred, which left the bubbles inset on their own. */
+        width: var(--width-mobile);
+    }
+
+    .chat {
+        --chat-tail-size: 14px;
+        /* Flush to the column, tail and all: the bubbles start on the page's own
+           left edge and the tail hangs out into the gutter beside it. */
+        margin: 0;
+        padding-left: 0;
+    }
+
+    .chat__bubble {
+        font-size: var(--font-size-md);
+        padding: 9px 14px;
+        max-width: 75vw;
     }
 
     .flex-row {
