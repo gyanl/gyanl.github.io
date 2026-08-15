@@ -12,29 +12,60 @@ Gyan Lakhwani's personal site (gyanl.com), a Jekyll static site deployed by GitH
 script/bootstrap   # gem install bundler && bundle install
 script/server      # bundle exec jekyll serve — local preview at localhost:4000
 script/build       # bundle exec jekyll build → _site/
-script/cibuild     # build, assert _site/index.html exists, then delete _site
+script/cibuild     # build, assert _site/index.html exists, delete _site, gem build minima.gemspec
+script/slice-stickers.py   # re-cut assets/stickers/*.png out of assets/stickers.png
 ```
 
 **The local build needs a UTF-8 locale.** Under the default `LANG` on this machine, Ruby reads source files as US-ASCII and the build dies on the first non-ASCII character. Prefix with `LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8` if you hit `Invalid US-ASCII character`. GitHub Pages builds fine because its locale is already UTF-8.
 
-There are no tests and no linter. Verification is: does the build succeed, and does the page look right in `script/server`. `_site/` is committed in the working tree but gitignored — a stale local artifact, not the deployed output.
+There are no tests and no linter. Verification is: does the build succeed, and does the page look right in `script/server`. `_site/` is gitignored — if it is present it is a stale local artifact, not the deployed output.
 
 ## Architecture
 
 Originally a fork of the `minima` theme; the theme has since been replaced entirely. **There is no `_sass/` directory and no Sass step** — `assets/css/main.css` is plain CSS served as authored, and it is the only stylesheet on the site. `minima.gemspec` and `_config.yml`'s `theme: jekyll-theme-minimal` are vestigial.
 
-The design system (tokens, Copernicus/TASA Orbiter type, glass nav, card grid) is lifted from the sibling repo `publicknowledgestudio.github.io`. If you change one, consider whether the other should follow.
+The design system (tokens, glass nav, card grid) is lifted from the sibling repo `publicknowledgestudio.github.io`. If you change one, consider whether the other should follow. Type is `ui-rounded` first in both stacks — that generic is what actually resolves SF Pro Rounded, since the family name alone does not; Nunito is the non-self-hosted fallback, and the self-hosted TASA Explorer/Orbiter faces sit behind those.
 
-**Layout chain:** `_layouts/default.html` is standalone — it emits `<html>` itself via `_includes/site/head.html`, then the sticky nav, `{{ content }}`, and `_includes/site/footer.html` (which closes `</body></html>`). `post`, `page`, `archive`, and `tagpage` all extend it. `home` does *not*: it needs a full-bleed hero, so it composes the same three site includes directly.
+**Layout chain:** `_layouts/default.html` is standalone — it emits `<html>` itself via `_includes/site/head.html`, then `site/logo.html`, the sticky `site/nav.html`, `{{ content }}`, and `_includes/site/footer.html` (which closes `</body></html>`). `post`, `page`, `archive`, and `tagpage` all extend it. `home` does *not*: it needs a full-bleed hero, so it composes the site includes directly — and deliberately carries **no logo and no nav**, just head, the hero, the content container, `site/contact.html` and the footer.
 
-- `home.html` — hero (asterisk video reveal), About, the filterable work grid, recent writing.
+- `home.html` — the g-logo hero (see below), the About thread, `home/resume.html`, the work grid, the contact card.
 - `archive.html` / `tagpage.html` — both render `_includes/site/post-list.html`, which takes a `posts` param. Jekyll rejects bracket indexing in an include param, so `tagpage` binds `site.tags[page.tag]` to a variable first.
 - `post.html` — before markdownify, resolves Obsidian-style `[[Post Title]]` wikilinks against `site.documents` titles. Posts are authored in Obsidian (see `_posts/.obsidian/`), hence this.
 - Tag pages are backed by stub files in `tag/*.md` (`layout: tagpage` + `tag:` + `description:`). **A new tag needs a matching `tag/<name>.md` stub or its links 404.**
 
-**The home work grid is config-driven.** `home_tags` in `_config.yml` lists which tags become filter buttons and in what order; `_includes/home/work.html` reads it. Adding a section is a config line, not a template edit. Posts tagged `featured` get a "Featured" filter, which is the default when any post carries it (currently none do, so the grid defaults to "All"). `featured` is deliberately *not* in `home_tags` — it's a hand-applied selection marker, pulled into the grid separately and hidden from the card's tag chips.
+**The home work grid is the `featured` tag, in date order.** `_includes/home/work.html` reads `site.tags.featured` and nothing else — no filter switcher, no tag chips on the cards. Adding a project to the grid means adding `featured` to that post's tags. `featured_first: true` in a post's front matter promotes it to the top regardless of its date.
 
-**The asterisk reveal.** `assets/js/animate-asterisk.js` drives a clip-path from scroll position. It measures `.hero-spacer` and completes the reveal exactly as that element scrolls past, so **retiming the effect is a one-line change to `.hero-spacer { height }` in `main.css`** — don't reintroduce a hardcoded viewport multiple in the JS. Keep the runway as a sized element, not a margin: margins collapse, and a `margin: 0` in any later breakpoint silently kills the whole effect (this was a real bug).
+`home_tags` in `_config.yml` used to drive the filter buttons and **is now read by no template at all** — it survives as documentation of the section order and because the `tag/*.md` stubs mirror it. Editing it changes nothing on the site. The `teaching` collection is likewise no longer surfaced in the grid, but it still outputs the `/dv`, `/ergo`, `/tech1` fallback pages, so leave it alone.
+
+### The hero
+
+`assets/js/animate-g-logo.js` drives the whole thing from **one** scroll listener and one `render()` per frame. Everything it animates is a phase in that method with its own band in `config` (`swellStart`, `shrinkStart`, `schemeStart`, `burstEnd`) and its own ease. Add effects as another phase there rather than a second scroll listener — anything on its own listener drifts a frame out of step with the mark, which is visible.
+
+Geometry lives in CSS, not JS. The mark is a viewBox plus `--mark-unit`, so it resizes with no script at all; the JS only publishes scalars that `main.css` reads:
+
+| property | set on | drives |
+| --- | --- | --- |
+| `--mark-shrink` | `.hero-mark` | mark and plate scaling down together |
+| `--plate-settle` | `.hero-mark` | the white plate and the name label fading in |
+| `--scheme-t` | `:root` | `--page-bg`/`--page-ink` crossfading light→dark |
+| `--sticker-burst` | `:root` | the sticker ring's radial throw and fade |
+| `--hero-progress` | `:root` | the scroll cue fading out (raw, not eased) |
+
+All five have `:root` defaults, so the resting state is right on first paint and with JS off entirely.
+
+**Retiming the whole reveal is a one-line change to `.hero-spacer { height }` in `main.css`** — the JS derives the runway by measuring that element. Don't reintroduce a hardcoded viewport multiple in the JS. Keep the runway a sized element, not a margin: margins collapse, and a `margin: 0` in any later breakpoint silently kills the effect (this was a real bug).
+
+Three rules for anything added inside `.hero-spacer`:
+
+- **Extra layers must be zero-height and sticky, placed before `.hero-mark`.** A sticky box holds its place in flow, so a viewport-tall layer takes 100vh out of the runway and leaves the mark a fraction of the pinned run it is timed against. At `height: 0` it costs no layout and its contents hang off it absolutely. It goes *before* the mark because sticky only ever pushes an element **down** to its `top` — placed after, a layer's natural position is already 100vh and it starts below the fold. Both `.hero-stickers` and `.hero-scroll-cue` are built this way.
+- **The hero is pinned to light in every scheme,** by redeclaring `--hero-ink`, `--black-5` and `--black-10` on `.hero-spacer`. `--white` is *not* redeclared and flips to near-black in dark mode, so hero chrome that must stay white needs a literal `#FFFFFF` (see `.hero-mark__plate` and `.hero-scroll-cue__ring`).
+- **`.hero-spacer` uses `overflow-x: clip`, never `hidden`.** The stickers are thrown well past the window and a transform landing off-screen is scrollable overflow. `hidden` would make the spacer a scroll container and break the sticky pinning of everything inside it.
+
+**The sticker ring.** `_includes/home/hero-stickers.html` places six cut-outs from the Zomato iMessage pack around the mark. Each carries a direction vector (`--dx`/`--dy`) rather than an angle, because the ring is an ellipse (`--ring-x` by `--ring-y`) — a circle in `vmin` puts the top and bottom pair off a landscape window while bunching the sides against the mark — and scaling a vector per axis is one multiply where an angle would need trigonometry CSS lacks. The same vector is what they travel along, so the radial motion falls out of the placement. Retuning the layout is editing those inline custom properties; nothing else needs to change. Two spots are left empty on purpose: where the typing bubble hangs, and bottom dead centre, which is the scroll cue's.
+
+The cut-outs come from `assets/stickers.png` via `script/slice-stickers.py`. The white is knocked out with a flood fill from the sheet border rather than a global threshold, because three of the six sit on their own light card and "remove everything near white" eats those cards along with the gutter. The tolerance band is tight (the date sticker's lavender blob is only 16 off white) with a floor under it (the lettuce sticker's card is 3 off white, and without the floor it came back as a low alpha that un-premultiplied into a grey square).
+
+Stickers are sized by **height**, not width: they came off one sheet of 480px cells so they share a height but not a width, and sizing by width blows the narrow ones up half again as large as the wide ones.
 
 **Prose.** Post bodies get `.prose`, which carries all the markdown element styling. Two conventions inherited from the old theme and preserved: `h6` renders as an accent-barred pull-quote, not a heading; and `sup` is styled as a footnote chip.
 
@@ -57,7 +88,13 @@ thumbnail: /assets/thumbs/drm.png
 
 **Asset paths are root-relative — `/assets/...`, with the leading slash.** That resolves identically on `localhost:4000` and on `gyanl.com`, because `_config.yml` sets no `baseurl`. Don't write bare `assets/...` (no slash): posts live at `/:title`, so a bare path resolves against the post URL and 404s. Absolute `https://gyanl.com/...` also works in production but breaks every image in local preview, which is why the site moved off it. Nothing on the site puts a thumbnail in `og:image`, so there's no meta-tag reason to keep URLs absolute.
 
-**Thumbnails are square and small** — the existing set is 144×144 (some 100×100). The CSS caps them at 144px rather than upscaling. If you start shipping larger art, raise `--project-thumbnail-size`; until then, don't.
+**Thumbnails are cropped differently in each of the three places they appear**, so there is no single right size:
+
+- **Home work cards** (`.project-thumbnail`) render the image full-width, cover-cropped from the top and capped at `--project-thumbnail-max-height` (480px). This wants **landscape art at real resolution** — the `assets/thumbs/pk/` set is 1000×640 and 1500×960.
+- **Post page headers** (`.entry-thumbnail`) render a square at `--project-thumbnail-size` (96px).
+- **Archive and tag rows** (`.listing-thumbnail`) render a square at `--project-thumbnail-size-mobile` (72px).
+
+The older `assets/thumbs/` set is 144×144 (some 100×100) and still serves the two square slots fine. A post that will appear on the home grid wants a wide thumbnail; anywhere else, square is right.
 
 Drafts go in `_posts/Drafts/`, excluded in `_config.yml`. Files in `_posts/` whose names don't match the date convention (`AA 2022-11-18-designer.md`, `sale backup.md`) are silently skipped by Jekyll.
 
@@ -68,4 +105,14 @@ Drafts go in `_posts/Drafts/`, excluded in `_config.yml`. Files in `_posts/` who
 - **`.prose p` outspecifies a bare component class.** `.prose p { margin: 0 0 20px 0 }` (0,1,1) beats `.slideshow` (0,1,0), so a component rendered as a `<p>` silently loses its margins. Scope such rules as `.prose .slideshow` — this is why the slideshow's full-bleed margin has to be written that way.
 - **Percentage padding resolves against the parent, not the element.** The slideshow is `100vw` inside the narrow `.measure` column, so its centring padding must be in `vw`; `50%` would measure the column.
 - **The slideshow is CSS-only** — a scroll-snap strip, no JavaScript. `{: .slideshow }` on a paragraph of images; any count, any filenames, alt text preserved. A standalone IAL needs a preceding block, so if it is the first thing after the front matter, put it on the line directly above the images with no blank line (see `_posts/2023-10-23-diwaloween.md`).
-- `_posts/sale backup.md` has uncommitted local changes and is not a valid post filename. Left alone deliberately.
+- `_posts/sale backup.md` is not a valid post filename, so Jekyll skips it. Left alone deliberately.
+
+## Dead weight, verified
+
+Leftovers from earlier versions of the site. None of it breaks anything, but don't "fix" any of it thinking it's live — it has no effect on the rendered page:
+
+- **`setup-anime.js` and the anime.js CDN script.** Both load on the home page only. `setup-anime.js` animates `.service-card` and `.team-card`, and neither class exists anywhere in this repo — they are `publicknowledgestudio.github.io` classes. The character-stagger this file used to do was retired with `.huge-text`.
+- **The `radial-flowers.mp4` preload** in `head.html`, also home-only. It is referenced nowhere else: the video hero it belonged to was replaced by the g-logo reveal, so this fetches a video that never plays.
+- **`_includes/home/writing.html` and `_includes/site/tabbar.html`** are included by no layout.
+- **`home_tags` in `_config.yml`**, as above — read by nothing.
+- `minima.gemspec` and `_config.yml`'s `theme: jekyll-theme-minimal`, both vestigial from the fork.
