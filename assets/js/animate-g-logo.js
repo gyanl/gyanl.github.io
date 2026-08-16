@@ -489,11 +489,9 @@ class GLogoReveal {
    * transition it out, so the dot settles instead of jumping.
    */
   stopBounce() {
-    // The MARK only. The greeting's dots bounce on the same keyframes but are
-    // deliberately left running: the lockup is a typing indicator, and one that
-    // stops the moment you scroll is just a picture of three dots. The mark has
-    // to settle because it stops being a dot and becomes the logo.
-    [this.elements.mark].forEach(el => {
+    // The mark and the greeting's typed dots bounce on the same keyframes, so
+    // both have to be settled together or the dots would carry on alone.
+    [this.elements.mark, this.elements.greeting].forEach(el => {
       if (!el || !el.classList.contains('is-resting')) return;
 
       const moving = el === this.elements.mark ? [el] : [...el.querySelectorAll('.hero-greeting__dot')];
@@ -509,15 +507,17 @@ class GLogoReveal {
   }
 
   /**
-   * Start the MARK bouncing again, for a reader who has scrolled back to the
-   * top. The greeting's dots never stopped — see stopBounce.
+   * Start it again, for a reader who has scrolled all the way back to the top.
+   *
+   * The hero is a typing indicator, and a typing indicator that has stopped for
+   * good is just three dots. Coming back to the top should find it still going.
    *
    * The inline transforms stopBounce left behind have to be cleared: they are
    * the 'none' it eased to, and an element carrying that would sit still while
    * the keyframes ran underneath it.
    */
   startBounce() {
-    [this.elements.mark].forEach(el => {
+    [this.elements.mark, this.elements.greeting].forEach(el => {
       if (!el || el.classList.contains('is-resting')) return;
 
       const moving = el === this.elements.mark ? [el] : [...el.querySelectorAll('.hero-greeting__dot')];

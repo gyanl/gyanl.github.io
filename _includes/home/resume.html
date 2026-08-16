@@ -6,10 +6,12 @@
   Each row carries its organisation's logo. alt is empty on purpose: the org is
   named in the line beside it, so a described logo would say it twice.
 
-  Dates in short form, and consistently so: all three lines of a row are set at
-  the page's body size, and the rail they sit in is a fixed width (see
-  .resume__row in main.css) so the dates line up down the page. Full month names
-  no longer fit it.
+  Each row renders as an iOS-style notification card (see .resume__row in
+  main.css): logo as the app icon, role and org as the two lines, and the date
+  as the timestamp in the top right.
+
+  Dates in short form, and consistently so: the timestamp is set not to wrap, so
+  a long one does not push the text column narrow. Full month names would.
 {%- endcomment -%}
 
 <section class="resume">
@@ -17,10 +19,51 @@
 
   <ol class="resume__list">
     <li class="resume__row">
-      <div class="resume__period">Jan 2025 &ndash; Aug 2026</div>
+      <div class="resume__period">Aug &rsquo;26 &ndash; Dec &rsquo;26</div>
       <div class="resume__detail">
-        <img class="resume__logo" src="{{ '/assets/logos/public-knowledge.webp' | relative_url }}" alt=""
-          width="128" height="128" loading="lazy">
+        <span class="resume__plate">
+          <img class="resume__logo" src="{{ '/assets/logos/ecole-intuit-lab.webp' | relative_url }}" alt=""
+            width="128" height="128" loading="lazy">
+        </span>
+        <div class="resume__text">
+          <div class="resume__role">Visiting Lecturer</div>
+          <div class="resume__org">&Eacute;cole Intuit Lab</div>
+        </div>
+      </div>
+    </li>
+    <li class="resume__row">
+      <div class="resume__period">Oct &rsquo;25 &ndash; Apr &rsquo;26</div>
+      <div class="resume__detail">
+        <span class="resume__plate">
+          <img class="resume__logo" src="{{ '/assets/logos/south-park-commons.webp' | relative_url }}" alt=""
+            width="128" height="128" loading="lazy">
+        </span>
+        <div class="resume__text">
+          <div class="resume__role">Member</div>
+          <div class="resume__org">South Park Commons</div>
+        </div>
+      </div>
+    </li>
+    <li class="resume__row">
+      <div class="resume__period">Aug &rsquo;25 &ndash; Dec &rsquo;25</div>
+      <div class="resume__detail">
+        <span class="resume__plate">
+          <img class="resume__logo" src="{{ '/assets/logos/ecole-intuit-lab.webp' | relative_url }}" alt=""
+            width="128" height="128" loading="lazy">
+        </span>
+        <div class="resume__text">
+          <div class="resume__role">Visiting Lecturer</div>
+          <div class="resume__org">&Eacute;cole Intuit Lab</div>
+        </div>
+      </div>
+    </li>
+    <li class="resume__row">
+      <div class="resume__period">Jan &rsquo;25 &ndash; Aug &rsquo;26</div>
+      <div class="resume__detail">
+        <span class="resume__plate">
+          <img class="resume__logo" src="{{ '/assets/logos/public-knowledge.webp' | relative_url }}" alt=""
+            width="128" height="128" loading="lazy">
+        </span>
         <div class="resume__text">
           <div class="resume__role">Founding Designer</div>
           <div class="resume__org">Public Knowledge Studio</div>
@@ -28,46 +71,64 @@
       </div>
     </li>
     <li class="resume__row">
-      <div class="resume__period">Sep 2022 &ndash; Dec 2024</div>
+      <div class="resume__period">Jan &rsquo;25 &ndash; May &rsquo;25</div>
       <div class="resume__detail">
-        <img class="resume__logo" src="{{ '/assets/logos/microsoft.webp' | relative_url }}" alt=""
-          width="128" height="128" loading="lazy">
+        <span class="resume__plate">
+          <img class="resume__logo" src="{{ '/assets/logos/dtu.webp' | relative_url }}" alt=""
+            width="128" height="128" loading="lazy">
+        </span>
+        <div class="resume__text">
+          <div class="resume__role">Guest Lecturer</div>
+          <div class="resume__org">Delhi Technological University</div>
+        </div>
+      </div>
+    </li>
+    <li class="resume__row">
+      <div class="resume__period">Sep &rsquo;22 &ndash; Dec &rsquo;24</div>
+      <div class="resume__detail">
+        <span class="resume__plate">
+          <img class="resume__logo" src="{{ '/assets/logos/microsoft.webp' | relative_url }}" alt=""
+            width="128" height="128" loading="lazy">
+        </span>
         <div class="resume__text">
           <div class="resume__role">Product Designer II</div>
           <div class="resume__org">Microsoft</div>
         </div>
       </div>
     </li>
-
     <li class="resume__row">
-      <div class="resume__period">Jul 2020 &ndash; Sep 2022</div>
+      <div class="resume__period">Jul &rsquo;20 &ndash; Sep &rsquo;22</div>
       <div class="resume__detail">
-        <img class="resume__logo" src="{{ '/assets/logos/microsoft.webp' | relative_url }}" alt=""
-          width="128" height="128" loading="lazy">
+        <span class="resume__plate">
+          <img class="resume__logo" src="{{ '/assets/logos/microsoft.webp' | relative_url }}" alt=""
+            width="128" height="128" loading="lazy">
+        </span>
         <div class="resume__text">
           <div class="resume__role">Product Designer I</div>
           <div class="resume__org">Microsoft</div>
         </div>
       </div>
     </li>
-
     <li class="resume__row">
-      <div class="resume__period">Jul 2018 &ndash; Jun 2020</div>
+      <div class="resume__period">Jul &rsquo;18 &ndash; Jun &rsquo;20</div>
       <div class="resume__detail">
-        <img class="resume__logo" src="{{ '/assets/logos/iit-bombay.webp' | relative_url }}" alt=""
-          width="128" height="128" loading="lazy">
+        <span class="resume__plate">
+          <img class="resume__logo" src="{{ '/assets/logos/iit-bombay.webp' | relative_url }}" alt=""
+            width="128" height="128" loading="lazy">
+        </span>
         <div class="resume__text">
           <div class="resume__role">MDes, Interaction Design</div>
-          <div class="resume__org">IDC School of Design, IIT Bombay</div>
+          <div class="resume__org">IDC, IIT Bombay</div>
         </div>
       </div>
     </li>
-
     <li class="resume__row">
-      <div class="resume__period">Jun 2019 &ndash; Jul 2019</div>
+      <div class="resume__period">Jun &rsquo;19 &ndash; Jul &rsquo;19</div>
       <div class="resume__detail">
-        <img class="resume__logo" src="{{ '/assets/logos/microsoft.webp' | relative_url }}" alt=""
-          width="128" height="128" loading="lazy">
+        <span class="resume__plate">
+          <img class="resume__logo" src="{{ '/assets/logos/microsoft.webp' | relative_url }}" alt=""
+            width="128" height="128" loading="lazy">
+        </span>
         <div class="resume__text">
           <div class="resume__role">Design Intern</div>
           <div class="resume__org">Microsoft</div>
@@ -75,16 +136,17 @@
       </div>
     </li>
     <li class="resume__row">
-      <div class="resume__period">Dec 2016 &ndash; Jan 2017</div>
+      <div class="resume__period">Dec &rsquo;16 &ndash; Jan &rsquo;17</div>
       <div class="resume__detail">
-        <img class="resume__logo" src="{{ '/assets/logos/zomato.webp' | relative_url }}" alt=""
-          width="128" height="128" loading="lazy">
+        <span class="resume__plate">
+          <img class="resume__logo" src="{{ '/assets/logos/zomato.webp' | relative_url }}" alt=""
+            width="128" height="128" loading="lazy">
+        </span>
         <div class="resume__text">
           <div class="resume__role">Design Intern</div>
           <div class="resume__org">Zomato</div>
         </div>
       </div>
     </li>
-
   </ol>
 </section>

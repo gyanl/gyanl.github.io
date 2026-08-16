@@ -86,7 +86,17 @@
         animate-g-logo.js — see .hero-mark__plate in main.css.
       {%- endcomment -%}
       <div class="hero-mark__plate"></div>
-      <svg class="hero-mark__art" viewBox="0 0 30 32" preserveAspectRatio="xMidYMid meet"
+      {%- comment -%}
+        The viewBox starts at 0.6 rather than 0, which slides the mark that far
+        left inside its box. The path is already centred to the pixel — its ink
+        box, stroke included, is exactly 0 to 30 — but it does not read that
+        way: the left of a g is a full round bowl and the right is the thin tip
+        of the tail, so the weight sits right of the middle and the mark looks
+        pushed over inside the plate. This is an optical correction, so it is
+        done here on the window rather than on the seven paths, which are
+        identical on purpose.
+      {%- endcomment -%}
+      <svg class="hero-mark__art" viewBox="0.6 0 30 32" preserveAspectRatio="xMidYMid meet"
         aria-hidden="true" focusable="false">
         {%- comment -%}
           The mark drawn seven times over identical geometry — six colours and a

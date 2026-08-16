@@ -166,6 +166,17 @@
     --sender-fill: #F4F4F4;
     --sender-edge: rgba(0, 0, 0, 0.13);
 
+    /* The six colours the g-logo's reveal is drawn in, leading the black
+       finisher. Duplicated from the stroke attributes in _layouts/home.html —
+       those have to ship in the markup so the mark is right on first paint,
+       before any stylesheet — so if one set changes, change both. */
+    --reveal-1: #61BB46;
+    --reveal-2: #FDB827;
+    --reveal-3: #F5821F;
+    --reveal-4: #E03A3E;
+    --reveal-5: #963D97;
+    --reveal-6: #009DDC;
+
     --scheme-t: 0;
     /* The other two figures animate-g-logo.js publishes from scroll position.
        --hero-progress is the reveal's raw 0..1; --sticker-burst is that same
@@ -735,13 +746,11 @@ button {
 .hero-thinking__line {
     display: inline-block;
     font-family: var(--font-body);
-    font-size: 0.195em;
+    font-size: 0.207em;
     font-weight: 500;
     line-height: 1.2;
-    /* The resting grey, and the full-strength ink the wash lights the word with
-       as it crosses. */
+    /* The grey the word rests in, before and after the colour passes through. */
     --thinking-ink: rgba(0, 0, 0, 0.32);
-    --thinking-lit: rgba(0, 0, 0, 0.82);
     color: var(--thinking-ink);
 }
 
@@ -765,10 +774,11 @@ button {
      *
        The MASK is the reveal: opaque to the left of --wash, clear to the right,
        with 28% of soft edge between. The BACKGROUND is the wash itself — the
-       text is painted from a gradient clipped to its own glyphs, with a band of
-       full-strength ink at --wash falling away to the resting grey on either
-       side. So the edge does not just uncover the word, it lights it as it
-       passes and leaves it settled behind.
+       text is painted from a gradient clipped to its own glyphs, carrying the
+       g-logo's own six colours as a band centred on --wash and falling away to
+       the resting grey either side. So the edge does not just uncover the word,
+       it colours it as it passes and leaves it settled behind, which is the
+       same thing the mark does as it draws.
 
        color: transparent is what background-clip: text needs to show through;
        the caret below therefore has to name its own colour rather than take
@@ -776,9 +786,14 @@ button {
     color: transparent;
     background-image: linear-gradient(90deg,
             var(--thinking-ink) 0%,
-            var(--thinking-ink) calc(var(--wash) - 26%),
-            var(--thinking-lit) var(--wash),
-            var(--thinking-ink) calc(var(--wash) + 26%),
+            var(--thinking-ink) calc(var(--wash) - 34%),
+            var(--reveal-1) calc(var(--wash) - 25%),
+            var(--reveal-2) calc(var(--wash) - 15%),
+            var(--reveal-3) calc(var(--wash) - 5%),
+            var(--reveal-4) calc(var(--wash) + 5%),
+            var(--reveal-5) calc(var(--wash) + 15%),
+            var(--reveal-6) calc(var(--wash) + 25%),
+            var(--thinking-ink) calc(var(--wash) + 34%),
             var(--thinking-ink) 100%);
     -webkit-background-clip: text;
     background-clip: text;
@@ -788,7 +803,7 @@ button {
 }
 
 .hero-thinking__word.is-washing {
-    animation: thinking-wash 0.72s cubic-bezier(0.25, 0.6, 0.3, 1);
+    animation: thinking-wash 0.79s cubic-bezier(0.25, 0.6, 0.3, 1);
 }
 
 @keyframes thinking-wash {
@@ -799,18 +814,6 @@ button {
     to {
         --wash: 140%;
     }
-}
-
-/* The caret, shown only while characters are coming off, which is what makes
-   the deletion read as backspacing rather than the word just shrinking. */
-.hero-thinking__word.is-deleting::after {
-    content: '';
-    display: inline-block;
-    width: 0.08em;
-    height: 0.9em;
-    margin-left: 0.06em;
-    vertical-align: -0.12em;
-    background: var(--thinking-ink);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1124,32 +1127,18 @@ button {
     --sticker-size: clamp(6.75rem, 24vmin, 17.25rem);
 }
 
-/* The ring is sized off vmin but placed off a vmin-floored radius, so on a
-   narrow window the stickers grow as fast as the circle they sit on and stop
-   fitting inside it — at the desktop figure above the widest one hangs 22px off
-   the left edge of a phone and the right-hand one lands on the typing bubble.
-   Held to roughly its old size here; the full size is a desktop effect, where
-   there is room for it. */
+/* On a phone the ring and what sits on it both come in, and they have to move
+   together: the previous override here went the other way — larger stickers on
+   a tighter ring — and drove the widest one 25px off the left edge.
+
+   Sized against the WIDEST sticker, not the average. They are sized by height
+   (see .hero-sticker__art) and came off one sheet, so a 1.8:1 cut-out is
+   half again as wide as a square one at the same setting, and it is the one
+   that decides whether the ring fits. */
 @media (max-width: 800px) {
-    /* TEMPORARY: the ring is off on a phone.
-     *
-       display: none rather than visibility or opacity, so the six images are
-       never laid out, never rastered and never composited — on a narrow screen
-       they were the most expensive thing in the hero by a distance.
-
-       This takes the welcome note with it, and that is deliberate rather than
-       collateral: the note's copy is "here are some stickers that tell you a
-       bit about me", which reads as nonsense with nothing around it.
-
-       The sizing below is kept so turning this back on is deleting one line.
-       The stickers are sized off vmin and PLACED off a vmin-floored radius, so
-       the two figures have to move together — growing them without tightening
-       the ring walks the widest one off the edge. */
     .hero-stickers {
-        display: none;
-
-        --sticker-size: clamp(5rem, 30vmin, 11rem);
-        --ring-x: max(27vw, 26vmin);
+        --sticker-size: clamp(4.5rem, 20vmin, 11rem);
+        --ring-x: max(27vw, 30vmin);
     }
 }
 
@@ -2247,6 +2236,26 @@ a.tag:hover {
    in _includes/home/resume.html. */
 .resume {
     padding: var(--spacing-6xl) 0 0 0;
+
+    /* Declared on the section, not on the list: the heading pins off these too,
+       and it is the list's sibling rather than its child.
+
+       --stack-bottom is where the front card of the waiting pile rests, above
+       the bottom edge of the window. --stack-peek is how much further down each
+       card behind it sits, which is the sliver of it you can see. --stack-sink
+       is how far a card is scaled down while it is still in the pile. */
+    --stack-bottom: 3.5rem;
+    --stack-peek: 0.625rem;
+    --stack-sink: 0.86;
+
+    /* The card's corner and the inset everything sits at inside it. The logo
+       plate's own corner is derived from the pair (see .resume__plate) so the
+       two curves stay concentric: a rounded box inset by N inside another one
+       is only concentric if its radius is exactly N less, and eyeballing the
+       inner figure is what makes a corner look slightly wrong without it being
+       obvious why. Changing either of these keeps that true. */
+    --card-radius: 1.375rem;
+    --card-pad: var(--spacing-md);
 }
 
 .resume__list {
@@ -2262,55 +2271,201 @@ a.tag:hover {
     max-width: var(--max-width-home);
     margin: 0 auto var(--spacing-2xl) auto;
     font-family: var(--font-body);
-    /* A label, not a heading in size: uppercase, tracked out and secondary is
-       what marks it as one, so it sits in the small tier with the buttons and
-       the footer rather than taking a step of its own on the scale. */
-    font-size: var(--font-size-md);
+    /* A title, set large and in sentence case. It was a small tracked-out
+       uppercase label until the experience section was rebuilt as a stack with
+       a heading that stays on screen while you read it — at label size that
+       heading had nothing to hold the section together with, and once one of
+       them was a title the other could not stay a label.
+
+       Still secondary in colour: it is a title, but what sits under it is the
+       content. Colour is what separates the two, which is the same division the
+       rest of the page makes. */
+    font-size: var(--font-size-3xl);
     font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-wide);
+    letter-spacing: var(--letter-spacing-tight);
     color: var(--text-secondary);
 }
 
 .resume__list {
     list-style: none;
+    /* Runway. A sticky card is released the moment its container's bottom edge
+       reaches it, and the six cards together are shorter than a laptop window —
+       so with the list ending at the last card, the whole thing is on screen at
+       once and not one of them ever pins. */
     padding: 0;
+
+    /* A stack, not a table. See .resume__row for the mechanic.
+
+       The cards sit next to each other, at the spacing a list of notifications
+       has. The gap was briefly a large vh figure, on the theory that it was
+       scroll distance rather than white space — it is not: a card that has been
+       released scrolls normally, so the distance to the next one is space you
+       actually look at, and at 26vh the section read as three cards adrift in a
+       column of black. The pile builds as the section comes UP into the window,
+       which needs no gap at all.
+
+       No overflow or height on this element. A sticky child pins against its
+       nearest SCROLLING ancestor, so giving the list a scroll container of its
+       own would trap all six inside it and nothing would pin against the page. */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
 }
 
+/* Each job is a notification: app icon, then the two lines, with the time on
+   the right. That is the same furniture as the thread above it, which is the
+   point — the page is a phone screen, so the resume arrives the way anything
+   else on a phone does.
+
+   Laid out in source order with the date pulled to the end rather than written
+   last in the markup: the date is the row's heading, and a screen reader should
+   hear "Jan 2025 to Aug 2026, Founding Designer" in that order. */
 .resume__row {
-    display: grid;
-    /* Each row is its own grid — an <li> apiece — so this figure is what keeps
-       the date rails in a line down the page. It cannot be max-content for the
-       same reason: that sizes each row to its own date and the rail comes out
-       ragged. Wide enough for the longest date at the row's size, which is why
-       the dates are written in short form in _includes/home/resume.html. */
-    grid-template-columns: 260px 1fr;
-    gap: var(--spacing-lg);
-    padding: var(--spacing-lg) 0;
-    border-top: 1px solid var(--black-5);
+    display: flex;
+    /* Top, not centre. The timestamp hangs off the first line the way a
+       notification's does, and stays there when a long org name wraps. */
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    /* Even on all four sides, which is what lets the plate inside be concentric
+       with the card — see --card-pad below. */
+    padding: var(--card-pad);
+
+    /* Not a token: notification corners are much rounder than the site's cards,
+       and rounder than the logo inside them, which is what reads as iOS. */
+    border-radius: var(--card-radius);
+
+    /* Opaque, not the translucent --black-5 the rest of the page lifts with.
+       The cards overlap, and two translucent fills laid over each other stack
+       up into a darker band exactly where they meet — which is the one part of
+       a stack that has to look like a clean edge. Mixed off the page colour so
+       it stays a lift on the background rather than a fixed grey. */
+    background: color-mix(in srgb, #FFFFFF 7%, var(--background-color));
+    border: 1px solid var(--black-10);
+
+    /* The pile is at the FOOT of the window, not the head of it. A card that
+       has not been reached yet is held just above the bottom edge; the ones
+       behind it sit a step lower each, so you see a sliver of every one that is
+       still to come. Scrolling on releases the front card, it rises and reads
+       normally, and the pile behind it comes up a place.
+
+       Sticky to `bottom`, then, not to `top`: a card pins while its natural
+       position is still BELOW the line, and lets go once the page has brought
+       it up to it. Cards that have been read simply scroll away off the top —
+       nothing collects up there. */
+    position: sticky;
+
+    /* What sells it: a card has to cast onto the one it is riding over, or the
+       two just look like they are touching. Tight and directly below, the way a
+       card resting a millimetre off another one does. */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
 }
 
-.resume__row:last-child {
-    border-bottom: 1px solid var(--black-5);
+/* Each card's place in the waiting pile. --i is its index and --rows the number
+   of them, both published by stack-resume.js — which is already walking the
+   list to work out the depths, and is the only place that can count.
+
+   These were six hand-written nth-child blocks until the list grew to ten. CSS
+   has no counter either `bottom` or `z-index` can read, so every added job
+   meant another block, and a job added without one would have quietly sat at
+   the front of the pile with the wrong offset.
+
+   The z-index runs the opposite way to document order, which is the whole
+   reason it has to be set at all: left alone a later card paints over an
+   earlier one and the pile comes out inside-out, with the card you are about to
+   read buried behind the ones after it.
+
+   The defaults are the no-JavaScript case — every card level with the last, so
+   the section is a plain list of cards rather than a broken pile. */
+.resume__row {
+    /* Capped, or a long list walks its own pile off the bottom of the window:
+       ten cards at a 10px step is a 100px pile under a 56px rest, and the last
+       four sat below the edge at a negative offset. Past the cap the cards
+       coincide, which costs nothing — they are behind three others and show no
+       edge of their own anyway. */
+    bottom: calc(var(--stack-bottom) - var(--stack-peek) * min(var(--i, 0), 3));
+    z-index: calc(var(--rows, 1) - var(--i, 0));
 }
 
-/* Logo, then the two lines of text beside it. The logo sits INSIDE the detail
-   column rather than becoming a third grid column, so the row keeps its two
-   tracks and the mobile stack — which collapses those tracks to one — needs no
-   special case for it. */
+/* The taper. A card waiting in the pile is smaller than one that has come up
+   out of it, so the pile recedes instead of reading as six cards at the same
+   size that happen to overlap. --depth is how far back in the pile a card is —
+   0 for the front one and for any card that has been released — and is set by
+   assets/js/stack-resume.js.
+
+   This was first built on a scroll-driven animation, `animation-timeline:
+   view()`, to keep the section free of JavaScript. It cannot work: a view
+   timeline reads the element's box AS POSITIONED, and a pinned card's box is
+   sitting fully on screen at the bottom edge, so its `entry` range is already
+   finished the whole time it is in the pile. Every card measured at scale 1.
+   What decides the taper is where a card WOULD be, which is the one thing the
+   rendered box no longer says.
+
+   `scale` rather than `transform: scale()` so it composes with a transform
+   instead of replacing it, and the origin is the bottom edge so a card shrinks
+   INTO the pile rather than away from it. */
+.resume__row {
+    transform-origin: bottom center;
+    /* The 3 is MAX_DEPTH in stack-resume.js: --depth counts 1, 2, 3 going back
+       through the pile and is 0 once a card is released, so a card reaches
+       --stack-sink at the back of the pile and returns to full size the moment
+       it comes out of it. */
+    scale: calc(1 - (1 - var(--stack-sink)) * var(--depth, 0) / 3);
+    /* --depth moves a whole step at a time, so without this the card jumps
+       between sizes. Short enough to keep up with a fast scroll. */
+    transition: scale 0.18s ease-out;
+}
+
+/* The pile still reads without the taper — the offsets and the shadows do that
+   on their own. This is the part that moves under you, so this is the part that
+   goes. */
+@media (prefers-reduced-motion: reduce) {
+    .resume__row {
+        scale: 1;
+        transition: none;
+    }
+}
+
+/* Logo, then the two lines of text beside it — the icon of the app doing the
+   notifying. */
 .resume__detail {
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
+    /* Takes the room the date does not, so the date sits hard against the right
+       edge of every card and the rail lines up down the stack. */
+    flex: 1;
+    min-width: 0;
+}
+
+/* The plate the logo sits on, standing in for a notification's app icon. It is
+   the plate that is rounded, not the artwork: the logos are a mixed set — some
+   full-bleed squares, some marks on their own white card — and rounding the
+   image itself clips the corners off the first kind while doing nothing at all
+   for the second. Giving them all one container makes them one shape.
+
+   The row is two lines tall and this is one square, so it must not be squeezed
+   when the org name wraps. */
+.resume__plate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 3.25rem;
+    height: 3.25rem;
+    /* Concentric with the card: the plate is inset by --card-pad, so its corner
+       has to be exactly that much tighter than the card's to run parallel to
+       it. The extra 1px is the card's border — border-radius is measured on the
+       border box, so the padding alone undershoots the real inset by its
+       width. */
+    border-radius: calc(var(--card-radius) - var(--card-pad) - 1px);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .resume__logo {
     width: 2.25rem;
     height: 2.25rem;
-    /* The row is two lines tall and the logo is one square, so it must not be
-       squeezed when the org name wraps. */
-    flex: none;
-    border-radius: var(--border-radius-sm);
+    /* Contain, not cover: these are logos, and a mark cropped to fill its box is
+       a mark with its edges cut off. */
     object-fit: contain;
 }
 
@@ -2327,6 +2482,16 @@ a.tag:hover {
 .resume__period,
 .resume__org {
     color: var(--text-secondary);
+}
+
+.resume__period {
+    order: 1;
+    /* Reads as a timestamp rather than a column: smaller than the lines it sits
+       beside, and never broken across two of them. */
+    font-size: var(--font-size-md);
+    white-space: nowrap;
+    /* Onto the baseline of the role beside it. */
+    padding-top: 0.35em;
 }
 
 
@@ -2360,8 +2525,11 @@ a.tag:hover {
     padding: var(--spacing-5xl);
 }
 
-/* Same treatment as .section-heading — it is the same thing, a label over a
-   section — so the card opens the way the two sections above it do. */
+/* NOT the same as .section-heading, though it used to be. That is now a title
+   set large over a section; this is a small label directly above the card's own
+   4xl display line, and set at title size it would compete with the line it is
+   introducing rather than introduce it. It keeps the treatment both of them
+   used to share. */
 .contact-cta__label {
     font-family: var(--font-body);
     font-size: var(--font-size-md);
@@ -2779,16 +2947,20 @@ a.tag:hover {
         width: var(--width-mobile);
     }
 
-    /* Stacked: the date rail becomes the row's first line. */
+    /* The card keeps its shape on a phone — this is the arrangement a phone
+       actually uses. Only the padding comes in, so the text is not left with a
+       column too narrow to hold a role on one line. */
     .resume__row {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-xs);
+        gap: var(--spacing-sm);
     }
 
-    .resume__period,
     .resume__role,
     .resume__org {
         font-size: var(--font-size-lg);
+    }
+
+    .resume__period {
+        font-size: var(--font-size-sm);
     }
 
     .contact-cta {
