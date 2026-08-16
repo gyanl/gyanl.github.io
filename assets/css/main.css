@@ -707,12 +707,18 @@ button {
        device, or a bolder text setting — the pair came out a different size and
        off the ball's line. These are geometry and land identically everywhere.
 
-       --dot-size is 1.12 mark units at the font-size below, which is baseStroke
-       in animate-g-logo.js: a dot is exactly the ball's resting diameter.
+       --dot-size is the ball's resting diameter, baseStroke in
+       animate-g-logo.js. That is 1.12 mark units, and this used to be written
+       as exactly that — 0.1149em — which came out 1.8% too fat: the mark's SVG
+       does not render one viewBox unit at --mark-unit, since the art box and
+       the 30x32 box it maps to are not in the same proportion. So the figure
+       here is measured against the ball as drawn rather than derived from the
+       unit, and the ratio is constant across viewport sizes.
+
        --dot-pitch is centre to centre, the advance the period had in that face.
        The ball sits one further pitch on, which is what makes the row read as
        three dots rather than two and a stray. */
-    --dot-size: 0.1149em;
+    --dot-size: 0.1129em;
     --dot-pitch: 0.252em;
 
     /* The bubble's width, and the height that follows from the artwork's own
@@ -747,10 +753,17 @@ button {
     position: absolute;
     /* Anchored to the ball, not to the screen. The mark centres on the viewport
        and its 30x32 box has its middle at (15, 16), so the ball at (23.83, 12.39)
-       sits 8.83 units right of centre and 3.61 above it. Landing the text's end
+       sits 3.61 units above that centre — and 8.83 right of it, less the 0.6 the
+       mark's viewBox is offset by, which comes to 8.23. Landing the text's end
        on that point makes the ball the third dot of "Hi..." — the trailing GAP
-       is the space that would have preceded it. */
-    left: calc(50% + 8.83 * var(--mark-unit));
+       is the space that would have preceded it.
+
+       That 0.6 is `viewBox="0.6 0 30 32"` in _layouts/home.html, the optical
+       correction that slides the mark left inside its box. It has to be
+       repeated here: the ball IS the third dot, so moving the mark's artwork
+       moves one dot of three and leaves the other two behind. Change one,
+       change the other. */
+    left: calc(50% + (8.83 - 0.6) * var(--mark-unit));
     top: calc(50vh - 3.61 * var(--mark-unit));
     /* The box is exactly the dot row: a pitch per dot across, one dot tall.
        Stated rather than inherited from a line box, since there is no longer any
