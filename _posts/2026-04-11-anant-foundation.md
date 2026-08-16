@@ -9,6 +9,7 @@ tags:
 thumbnail: /assets/thumbs/pk/afa-thumbnail.webp
 external_url: https://anantfoundation.art
 date: 11-04-2026
+featured_order: 7
 ---
 
 The Anant Foundation for the Arts supports modern and contemporary South Asian art practices. We designed and built their website.

@@ -9,13 +9,18 @@
 {%- endcomment -%}
 
 {%- comment -%}
-  Newest first, except that any post with `featured_first: true` is promoted to
-  the top of the grid — a way to lead with a project regardless of its date.
+  Ordered by `featured_order` in each post's front matter — the grid is a
+  sequence someone chose, not a feed, and the dates are when the work happened
+  rather than how it should be read.
+
+  It replaced a sort by date with a `featured_first: true` flag promoting one
+  post to the top, which could say "this one leads" and nothing about the rest.
+
+  A post tagged `featured` with no order sorts last, since Liquid reads the
+  missing value as an empty string and `sort` puts those after the numbers. It
+  will appear — it just wants a number.
 {%- endcomment -%}
-{%- assign by_date = site.tags.featured | sort: "date" | reverse -%}
-{%- assign leaders = by_date | where: "featured_first", true -%}
-{%- assign rest = by_date | where_exp: "p", "p.featured_first != true" -%}
-{%- assign featured_posts = leaders | concat: rest -%}
+{%- assign featured_posts = site.tags.featured | sort: "featured_order" -%}
 
 <section class="work-section">
   <h2 class="section-heading">Recent work</h2>

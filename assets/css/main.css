@@ -2436,18 +2436,27 @@ button {
     background-color: var(--black-5);
 }
 
-/* Title and description are the same size, as the experience rows are: the
-   colour is what separates them. */
+/* The title now carries weight and a step of size, where it used to match its
+   description exactly and be told apart by colour alone — the rule the rest of
+   this page still follows. A card is a different case: it is a list of things
+   being scanned for a name, so the name should be findable without reading the
+   sentence under it. */
 .project-title {
     margin-top: var(--spacing-md);
     font-family: var(--font-body);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    letter-spacing: var(--letter-spacing-tight);
 }
 
 .project-description {
     font-family: var(--font-body);
     font-size: var(--font-size-xl);
-    color: var(--text-secondary);
+    /* Further back than --text-secondary, which against this black is still
+       bright enough to read as a second title rather than as the note under
+       one. Mixed toward the page rather than set with opacity, so it stays one
+       flat colour instead of letting the background through the letterforms. */
+    color: color-mix(in srgb, var(--text-secondary) 68%, var(--background-color));
     padding: var(--spacing-xs) 0 var(--spacing-md) 0;
 }
 
@@ -3175,9 +3184,14 @@ a.tag:hover {
     }
 
     /* One step down from desktop, and still one size for the pair. */
-    .project-title,
     .project-description {
         font-size: var(--font-size-lg);
+    }
+
+    /* One step up from the description here too, so the pairing survives the
+       drop to mobile sizes rather than collapsing back to a single size. */
+    .project-title {
+        font-size: var(--font-size-xl);
     }
 
     .resume {

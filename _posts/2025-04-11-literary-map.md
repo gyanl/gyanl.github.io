@@ -12,6 +12,7 @@ tags:
 thumbnail: /assets/thumbs/pk/hammock-thumbnail.jpg
 external_url: https://map.hammockmag.com
 date: 11-04-2025
+featured_order: 3
 ---
 
 We partnered with [Hammock Mag](https://map.hammockmag.com) to bring their editorial archive to life through an interactive map that visualises the geographical journey of the authors they've published. The goal was a discovery tool that merged design, development and content strategy in a way that honoured the magazine's thoughtful tone and experimental spirit.

@@ -11,6 +11,7 @@ tags:
 thumbnail: /assets/thumbs/pk/bobo-thumbnail.jpg
 external_url: https://bobocakery.com/
 date: 11-04-2025
+featured_order: 5
 ---
 
 As a boutique bakery, Bobo Cakery could bake you any cake you wanted, and there was a lot of scope for customisation. We wanted to maintain the ability to pick your dream cake — but with an interface that wasn't just text boxes.

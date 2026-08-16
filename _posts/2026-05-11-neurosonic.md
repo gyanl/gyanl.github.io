@@ -9,6 +9,7 @@ tags:
 thumbnail: /assets/thumbs/pk/neuro-sonic-thumbnail.jpg
 external_url: https://www.neuro-sonic.com/
 date: 11-05-2026
+featured_order: 4
 ---
 
 NeuroSonic is a medical device that makes stroke prevention faster, cheaper and dramatically more accessible. We designed and built the landing page.
