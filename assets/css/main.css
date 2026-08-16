@@ -1234,6 +1234,18 @@ button {
     }
 }
 
+/* The opening deal. layout-hero-stickers.js searches for an arrangement that
+   fits, and plays that search rather than hiding it: one attempt per frame,
+   with one more sticker turned up each time, so the ring is laid out in front
+   of the reader instead of simply being there.
+
+   visibility rather than display, so every sticker keeps its box and the solver
+   is placing the same layout the reader ends up looking at. Scoped to the class
+   the script adds, so with no JavaScript the ring is simply all there. */
+.hero-stickers.is-dealing .hero-sticker:not(.is-dealt) {
+    visibility: hidden;
+}
+
 /* While a note is showing, the ring comes out from behind the lockup so the
    note is not read through the mark. Only then — the stickers sit UNDER the
    mark the rest of the time, which is the arrangement the hero is built on. The
@@ -1317,8 +1329,14 @@ button {
     /* Where the reader has dragged it to. The independent translate property,
        NOT another term in the transform above: that composes WITH transform
        rather than replacing it, and keeps the drag exactly on the cursor while
-       the transform is free to scale the offset for the throw. */
-    translate: var(--drag-x, 0px) var(--drag-y, 0px);
+       the transform is free to scale the offset for the throw.
+
+       --jitter-x/y ride along here during the opening deal: a few pixels of
+       wobble on every sticker already on the table each time another one is
+       laid down, which is what makes it read as stop motion rather than as
+       things switching on. Kept out of --dx/--dy so the solved layout is not
+       disturbed, and zeroed when the deal finishes. */
+    translate: calc(var(--drag-x, 0px) + var(--jitter-x, 0px)) calc(var(--drag-y, 0px) + var(--jitter-y, 0px));
 
     opacity: calc(1 - var(--sticker-burst));
 
@@ -1392,7 +1410,7 @@ button {
     display: block;
     height: 100%;
     width: auto;
-    transform: rotate(var(--tilt, 0deg));
+    transform: rotate(calc(var(--tilt, 0deg) + var(--jitter-r, 0deg)));
     /* An <img> is a native drag source: press and move and the browser starts
        its own image drag, which cancels the pointer stream the sticker drag is
        built on. The markup carries draggable="false" as well — belt and braces,

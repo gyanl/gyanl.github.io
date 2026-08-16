@@ -197,6 +197,10 @@ document.addEventListener('DOMContentLoaded', function () {
             // both in one frame is what makes the landing read as one motion.
             held.classList.add('is-dragging');
             held.classList.remove('is-applied');
+            // Hands it to the reader: layout-hero-stickers.js re-deals the ring
+            // on every resize, and will not move a sticker that has been put
+            // somewhere deliberately.
+            held.dataset.placed = 'by-hand';
         }
 
         held.style.setProperty('--drag-x', (baseX + dx) + 'px');
