@@ -2116,16 +2116,17 @@ button {
 }
 
 .chat__bubble--tail::after {
-    /* The right edge stops 1px SHORT of the bubble's own left edge.
+    /* The right edge lands exactly on the bubble's own left edge.
      *
-       Landing it exactly on the edge is what it looks like it should do, and it
-       leaves a hairline of page colour between the nub and the bubble: the tail
-       size is fractional, so the mask's right edge and the bubble's left edge
-       round to different subpixels and the gap falls between them. Stopping a
-       pixel early puts the mask's edge inside the nub, which is the same colour
-       as the bubble, so there is nothing to see either way. */
+       It used to stop a pixel short, from when both of these painted ABOVE the
+       bubble: back then the pixel hid a hairline of page colour between the nub
+       and the fill. They sit under the fill now, so that hairline cannot
+       happen — and what the pixel did instead was leave a sliver of the nub
+       showing outside the bubble for the whole height of the tail, a thin blue
+       line running up the left edge that read as the balloon being out of
+       alignment with itself. It got worse when the tail grew taller. */
     left: calc(var(--chat-tail-size) * -1.45);
-    width: calc(var(--chat-tail-size) * 1.45 - 1px);
+    width: calc(var(--chat-tail-size) * 1.45);
     background: var(--background-color);
     border-bottom-right-radius: calc(var(--chat-tail-size) * 0.55);
     /* Over the nub — the whole construction depends on this one painting last
