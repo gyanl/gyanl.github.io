@@ -160,6 +160,15 @@
       {%- endcomment -%}
       <span class="hero-greeting__text"><span class="hero-greeting__dot"></span><span
           class="hero-greeting__dot"></span></span>
+
+      {%- comment -%}
+        The caption under the lockup. The last word is swapped on a timer by
+        animate-hero-thinking.js; the list lives there rather than here so the
+        markup carries only the resting state, which is what shows with no
+        JavaScript.
+      {%- endcomment -%}
+      <p class="hero-thinking"><span class="hero-thinking__line">Gyan is <span
+            class="hero-thinking__word">thinking</span></span></p>
     </div>
   </div>
 

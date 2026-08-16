@@ -107,6 +107,17 @@
    sticker would snap 1.12 → 0.94 → 1 rather than settle. inherits: false: it
    belongs to the one sticker being dragged, and there is nothing below it that
    should pick it up. */
+/* The gradient wash across the hero's changing word. A percentage rather than a
+   number because it is a gradient stop; registered so a keyframe can sweep it
+   instead of stepping between two token streams. */
+@property --wash {
+    syntax: '<percentage>';
+    inherits: false;
+    /* Past the right edge, which is the resting state: the word fully revealed
+       and the highlight parked off the end of it. */
+    initial-value: 140%;
+}
+
 @property --drag-scale {
     syntax: '<number>';
     inherits: false;
@@ -638,6 +649,8 @@ button {
     /* Space between the photo and the bubble's left edge. Separate from
        --bubble-gap so the two can be tuned independently. */
     --photo-gap: 0.02em;
+    /* Named so the caption below can line its left edge up with the photo's. */
+    --photo-right: calc(50% + var(--bubble-width) / 2 + var(--photo-gap) - var(--bubble-shift));
     /* How far below the dots' row the bubble and photo sit. This element's box
        IS the row now, so the offset is measured from its centre rather than
        from a line box — and zero centres the two on the dots, which is where
@@ -687,6 +700,125 @@ button {
     color: var(--hero-ink);
 }
 
+/* The caption under the lockup, left-aligned to the photo.
+ *
+ * The greeting's own box is only the two dots wide and sits with its right edge
+ * on the g-logo's ball, so everything in this lockup is placed off that edge.
+ * The photo hangs at --photo-right from it; its LEFT edge is that plus its own
+ * width, and this starts there. All in em like the rest of the group, so the
+ * one font-size on .hero-greeting still scales the whole thing.
+ *
+ * Absolutely positioned, so it cannot widen the greeting — that width is what
+ * the translate(-100%) anchoring measures to put the dots on the ball.
+ *
+ * The type size is set on the line INSIDE rather than here, and that is not
+ * cosmetic: the offsets above are in em, and em on this element would resolve
+ * against its own font-size. Shrink the text here and the whole caption walks
+ * out of position with it. */
+.hero-thinking {
+    position: absolute;
+    left: calc(100% - var(--photo-right) - var(--photo-size));
+    /* Tucked close under the photo: the caption belongs to the lockup, and a
+       gap the size of the one the bubble already has above it read as a
+       separate line of the page. */
+    top: calc(50% + var(--bubble-drop) + var(--photo-size) / 2 + 0.01em);
+    margin: 0;
+    white-space: nowrap;
+    /* Zero, and the line inside sets its own. This box inherits the lockup's
+       font-size — that is the whole point, the offsets above are in its em —
+       and with it an inherited line-height near 100px. The small text would
+       then sit on the baseline of a line box that tall, floating well below
+       where the box itself is. */
+    line-height: 0;
+}
+
+.hero-thinking__line {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.195em;
+    font-weight: 500;
+    line-height: 1.2;
+    /* The resting grey, and the full-strength ink the wash lights the word with
+       as it crosses. */
+    --thinking-ink: rgba(0, 0, 0, 0.32);
+    --thinking-lit: rgba(0, 0, 0, 0.82);
+    color: var(--thinking-ink);
+}
+
+/* The word that changes.
+ *
+ * It leaves by being backspaced a character at a time — that part is JS, since
+ * it is the text itself changing — and the next one washes in behind a soft
+ * gradient edge travelling left to right, which is this.
+ *
+ * The mask is a hard-to-transparent ramp whose position IS --wash: everything
+ * left of it shows, everything right of it is hidden, and the 16% between is
+ * the soft edge. Registered as a percentage (see @property below) so a keyframe
+ * can interpolate it — unregistered it would step, not sweep.
+ *
+ * --wash rests at 100%, which is the whole word visible. That matters for a
+ * reader with no JavaScript: nothing runs, and the word simply sits there. */
+.hero-thinking__word {
+    display: inline-block;
+
+    /* Two gradients riding the same --wash.
+     *
+       The MASK is the reveal: opaque to the left of --wash, clear to the right,
+       with 28% of soft edge between. The BACKGROUND is the wash itself — the
+       text is painted from a gradient clipped to its own glyphs, with a band of
+       full-strength ink at --wash falling away to the resting grey on either
+       side. So the edge does not just uncover the word, it lights it as it
+       passes and leaves it settled behind.
+
+       color: transparent is what background-clip: text needs to show through;
+       the caret below therefore has to name its own colour rather than take
+       currentColor, which is now nothing. */
+    color: transparent;
+    background-image: linear-gradient(90deg,
+            var(--thinking-ink) 0%,
+            var(--thinking-ink) calc(var(--wash) - 26%),
+            var(--thinking-lit) var(--wash),
+            var(--thinking-ink) calc(var(--wash) + 26%),
+            var(--thinking-ink) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-mask-image: linear-gradient(90deg, #000 var(--wash), transparent calc(var(--wash) + 28%));
+    mask-image: linear-gradient(90deg, #000 var(--wash), transparent calc(var(--wash) + 28%));
+}
+
+.hero-thinking__word.is-washing {
+    animation: thinking-wash 0.72s cubic-bezier(0.25, 0.6, 0.3, 1);
+}
+
+@keyframes thinking-wash {
+    from {
+        --wash: -28%;
+    }
+
+    to {
+        --wash: 140%;
+    }
+}
+
+/* The caret, shown only while characters are coming off, which is what makes
+   the deletion read as backspacing rather than the word just shrinking. */
+.hero-thinking__word.is-deleting::after {
+    content: '';
+    display: inline-block;
+    width: 0.08em;
+    height: 0.9em;
+    margin-left: 0.06em;
+    vertical-align: -0.12em;
+    background: var(--thinking-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-thinking__word.is-washing {
+        animation: none;
+    }
+}
+
 /* Sat behind the greeting and centred on it. Sized in em so it scales with the
    type — and therefore with --mark-unit — instead of needing its own maths. */
 .hero-greeting__blob path {
@@ -715,7 +847,7 @@ button {
     /* Right edge lands on the bubble's left edge, less the gap. The bubble is
        nudged right by --bubble-shift to centre the dots, so that comes off here
        too or the visible gap would grow by the same amount. */
-    right: calc(50% + var(--bubble-width) / 2 + var(--photo-gap) - var(--bubble-shift));
+    right: var(--photo-right);
     transform: translateY(calc(-50% + var(--bubble-drop)));
     /* A circle, with the photo cropped to fill it from its centre rather than
        squashed to fit. Sized off --photo-size so growing the bubble leaves it
@@ -2160,6 +2292,26 @@ a.tag:hover {
 
 .resume__row:last-child {
     border-bottom: 1px solid var(--black-5);
+}
+
+/* Logo, then the two lines of text beside it. The logo sits INSIDE the detail
+   column rather than becoming a third grid column, so the row keeps its two
+   tracks and the mobile stack — which collapses those tracks to one — needs no
+   special case for it. */
+.resume__detail {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.resume__logo {
+    width: 2.25rem;
+    height: 2.25rem;
+    /* The row is two lines tall and the logo is one square, so it must not be
+       squeezed when the org name wraps. */
+    flex: none;
+    border-radius: var(--border-radius-sm);
+    object-fit: contain;
 }
 
 /* All three lines of a row are set identically — same family, same size, same
