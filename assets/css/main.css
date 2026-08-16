@@ -161,10 +161,59 @@
        Deliberately not folded into --background-color: that token is what the
        mix is measured against, and pointing it at its own result would be a
        cycle. Anything that follows the shift mixes against --scheme-t itself. */
-    /* The name pill's fill — a lighter grey than the bubbles, so the header
-       sits back from the thread it heads. */
-    --sender-fill: #F4F4F4;
-    --sender-edge: rgba(0, 0, 0, 0.13);
+    /* Dark glass, as two background layers: a fill for the padding box and a lit
+       edge for the border box, used together with `border: 1px solid
+       transparent` so the second shows through only in that 1px ring. The
+       experience cards and the thread's name pill both wear it, which is why it
+       is here rather than on either of them.
+
+       Named --pane-*, not --glass-*: --glass-edge is already taken (see above)
+       by the flat hairline the nav borders with, and it is redeclared in the
+       dark block further down — so a second --glass-edge here parsed fine, then
+       lost to that one, and both surfaces rendered their ring layer as `none`
+       with a transparent border over it. No border at all, and nothing in the
+       declaration to say why.
+
+       The fill is the page's own dark with black worked into it, deepening
+       towards the bottom — a step below the background rather than a long way
+       below it, since straight black is nearly the value of the text and the
+       surface stops reading as glass and starts reading as a hole.
+
+       One figure per stop, and it is a mix ratio rather than an alpha. This
+       carried both for a while: a colour mix inside an alpha mix, so the fill
+       was a dark tone AND 95% opaque. Two opacities to reason about for one
+       surface, and the 5% that came through was not free — where cards overlap
+       in the pile you could read the card behind straight through the front
+       one. Opaque, and the glass is the edge's job.
+
+       No backdrop-filter, which would be the real thing. It re-rasterises
+       against whatever is behind it on every scrolled frame, and this page has
+       spent a lot of effort getting per-frame work down. */
+    --pane-fill: linear-gradient(180deg,
+            color-mix(in srgb, #000000 14%, var(--background-color)),
+            color-mix(in srgb, #000000 22%, var(--background-color)));
+    /* The ring's stops are OPAQUE, each one white already blended into the
+       fill's own colour rather than laid over it as an alpha. Translucent stops
+       composite against whatever happens to be behind them, and in the pile
+       that is another card rather than the page — so a card's edge lit up
+       wherever it overlapped its neighbour, brightest where the two rings
+       crossed, and the pile looked lit from inside at the seams.
+
+       --pane-base is the fill's midpoint, and mixing against it gives the same
+       colours the alphas used to produce over a card, minus the compositing.
+       Which means the ring reads identically whether it lies on the page or on
+       another card, which is the point. */
+    /* The same fill a step lighter, for a glass surface that can be hovered.
+       Written as its own gradient rather than lightened with a filter, since a
+       filter on the element would take the ring and the label with it. */
+    --pane-fill-hover: linear-gradient(180deg,
+            color-mix(in srgb, #000000 6%, var(--background-color)),
+            color-mix(in srgb, #000000 14%, var(--background-color)));
+    --pane-base: color-mix(in srgb, #000000 18%, var(--background-color));
+    --pane-ring: linear-gradient(165deg,
+            color-mix(in srgb, #FFFFFF 15%, var(--pane-base)),
+            color-mix(in srgb, #FFFFFF 4.3%, var(--pane-base)) 45%,
+            color-mix(in srgb, #FFFFFF 9.8%, var(--pane-base)));
 
     /* The six colours the g-logo's reveal is drawn in, leading the black
        finisher. Duplicated from the stroke attributes in _layouts/home.html —
@@ -241,6 +290,15 @@
        The rest of the site keeps --width-desktop. */
     --width-home: 72vw;
     --max-width-home: 1280px;
+    /* The width of the thread, and of the two sections under it. One column
+       down the page rather than a narrow thread over a wide grid — the page is
+       a phone screen, and everything on it reads at one width.
+
+       In px rather than the 34em this started as: as a shared token an em would
+       resolve against whatever element used it, so the sections would only line
+       up with the thread while all three happened to inherit the same font
+       size. 34em at the body's 16px. */
+    --width-thread: 544px;
     --width-mobile: 90vw;
     /* Reading measure for prose pages; the home grid uses --width-desktop. */
     --measure: 760px;
@@ -322,6 +380,16 @@
     }
 }
 
+/* And two pixels off the phone's reading size. On mobile the home page steps
+   its body tier down to lg, so lg is what the messages, the experience cards
+   and the work cards are all set in there — the counterpart to the rule above,
+   scoped the same way so the desktop sizes are left alone. */
+@media (max-width: 800px) {
+    :root {
+        --font-size-lg: 18px;
+    }
+}
+
 /* The dark palette, applied unconditionally — the site does not follow the
    system any more, it is simply dark. The hero is the one exception: it pins
    its own light tokens and a white ground, so the page opens light and
@@ -334,8 +402,6 @@
     --accent-s: 80%;
     --accent-l: 65%;
 
-    --sender-fill: #303030;
-    --sender-edge: rgba(255, 255, 255, 0.16);
     --slightly-warm-gray: #2C2C2C;
     --charcoal: #E8E8E8;
     --white: #181717;
@@ -1843,9 +1909,16 @@ button {
     --chat-tail-size: 18px;
 
     /* Narrower than the section so the bubbles wrap after a line or two, the way
-       a real thread reads — a full-width bubble stops looking like a message. */
-    max-width: 34em;
-    margin: 0 auto;
+       a real thread reads — a full-width bubble stops looking like a message.
+       See --width-thread: the experience and work sections line up with this. */
+    max-width: var(--width-thread);
+    /* Not `margin: 0 auto`. The gutter below is padding, so this box is the
+       column PLUS a gutter — auto-centring centres the padding along with it
+       and lands the bubbles half a gutter right of the cards underneath, which
+       is visible the moment the two share a width. Placed by its content edge
+       instead: the column's own left, then back out by the whole gutter. */
+    margin-left: calc(50% - var(--width-thread) / 2 - var(--chat-tail-gutter));
+    margin-right: auto;
     /* Room for the tail, which hangs 1.45 tails left of the bubble's own box and
        would otherwise sit outside the column. Named, because the sender's name
        above has to cancel exactly this much to centre on the column — and the
@@ -1946,33 +2019,16 @@ button {
 
     padding: 0.6em 1.1em;
 
-    /* A gradient hairline around a light fill — glass, without the cost of
-       actually blurring anything behind it. Two background layers do the work:
-       the fill is clipped to the padding box, the gradient to the border box,
-       and a transparent border lets the second show through only in that 1px
-       ring. The gradient runs bright at the top-left to dark at the
-       bottom-right, which is what reads as a lit edge rather than a drawn one.
-
-       No backdrop-filter on purpose. It would be the real thing, but it
-       re-rasterises against whatever is behind it as the page scrolls, and this
-       page has spent a lot of effort getting per-frame work down. */
+    /* The same dark glass the experience cards wear — see --pane-fill in
+       :root. It had a treatment of its own here, built when this was the only
+       glass on the page: a light fill under a 145deg gradient that ran from
+       near-white to black, over a solid ring, with an inset catch-light on top.
+       The ring was needed because that gradient passed through a fully
+       transparent stop and the border simply disappeared at the bottom-right;
+       the shared edge never reaches zero, so it needs no ring under it. */
     border: 1px solid transparent;
     border-radius: 999px;
-    background:
-        linear-gradient(var(--sender-fill), var(--sender-fill)) padding-box,
-        linear-gradient(145deg,
-            rgba(255, 255, 255, 0.95) 0%,
-            rgba(255, 255, 255, 0.45) 28%,
-            rgba(255, 255, 255, 0) 48%,
-            rgba(0, 0, 0, 0.06) 72%,
-            rgba(0, 0, 0, 0.14) 100%) border-box,
-        /* A solid ring UNDER the gradient. Without it the border vanished
-           wherever the gradient passed through its transparent midpoint —
-           which, at 145deg, was the bottom-right. The gradient now only lights
-           and shades an edge that is always there. */
-        linear-gradient(var(--sender-edge), var(--sender-edge)) border-box;
-    /* The inner catch-light along the top edge. */
-    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    background: var(--pane-fill) padding-box, var(--pane-ring) border-box;
     color: var(--text-reg);
 
     font-family: var(--font-body);
@@ -2108,19 +2164,17 @@ button {
  * tokens. Cards are full-bleed: a wide thumbnail across the top, then title,
  * subtitle and tags beneath, two up (three past 1600px).
  */
+/* One column, at the thread's width. It was a two-up grid widening to three on
+   a large screen, from when the section was a gallery in a wide page — with the
+   page now reading as a single phone-width column, a grid beside it was the one
+   thing that broke the shape. */
 .project-container {
-    width: var(--width-home);
-    max-width: var(--max-width-home);
+    width: 100%;
+    max-width: var(--width-thread);
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
     margin: 0 auto;
-}
-
-@media (min-width: 1600px) {
-    .project-container {
-        grid-template-columns: repeat(3, 1fr);
-    }
 }
 
 .project {
@@ -2147,7 +2201,6 @@ button {
     padding: var(--spacing-sm) var(--spacing-lg);
     appearance: none;
     -webkit-appearance: none;
-    border: 0;
     font-family: var(--font-body);
     font-size: var(--font-size-md);
     font-weight: 600;
@@ -2156,11 +2209,20 @@ button {
     /* Half the height comfortably exceeds the pill, so the ends stay circular
        whatever the label length. */
     border-radius: 999px;
-    background: var(--black-5);
+
+    /* The same dark glass as the experience cards — see --pane-fill in :root.
+       The transparent border is not decoration: it is what the ring layer is
+       painted into. It replaces `border: 0`, which was here to kill the UA's
+       outset bevel on the <button> form; `appearance: none` above is what
+       actually does that, so nothing comes back. */
+    border: 1px solid transparent;
+    background: var(--pane-fill) padding-box, var(--pane-ring) border-box;
     color: var(--text-reg);
     cursor: pointer;
-    transition: background-color var(--transition-normal), color var(--transition-normal),
-        transform var(--transition-normal);
+    /* Not background-color: the fill is two gradient layers now, and gradients
+       do not interpolate. The hover swaps them outright and the movement is
+       what carries it. */
+    transition: color var(--transition-normal), transform var(--transition-normal);
 }
 
 /* The native focus ring goes with the native styling, so put one back — keyboard
@@ -2171,7 +2233,7 @@ button {
 }
 
 .pill-button:hover {
-    background: var(--black-10);
+    background: var(--pane-fill-hover) padding-box, var(--pane-ring) border-box;
     color: var(--text-reg);
     transform: translateY(-2px);
 }
@@ -2244,8 +2306,12 @@ a.tag:hover {
        the bottom edge of the window. --stack-peek is how much further down each
        card behind it sits, which is the sliver of it you can see. --stack-sink
        is how far a card is scaled down while it is still in the pile. */
-    --stack-bottom: 3.5rem;
-    --stack-peek: 0.625rem;
+    /* In px, not rem: stack-resume.js reads --stack-bottom to work out where a
+       card is pinned, and parseFloat on "3.5rem" is 3.5. These are chrome
+       offsets rather than type, so they have no reason to follow the root size
+       anyway. */
+    --stack-bottom: 56px;
+    --stack-peek: 8px;
     --stack-sink: 0.86;
 
     /* The card's corner and the inset everything sits at inside it. The logo
@@ -2259,16 +2325,17 @@ a.tag:hover {
 }
 
 .resume__list {
-    width: var(--width-home);
-    max-width: var(--max-width-home);
+    width: 100%;
+    max-width: var(--width-thread);
     margin: 0 auto;
 }
 
 /* Shared heading for the home page's own sections (work, experience). Sits in
-   the same narrow column as the content beneath it. */
+   the same narrow column as the content beneath it — which is the thread's
+   column, so the whole page reads down one width. */
 .section-heading {
-    width: var(--width-home);
-    max-width: var(--max-width-home);
+    width: 100%;
+    max-width: var(--width-thread);
     margin: 0 auto var(--spacing-2xl) auto;
     font-family: var(--font-body);
     /* A title, set large and in sentence case. It was a small tracked-out
@@ -2334,13 +2401,13 @@ a.tag:hover {
        and rounder than the logo inside them, which is what reads as iOS. */
     border-radius: var(--card-radius);
 
-    /* Opaque, not the translucent --black-5 the rest of the page lifts with.
-       The cards overlap, and two translucent fills laid over each other stack
-       up into a darker band exactly where they meet — which is the one part of
-       a stack that has to look like a clean edge. Mixed off the page colour so
-       it stays a lift on the background rather than a fixed grey. */
-    background: color-mix(in srgb, #FFFFFF 7%, var(--background-color));
-    border: 1px solid var(--black-10);
+    /* Dark glass — see --pane-fill in :root. The card is DARKER than the page
+       it sits on, which is the opposite of how the rest of the site lifts a
+       surface: one lifted off the background reads as a panel with a light
+       behind it, and glass in a dark room is darker than what is around it. The
+       lit edge is what makes it a surface rather than a hole. */
+    background: var(--pane-fill) padding-box, var(--pane-ring) border-box;
+    border: 1px solid transparent;
 
     /* The pile is at the FOOT of the window, not the head of it. A card that
        has not been reached yet is held just above the bottom edge; the ones
@@ -2353,11 +2420,6 @@ a.tag:hover {
        it up to it. Cards that have been read simply scroll away off the top —
        nothing collects up there. */
     position: sticky;
-
-    /* What sells it: a card has to cast onto the one it is riding over, or the
-       two just look like they are touching. Tight and directly below, the way a
-       card resting a millimetre off another one does. */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
 }
 
 /* Each card's place in the waiting pile. --i is its index and --rows the number
@@ -2377,12 +2439,17 @@ a.tag:hover {
    The defaults are the no-JavaScript case — every card level with the last, so
    the section is a plain list of cards rather than a broken pile. */
 .resume__row {
-    /* Capped, or a long list walks its own pile off the bottom of the window:
-       ten cards at a 10px step is a 100px pile under a 56px rest, and the last
-       four sat below the edge at a negative offset. Past the cap the cards
-       coincide, which costs nothing — they are behind three others and show no
-       edge of their own anyway. */
-    bottom: calc(var(--stack-bottom) - var(--stack-peek) * min(var(--i, 0), 3));
+    /* Stepped by --depth, which is the card's place in the PILE, not --i, which
+       is its place in the list. That distinction is the whole of it: only three
+       or four cards are ever stacked at once, so keying the offset to the list
+       index meant every card past the fourth resolved to the same offset and
+       the pile lost its y stagger — ten cards, and seven of them at one
+       position. Capping it differently only moved which cards coincided.
+
+       Off --depth the stagger always describes the pile that is actually there:
+       the front card rests at --stack-bottom and each one behind it a step
+       lower, whichever cards those happen to be. */
+    bottom: calc(var(--stack-bottom) - var(--stack-peek) * var(--depth, 0));
     z-index: calc(var(--rows, 1) - var(--i, 0));
 }
 
@@ -2415,9 +2482,9 @@ a.tag:hover {
     transition: scale 0.18s ease-out;
 }
 
-/* The pile still reads without the taper — the offsets and the shadows do that
-   on their own. This is the part that moves under you, so this is the part that
-   goes. */
+/* The pile still reads without the taper — the offsets and the lit edges do
+   that on their own. This is the part that moves under you, so this is the part
+   that goes. */
 @media (prefers-reduced-motion: reduce) {
     .resume__row {
         scale: 1;
@@ -2437,18 +2504,20 @@ a.tag:hover {
     min-width: 0;
 }
 
-/* The plate the logo sits on, standing in for a notification's app icon. It is
-   the plate that is rounded, not the artwork: the logos are a mixed set — some
-   full-bleed squares, some marks on their own white card — and rounding the
-   image itself clips the corners off the first kind while doing nothing at all
-   for the second. Giving them all one container makes them one shape.
+/* The plate the logo sits on, standing in for a notification's app icon. The
+   artwork fills it edge to edge and the PLATE is what carries the corner, so
+   every logo comes out the same shape whatever its own art does — which is why
+   the images are square and full-bleed rather than marks floating in a box.
+
+   overflow: hidden is what does the clipping. border-radius alone does not cut
+   a child out; it only rounds the element's own background and border, and the
+   image would sit square over the corners.
 
    The row is two lines tall and this is one square, so it must not be squeezed
    when the org name wraps. */
 .resume__plate {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
+    overflow: hidden;
     flex: none;
     width: 3.25rem;
     height: 3.25rem;
@@ -2458,15 +2527,22 @@ a.tag:hover {
        border box, so the padding alone undershoots the real inset by its
        width. */
     border-radius: calc(var(--card-radius) - var(--card-pad) - 1px);
-    background: rgba(255, 255, 255, 0.08);
+
+    /* The same lit edge as the card around it — see --pane-ring in :root. The
+       fill under it is only ever seen through artwork that does not cover, so
+       it is the ring that has to be right. */
+    border: 1px solid transparent;
+    background: var(--pane-fill) padding-box, var(--pane-ring) border-box;
 }
 
 .resume__logo {
-    width: 2.25rem;
-    height: 2.25rem;
-    /* Contain, not cover: these are logos, and a mark cropped to fill its box is
-       a mark with its edges cut off. */
-    object-fit: contain;
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* Cover, not contain: the art is meant to fill the plate and be cut by its
+       corners. Anything that does not fill it is centred and cropped rather
+       than letterboxed. */
+    object-fit: cover;
 }
 
 /* All three lines of a row are set identically — same family, same size, same
@@ -2484,74 +2560,45 @@ a.tag:hover {
     color: var(--text-secondary);
 }
 
-.resume__period {
-    order: 1;
-    /* Reads as a timestamp rather than a column: smaller than the lines it sits
-       beside, and never broken across two of them. */
-    font-size: var(--font-size-md);
-    white-space: nowrap;
-    /* Onto the baseline of the role beside it. */
-    padding-top: 0.35em;
+/* Takes the whole card beside the logo. Without this it is a flex item sized to
+   its content, so the head line is only as wide as the role and the date sits
+   against the role rather than out at the card's right edge — space-between has
+   no space to put between them. min-width: 0 lets a long organisation name wrap
+   inside it rather than forcing the card wider. */
+.resume__text {
+    flex: 1;
+    min-width: 0;
 }
 
+/* The card's first line: the role, with the date out at the right end of it.
+   The two share a line rather than the date floating at the top of the card,
+   so what you read across is "this job, these dates" and the organisation gets
+   the line under it to itself. */
+.resume__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+}
 
-/* ===== Contact CTA ===== */
+.resume__period {
+    /* Reads as a timestamp rather than a column: smaller than the line it sits
+       on, and never broken across two. */
+    font-size: var(--font-size-md);
+    white-space: nowrap;
+    /* The role can wrap on a narrow card; the date must not be pushed off the
+       end by it. */
+    flex: none;
+}
+
 
 /* Sits directly above the footer. The warm fill is on the inner box, not the
    section, so it reads as a card in the content column rather than a full-bleed
    band across the page. */
-/* Opaque and above the fixed footer, like everything else the page slides over.
-   Far enough down that the scheme crossfade has finished, so this can take the
-   background colour flat rather than mixing for it. */
-.contact-cta {
-    position: relative;
-    z-index: var(--z-content);
-    background-color: var(--background-color);
-    padding: var(--spacing-6xl) 0;
-    /* The page's bottom edge, rounded off so it reads as a sheet lifting away
-       from the footer beneath rather than a section that simply stops. This is
-       the LAST thing before the footer, so the corners belong here. */
-    border-bottom-left-radius: var(--border-radius-page);
-    border-bottom-right-radius: var(--border-radius-page);
-}
 
-.contact-cta__inner {
-    width: var(--width-home);
-    max-width: var(--max-width-home);
-    margin: 0 auto;
-    box-sizing: border-box;
-    background-color: var(--slightly-warm-gray);
-    border-radius: var(--border-radius-card);
-    padding: var(--spacing-5xl);
-}
 
-/* NOT the same as .section-heading, though it used to be. That is now a title
-   set large over a section; this is a small label directly above the card's own
-   4xl display line, and set at title size it would compete with the line it is
-   introducing rather than introduce it. It keeps the treatment both of them
-   used to share. */
-.contact-cta__label {
-    font-family: var(--font-body);
-    font-size: var(--font-size-md);
-    margin: 0 0 var(--spacing-2xl) 0;
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-wide);
-    color: var(--text-secondary);
-}
 
-.contact-cta__headline {
-    font-family: var(--font-heading);
-    font-size: var(--font-size-4xl);
-    line-height: var(--line-height-tight);
-    letter-spacing: var(--letter-spacing-tight);
-    margin: 0 0 var(--spacing-3xl) 0;
-}
 
-.contact-cta__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
-}
 
 
 
@@ -2963,18 +3010,8 @@ a.tag:hover {
         font-size: var(--font-size-sm);
     }
 
-    .contact-cta {
-        padding: var(--spacing-3xl) 0;
-    }
 
-    .contact-cta__inner {
-        width: var(--width-mobile);
-        padding: var(--spacing-2xl);
-    }
 
-    .contact-cta__headline {
-        font-size: var(--font-size-2xl);
-    }
 
     .pill-button {
         font-size: var(--font-size-md);
@@ -3031,7 +3068,7 @@ a.tag:hover {
 
 /* Every page that is not the home page hangs off this, so it is what covers the
    fixed footer as those pages scroll. Opaque and a layer above it, same as
-   .container and .contact-cta on the home page. */
+   .container on the home page. */
 .page-shell {
     display: flex;
     flex-direction: column;

@@ -28,9 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // few pixels of edge and nothing else.
     //
     // Depth is 1-based for a card still in the pile and 0 for one that has been
-    // released: being stacked at all is what makes a card smaller, so even the
-    // front of the pile is down a step, and coming out of it is what takes a
-    // card back to full size.
+    // released: being stacked at all is what makes a card smaller, and coming
+    // out of the pile is what takes it back to full size.
     var MAX_DEPTH = 3;
 
     // Its index and the number of rows, which main.css needs for the pile's
@@ -45,10 +44,20 @@ document.addEventListener('DOMContentLoaded', function () {
     // reading them during a scroll is a forced layout on every frame.
     var slots = [];
 
+    // Where the front of the pile rests. Read once from the section rather than
+    // per row, and deliberately NOT from each row's computed `bottom`: main.css
+    // now derives that from --depth, which is derived from this — reading it
+    // back per frame would feed the pile's own stagger into the line that
+    // decides the stagger, and a card on the boundary would flip between two
+    // depths for ever. One fixed line, and the offsets hang off it.
+    var restLine = 0;
+
     var measure = function () {
         var listTop = list.getBoundingClientRect().top + window.scrollY;
         var gap = parseFloat(getComputedStyle(list).rowGap) || 0;
         var run = 0;
+
+        restLine = parseFloat(getComputedStyle(list).getPropertyValue('--stack-bottom')) || 0;
 
         slots = rows.map(function (row) {
             // Accumulated down the list rather than read off each row. Neither
@@ -66,13 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             run += height + gap;
 
-            return {
-                top: top,
-                height: height,
-                // Where this card comes to rest in the pile, straight from the
-                // stylesheet so the two cannot drift apart.
-                bottom: parseFloat(getComputedStyle(row).bottom) || 0
-            };
+            return { top: top, height: height };
         });
     };
 
@@ -87,11 +90,12 @@ document.addEventListener('DOMContentLoaded', function () {
             var slot = slots[i];
             // The line this card would be pinned at. Above it the card is out
             // in the page and reading normally; below it, it is still waiting.
-            var line = scrolled + viewport - slot.bottom - slot.height;
+            var line = scrolled + viewport - restLine - slot.height;
             var waiting = slot.top > line;
 
             // Counted in document order, so the first card still waiting is the
-            // front of the pile. It gets 1, not 0 — 0 means released.
+            // front of the pile. It gets 1, not 0 — 0 means released, and a
+            // card in the pile is scaled down however near the front it is.
             var depth = waiting ? Math.min(++ahead, MAX_DEPTH) : 0;
 
             // Written only on change. The value holds still for most of a
