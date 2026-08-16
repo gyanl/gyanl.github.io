@@ -289,6 +289,17 @@
     --backdrop-blur: blur(20px) contrast(130%) saturate(250%);
 }
 
+/* Body copy runs two pixels smaller on a desktop. The xl tier is the home
+   page's reading size — the messages, the experience rows, the work cards — and
+   at 24px it was set for a phone held close rather than a screen at arm's
+   length. Scoped to the wide breakpoint so the mobile sizes, which already step
+   down a tier of their own, are left where they are. */
+@media (min-width: 801px) {
+    :root {
+        --font-size-xl: 22px;
+    }
+}
+
 /* The dark palette, applied unconditionally — the site does not follow the
    system any more, it is simply dark. The hero is the one exception: it pins
    its own light tokens and a white ground, so the page opens light and

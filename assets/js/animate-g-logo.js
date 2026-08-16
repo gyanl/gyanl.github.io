@@ -210,18 +210,18 @@ class GLogoReveal {
   }
 
   /**
-   * Where to land so the reader has actually SEEN the messages arrive.
+   * Where to land: the moment the SECOND message has finished arriving.
    *
-   * Not a fixed fraction of the window. It used to be the thread's top a
-   * quarter of the way down, which clears the last message only on a window
-   * taller than about 920px — on anything shorter the cue stopped with the
-   * fourth bubble still mid-flight, a few dozen pixels from finishing.
+   * Far enough in that the thread has visibly started talking, and no further —
+   * the rest is left for the reader to scroll into, which is the whole point of
+   * a thread that sends as you go. Landing past the last message showed the
+   * entire conversation at once and left nothing to discover.
    *
+   * Not a fraction of the window, which is what this used to be: a fixed
+   * fraction lands on a different part of the animation on every screen size.
    * Derived from the send bands instead, which animate-about-chat.js publishes
-   * onto the thread: the last bubble starts at (count - 1) steps past the line
-   * and takes a span to land, so this is that point plus a breath. Whichever of
-   * the two is further down wins, so a tall window still gets the thread nicely
-   * placed rather than jammed against the top.
+   * onto the thread — a bubble starts its band a number of steps past the send
+   * line and takes a span to land — so it lands on the same beat everywhere.
    */
   messagesRead(chat) {
     const top = chat.getBoundingClientRect().top + window.scrollY;
@@ -232,14 +232,16 @@ class GLogoReveal {
     const span = parseFloat(chat.dataset.sendSpan);
     const count = chat.querySelectorAll('.chat__bubble').length;
 
-    const placed = top - height * 0.25;
-    if (!count || !isFinite(line) || !isFinite(step) || !isFinite(span)) return placed;
+    if (!count || !isFinite(line) || !isFinite(step) || !isFinite(span)) {
+      return top - height * 0.25;
+    }
 
-    // A little past the end, so the last bubble is unmistakably at rest rather
+    // The second bubble, or the last one if the thread is shorter than that.
+    const index = Math.min(1, count - 1);
+
+    // A little past the end of its band, so it is unmistakably at rest rather
     // than landing on the same frame the scroll stops.
-    const settled = top - height * line + (count - 1) * step + span + 40;
-
-    return Math.max(placed, settled);
+    return top - height * line + index * step + span + 40;
   }
 
   /**
