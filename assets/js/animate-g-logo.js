@@ -36,9 +36,10 @@ class GLogoReveal {
       // The stickers fade out over this many pixels of scroll. In px, not a
       // fraction of the runway like the phases above: the runway is 250vh, so a
       // fraction would make the fade last two and a half times longer on a
-      // desktop than a phone. The ring is a greeting — it should be gone almost
-      // as soon as the reader moves, at any size.
-      burstDistance: 100,
+      // desktop than a phone. The ring is a greeting — it should be gone soon
+      // after the reader moves, at any size, but not so fast that a pile worth
+      // looking at is snatched away mid-glance.
+      burstDistance: 150,
       // The plate behind the mark: how far its side runs past the 30x32 viewBox.
       // It is a circle at every size (border-radius: 50%), so there is no radius
       // to configure here.
@@ -228,12 +229,13 @@ class GLogoReveal {
     const distance = top - start;
     if (!distance) return;
 
-    // About 460px a second, held between one and seven seconds so a short hop
-    // does not crawl and a long one does not outstay its welcome. Slow, and
+    // About 230px a second, held between two and fourteen seconds so a short
+    // hop does not crawl and a long one does not outstay its welcome. Slow, and
     // deliberately so: the whole point of the travel is that the reveal is
     // watched on the way past, at reading pace rather than at the speed of
-    // getting somewhere.
-    const duration = Math.min(Math.max(Math.abs(distance) / 460 * 1000, 1000), 7000);
+    // getting somewhere. Any key, wheel or touch cancels it, so nobody is held
+    // to this who does not want to be.
+    const duration = Math.min(Math.max(Math.abs(distance) / 230 * 1000, 2000), 14000);
     const startedAt = performance.now();
     let cancelled = false;
 

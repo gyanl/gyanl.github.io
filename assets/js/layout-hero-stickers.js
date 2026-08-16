@@ -42,13 +42,16 @@ document.addEventListener('DOMContentLoaded', function () {
     var BLEED = 0.25;
 
     // The breathing room between two stickers, as a fraction of how big they
-    // are drawn — NOT a fixed number of pixels. A flat 14px is a tenth of a
-    // sticker on a desktop and a quarter of one on a phone, so the same figure
-    // that looks like a comfortable gap on a laptop is what stops twelve of
-    // them fitting on a narrow window at all. Floored so it never closes up
-    // entirely, capped so a big window does not push the pile to its corners.
+    // are drawn — NOT a fixed number of pixels. A flat figure is a tenth of a
+    // sticker on a desktop and a quarter of one on a phone, so the same gap
+    // that looks comfortable on a laptop is what stops twelve of them fitting
+    // on a narrow window at all. Floored so it never closes up entirely,
+    // capped so a big window does not push the pile to its corners.
+    //
+    // Deliberately tight: stickers in a pile touch, and the room this buys back
+    // is what lets them be drawn bigger on a phone.
     var gapFor = function (size) {
-        return Math.max(6, Math.min(size * 0.07, 16));
+        return Math.max(4, Math.min(size * 0.045, 14));
     };
 
     // Passes per attempt, and attempts per solve. Both are budgets rather than

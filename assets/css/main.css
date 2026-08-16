@@ -1237,7 +1237,7 @@ button {
    floor stops a short landscape window collapsing them. */
 @media (max-width: 800px) {
     .hero-stickers {
-        --sticker-size: clamp(4.95rem, 24vmin, 11rem);
+        --sticker-size: clamp(5.5rem, 29vmin, 11rem);
         --ring-x: max(27vw, 30vmin);
     }
 }
