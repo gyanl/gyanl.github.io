@@ -170,14 +170,39 @@ document.addEventListener('DOMContentLoaded', function () {
         var vw = window.innerWidth;
         var vh = window.innerHeight;
 
-        // The origin the vectors are measured from: .hero-sticker sits at
-        // left 50%, top 50vh.
-        var cx = vw / 2;
-        var cy = vh / 2;
-
         var probe = document.createElement('div');
         probe.style.cssText = 'position:absolute;visibility:hidden;';
         ring.appendChild(probe);
+
+        /*
+         * The origin every --dx/--dy is measured from — MEASURED, not worked
+         * out. .hero-sticker sits at left 50%, top 50vh, and on a phone that
+         * second one is not half of window.innerHeight.
+         *
+         * vh resolves against the LARGE viewport, the one with the browser's
+         * chrome hidden, while innerHeight is whatever is on screen right now.
+         * With an address bar showing — top or bottom, either way — the two
+         * differ by half its height, so a solver that assumed innerHeight / 2
+         * placed every sticker against a centre the page does not actually use.
+         * The obstacles are measured with getBoundingClientRect and so were
+         * always in the right place; the stickers were the ones out of step,
+         * which is what tipped the whole composition off balance.
+         *
+         * So it is measured off a real .hero-sticker — an empty one, zero by
+         * zero, with its vectors zeroed — rather than off a bare div told to
+         * sit at 50vh. Anything the stylesheet does to place a sticker, it does
+         * to this too, and the answer cannot drift from what the rest of the
+         * ring is actually doing. A copy of the rule here could.
+         */
+        var mark = document.createElement('div');
+        mark.className = 'hero-sticker';
+        mark.style.cssText = 'width:0;height:0;visibility:hidden;--dx:0;--dy:0;';
+        ring.appendChild(mark);
+        var origin = mark.getBoundingClientRect();
+        var cx = origin.left;
+        var cy = origin.top;
+        mark.remove();
+
         probe.style.width = 'var(--ring-x)';
         var ringX = probe.getBoundingClientRect().width;
         probe.style.width = 'var(--ring-y)';
