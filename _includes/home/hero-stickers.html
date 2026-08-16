@@ -11,23 +11,32 @@
   and --dy are that direction, and also the line each one travels out along as
   the page scrolls, so a sticker leaves the frame straight out from the centre.
 
-  Roughly even around the clock, with two gaps left on purpose: nothing sits
-  where the typing bubble hangs (just up and right of the mark's centre) and
-  nothing sits at bottom dead centre, which is the scroll cue's.
+  Roughly even around the clock, with one gap left on purpose: nothing sits
+  where the typing bubble hangs, just up and right of the mark's centre. Bottom
+  dead centre is the welcome note's, and the scroll cue sits below that.
 
   --shadow-x/--shadow-y are the sticker's own shadow offset, eyeballed off its
   --dx/--dy rather than computed from them: a downward drop with a nudge away
   from the centre, so the ring reads as lit from the middle and spreading out.
 
-  The two at the top of the ring carry .hero-sticker--tip-up: their notes hang above them
-  rather than below, so a note does not drop across the mark in the middle.
+  The ones around the top of the ring carry .hero-sticker--tip-up: their notes
+  hang above them rather than below, so a note does not drop across the mark in
+  the middle.
 
-  --sticker-scale is doing real work here, not decoration. The art is sized by
-  HEIGHT (.hero-sticker__art is height: 100%, width: auto), so at an equal scale
-  a 2.6:1 sticker draws two and a half times the width of a square one and
-  swamps the ring. Each scale below is roughly sqrt(0.8 / aspect), which evens
-  the stickers out by area instead of by height. The two wide ones are placed
-  left and right, where the ellipse is widest and there is room for them.
+  --art-h is the file's own pixel height, and it is what sizes the sticker: one
+  factor in main.css turns a source pixel into an on-screen one, so every
+  sticker is drawn at its own resolution times the same number. Export a
+  sticker larger to have it sit larger in the ring — there is no figure here to
+  keep in step with it, and the width follows from the art's aspect.
+
+  It replaced a --sticker-scale per sticker, roughly sqrt(0.8 / aspect) each,
+  which was correcting for every cut-out being drawn to a COMMON height: at an
+  equal height a 2.6:1 sticker draws two and a half times the width of a square
+  one and swamps the ring. Those numbers described the sizing rather than the
+  artwork, and each new sticker needed one derived for it.
+
+  The two wide ones are still placed left and right, where the ellipse is
+  widest and there is room for them.
 
   The ring is NOT aria-hidden any more. Each sticker is a real button — hover on
   a mouse, tap on a touchscreen — and a focusable control inside an aria-hidden
@@ -38,16 +47,16 @@
 {%- endcomment -%}
 <div class="hero-stickers" id="hero-stickers">
   {%- comment -%} Left — wide, and the ellipse is at its widest here. {%- endcomment -%}
-  <div class="hero-sticker" style="--dx: -1.00; --dy: -0.50; --shadow-x: -6px; --shadow-y: 1px; --sticker-scale: 0.56; --tilt: -7deg; --float-delay: -0.4s;">
-    <button class="hero-sticker__hit" type="button" aria-label="I recently went to Hong Kong!">
+  <div class="hero-sticker" style="--dx: 1.05; --dy: -0.84; --shadow-x: -6px; --shadow-y: 1px; --art-h: 338; --tilt: -7deg; --float-delay: -0.4s;">
+    <button class="hero-sticker__hit" type="button" aria-label="Taxis in Hong Kong are bright red.">
       <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/hk-cab.webp' | relative_url }}" alt=""
-        width="512" height="199">
-      <span class="hero-sticker__tip" aria-hidden="true">I recently went to Hong Kong!</span>
+        width="858" height="338">
+      <span class="hero-sticker__tip" aria-hidden="true">Taxis in Hong Kong are bright red.</span>
     </button>
   </div>
 
   {%- comment -%} Top left — the one portrait sticker, so it takes the full scale. {%- endcomment -%}
-  <div class="hero-sticker hero-sticker--tip-up" style="--dx: -0.70; --dy: -0.95; --shadow-x: -4px; --shadow-y: -2px; --sticker-scale: 1.01; --tilt: 6deg; --float-delay: -1.9s;">
+  <div class="hero-sticker hero-sticker--tip-up" style="--dx: -0.61; --dy: -1.41; --shadow-x: -4px; --shadow-y: -2px; --art-h: 512; --tilt: 6deg; --float-delay: -1.9s;">
     <button class="hero-sticker__hit" type="button" aria-label="My garden is my happy place">
       <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/plant.webp' | relative_url }}" alt=""
         width="398" height="512">
@@ -55,17 +64,26 @@
     </button>
   </div>
 
+  {%- comment -%} Top centre, between the plant and the mango. {%- endcomment -%}
+  <div class="hero-sticker hero-sticker--tip-up" style="--dx: 1.29; --dy: -1.46; --shadow-x: -1px; --shadow-y: -2px; --art-h: 406; --tilt: 4deg; --float-delay: -2.7s;">
+    <button class="hero-sticker__hit" type="button" aria-label="That&rsquo;s nuts, baby!">
+      <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/thats-nuts.webp' | relative_url }}" alt=""
+        width="426" height="406">
+      <span class="hero-sticker__tip" aria-hidden="true">That&rsquo;s nuts, baby!</span>
+    </button>
+  </div>
+
   {%- comment -%} Top right. {%- endcomment -%}
-  <div class="hero-sticker hero-sticker--tip-up" style="--dx: 0.22; --dy: -1.05; --shadow-x: 1px; --shadow-y: -2px; --sticker-scale: 0.89; --tilt: -5deg; --float-delay: -3.1s;">
+  <div class="hero-sticker hero-sticker--tip-up" style="--dx: -0.09; --dy: -1.04; --shadow-x: 1px; --shadow-y: -2px; --art-h: 432; --tilt: -5deg; --float-delay: -3.1s;">
     <button class="hero-sticker__hit" type="button" aria-label="I made this delicious mango sticky rice!">
       <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/mango-sticky.webp' | relative_url }}" alt=""
-        width="512" height="502">
+        width="452" height="432">
       <span class="hero-sticker__tip" aria-hidden="true">I made this delicious mango sticky rice!</span>
     </button>
   </div>
 
   {%- comment -%} Right. {%- endcomment -%}
-  <div class="hero-sticker hero-sticker--tip-up" style="--dx: 0.92; --dy: -0.45; --shadow-x: 5px; --shadow-y: 1px; --sticker-scale: 0.76; --tilt: 8deg; --float-delay: -2.4s;">
+  <div class="hero-sticker hero-sticker--tip-up" style="--dx: 0.58; --dy: -1.51; --shadow-x: 5px; --shadow-y: 1px; --art-h: 366; --tilt: 8deg; --float-delay: -2.4s;">
     <button class="hero-sticker__hit" type="button"
       aria-label="I love cats! Here's Zara with my collection of cat figurines">
       <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/cat.webp' | relative_url }}" alt=""
@@ -76,24 +94,51 @@
   </div>
 
   {%- comment -%} Bottom right — the other wide one. {%- endcomment -%}
-  <div class="hero-sticker" style="--dx: 0.80; --dy: 0.46; --shadow-x: 5px; --shadow-y: 7px; --sticker-scale: 0.57; --tilt: -9deg; --float-delay: -0.9s;">
+  <div class="hero-sticker" style="--dx: -0.96; --dy: -0.71; --shadow-x: 5px; --shadow-y: 7px; --art-h: 262; --tilt: -9deg; --float-delay: -0.9s;">
     <button class="hero-sticker__hit" type="button"
       aria-label="I co-founded Public Knowledge Studio, a design agency for startups">
       <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/pk-asterisks.webp' | relative_url }}" alt=""
-        width="512" height="209">
+        width="636" height="262">
       <span class="hero-sticker__tip" aria-hidden="true">I co-founded Public Knowledge Studio, a design agency for
         startups</span>
     </button>
   </div>
 
   {%- comment -%} Bottom left. {%- endcomment -%}
-  <div class="hero-sticker" style="--dx: -0.90; --dy: 0.40; --shadow-x: -5px; --shadow-y: 6px; --sticker-scale: 0.89; --tilt: 5deg; --float-delay: -4.2s;">
+  <div class="hero-sticker" style="--dx: -1.24; --dy: -1.44; --shadow-x: -5px; --shadow-y: 6px; --art-h: 350; --tilt: 5deg; --float-delay: -4.2s;">
     <button class="hero-sticker__hit" type="button"
       aria-label="I worked on a refresh for the Microsoft Word interface as a designer at Microsoft">
       <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/word.webp' | relative_url }}" alt=""
-        width="512" height="512">
+        width="350" height="350">
       <span class="hero-sticker__tip" aria-hidden="true">I worked on a refresh for the Microsoft Word interface as a
         designer at Microsoft</span>
+    </button>
+  </div>
+
+  {%- comment -%} Bottom, between the Word icon and the welcome note. {%- endcomment -%}
+  <div class="hero-sticker" style="--dx: -1.07; --dy: 0.19; --shadow-x: -3px; --shadow-y: 8px; --art-h: 706; --tilt: -6deg; --float-delay: -1.4s;">
+    <button class="hero-sticker__hit" type="button" aria-label="Cyanotype print I made with leaves">
+      <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/cyanotype.webp' | relative_url }}" alt=""
+        width="532" height="706">
+      <span class="hero-sticker__tip" aria-hidden="true">Cyanotype print I made with leaves</span>
+    </button>
+  </div>
+
+  {%- comment -%} Below the mark, in the gap the ring left there. {%- endcomment -%}
+  <div class="hero-sticker" style="--dx: 0.30; --dy: 0.62; --shadow-x: 3px; --shadow-y: 7px; --art-h: 442; --tilt: 7deg; --float-delay: -3.6s;">
+    <button class="hero-sticker__hit" type="button" aria-label="Vietnamese coffee is the best coffee">
+      <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/vietnamese-coffee.webp' | relative_url }}" alt=""
+        width="502" height="442">
+      <span class="hero-sticker__tip" aria-hidden="true">Vietnamese coffee is the best coffee</span>
+    </button>
+  </div>
+
+  {%- comment -%} Lower left, between the cyanotype and the coffee. {%- endcomment -%}
+  <div class="hero-sticker" style="--dx: -0.50; --dy: 0.80; --shadow-x: -3px; --shadow-y: 7px; --art-h: 392; --tilt: -4deg; --float-delay: -2.1s;">
+    <button class="hero-sticker__hit" type="button" aria-label="I like to draw letters">
+      <img class="hero-sticker__art" draggable="false" src="{{ '/assets/stickers/touch-grass.webp' | relative_url }}" alt=""
+        width="602" height="392">
+      <span class="hero-sticker__tip" aria-hidden="true">I like to draw letters</span>
     </button>
   </div>
 
@@ -104,10 +149,19 @@
     and not a button: the words are real content, and there is nothing to press.
   {%- endcomment -%}
   <div class="hero-sticker hero-sticker--note"
-    style="--dx: 0.05; --dy: 1.05; --shadow-x: 0px; --shadow-y: 10px; --tilt: -2deg;">
+    style="--dx: 1.14; --dy: -0.02; --shadow-x: 0px; --shadow-y: 10px; --tilt: -2deg;">
     <div class="hero-sticker__hit hero-sticker__note">
       <p>Welcome to my website! Here are some stickers that tell you a bit about me as a person. Scroll down to see more
         about me as a designer.</p>
     </div>
+    {%- comment -%}
+      A note of its own, like the artwork stickers have — and OUTSIDE the paper
+      above, not within it. The hover wiggle turns .hero-sticker__note itself,
+      where the image stickers turn their .hero-sticker__art, so a tip nested in
+      the paper is a child of the thing being rotated and wobbles along with it.
+      As a sibling it sits still. See the sibling hover rule in main.css.
+    {%- endcomment -%}
+    <span class="hero-sticker__tip" aria-hidden="true">Would an interaction design portfolio be complete without
+      sticky notes?</span>
   </div>
 </div>

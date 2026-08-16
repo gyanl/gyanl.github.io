@@ -250,15 +250,20 @@
      * above), which keeps it a number the engine can track rather than another
      * token stream. */
 
-    /* Typography — SF Pro Rounded now leads both stacks. `ui-rounded` is the
-       token that actually resolves it; the family name alone does not, since it
-       ships as a system-only face, and platforms without the generic skip it.
-       Nunito is the rounded webfont fallback (not self-hosted). Behind those,
-       the previous stacks are unchanged, so nothing regresses where no rounded
-       face exists: TASA Explorer still sets headings and display, TASA Orbiter
-       body copy and UI chrome, both variable across 400–800 with no italic. */
-    --font-heading: ui-rounded, 'SF Pro Rounded', 'Nunito', 'TASA Explorer', Georgia, serif;
-    --font-body: ui-rounded, 'SF Pro Rounded', 'Nunito', 'TASA Orbiter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* Typography — SF Pro leads both stacks. It was SF Pro Rounded, behind the
+       `ui-rounded` generic; this is the plain grotesque instead, and the way in
+       is `-apple-system` / `BlinkMacSystemFont`, since the family name alone
+       does not resolve a system-only face any more than 'SF Pro Rounded' did.
+
+       Apple picks the optical size itself: Display above 20px or so and Text
+       below, which is the behaviour wanted here and the reason not to name
+       either outright. `system-ui` sits behind them for non-Apple platforms
+       that support it, and Nunito is gone with the rounded stack it belonged
+       to. Behind all of that the original faces are unchanged: TASA Explorer
+       sets headings and display, TASA Orbiter body copy and UI chrome, both
+       variable across 400–800 with no italic. */
+    --font-heading: -apple-system, BlinkMacSystemFont, system-ui, 'TASA Explorer', Georgia, serif;
+    --font-body: -apple-system, BlinkMacSystemFont, system-ui, 'TASA Orbiter', 'Segoe UI', Roboto, sans-serif;
     --line-height-base: 1.4;
     --line-height-tight: 1.1;
     --line-height-sans-base: 1.5;
@@ -369,14 +374,14 @@
     --backdrop-blur: blur(20px) contrast(130%) saturate(250%);
 }
 
-/* Body copy runs two pixels smaller on a desktop. The xl tier is the home
+/* Body copy runs four pixels smaller on a desktop. The xl tier is the home
    page's reading size — the messages, the experience rows, the work cards — and
    at 24px it was set for a phone held close rather than a screen at arm's
-   length. Scoped to the wide breakpoint so the mobile sizes, which already step
-   down a tier of their own, are left where they are. */
+   length. Scoped to the wide breakpoint so the mobile sizes, which step down a
+   tier of their own and are tuned separately below, are left where they are. */
 @media (min-width: 801px) {
     :root {
-        --font-size-xl: 22px;
+        --font-size-xl: 20px;
     }
 }
 
@@ -681,11 +686,7 @@ button {
     fill: currentColor;
 }
 
-/* Sits over the middle of the hero, where the mark's resting dot is. `ui-rounded`
-   is what resolves to SF Pro Rounded on Apple platforms — the family name alone
-   does not, since it ships as a system-only face. Nunito is the stated fallback;
-   it is not self-hosted like the TASA faces, so on platforms without either the
-   stack lands on the system UI font. */
+/* Sits over the middle of the hero, where the mark's resting dot is. */
 /**
  * Absolute, not sticky: unlike the mark this does not pin, so it scrolls up and
  * away as soon as the page moves. Anchored to the top of the runway, .hero-spacer.
@@ -703,9 +704,9 @@ button {
 .hero-greeting {
     /* The two typed dots, drawn as circles rather than set as period glyphs.
        A period's size and its place in the line box are the font's business, so
-       anywhere ui-rounded does not resolve to SF Pro Rounded — a non-Apple
-       device, or a bolder text setting — the pair came out a different size and
-       off the ball's line. These are geometry and land identically everywhere.
+       anywhere the stack does not resolve to SF Pro — a non-Apple device, or a
+       bolder text setting — the pair came out a different size and off the
+       ball's line. These are geometry and land identically everywhere.
 
        --dot-size is the ball's resting diameter, baseStroke in
        animate-g-logo.js. That is 1.12 mark units, and this used to be written
@@ -1197,26 +1198,38 @@ button {
        and the floor never applies. */
     --ring-x: max(27vw, 35vmin);
     --ring-y: max(28svh, 24vmin);
-    /* Sized off the shorter axis, so a sticker is the same size relative to the
-       mark on a phone as on a desktop, and clamped at both ends so it stays
-       legible on a small screen without turning into wallpaper on a large one. */
     /* How much further out they are thrown by the end of the fade, as a
        multiple of the ring. 1.6 carries them past the corner of the window. */
     --sticker-throw: 1.6;
+
+    /* Sized off the shorter axis, so a sticker is the same size relative to the
+       mark on a phone as on a desktop, and clamped at both ends so it stays
+       legible on a small screen without turning into wallpaper on a large one.
+
+       This is the size of a sticker whose art is 512px tall, the resolution
+       most of the pack is exported at. --sticker-unit turns it into what one
+       source pixel is worth, which is what each sticker is actually drawn
+       from — so the whole ring still resizes off this one figure. */
     --sticker-size: clamp(6.75rem, 24vmin, 17.25rem);
+    --sticker-unit: calc(var(--sticker-size) / 512);
 }
 
-/* On a phone the ring and what sits on it both come in, and they have to move
-   together: the previous override here went the other way — larger stickers on
-   a tighter ring — and drove the widest one 25px off the left edge.
+/* On a phone the ring comes in but the stickers do not: 24vmin is the size in
+   both, so a sticker holds the same proportion of the screen wherever it is
+   read, and only the circle they sit on tightens to fit the narrower window.
 
-   Sized against the WIDEST sticker, not the average. They are sized by height
-   (see .hero-sticker__art) and came off one sheet, so a 1.8:1 cut-out is
-   half again as wide as a square one at the same setting, and it is the one
-   that decides whether the ring fits. */
+   The size used to drop to 20vmin here as well. That was from when every
+   cut-out was drawn to a common height and the widest ones came out enormous —
+   they are drawn at their own pixel size now (see .hero-sticker), so what
+   decides whether the ring fits is the widest FILE rather than the sizing, and
+   the pack is exported small enough not to need the extra room.
+
+   Whether it stays that way is a matter of what gets exported: the clamp's
+   ceiling is what stops one oversized file from running off the edge, and the
+   floor stops a short landscape window collapsing them. */
 @media (max-width: 800px) {
     .hero-stickers {
-        --sticker-size: clamp(4.5rem, 20vmin, 11rem);
+        --sticker-size: clamp(4.95rem, 24vmin, 11rem);
         --ring-x: max(27vw, 30vmin);
     }
 }
@@ -1263,11 +1276,19 @@ button {
     position: absolute;
     top: 50vh;
     left: 50%;
-    /* Height, not width — the cut-outs share a height (they came off one sheet
-       of 480px cells) but not a width, so sizing by width would blow the narrow
-       ones up to nearly half again the size of the wide ones. Width is left to
-       shrink-wrap the image. */
-    height: calc(var(--sticker-size) * var(--sticker-scale, 1));
+    /* Each sticker at its OWN pixel height, times one factor shared by all of
+       them: --art-h is the file's natural height, straight from the markup, and
+       --sticker-unit is what a single source pixel is worth on screen.
+
+       This replaced a per-sticker --sticker-scale, each roughly sqrt(0.8 /
+       aspect), which existed to even out a common height — sizing every cut-out
+       to the same height meant a 2.6:1 one drew two and a half times the width
+       of a square one and swamped the ring. Those figures were a correction for
+       the sizing rather than a decision about the artwork, and every new
+       sticker needed one worked out for it. Now the art's own resolution is the
+       decision: export it larger to have it sit larger. Width is left to
+       shrink-wrap, so aspect looks after itself. */
+    height: calc(var(--art-h, 512) * var(--sticker-unit));
 
     /* The radial move.
      *
@@ -1431,18 +1452,18 @@ button {
 @keyframes sticker-wiggle {
     0%,
     100% {
-        rotate: -6deg;
+        rotate: -2.5deg;
     }
 
     50% {
-        rotate: 6deg;
+        rotate: 2.5deg;
     }
 }
 
 @media (hover: hover) and (pointer: fine) {
     .hero-sticker__hit:hover .hero-sticker__art,
     .hero-sticker__note:hover {
-        animation: sticker-wiggle 1.1s ease-in-out infinite;
+        animation: sticker-wiggle 1.4s ease-in-out infinite;
     }
 
     /* Held still while it is being carried — the wiggle is an invitation to
@@ -1566,15 +1587,34 @@ button {
        variant below flips it along with the edge it hangs off. */
     --tip-x: -50%;
     --tip-y: 4px;
+    /* --tip-nudge slides the note back inside the window when centring it under
+       its sticker would hang it off an edge; hero-sticker-tips.js measures it.
+       Zero for anything with room, which is most of them. */
+    --tip-nudge: 0px;
     transform: translate(var(--tip-x), var(--tip-y));
+    /* The nudge rides on the independent `translate` property rather than
+       inside the transform above. The two compose, so this stays a plain length
+       while --tip-x keeps its percentage — folding it in as
+       calc(var(--tip-x) + var(--tip-nudge)) simply did not resolve. */
+    translate: var(--tip-nudge) 0;
     /* Above its neighbours. .hero-stickers lifts the whole ring while a note is
        up (see there), so between the two nothing in the hero out-stacks it. */
     z-index: 10;
 
-    /* Wider than any sticker, and narrow enough to wrap to two or three lines
-       rather than run across the window. */
+    /* As wide as its text on one line, capped so a long note wraps rather than
+       running across the window. 17rem is chosen off the copy: it is the width
+       at which six of the ten notes fit on a single line, where the bubble is
+       exactly its text. Two of those sat 2px and 20px over the old 15rem and
+       wrapped for the sake of a word.
+
+       Past the cap the box stops tracking the text — CSS sizes it before it
+       knows where the lines broke, so a wrapped note is the full cap wide
+       whatever shape the text ended up. hero-sticker-tips.js measures the
+       wrapped lines and pulls the box in to the longest one. (text-wrap:
+       balance was tried here first and makes it worse, not better: it evens
+       the lines out INSIDE a box that stays at the cap, so the slack grows.) */
     width: max-content;
-    max-width: min(15rem, 60vw);
+    max-width: min(17rem, 60vw);
     padding: 0.5rem 0.7rem;
     border-radius: 10px;
     background: #2A2A2A;
@@ -1592,10 +1632,17 @@ button {
         visibility 0s linear 0.16s;
 }
 
-/* The two stickers at the top of the ring hang their notes ABOVE themselves: a
-   note below either of those drops straight across the mark in the middle of
-   the hero. */
-.hero-sticker--tip-up .hero-sticker__tip {
+/* A note hangs below its sticker, always — one answer for where a note appears,
+   at every width. .hero-sticker--tip-up used to flip the ones around the top of
+   the ring, because a note below those dropped across the mark in the middle of
+   the hero; the ring has been rearranged by hand since and no longer sits in a
+   tidy circle around it.
+
+   The flip lives here instead, applied by hero-sticker-tips.js to whichever
+   note would actually run off the bottom of the window at the moment it opens.
+   That is a thing only measurement can know: it depends on where the sticker
+   has been dragged to, how tall the note wraps, and how big the window is. */
+.hero-sticker__tip.is-flipped {
     --tip-y: -4px;
     top: auto;
     bottom: calc(100% + 0.6rem);
@@ -1616,7 +1663,10 @@ button {
    tap, which would leave a note stuck open with no way to dismiss it — taps go
    through .is-open instead. */
 @media (hover: hover) and (pointer: fine) {
-    .hero-sticker__hit:hover .hero-sticker__tip {
+    /* The second selector is the welcome note's, whose tip is its SIBLING
+       rather than its child — see the markup for why. */
+    .hero-sticker__hit:hover .hero-sticker__tip,
+    .hero-sticker__note:hover ~ .hero-sticker__tip {
         opacity: 1;
         visibility: visible;
         transform: translate(var(--tip-x), 0);
@@ -1685,14 +1735,17 @@ button {
     cursor: pointer;
     pointer-events: auto;
     border-radius: 50%;
-    /* Literal white, like the plate behind the mark, NOT var(--white): that
-       token flips to near-black in dark mode, and this sits on the hero's
-       pinned-light panel in every scheme. --black-10, --black-5 and --hero-ink
-       below are all redeclared on .hero-spacer for exactly that reason, so
-       those can stay as tokens; --white is not, and reading it here drew the
-       cue as a black disc with a black arrow on it. */
-    background: #FFFFFF;
-    box-shadow: 0 0 0 1px var(--black-10), 0 2px 10px var(--black-5);
+    /* The typing bubble's own grey — .hero-greeting__blob path fills with the
+       same token — so the two pieces of hero chrome read as one material. No
+       ring and no shadow with it: on a white panel this grey IS the edge, and a
+       hairline around it only made the disc look cut out of the page.
+
+       A token rather than a literal, unlike the white plate behind the mark:
+       --black-5 is one of the three redeclared on .hero-spacer to keep the hero
+       light in every scheme, so it stays the same grey when the page below has
+       gone dark. --white is NOT redeclared, which is why the plate has to spell
+       its colour out. */
+    background: var(--black-5);
     color: var(--hero-ink);
     animation: scroll-cue-bob 2.2s ease-in-out infinite;
 }
@@ -1703,11 +1756,11 @@ button {
     transition: transform var(--transition-fast);
 }
 
-/* Hover and press land on the shadow and the arrow, not on the ring's own
+/* Hover and press land on the fill and the arrow, not on the ring's own
    transform — that one is carrying both the centring and the bob, and a second
    transform on the same box would simply replace them. */
 .hero-scroll-cue__ring:hover {
-    box-shadow: 0 0 0 1px var(--black-10), 0 4px 16px var(--black-10);
+    background: var(--black-10);
 }
 
 .hero-scroll-cue__ring:hover svg {

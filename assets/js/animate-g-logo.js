@@ -46,8 +46,6 @@ class GLogoReveal {
       // Where the page starts crossing from the hero's light panel to the
       // scheme's own background. Dark mode only — see --page-bg in main.css.
       schemeStart: 0.8,
-      // How long the hero waits before taking the reader down itself.
-      autoAdvanceDelay: 5000,
       ...options
     };
 
@@ -95,49 +93,16 @@ class GLogoReveal {
 
     this.setupEventListeners();
     this.render();
-    this.autoAdvance();
   }
 
-  /**
-   * Take the reader down to the messages if they have not moved in a while.
-   *
-   * The hero is a typing indicator: it says something is coming. Sitting on it
-   * with nothing happening reads as a page that has failed to load rather than
-   * one waiting to be scrolled, so after a few seconds it goes on its own — the
-   * same journey the cue makes, at the same pace, so the reveal is still seen
-   * rather than skipped.
-   *
-   * Once, and only from a standing start. Any sign of the reader — a scroll, a
-   * key, a finger — cancels it for good: taking the page away from someone who
-   * has started reading is worse than never having offered.
-   *
-   * Not for reduced-motion readers. Moving the page unasked is precisely what
-   * that preference is asking us not to do.
+  /*
+   * The hero used to take the reader down by itself if they had not moved after
+   * a few seconds, on the reasoning that a typing indicator sitting still reads
+   * as a page that failed to load. Removed: the page moving on its own is
+   * startling whatever the reasoning, and the scroll cue already makes the same
+   * journey for anyone who wants it — see glideTo, which is still what the cue
+   * presses.
    */
-  autoAdvance() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const events = ['scroll', 'wheel', 'touchstart', 'keydown', 'pointerdown'];
-    let timer = null;
-
-    const cancel = () => {
-      clearTimeout(timer);
-      events.forEach(type => window.removeEventListener(type, cancel));
-    };
-
-    timer = setTimeout(() => {
-      cancel();
-
-      // They may have arrived part-way down — a reload, or a link to an anchor.
-      // This is an offer to start the page, not to yank it.
-      if (window.scrollY > 0) return;
-
-      const chat = document.getElementById('about-chat');
-      if (chat) this.glideTo(this.messagesRead(chat));
-    }, this.config.autoAdvanceDelay);
-
-    events.forEach(type => window.addEventListener(type, cancel, { passive: true, once: true }));
-  }
 
   viewport() {
     return {

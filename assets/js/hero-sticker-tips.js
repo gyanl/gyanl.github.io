@@ -23,6 +23,70 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var open = null;
 
+    /*
+     * Keep a note on screen.
+     *
+     * A note is centred under its sticker, which is fine until the sticker is
+     * near an edge — then half the note hangs off it. Where that edge falls
+     * cannot be known from the stylesheet: it depends on where the sticker has
+     * been dragged to, how tall the note wraps at that width, and the size of
+     * the window. So it is measured, once, at the moment the note is asked for.
+     *
+     * Two corrections, both published as properties main.css already reads:
+     * --tip-nudge slides it horizontally back inside, and .is-flipped moves it
+     * above its sticker when there is no room below. Cleared first, or the
+     * previous answer is what gets measured.
+     */
+    var EDGE = 8;
+
+    var place = function (sticker) {
+        var tip = sticker.querySelector('.hero-sticker__tip');
+        if (!tip) return;
+
+        tip.style.setProperty('--tip-nudge', '0px');
+        tip.classList.remove('is-flipped');
+        tip.style.width = '';
+
+        // Pull the box in to the text it actually holds. A note that wraps is
+        // left at its max-width, because CSS sizes the box before it knows
+        // where the lines broke — so a two-line note whose longest line is
+        // 124px still draws a 240px bubble with the words adrift in the middle
+        // of it. The line boxes are what a Range over the text reports.
+        var lines = document.createRange();
+        lines.selectNodeContents(tip);
+
+        var widest = 0;
+        var rects = lines.getClientRects();
+
+        for (var i = 0; i < rects.length; i++) {
+            if (rects[i].width > widest) widest = rects[i].width;
+        }
+
+        // Only ever narrower: a single-line note is already exactly its text,
+        // and rounding up keeps the last word off the edge of its own box.
+        if (rects.length > 1 && widest) tip.style.width = Math.ceil(widest) + 'px';
+
+        // Measured while still transparent: visibility is hidden until the note
+        // opens, but a hidden element still has a box, and this is the box it
+        // will open into.
+        var box = tip.getBoundingClientRect();
+        var nudge = 0;
+
+        if (box.left < EDGE) nudge = EDGE - box.left;
+        else if (box.right > window.innerWidth - EDGE) nudge = window.innerWidth - EDGE - box.right;
+
+        if (nudge) tip.style.setProperty('--tip-nudge', Math.round(nudge) + 'px');
+
+        // Below by default, above only if below would run off — and only if
+        // there is actually more room up there, so a note taller than the
+        // window does not simply swap which end is cut.
+        var sb = sticker.getBoundingClientRect();
+
+        if (box.bottom > window.innerHeight - EDGE && sb.top > window.innerHeight - sb.bottom) {
+            tip.classList.add('is-flipped');
+        }
+    };
+
     var close = function () {
         if (!open) return;
         open.classList.remove('is-open');
@@ -46,12 +110,26 @@ document.addEventListener('DOMContentLoaded', function () {
         close();
         if (wasOpen) return;
 
+        place(sticker);
         sticker.classList.add('is-open');
         open = sticker;
 
         // Otherwise the document listener below sees this same click and shuts
         // the note again in the same tick.
         event.stopPropagation();
+    });
+
+    // Hover and keyboard focus open a note through CSS alone, so they need the
+    // same measurement — and it has to land before the note becomes visible,
+    // which pointerover and focusin both do.
+    ring.addEventListener('pointerover', function (event) {
+        var hit = event.target.closest('.hero-sticker__hit');
+        if (hit) place(hit.parentElement);
+    });
+
+    ring.addEventListener('focusin', function (event) {
+        var hit = event.target.closest('.hero-sticker__hit');
+        if (hit) place(hit.parentElement);
     });
 
     document.addEventListener('click', close);
