@@ -77,6 +77,41 @@
   })();
 </script>
 
+{%- comment -%}
+  The mark draws itself the first time a reader gets all the way to the bottom —
+  the hero's reveal again, smaller, as a sign-off. Once per visit: a sign-off
+  that repeats every time you nudge the scrollbar is a fidget, not a flourish.
+
+  The path is retracted here rather than in the markup so that a reader without
+  JavaScript gets the mark drawn, which is the state that matters.
+{%- endcomment -%}
+<script>
+  (function () {
+    var mark = document.querySelector('.footer-mark');
+    var path = mark && mark.querySelector('path');
+    if (!path || !path.getTotalLength) return;
+
+    var length = path.getTotalLength();
+    mark.style.setProperty('--mark-length', length);
+    path.style.strokeDasharray = length;
+    path.style.strokeDashoffset = length;
+
+    var draw = function () {
+      // A couple of pixels of slack: a fractional scroll height means the sum
+      // rarely lands exactly on the document's, and the reader is at the bottom
+      // either way.
+      if (window.innerHeight + window.scrollY < document.documentElement.scrollHeight - 2) return;
+
+      mark.classList.add('is-drawing');
+      window.removeEventListener('scroll', draw);
+    };
+
+    window.addEventListener('scroll', draw, { passive: true });
+    // A short page may already be at its bottom on load.
+    draw();
+  })();
+</script>
+
 </body>
 
 </html>

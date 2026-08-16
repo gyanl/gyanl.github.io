@@ -46,6 +46,8 @@ class GLogoReveal {
       // Where the page starts crossing from the hero's light panel to the
       // scheme's own background. Dark mode only — see --page-bg in main.css.
       schemeStart: 0.8,
+      // How long the hero waits before taking the reader down itself.
+      autoAdvanceDelay: 5000,
       ...options
     };
 
@@ -93,6 +95,48 @@ class GLogoReveal {
 
     this.setupEventListeners();
     this.render();
+    this.autoAdvance();
+  }
+
+  /**
+   * Take the reader down to the messages if they have not moved in a while.
+   *
+   * The hero is a typing indicator: it says something is coming. Sitting on it
+   * with nothing happening reads as a page that has failed to load rather than
+   * one waiting to be scrolled, so after a few seconds it goes on its own — the
+   * same journey the cue makes, at the same pace, so the reveal is still seen
+   * rather than skipped.
+   *
+   * Once, and only from a standing start. Any sign of the reader — a scroll, a
+   * key, a finger — cancels it for good: taking the page away from someone who
+   * has started reading is worse than never having offered.
+   *
+   * Not for reduced-motion readers. Moving the page unasked is precisely what
+   * that preference is asking us not to do.
+   */
+  autoAdvance() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const events = ['scroll', 'wheel', 'touchstart', 'keydown', 'pointerdown'];
+    let timer = null;
+
+    const cancel = () => {
+      clearTimeout(timer);
+      events.forEach(type => window.removeEventListener(type, cancel));
+    };
+
+    timer = setTimeout(() => {
+      cancel();
+
+      // They may have arrived part-way down — a reload, or a link to an anchor.
+      // This is an offer to start the page, not to yank it.
+      if (window.scrollY > 0) return;
+
+      const chat = document.getElementById('about-chat');
+      if (chat) this.glideTo(this.messagesRead(chat));
+    }, this.config.autoAdvanceDelay);
+
+    events.forEach(type => window.addEventListener(type, cancel, { passive: true, once: true }));
   }
 
   viewport() {
@@ -154,8 +198,7 @@ class GLogoReveal {
       const chat = document.getElementById('about-chat');
       if (!chat) return;
 
-      const top = chat.getBoundingClientRect().top + window.scrollY
-        - this.viewport().height * 0.25;
+      const top = this.messagesRead(chat);
 
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         window.scrollTo({ top, behavior: 'auto' });
@@ -164,6 +207,39 @@ class GLogoReveal {
 
       this.glideTo(top);
     });
+  }
+
+  /**
+   * Where to land so the reader has actually SEEN the messages arrive.
+   *
+   * Not a fixed fraction of the window. It used to be the thread's top a
+   * quarter of the way down, which clears the last message only on a window
+   * taller than about 920px — on anything shorter the cue stopped with the
+   * fourth bubble still mid-flight, a few dozen pixels from finishing.
+   *
+   * Derived from the send bands instead, which animate-about-chat.js publishes
+   * onto the thread: the last bubble starts at (count - 1) steps past the line
+   * and takes a span to land, so this is that point plus a breath. Whichever of
+   * the two is further down wins, so a tall window still gets the thread nicely
+   * placed rather than jammed against the top.
+   */
+  messagesRead(chat) {
+    const top = chat.getBoundingClientRect().top + window.scrollY;
+    const height = this.viewport().height;
+
+    const line = parseFloat(chat.dataset.sendLine);
+    const step = parseFloat(chat.dataset.sendStep);
+    const span = parseFloat(chat.dataset.sendSpan);
+    const count = chat.querySelectorAll('.chat__bubble').length;
+
+    const placed = top - height * 0.25;
+    if (!count || !isFinite(line) || !isFinite(step) || !isFinite(span)) return placed;
+
+    // A little past the end, so the last bubble is unmistakably at rest rather
+    // than landing on the same frame the scroll stops.
+    const settled = top - height * line + (count - 1) * step + span + 40;
+
+    return Math.max(placed, settled);
   }
 
   /**
@@ -185,9 +261,12 @@ class GLogoReveal {
     const distance = top - start;
     if (!distance) return;
 
-    // About 700px a second, held between one and five seconds so a short hop
-    // does not crawl and a long one does not outstay its welcome.
-    const duration = Math.min(Math.max(Math.abs(distance) / 700 * 1000, 1000), 5000);
+    // About 460px a second, held between one and seven seconds so a short hop
+    // does not crawl and a long one does not outstay its welcome. Slow, and
+    // deliberately so: the whole point of the travel is that the reveal is
+    // watched on the way past, at reading pace rather than at the speed of
+    // getting somewhere.
+    const duration = Math.min(Math.max(Math.abs(distance) / 460 * 1000, 1000), 7000);
     const startedAt = performance.now();
     let cancelled = false;
 
@@ -216,6 +295,7 @@ class GLogoReveal {
   /** Coalesce bursts of scroll events into one render a frame. */
   handleScroll() {
     if (window.scrollY > 0) this.stopBounce();
+    else this.startBounce();
     if (this.state.frame !== null) return;
     this.state.frame = requestAnimationFrame(() => {
       this.state.frame = null;
@@ -421,6 +501,28 @@ class GLogoReveal {
       // Force the frozen transform to be the starting value of the transition.
       void el.offsetHeight;
       moving.forEach(node => { node.style.transform = 'none'; });
+    });
+  }
+
+  /**
+   * Start it again, for a reader who has scrolled all the way back to the top.
+   *
+   * The hero is a typing indicator, and a typing indicator that has stopped for
+   * good is just three dots. Coming back to the top should find it still going.
+   *
+   * The inline transforms stopBounce left behind have to be cleared: they are
+   * the 'none' it eased to, and an element carrying that would sit still while
+   * the keyframes ran underneath it.
+   */
+  startBounce() {
+    [this.elements.mark, this.elements.greeting].forEach(el => {
+      if (!el || el.classList.contains('is-resting')) return;
+
+      const moving = el === this.elements.mark ? [el] : [...el.querySelectorAll('.hero-greeting__dot')];
+      moving.forEach(node => { node.style.removeProperty('transform'); });
+
+      el.classList.remove('is-settling');
+      el.classList.add('is-resting');
     });
   }
 

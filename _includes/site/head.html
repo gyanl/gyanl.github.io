@@ -10,17 +10,22 @@
     bars sit in the browser's own grey and the page appears to start below a
     band that belongs to nothing.
 
-    The home page names the hero's colour in BOTH schemes, because the hero is
-    pinned to light whatever the system is set to (see .hero-spacer in
-    main.css) — a dark bar there would be a seam across the top of the one
-    screen that has no dark version. Every other page follows the scheme.
+    No media queries: the site does not follow the system scheme, it is dark.
+    The home page is the exception and opens on the hero, which is white — it
+    crossfades to the dark below, but a meta tag cannot follow that, so it names
+    the colour the page actually opens on.
   {%- endcomment -%}
   {%- if page.layout == 'home' %}
-  <meta name="theme-color" content="#FAFAF9">
+  <meta name="theme-color" content="#FFFFFF">
   {%- else %}
-  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#1a1a1a">
   {%- endif %}
+
+  {%- comment -%}
+    Tells the browser to render its own widgets — form controls, scrollbars —
+    dark, since the page is.
+  {%- endcomment -%}
+  <meta name="color-scheme" content="dark">
 
   <script>document.documentElement.classList.remove('no-js');</script>
 

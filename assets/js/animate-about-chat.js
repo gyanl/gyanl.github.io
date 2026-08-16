@@ -34,6 +34,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chat.classList.add('is-armed');
 
+    // Published for the scroll cue, which has to land somewhere past the point
+    // where the last message has finished sending. Written once: these are
+    // constants, and the cue does the arithmetic with the viewport height at
+    // the moment it is pressed.
+    chat.dataset.sendLine = SEND_LINE;
+    chat.dataset.sendStep = SEND_STEP;
+    chat.dataset.sendSpan = SEND_SPAN;
+
     var frame = null;
 
     // Ease-out, and deliberately NOT a back-out: this is scrubbed by scroll, so

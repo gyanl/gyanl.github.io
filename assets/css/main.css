@@ -289,34 +289,37 @@
     --backdrop-blur: blur(20px) contrast(130%) saturate(250%);
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --text-reg: #E8E8E8;
-        --text-secondary: rgba(255, 255, 255, .75);
-        --background-color: #1a1a1a;
+/* The dark palette, applied unconditionally — the site does not follow the
+   system any more, it is simply dark. The hero is the one exception: it pins
+   its own light tokens and a white ground, so the page opens light and
+   crossfades into this as the mark settles. See .hero-spacer. */
+:root {
+    --text-reg: #E8E8E8;
+    --text-secondary: rgba(255, 255, 255, .75);
+    --background-color: #1a1a1a;
 
-        --accent-s: 80%;
-        --accent-l: 65%;
+    --accent-s: 80%;
+    --accent-l: 65%;
 
-        --sender-fill: #303030;
-        --sender-edge: rgba(255, 255, 255, 0.16);
-        --slightly-warm-gray: #2C2C2C;
-        --charcoal: #E8E8E8;
-        --white: #181717;
-        --black: #ffffff;
-        --black-20: rgba(255, 255, 255, .2);
-        --black-10: rgba(255, 255, 255, 0.1);
-        --black-5: rgba(255, 255, 255, 0.05);
-        --black-3: rgba(255, 255, 255, 0.03);
-        --code-background: #12121c;
+    --sender-fill: #303030;
+    --sender-edge: rgba(255, 255, 255, 0.16);
+    --slightly-warm-gray: #2C2C2C;
+    --charcoal: #E8E8E8;
+    --white: #181717;
+    --black: #ffffff;
+    --black-20: rgba(255, 255, 255, .2);
+    --black-10: rgba(255, 255, 255, 0.1);
+    --black-5: rgba(255, 255, 255, 0.05);
+    --black-3: rgba(255, 255, 255, 0.03);
+    --code-background: #12121c;
 
-        --header-background: rgba(30, 30, 30, 0.4);
-        --header-shadow: rgba(0, 0, 0, 0.3);
-        --footer-background: rgba(0, 0, 0, 0.9);
-        --footer-ground: #121212;
-        --glass-edge: rgba(0, 0, 0, 0.75);
-    }
+    --header-background: rgba(30, 30, 30, 0.4);
+    --header-shadow: rgba(0, 0, 0, 0.3);
+    --footer-background: rgba(0, 0, 0, 0.9);
+    --footer-ground: #121212;
+    --glass-edge: rgba(0, 0, 0, 0.75);
 }
+
 
 
 /* ===== Base ===== */
@@ -899,13 +902,14 @@ button {
     --hero-ink: rgb(42, 42, 42);
     --black-5: rgba(0, 0, 0, .05);
     --black-10: rgba(0, 0, 0, .1);
-    /* The hero's own ground: the same crossfade, but starting a shade off
-       white so the panel sits apart from the page below it and the stickers'
-       white die-cut edges have something to read against. It converges on the
-       page's background, so the two meet without a seam. */
+    /* The hero's ground: plain white, crossfading to the page's own background
+       so the two meet without a seam. It was a shade off white while the
+       stickers were here, to give their white die-cut edges something to read
+       against — with the ring hidden on a phone there is nothing left that
+       needs the contrast. */
     background: color-mix(in srgb,
             var(--background-color) calc(var(--scheme-t) * 100%),
-            #FAFAF9);
+            #FFFFFF);
     /* NO z-index, deliberately. A z-index here would make the spacer a stacking
        context, and then nothing inside it could ever be ordered against
        anything inside .container — the two would stack whole, one entirely in
@@ -984,12 +988,23 @@ button {
    Held to roughly its old size here; the full size is a desktop effect, where
    there is room for it. */
 @media (max-width: 800px) {
+    /* TEMPORARY: the ring is off on a phone.
+     *
+       display: none rather than visibility or opacity, so the six images are
+       never laid out, never rastered and never composited — on a narrow screen
+       they were the most expensive thing in the hero by a distance.
+
+       This takes the welcome note with it, and that is deliberate rather than
+       collateral: the note's copy is "here are some stickers that tell you a
+       bit about me", which reads as nonsense with nothing around it.
+
+       The sizing below is kept so turning this back on is deleting one line.
+       The stickers are sized off vmin and PLACED off a vmin-floored radius, so
+       the two figures have to move together — growing them without tightening
+       the ring walks the widest one off the edge. */
     .hero-stickers {
-        /* Bigger than they were — 24vmin, the same figure the desktop uses —
-           and the ring pulled in to make room for them. The two go together:
-           the stickers are sized off vmin and PLACED off a vmin-floored radius,
-           so growing them on a narrow window without tightening the ring walks
-           the widest one straight off the edge. */
+        display: none;
+
         --sticker-size: clamp(5rem, 30vmin, 11rem);
         --ring-x: max(27vw, 26vmin);
     }
@@ -1762,9 +1777,16 @@ button {
 }
 
 .chat__bubble--tail::after {
-    /* left == -width, so the right edge sits on the bubble's own left edge. */
+    /* The right edge stops 1px SHORT of the bubble's own left edge.
+     *
+       Landing it exactly on the edge is what it looks like it should do, and it
+       leaves a hairline of page colour between the nub and the bubble: the tail
+       size is fractional, so the mask's right edge and the bubble's left edge
+       round to different subpixels and the gap falls between them. Stopping a
+       pixel early puts the mask's edge inside the nub, which is the same colour
+       as the bubble, so there is nothing to see either way. */
     left: calc(var(--chat-tail-size) * -1.45);
-    width: calc(var(--chat-tail-size) * 1.45);
+    width: calc(var(--chat-tail-size) * 1.45 - 1px);
     background: var(--background-color);
     border-bottom-right-radius: calc(var(--chat-tail-size) * 0.55);
     /* Over the nub — the whole construction depends on this one painting last.
@@ -1875,12 +1897,15 @@ button {
 /* Dark mode: the same swap the hero bubble makes. Flat blue rather than the
    hero's gradient — that one is graded across a single large blob, and repeating
    it per bubble would band the stack. */
-@media (prefers-color-scheme: dark) {
-    .chat {
-        --chat-bubble-bg: #0A84FF;
-        --chat-bubble-fg: #FFFFFF;
-    }
+/* Blue bubbles, always: the thread sits on the dark page whatever the system
+   is set to. Flat rather than the hero bubble's gradient — that one is graded
+   across a single large blob, and repeating it per bubble would band the
+   stack. */
+.chat {
+    --chat-bubble-bg: #0A84FF;
+    --chat-bubble-fg: #FFFFFF;
 }
+
 
 .about-links {
     font-family: var(--font-body);
@@ -2349,6 +2374,34 @@ a.tag:hover {
     color: var(--text-reg);
     /* The stroke swells past the viewBox at the cap. */
     overflow: visible;
+}
+
+/* The footer mark draws itself the first time a reader reaches the foot of the
+   page — the hero's reveal, once more and much smaller, as a sign-off.
+ *
+   The dash figures are set by the script in site/footer.html rather than here,
+   because the length is measured off the path. Without JavaScript nothing is
+   set, the path has no dash at all, and the mark is simply drawn — which is the
+   right fallback. */
+.footer-mark.is-drawing path {
+    animation: footer-mark-draw 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes footer-mark-draw {
+    from {
+        stroke-dashoffset: var(--mark-length);
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .footer-mark.is-drawing path {
+        animation: none;
+        stroke-dashoffset: 0;
+    }
 }
 
 .footer-line {
