@@ -74,6 +74,26 @@ document.addEventListener('DOMContentLoaded', function () {
     // separation finishes the job.
     var HOME = 0.05;
 
+    // A little give either side of a sticker's authored size, rolled per deal.
+    // It buys the search a continuous degree of freedom it did not have: a pile
+    // that will not quite fit can shrink its way out instead of being thrown
+    // away, and the variation reads as a pile rather than a set.
+    var SCALE_MIN = 0.9;
+    var SCALE_MAX = 1.1;
+
+    // The grid the evenness of a layout is judged on, what an empty cell costs,
+    // and how much a pixel of overlap costs against it.
+    //
+    // Overlap has to dominate, and at first it did not: an empty cell at 9
+    // outbid three small touches at a couple of pixels each, so the search
+    // started buying evenness with overlaps — exactly the wrong trade. Weighted
+    // as it is now, a hole is worth about a pixel and a half of overlap, so
+    // evenness only ever decides between layouts that are already clean.
+    var GRID_COLS = 5;
+    var GRID_ROWS = 6;
+    var HOLE_COST = 9;
+    var OVERLAP_COST = 6;
+
     // How long each attempt is left on screen during the opening deal, and the
     // longest the whole thing may take. The search is shown rather than hidden
     // — see the end of solve(). Slow enough to read as one sticker being laid
@@ -223,7 +243,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var blocks = obstacles();
 
         // Measured once per solve, not once per attempt: reading layout inside
-        // the search would be the only slow thing in this file.
+        // the search would be the only slow thing in this file. Cleared first,
+        // or each solve would measure the last one's scaling and compound it.
+        stickers.forEach(function (sticker) { sticker.style.removeProperty('--art-scale'); });
         var sizes = stickers.map(footprint);
 
         var notes = stickers.map(function (sticker) {
@@ -266,11 +288,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 var angle = spin + order[index] * slice + (Math.random() - 0.5) * slice * 0.7;
                 var reach = 0.8 + Math.random() * 0.45;
+                var scale = pinned[index] ? 1 : SCALE_MIN + Math.random() * (SCALE_MAX - SCALE_MIN);
 
                 var node = {
                     index: index,
-                    w: sizes[index].w,
-                    h: sizes[index].h,
+                    scale: scale,
+                    w: sizes[index].w * scale,
+                    h: sizes[index].h * scale,
                     pinned: pinned[index],
                     // The welcome note gets first pick and keeps it: it is the
                     // only sticker made of words, and words that have been
@@ -362,12 +386,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
             for (var m = 0; m < nodes.length; m++) {
                 for (var n = m + 1; n < nodes.length; n++) {
-                    score += overlapOf(nodes[m], nodes[n], nodes[m].w, nodes[m].h, nodes[n].w, nodes[n].h);
+                    score += overlapOf(nodes[m], nodes[n], nodes[m].w, nodes[m].h,
+                        nodes[n].w, nodes[n].h) * OVERLAP_COST;
                 }
 
                 for (var k = 0; k < blocks.length; k++) {
                     score += overlapOf(nodes[m], blocks[k], nodes[m].w, nodes[m].h,
-                        blocks[k].w, blocks[k].h) * 20;
+                        blocks[k].w, blocks[k].h) * OVERLAP_COST * 20;
+                }
+            }
+
+            // How evenly the pile covers the window, counted as cells of a
+            // coarse grid that hold nothing at all. Without this the search
+            // stops at the first layout with no overlaps and never asks whether
+            // it is a GOOD one — which is where the empty quarters came from:
+            // plenty of clean deals, no reason to prefer the even ones.
+            for (var gy = 0; gy < GRID_ROWS; gy++) {
+                for (var gx = 0; gx < GRID_COLS; gx++) {
+                    var cell = {
+                        x: (gx + 0.5) * vw / GRID_COLS,
+                        y: (gy + 0.5) * vh / GRID_ROWS
+                    };
+                    var cw = vw / GRID_COLS;
+                    var ch = vh / GRID_ROWS;
+                    var filled = false;
+
+                    for (var q = 0; q < nodes.length && !filled; q++) {
+                        if (overlapOf(cell, nodes[q], cw, ch, nodes[q].w, nodes[q].h) > 4) filled = true;
+                    }
+
+                    for (var z = 0; z < blocks.length && !filled; z++) {
+                        if (overlapOf(cell, blocks[z], cw, ch, blocks[z].w, blocks[z].h) > 4) filled = true;
+                    }
+
+                    if (!filled) score += HOLE_COST;
                 }
             }
 
@@ -378,6 +430,7 @@ document.addEventListener('DOMContentLoaded', function () {
             nodes.forEach(function (node) {
                 if (node.pinned) return;
 
+                stickers[node.index].style.setProperty('--art-scale', node.scale.toFixed(3));
                 stickers[node.index].style.setProperty('--dx', ((node.x - cx) / ringX).toFixed(3));
                 stickers[node.index].style.setProperty('--dy', ((node.y - cy) / ringY).toFixed(3));
             });
@@ -385,11 +438,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var best = null;
 
+        // Every attempt, not "until one works". A deal with no overlaps is
+        // where the old search stopped, which meant the layout shown was
+        // whichever clean one turned up first rather than the best of them.
         for (var tries = 0; tries < ATTEMPTS; tries++) {
             var run = attempt();
-
             if (!best || run.score < best.score) best = run;
-            if (!best.score) break;
         }
 
         apply(best.nodes);

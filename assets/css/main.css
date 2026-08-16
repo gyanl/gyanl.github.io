@@ -461,6 +461,20 @@ body {
             #FFFFFF);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    /* The footer is fixed at z-index -1, which paints it below body's own
+       in-flow layer — and the runway that reveals it is body's padding. So the
+       body itself sat over the whole footer and ate every click: the links were
+       visible, hover did nothing, and even the text could not be selected.
+     *
+       Body stops hit-testing and its children take it back. Everything on the
+       page is inside one of them, and the footer being one of them is what lets
+       a press reach it in the strip where nothing else is. */
+    pointer-events: none;
+}
+
+body > * {
+    pointer-events: auto;
 }
 
 h1,
@@ -1307,8 +1321,12 @@ button {
        the sizing rather than a decision about the artwork, and every new
        sticker needed one worked out for it. Now the art's own resolution is the
        decision: export it larger to have it sit larger. Width is left to
-       shrink-wrap, so aspect looks after itself. */
-    height: calc(var(--art-h, 512) * var(--sticker-unit));
+       shrink-wrap, so aspect looks after itself.
+
+       --art-scale is the solver's own small adjustment on top — a little give
+       either side of the authored size, which it uses to make a pile fit. See
+       layout-hero-stickers.js. */
+    height: calc(var(--art-h, 512) * var(--sticker-unit) * var(--art-scale, 1));
 
     /* The radial move.
      *
@@ -2008,6 +2026,7 @@ button {
     --chat-bubble-bg: #F2F2F2;
     --chat-bubble-fg: var(--text-reg);
     --chat-tail-size: 18px;
+    --chat-bubble-radius: 20px;
 
     /* Narrower than the section so the bubbles wrap after a line or two, the way
        a real thread reads — a full-width bubble stops looking like a message.
@@ -2041,7 +2060,7 @@ button {
     position: relative;
     margin: 0;
     padding: 10px 16px;
-    border-radius: 20px;
+    border-radius: var(--chat-bubble-radius);
     background: var(--chat-bubble-bg);
     color: var(--chat-bubble-fg);
     font-family: var(--font-body);
@@ -2071,7 +2090,16 @@ button {
     content: '';
     position: absolute;
     bottom: 0;
-    height: var(--chat-tail-size);
+    /* Taller than the bubble's corner, not just taller than the tail.
+     *
+       At one tail-size these sat entirely INSIDE the 20px corner curve — the
+       whole nub lived in the stretch where the bubble's left edge has already
+       turned inward, so the hook grew out of a curve instead of out of the
+       straight edge above it, and read as stuck on rather than part of the
+       shape. Starting them above where the arc begins is what lets the nub
+       meet the flat edge. The mask covers the extra height, so nothing of it
+       shows except the crescent at the bottom. */
+    height: calc(var(--chat-bubble-radius) + var(--chat-tail-size) * 0.5);
 }
 
 .chat__bubble--tail::before {
@@ -2079,7 +2107,12 @@ button {
     width: var(--chat-tail-size);
     background: var(--chat-bubble-bg);
     border-bottom-right-radius: calc(var(--chat-tail-size) * 0.85);
-    z-index: 0;
+    /* Behind the words. A negative z-index puts these above the bubble's own
+       background but below its inline content, which is exactly the layer this
+       construction wants: it was z-index 0, which makes a stacking context that
+       paints OVER the text, and the moment the nub grew tall enough to reach
+       the corner it started cutting into the last line. */
+    z-index: -2;
 }
 
 .chat__bubble--tail::after {
@@ -2095,10 +2128,11 @@ button {
     width: calc(var(--chat-tail-size) * 1.45 - 1px);
     background: var(--background-color);
     border-bottom-right-radius: calc(var(--chat-tail-size) * 0.55);
-    /* Over the nub — the whole construction depends on this one painting last.
-       Stated rather than left to source order. Both sit entirely outside the
-       bubble's own box, so neither can reach the text. */
-    z-index: 1;
+    /* Over the nub — the whole construction depends on this one painting last
+       of the two. Stated rather than left to source order, and negative for the
+       same reason as the nub: both belong under the words. This one stops 1px
+       outside the bubble, so it never paints page colour over the fill. */
+    z-index: -1;
 }
 
 /* The sender's name heading the thread. Centred on the column rather than
@@ -2211,6 +2245,9 @@ button {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-xl);
+    /* Room under the last card before the page ends and the footer is revealed
+       behind it — without it the grid runs straight into the fold. */
+    padding-bottom: var(--spacing-6xl);
 }
 
 .project-filters {
@@ -2550,16 +2587,16 @@ a.tag:hover {
     color: var(--text-secondary);
 }
 
-/* A line of plain copy under a section heading. The heading is set large and
-   secondary, so this sits at body size in the page's own ink — the heading
-   names the section, this one says what is in it. */
+/* A line of plain copy under a section heading, set exactly as a project's
+   description is — same size, same knocked-back colour. It is the same kind of
+   thing: a sentence explaining the titled thing above it. */
 .section-lede {
     width: 100%;
     max-width: var(--width-thread);
     margin: calc(var(--spacing-2xl) * -1) auto var(--spacing-2xl) auto;
     font-family: var(--font-body);
     font-size: var(--font-size-xl);
-    color: var(--text-secondary);
+    color: color-mix(in srgb, var(--text-secondary) 68%, var(--background-color));
 }
 
 .resume__list {
