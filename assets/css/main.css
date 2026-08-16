@@ -1606,11 +1606,20 @@ button {
     position: absolute;
     top: calc(100% + 0.6rem);
     left: 50%;
-    /* Straight below and centred on the sticker. It used to lean away from the
-       nearest edge, off the ring's own --dx, which kept the outermost notes
-       inside a narrow window at the cost of never sitting where the sticker
-       actually was. --tip-y is the direction it slides in from; the tip-up
-       variant below flips it along with the edge it hangs off. */
+    /* Straight below and centred on the sticker, at every width.
+     *
+       On a phone this used to lean away from the nearest edge by up to half the
+       note's width, off the ring's own --dx, on the reasoning that a centred
+       note near the edge of a narrow window would fall off it. It kept the note
+       on screen and cost it the one thing a note has to do, which is point at
+       the sticker it belongs to: notes drifted a long way from their own
+       sticker and the lean had no relation to whether there was actually a
+       problem, since --dx is where the sticker was DEALT, not where it ended up
+       after the solver moved it.
+     *
+       hero-sticker-tips.js measures the real thing instead and slides the note
+       back only as far as it has to, only when it would genuinely be cut off.
+       --tip-y is the direction it slides in from. */
     --tip-x: -50%;
     --tip-y: 4px;
     /* --tip-nudge slides the note back inside the window when centring it under
@@ -2269,6 +2278,9 @@ button {
     margin: 0 auto;
 }
 
+/* The whole card is one link. It used to be an inert div with a single anchor
+   inside it, which meant the only thing worth clicking was a pill the size of a
+   thumbnail's corner. */
 .project {
     display: block;
     /* Vertical only. The card has no background of its own, so side padding did
@@ -2277,6 +2289,90 @@ button {
     padding: var(--spacing-md) 0;
     position: relative;
     color: var(--text-reg);
+    text-decoration: none;
+}
+
+.project:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+    border-radius: var(--border-radius-thumbnail);
+}
+
+/* The frame the artwork is seen through: it holds the badge in place, and it is
+   what the image is cropped to when it grows on hover. The corner lives here
+   rather than only on the image, since this is now the edge doing the cutting.
+
+   Without it the badge would resolve to .project and sit against the card's
+   whole height, title and all. */
+.project-media {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: var(--border-radius-thumbnail);
+}
+
+/* Hover pushes the image out past its frame rather than resizing anything: the
+   card, the grid and the text below it never move, and only the crop changes.
+   Done with `scale` — the independent property, so it composes with any
+   transform instead of replacing it — and NOT with width or height, which
+   would relayout the page on every hover for the same picture. */
+.project-thumbnail {
+    transition: scale var(--transition-normal);
+}
+
+.project:hover .project-thumbnail {
+    scale: 1.05;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .project-thumbnail {
+        transition: none;
+    }
+
+    .project:hover .project-thumbnail {
+        scale: 1;
+    }
+}
+
+/* Over the artwork's top right corner. Rides on the .pill-button treatment, so
+   it is the same dark glass as everything else, and it is a span rather than an
+   anchor — the card around it is already the link.
+
+   The arrow alone, so it is square: a pill that has lost its label is just a
+   circle with too much padding. */
+/* Compound on purpose: this element also carries .pill-button, and that rule
+   sits later in the file — at equal specificity it would win on order and the
+   badge would keep the pill's 999px corner and its label-sized padding. */
+.project .project-live {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    justify-content: center;
+
+    /* Concentric with the thumbnail behind it: inset by --spacing-md, so its
+       corner has to be exactly that much tighter than the thumbnail's to run
+       parallel to it — the same arithmetic the experience cards' logo plates
+       use. Overrides the pill's 999px, which would have drawn a circle taking
+       no notice of the corner it sits in.
+
+       --card-pad would say this better but is declared on .resume, so it does
+       not reach here; the inset above is the same token that one resolves to. */
+    border-radius: calc(var(--border-radius-thumbnail) - var(--spacing-md));
+
+    font-size: var(--font-size-xl);
+    /* The card is the click target, so this must not eat the press or steal the
+       cursor on its way through. */
+    pointer-events: none;
+}
+
+/* The lift belongs to the whole card now, and the badge goes along for the ride
+   — it cannot answer a hover of its own, having no pointer events. */
+.project:hover .project-live {
+    background: var(--pane-fill-hover) padding-box, var(--pane-ring) border-box;
+    transform: translateY(-2px);
 }
 
 /* The site's button: a fully rounded grey pill. Used by the work cards' live-site
@@ -2442,6 +2538,18 @@ a.tag:hover {
     font-size: var(--font-size-3xl);
     font-weight: 400;
     letter-spacing: var(--letter-spacing-tight);
+    color: var(--text-secondary);
+}
+
+/* A line of plain copy under a section heading. The heading is set large and
+   secondary, so this sits at body size in the page's own ink — the heading
+   names the section, this one says what is in it. */
+.section-lede {
+    width: 100%;
+    max-width: var(--width-thread);
+    margin: calc(var(--spacing-2xl) * -1) auto var(--spacing-2xl) auto;
+    font-family: var(--font-body);
+    font-size: var(--font-size-xl);
     color: var(--text-secondary);
 }
 
@@ -2674,6 +2782,10 @@ a.tag:hover {
 }
 
 .resume__period {
+    /* Knocked back further than the organisation beside it: on a dark card
+       --text-secondary is still bright enough to compete with the role, and the
+       date is the least of the three things a row says. */
+    color: color-mix(in srgb, var(--text-secondary) 62%, var(--background-color));
     /* Reads as a timestamp rather than a column: smaller than the line it sits
        on, and never broken across two. */
     font-size: var(--font-size-md);
@@ -3022,15 +3134,6 @@ a.tag:hover {
         width: var(--width-mobile);
     }
 
-    /* Centred under the sticker is right on a desktop, where the ring sits well
-       inside the window. On a phone it is not: the ring is only a third of the
-       width out, so a centred note runs off the edge. These lean away from
-       whichever side they are on instead, off the ring's own --dx — -1 resolves
-       to 0% and the note opens rightward, +1 to -100% and it opens leftward. */
-    .hero-sticker__tip {
-        --tip-x: calc(-50% - var(--dx, 0) * 50%);
-    }
-
     .chat {
         --chat-tail-size: 14px;
         /* Flush to the column, tail and all: the bubbles start on the page's own
@@ -3082,7 +3185,8 @@ a.tag:hover {
     }
 
     .resume__list,
-    .section-heading {
+    .section-heading,
+    .section-lede {
         width: var(--width-mobile);
     }
 

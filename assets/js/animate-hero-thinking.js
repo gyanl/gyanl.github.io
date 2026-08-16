@@ -19,17 +19,17 @@ document.addEventListener('DOMContentLoaded', function () {
     // it loops.
     var words = [
         'thinking',
-        'imagining',
-        'picking a typeface',
-        'brewing coffee',
-        'drinking coffee',
         'daydreaming',
         'snoozing',
         'waiting for you to scroll',
+        'brewing coffee',
+        'drinking coffee',
+        'imagining',
+        'picking a typeface',
         'going on a walk',
+        'petting cats',
         'listening to music',
         'nudging pixels',
-        'petting cats',
         'creating',
         'doodling'
     ];
