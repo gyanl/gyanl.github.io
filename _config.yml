@@ -1,8 +1,52 @@
 title: Gyan Lakhwani
-author: Gyan Lakhwani
 email: hello@gyanl.com
+
+# What a link preview and a search result say under the title. It used to be
+# "Made with <3 in New Delhi, India", which is the footer's line — charming
+# there, and no use at all to someone deciding whether to click.
 description: > # this means to ignore newlines until "show_excerpts:"
-  Made with <3 in New Delhi, India
+  New Delhi based interaction designer with a decade of experience working with
+  pixels, systems, and code.
+
+# A map, not a string. As a string, jekyll-seo-tag read the whole name as a
+# Twitter handle and emitted twitter:creator="@Gyan Lakhwani".
+author:
+  name: Gyan Lakhwani
+  twitter: gyanl
+
+# The site's own address, and it has to be here. Without it jekyll-seo-tag has
+# nothing to build absolute URLs from and falls back to the GitHub Pages
+# metadata — a production build was emitting a canonical and an og:url of
+# https://github.com/pages/gyanl/, and og:image would have inherited the same
+# wrong base. A link preview needs an absolute image URL or it shows no image
+# at all.
+url: https://gyanl.com
+
+# The link preview card. 1200x630, JPEG on purpose: WebP is still unreliable in
+# the scrapers that matter for a link sent to a person — iMessage, WhatsApp,
+# LinkedIn — and a preview that quietly drops the image is worse than a larger
+# file.
+#
+# Set as a front matter DEFAULT rather than a bare `image:` key. jekyll-seo-tag
+# reads page.image and has no site-level fallback, so a top-level image: is
+# simply ignored — it was, silently, and the card kept coming out with no
+# picture. A page may still override it with its own `image` in front matter.
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/gyanl-og-image.jpg
+
+# Empty on purpose, and stated rather than left out: the GitHub Pages metadata
+# plugin fills an absent baseurl in from the repository, which put /pages/gyanl
+# on the front of every canonical URL in a production build.
+baseurl: ""
+
+twitter:
+  username: gyanl
+  # Without this the card is the small square thumbnail rather than the
+  # full-width image.
+  card: summary_large_image
 
 show_excerpts: false # set to true to show excerpts on the homepage
 
