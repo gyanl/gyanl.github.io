@@ -402,14 +402,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
     solve(true);
 
-    // Re-dealt on resize rather than merely re-solved: a window that has changed
-    // shape wants a new arrangement, not the old one shoved about. Debounced,
-    // since dragging a window corner fires this continuously.
+    /*
+     * Re-dealt when the window changes shape — not merely re-solved, since a
+     * different shape wants a different arrangement rather than the old one
+     * shoved about.
+     *
+     * The guard is the whole point of this block. On a phone, scrolling hides
+     * and shows the browser's own chrome, which changes innerHeight and fires
+     * `resize` — so a reader who scrolled down and came back to the top found
+     * every sticker somewhere else, for no reason they could see. The width is
+     * what actually says the layout should change; a height that moves by less
+     * than a URL bar is the URL bar.
+     */
+    var CHROME = 160;
+
+    var lastWidth = window.innerWidth;
+    var lastHeight = window.innerHeight;
     var pending = null;
 
     window.addEventListener('resize', function () {
+        var sameWidth = window.innerWidth === lastWidth;
+        var smallShift = Math.abs(window.innerHeight - lastHeight) < CHROME;
+
+        if (sameWidth && smallShift) return;
+
+        lastWidth = window.innerWidth;
+        lastHeight = window.innerHeight;
+
         clearTimeout(pending);
         pending = setTimeout(function () { solve(); }, 150);
+    });
+
+    // A real change of shape, and one that does not always come with a resize
+    // worth the name on iOS.
+    window.addEventListener('orientationchange', function () {
+        lastWidth = 0;
     });
 
     // The caption is one of the obstacles and it is set in a webfont, so its box
