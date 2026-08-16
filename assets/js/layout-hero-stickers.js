@@ -29,8 +29,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var stickers = Array.prototype.slice.call(ring.querySelectorAll('.hero-sticker'));
     if (!stickers.length) return;
 
-    // Clear of the lockup.
+    // Clear of the lockup, and — for the note alone — of the window's edge.
     var KEEP = 28;
+    var EDGE = 12;
 
     // How far a sticker may hang off the edge of the window, as a fraction of
     // its own size. Not a mistake to be prevented: a pile of stickers running
@@ -197,6 +198,10 @@ document.addEventListener('DOMContentLoaded', function () {
         // the search would be the only slow thing in this file.
         var sizes = stickers.map(footprint);
 
+        var notes = stickers.map(function (sticker) {
+            return sticker.classList.contains('hero-sticker--note');
+        });
+
         // A sticker the reader has moved keeps the place they put it, and
         // becomes one more thing for the others to avoid.
         var pinned = stickers.map(function (sticker) {
@@ -239,6 +244,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     w: sizes[index].w,
                     h: sizes[index].h,
                     pinned: pinned[index],
+                    // The welcome note gets first pick and keeps it: it is the
+                    // only sticker made of words, and words that have been
+                    // shoved into a corner by a picture of a taxi are words
+                    // nobody reads.
+                    solid: notes[index],
                     x: pinned[index] ? held[index].x : cx + Math.cos(angle) * ringX * reach,
                     y: pinned[index] ? held[index].y : cy + Math.sin(angle) * ringY * reach
                 };
@@ -269,14 +279,25 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (b2 === a) continue;
 
                         var other = nodes[b2];
-                        // Half each when both can move, all of it when the other
-                        // is pinned and can give no ground.
+
+                        // The note is not moved by the artwork — the artwork
+                        // moves around it. Without this it is just another box
+                        // in the pile and ends up wherever the shoving leaves
+                        // it, which for the one sticker that has to be READ is
+                        // the wrong way round.
+                        if (node.solid && !other.solid) continue;
+
+                        // Half each when both can move, all of it when the
+                        // other gives no ground.
                         moved += separate(node, other, node.w + GAP, node.h + GAP, other.w, other.h,
-                            other.pinned ? 1 : 0.5);
+                            (other.pinned || other.solid) ? 1 : 0.5);
                     }
 
-                    var lowY = node.h * (0.5 - BLEED);
-                    var highY = vh - node.h * (0.5 - BLEED);
+                    // No bleed for the note: half a sentence off the side of
+                    // the window is not a crop, it is a missing word.
+                    var out = node.solid ? -EDGE / node.h : BLEED;
+                    var lowY = node.h * (0.5 - out);
+                    var highY = vh - node.h * (0.5 - out);
 
                     // The lockup LAST, so it is the one thing nothing can be
                     // pushed back onto. A sticker cleared of the middle and then
@@ -294,8 +315,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (push) blocked++;
                     });
 
-                    node.x = Math.min(Math.max(node.x, node.w * (0.5 - BLEED)),
-                        vw - node.w * (0.5 - BLEED));
+                    var outX = node.solid ? -EDGE / node.w : BLEED;
+                    node.x = Math.min(Math.max(node.x, node.w * (0.5 - outX)),
+                        vw - node.w * (0.5 - outX));
                     node.y = Math.min(Math.max(node.y, lowY), highY);
                 }
 

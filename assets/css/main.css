@@ -430,6 +430,14 @@
 
 body {
     font-family: var(--font-body);
+    /* Mobile Safari inflates small text inside a wide block unless told not to
+       — its own idea of readability, applied to the text but NOT to the box
+       around it. The hero's sticky note is sized as 12em of its own font, so
+       the words grew while the paper did not and the note came out a narrow
+       column of eight ragged lines on a phone and nowhere else. Everything on
+       this page is sized deliberately and relative to the viewport already. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     font-size: var(--font-size-base);
     letter-spacing: var(--letter-spacing-tight);
     line-height: var(--line-height-base);
