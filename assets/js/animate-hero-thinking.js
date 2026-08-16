@@ -13,21 +13,25 @@ document.addEventListener('DOMContentLoaded', function () {
     var word = document.querySelector('.hero-thinking__word');
     if (!word) return;
 
-    // The first is in the markup, so the cycle starts on the second.
+    // The opening line is in the markup and is not in here: "arranging stickers"
+    // is what the page is actually doing at that moment, so it is said once and
+    // never comes round again. This list is everything after it, in order, and
+    // it loops.
     var words = [
         'thinking',
-        'petting cats',
-        'going on a walk',
         'imagining',
-        'nudging pixels',
-        'brewing coffee',
-        'creating',
-        'doodling',
-        'snoozing',
-        'daydreaming',
         'picking a typeface',
-        'watering the plants',
-        'sneezing'
+        'brewing coffee',
+        'drinking coffee',
+        'daydreaming',
+        'snoozing',
+        'waiting for you to scroll',
+        'going on a walk',
+        'listening to music',
+        'nudging pixels',
+        'petting cats',
+        'creating',
+        'doodling'
     ];
 
     // How long the finished word sits before it starts being taken apart. Long
@@ -42,7 +46,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var WASH_MS = 790;
 
-    var index = 0;
+    // -1, so the first turn of the cycle lands on words[0] rather than skipping
+    // it. It was 0 back when the markup carried the list's own first word and
+    // showing it again immediately would have been a stutter — the markup now
+    // opens on a line of its own, so nothing here should be skipped.
+    var index = -1;
     var still = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     // Paused once the page has moved, and running again at the top. The hero is

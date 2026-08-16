@@ -356,8 +356,18 @@ document.addEventListener('DOMContentLoaded', function () {
         ring.classList.add('is-dealing');
         stickers.forEach(function (sticker) { sticker.classList.remove('is-dealt'); });
 
+        // The welcome note goes down last, whatever order it sits in the
+        // markup: it is the one that talks, so it should arrive to a table
+        // that is already set rather than be read while the rest appear around
+        // it. Everything else keeps document order.
+        var dealOrder = stickers.filter(function (sticker) {
+            return !sticker.classList.contains('hero-sticker--note');
+        }).concat(stickers.filter(function (sticker) {
+            return sticker.classList.contains('hero-sticker--note');
+        }));
+
         var frame = 0;
-        var gap = Math.min(REVEAL_STEP, REVEAL_MS / stickers.length);
+        var gap = Math.min(REVEAL_STEP, REVEAL_MS / dealOrder.length);
 
         // A few pixels and a fraction of a degree, re-rolled for every sticker
         // already down each time another is added. Small enough that nothing
@@ -372,12 +382,12 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         var next = function () {
-            stickers[frame].classList.add('is-dealt');
+            dealOrder[frame].classList.add('is-dealt');
             frame++;
 
-            for (var i = 0; i < frame; i++) wobble(stickers[i], JITTER);
+            for (var i = 0; i < frame; i++) wobble(dealOrder[i], JITTER);
 
-            if (frame < stickers.length) return setTimeout(next, gap);
+            if (frame < dealOrder.length) return setTimeout(next, gap);
 
             // Settled: the wobble is a property of the dealing, not of the
             // layout, so the pile comes to rest exactly where the solver put it.
