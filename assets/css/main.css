@@ -320,6 +320,9 @@
     --spacing-4xl: 45px;
     --spacing-5xl: 80px;
     --spacing-6xl: 100px;
+    /* Only the footer's top padding, which has to clear an in-app browser's
+       floating toolbar as well as the page's own rounded corner. */
+    --spacing-7xl: 160px;
 
     /* Square thumbnail sizes, still used by post headers (.entry-thumbnail) and
        archive listings (.listing-thumbnail). The source art is 100-144px, so
@@ -3321,13 +3324,22 @@ a.tag:hover {
        floating bar — and the two are added, since a notched phone in an in-app
        browser has both.
      *
-       The top figure follows the window's height rather than being fixed: 80px
-       is a fifth of the visible height in an in-app browser, and it pushed
-       everything under it further down into the same bar. */
+       The top figure is generous, and has to be. The page is meant to cover the
+       footer's first --border-radius-page so the sheet's rounded corners land
+       ON it — but in an in-app browser it covers a great deal more than that.
+       The footer is fixed to the bottom of the LAYOUT viewport, which runs on
+       behind the floating toolbar, so the whole thing sits lower than the part
+       of the screen you can see while the page's own end is unchanged. The
+       overlap becomes the radius plus the height of that bar, and the first
+       thing in the footer — the mark — was being cut in half by it.
+     *
+       So the mark starts far enough down to clear a toolbar as well as the
+       corners. It costs nothing anywhere else: the footer is the last thing on
+       the page and this is empty space above a centred column. */
     .footer {
         width: 100%;
         margin: 0;
-        padding: clamp(var(--spacing-2xl), 11vh, var(--spacing-5xl)) 0
+        padding: clamp(var(--spacing-5xl), 22vh, var(--spacing-7xl)) 0
             calc(var(--spacing-5xl) + env(safe-area-inset-bottom, 0px)) 0;
         /* Held at the chrome size rather than following the mobile body down to
            sm, so the footer is the same tier as the section labels and buttons

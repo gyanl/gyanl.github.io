@@ -55,9 +55,14 @@
 {%- comment -%}
   The footer is fixed and the page scrolls over it, so body needs a run of
   padding exactly as tall as the footer for it to be revealed through — and the
-  footer is sized by its own contents, which change with the viewport. Measured
-  here rather than guessed at, and re-measured only when the box actually
-  changes size.
+  footer is sized by its own contents and its own padding, both of which change
+  with the viewport. Measured here rather than guessed at.
+
+  If this figure goes stale the page does not simply misalign, it covers the
+  footer: body's runway is the footer's height less one corner radius, so a
+  height reported SHORTER than the footer really is has the page ending too
+  early and sitting over the top of it. That is what was cutting the mark in
+  half in an in-app browser.
 {%- endcomment -%}
 <script>
   (function () {
@@ -70,10 +75,30 @@
 
     publish();
 
-    // Catches wrapping changes and font loading as well as plain resizes, and
-    // fires only when the height genuinely moves.
-    if ('ResizeObserver' in window) new ResizeObserver(publish).observe(footer);
-    else window.addEventListener('resize', publish);
+    /*
+     * border-box, explicitly. A ResizeObserver watches the CONTENT box by
+     * default, and this footer's height moves with its padding — which is sized
+     * in vh, so it changes on every viewport change and never touches the
+     * content box at all. The observer was therefore silent for exactly the
+     * changes it existed to catch, and --footer-height kept whatever it
+     * measured on the first paint: 254px against a footer that had since become
+     * 367px, so the page covered 141px of the footer instead of 28.
+     *
+     * The resize listener stays as well as the observer, not instead of it. A
+     * phone hiding its address bar changes vh without resizing the content, and
+     * belt and braces on a figure that silently swallows the footer when it is
+     * wrong is worth one listener.
+     */
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(publish).observe(footer, { box: 'border-box' });
+    }
+
+    window.addEventListener('resize', publish);
+    window.addEventListener('orientationchange', publish);
+
+    // The social row is an icon font and the line above it a webfont; both
+    // change the footer's height when they land.
+    if (document.fonts) document.fonts.ready.then(publish);
   })();
 </script>
 
