@@ -2579,13 +2579,13 @@ a.tag:hover {
        heading had nothing to hold the section together with, and once one of
        them was a title the other could not stay a label.
 
-       Still secondary in colour: it is a title, but what sits under it is the
-       content. Colour is what separates the two, which is the same division the
-       rest of the page makes. */
+       In the page's full ink and set bold, with the lede under it carrying the
+       knocked-back colour instead. It used to be secondary itself, from when it
+       was the only thing there — which left a section opening on two greys and
+       nothing to look at first. */
     font-size: var(--font-size-3xl);
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: var(--letter-spacing-tight);
-    color: var(--text-secondary);
 }
 
 /* A line of plain copy under a section heading, set exactly as a project's

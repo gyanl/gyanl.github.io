@@ -100,9 +100,17 @@ document.addEventListener('DOMContentLoaded', function () {
     // down after another rather than a flicker.
     var REVEAL_STEP = 150;
 
-    // How far a settled sticker is knocked about while the rest are still being
-    // dealt, in pixels, peak to peak.
+    // How far a sticker is knocked about while the rest are still being dealt,
+    // in pixels, peak to peak — the strength at the very first frame, which
+    // everything after it is a fraction of.
     var JITTER = 7;
+
+    // The tail. SETTLE_FROM is what the wobble has eased down to by the time the
+    // last sticker lands, and where the run-out starts from; SETTLE_MS is how
+    // long that run-out takes to reach nothing.
+    var SETTLE_FROM = 0.55;
+    var SETTLE_MS = 2600;
+    var SETTLE_STEP = 130;
     var REVEAL_MS = 2400;
 
     // Set while that playback is running, so nothing else re-solves over the
@@ -477,28 +485,75 @@ document.addEventListener('DOMContentLoaded', function () {
         // already down each time another is added. Small enough that nothing
         // appears to move house, big enough to read as a hand having nudged the
         // whole table between frames.
+        // `amount` is a fraction of JITTER, so the rotation goes quiet with the
+        // movement rather than carrying on alone at the end.
         var wobble = function (sticker, amount) {
-            sticker.style.setProperty('--jitter-x', ((Math.random() - 0.5) * amount).toFixed(1) + 'px');
-            sticker.style.setProperty('--jitter-y', ((Math.random() - 0.5) * amount).toFixed(1) + 'px');
+            var px = JITTER * amount;
+
+            sticker.style.setProperty('--jitter-x', ((Math.random() - 0.5) * px).toFixed(1) + 'px');
+            sticker.style.setProperty('--jitter-y', ((Math.random() - 0.5) * px).toFixed(1) + 'px');
 
             var art = sticker.querySelector('.hero-sticker__art');
-            if (art) art.style.setProperty('--jitter-r', ((Math.random() - 0.5) * 1.6).toFixed(2) + 'deg');
+            if (art) {
+                art.style.setProperty('--jitter-r',
+                    ((Math.random() - 0.5) * 1.6 * amount).toFixed(2) + 'deg');
+            }
+        };
+
+        var shake = function (upTo, amount) {
+            for (var i = 0; i < upTo; i++) wobble(dealOrder[i], amount);
+        };
+
+        /*
+         * The pile keeps moving after the last sticker lands, and stops by
+         * running out rather than by being switched off.
+         *
+         * Two decays, one after the other. Across the deal the wobble eases
+         * back as the table fills, so the early stickers are knocked about and
+         * the late ones barely are — the arrangement is settling as it is being
+         * made. Then it carries on for a few seconds more, dying away
+         * quadratically, which is what a hand leaving a table full of paper
+         * actually looks like. Cutting it dead on the last frame reads as the
+         * animation ending, not as the pile coming to rest.
+         */
+        var settle = function () {
+            var started = Date.now();
+
+            var tick = function () {
+                var k = (Date.now() - started) / SETTLE_MS;
+
+                if (k >= 1) {
+                    // The wobble belongs to the dealing, not to the layout, so
+                    // the pile finishes exactly where the solver put it.
+                    stickers.forEach(function (sticker) { wobble(sticker, 0); });
+                    return;
+                }
+
+                shake(dealOrder.length, SETTLE_FROM * (1 - k) * (1 - k));
+                setTimeout(tick, SETTLE_STEP);
+            };
+
+            tick();
         };
 
         var next = function () {
             dealOrder[frame].classList.add('is-dealt');
             frame++;
 
-            for (var i = 0; i < frame; i++) wobble(dealOrder[i], JITTER);
+            // Full strength on the first sticker down, easing to SETTLE_FROM by
+            // the last — where the settle picks it up and carries it to zero.
+            var eased = 1 - (frame / dealOrder.length) * (1 - SETTLE_FROM);
+            shake(frame, eased);
 
             if (frame < dealOrder.length) return setTimeout(next, gap);
 
-            // Settled: the wobble is a property of the dealing, not of the
-            // layout, so the pile comes to rest exactly where the solver put it.
-            stickers.forEach(function (sticker) { wobble(sticker, 0); });
-
+            // Released here rather than after the settle: everything is on the
+            // table and visible, so a resize is free to re-solve over the top
+            // of the last few seconds of wobble.
             revealing = false;
             ring.classList.remove('is-dealing');
+
+            settle();
         };
 
         next();
