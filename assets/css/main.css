@@ -2973,8 +2973,20 @@ a.tag:hover {
     text-align: left;
     /* Weighted to the top: the page's rounded edge lifts away from here, and
        the gap under it is what makes that read as depth. Below the socials
-       there is nothing left to separate them from. */
-    padding: var(--spacing-6xl) 0 var(--spacing-3xl) 0;
+       there is nothing left to separate them from.
+     *
+       Except a browser's own chrome. An in-app browser — Twitter's, Instagram's
+       — floats a toolbar over the bottom of the page rather than reserving
+       space for it, and `position: fixed; bottom: 0` anchors underneath it. The
+       socials are the last thing in here and were sitting 30px off the bottom,
+       which is squarely behind that bar. env() is what the browser reports for
+       exactly this, and max() means the ordinary case is unaffected.
+     *
+       The top figure comes in on a short window for the same reason: 80px of
+       padding is a fifth of an in-app browser's visible height, and it pushes
+       everything below it down into the toolbar. */
+    padding: clamp(var(--spacing-2xl), 12vh, var(--spacing-6xl)) 0
+        max(var(--spacing-3xl), env(safe-area-inset-bottom)) 0;
     /* A flat light grey, not the old translucent glass: nothing scrolls behind
        this any more — the page slides OFF it — so there is nothing to see
        through to, and a solid ground makes the reveal read as a second surface
@@ -3281,13 +3293,27 @@ a.tag:hover {
         font-size: var(--font-size-md);
     }
 
-    /* Keep the floating card on mobile, just narrower and tighter. The bottom
-       margin clears the fixed tab bar (plus the iOS home indicator). */
-    /* Bottom padding clears the floating tab bar and the iOS home indicator. */
+    /* The bottom padding is clearing two different things, and only one of them
+       is a device inset.
+     *
+       env(safe-area-inset-bottom) covers the iOS home indicator, and it is what
+       that value is for. It does NOT cover an in-app browser's toolbar: Twitter
+       and Instagram float a bar over the bottom of the page rather than
+       reserving space for it, the page is never told, and env() reports zero.
+       The socials sat 30px off the bottom, which is squarely underneath it.
+     *
+       So there is a floor as well — enough that the last row in here clears a
+       floating bar — and the two are added, since a notched phone in an in-app
+       browser has both.
+     *
+       The top figure follows the window's height rather than being fixed: 80px
+       is a fifth of the visible height in an in-app browser, and it pushed
+       everything under it further down into the same bar. */
     .footer {
         width: 100%;
         margin: 0;
-        padding: var(--spacing-5xl) 0 calc(var(--spacing-2xl) + env(safe-area-inset-bottom, 0px)) 0;
+        padding: clamp(var(--spacing-2xl), 11vh, var(--spacing-5xl)) 0
+            calc(var(--spacing-5xl) + env(safe-area-inset-bottom, 0px)) 0;
         /* Held at the chrome size rather than following the mobile body down to
            sm, so the footer is the same tier as the section labels and buttons
            above it and the page keeps to three sizes on a phone too. */
