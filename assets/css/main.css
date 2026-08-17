@@ -250,20 +250,23 @@
      * above), which keeps it a number the engine can track rather than another
      * token stream. */
 
-    /* Typography — SF Pro leads both stacks. It was SF Pro Rounded, behind the
-       `ui-rounded` generic; this is the plain grotesque instead, and the way in
-       is `-apple-system` / `BlinkMacSystemFont`, since the family name alone
-       does not resolve a system-only face any more than 'SF Pro Rounded' did.
+    /* Typography — SF Pro Rounded leads both stacks.
+     *
+       `ui-rounded` is the token that actually resolves it, and it has to come
+       first: the family name alone does not, since it ships as a system-only
+       face, and platforms without the generic simply skip past it. Nunito is
+       the rounded webfont fallback for those, and is not self-hosted.
 
-       Apple picks the optical size itself: Display above 20px or so and Text
-       below, which is the behaviour wanted here and the reason not to name
-       either outright. `system-ui` sits behind them for non-Apple platforms
-       that support it, and Nunito is gone with the rounded stack it belonged
-       to. Behind all of that the original faces are unchanged: TASA Explorer
-       sets headings and display, TASA Orbiter body copy and UI chrome, both
-       variable across 400–800 with no italic. */
-    --font-heading: -apple-system, BlinkMacSystemFont, system-ui, 'TASA Explorer', Georgia, serif;
-    --font-body: -apple-system, BlinkMacSystemFont, system-ui, 'TASA Orbiter', 'Segoe UI', Roboto, sans-serif;
+       `-apple-system` sits behind them rather than in front. It resolves to
+       plain SF Pro, which is the right thing to land on when there is no
+       rounded face — but ahead of ui-rounded it would win on every Apple device
+       and the rounding would never appear at all.
+
+       Behind all of that the original faces are unchanged: TASA Explorer sets
+       headings and display, TASA Orbiter body copy and UI chrome, both variable
+       across 400–800 with no italic. */
+    --font-heading: ui-rounded, 'SF Pro Rounded', 'Nunito', -apple-system, 'TASA Explorer', Georgia, serif;
+    --font-body: ui-rounded, 'SF Pro Rounded', 'Nunito', -apple-system, BlinkMacSystemFont, 'TASA Orbiter', 'Segoe UI', Roboto, sans-serif;
     --line-height-base: 1.4;
     --line-height-tight: 1.1;
     --line-height-sans-base: 1.5;
@@ -726,9 +729,10 @@ button {
 .hero-greeting {
     /* The two typed dots, drawn as circles rather than set as period glyphs.
        A period's size and its place in the line box are the font's business, so
-       anywhere the stack does not resolve to SF Pro — a non-Apple device, or a
-       bolder text setting — the pair came out a different size and off the
-       ball's line. These are geometry and land identically everywhere.
+       anywhere the stack does not resolve to SF Pro Rounded — a non-Apple
+       device, or a bolder text setting — the pair came out a different size and
+       off the ball's line. These are geometry and land identically
+       everywhere.
 
        --dot-size is the ball's resting diameter, baseStroke in
        animate-g-logo.js. That is 1.12 mark units, and this used to be written
