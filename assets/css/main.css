@@ -2594,7 +2594,13 @@ a.tag:hover {
 .section-lede {
     width: 100%;
     max-width: var(--width-thread);
-    margin: calc(var(--spacing-2xl) * -1) auto var(--spacing-2xl) auto;
+    /* Tucked up under its heading. Three things sit between the two otherwise,
+       and the negative margin has to cancel all of them: the heading's own
+       margin-bottom, which is sized for a section that has no lede under it,
+       and the flex gap .work-section puts between every child. What is left is
+       the small figure added back here — a line and its heading, not two
+       separate things. */
+    margin: calc(var(--spacing-sm) - var(--spacing-2xl) - var(--spacing-xl)) auto var(--spacing-2xl) auto;
     font-family: var(--font-body);
     font-size: var(--font-size-xl);
     color: color-mix(in srgb, var(--text-secondary) 68%, var(--background-color));
@@ -3234,7 +3240,12 @@ a.tag:hover {
     }
 
     /* One step down from desktop, and still one size for the pair. */
-    .project-description {
+    /* The lede is set as a project description and has to step down with one.
+       Both are xl above the breakpoint, where xl is itself reduced — so they
+       matched on a desktop and came apart on a phone, the lede at the full 24px
+       against the descriptions at 18. */
+    .project-description,
+    .section-lede {
         font-size: var(--font-size-lg);
     }
 
