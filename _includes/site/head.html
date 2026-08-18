@@ -34,10 +34,6 @@
     type="font/woff2" crossorigin>
   <link rel="preload" href="{{ '/assets/fonts/TASAOrbiter-latin.woff2' | relative_url }}" as="font" type="font/woff2"
     crossorigin>
-  {%- if page.layout == 'home' %}
-  <link rel="preload" as="video" type="video/mp4" href="{{ '/assets/video/radial-flowers.mp4' | relative_url }}">
-  {%- endif %}
-
   {%- comment -%}
     ?v= is the build timestamp. Browsers cache these aggressively enough that an
     edited stylesheet or script keeps being served from cache after a rebuild;
@@ -57,8 +53,6 @@
   <script src="{{ '/assets/js/hero-sticker-tips.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   <script src="{{ '/assets/js/animate-hero-thinking.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   <script src="{{ '/assets/js/stack-resume.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
-  <script src="{{ '/assets/js/setup-anime.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   {%- endif %}
 
   {%- seo -%}

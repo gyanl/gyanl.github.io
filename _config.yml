@@ -21,6 +21,7 @@ author:
 # wrong base. A link preview needs an absolute image URL or it shows no image
 # at all.
 url: https://gyanl.com
+google_analytics: G-01LQP6SLN8
 
 # The link preview card. 1200x630, JPEG on purpose: WebP is still unreliable in
 # the scrapers that matter for a link sent to a person — iMessage, WhatsApp,
