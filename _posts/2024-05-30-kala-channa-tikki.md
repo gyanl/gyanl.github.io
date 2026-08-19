@@ -7,6 +7,7 @@ tags:
 thumbnail: /assets/thumbs/default.png
 date: 30-05-2024
 date modified: 30-05-2024
+hidden: true
 ---
 #### Ingredients:
 

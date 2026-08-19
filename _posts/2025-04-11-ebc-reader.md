@@ -5,7 +5,6 @@ subtitle: Landing page and product design for EBC Reader, reimagining the e-libr
 tags:
   - work
   - uiux
-  - strategy
 thumbnail: /assets/thumbs/pk/ebc-reader-thumbnail.jpg
 external_url: https://www.ebcreader.com/
 date: 11-04-2025

@@ -20,7 +20,13 @@
   missing value as an empty string and `sort` puts those after the numbers. It
   will appear — it just wants a number.
 {%- endcomment -%}
-{%- assign featured_posts = site.tags.featured | sort: "featured_order" -%}
+{%- comment -%}
+  Hidden posts are dropped here too. The grid is a listing like any other, and a
+  post kept off /writing and off its own tag pages should not then be the first
+  thing on the front page.
+{%- endcomment -%}
+{%- assign visible_featured = site.tags.featured | where_exp: "post", "post.hidden != true" -%}
+{%- assign featured_posts = visible_featured | sort: "featured_order" -%}
 
 <section class="work-section">
   <h2 class="section-heading">Recent work</h2>

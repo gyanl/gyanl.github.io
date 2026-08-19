@@ -3,7 +3,7 @@ thumbnail: /assets/thumbs/default.png
 layout: post
 title: Public Notes Website Concept
 subtitle: A laundry list of features for a public note-taking experience that I wish someone built (and might try to build myself at some point if nobody else does it).
-tags: ideas
+tags: misc
 date modified: 13-06-2023
 ---
 

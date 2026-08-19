@@ -6,7 +6,6 @@ tags:
   - work
   - uiux
   - website
-  - strategy
   - dataviz
   - featured
 thumbnail: /assets/thumbs/pk/hammock-thumbnail.jpg

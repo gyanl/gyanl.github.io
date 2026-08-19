@@ -1,0 +1,123 @@
+---
+permalink: /search.json
+# Not a page anyone should land on, and not one worth a line in the sitemap.
+sitemap: false
+---
+{%- comment -%}
+  The search index, built by Liquid at build time.
+
+  This is the whole reason the site can have full-text search while still being
+  built by GitHub Pages itself: it needs no plugin and no post-build step, only
+  core filters. Anything that indexes the *rendered output* instead — Pagefind
+  and friends — would mean owning the build, which this repo deliberately does
+  not.
+
+  Three kinds of thing go in, and each result says which it is:
+
+    article  every post
+    tag      the tag/*.md stubs, which carry a written title and description
+             ("Food & Recipes") rather than the bare tag name off site.tags
+    page     the standing pages and the teaching collection
+
+  jsonify does the escaping, and it is the only escaping wanted here. An extra
+  `escape` before it (as the tech1 original has) HTML-escapes the text as well,
+  which puts a literal &amp; in the index and stops "R&D" ever matching itself.
+
+  `content` on the articles is the bulk of this file by a wide margin — about
+  140kB gzipped against a few kB for everything else — which is why
+  assets/js/search.js does not fetch it until someone uses the search box.
+{%- endcomment -%}
+{%- assign titled = site.pages | where_exp: "p", "p.title" -%}
+[
+{%- comment -%} ---- articles ------------------------------------------- {%- endcomment -%}
+{%- for post in site.posts -%}
+{%- unless forloop.first -%},{%- endunless -%}
+{
+"type": "article",
+{%- comment -%}
+  Hidden posts stay IN the index. `hidden` keeps a post out of the listings, not
+  out of the site — it is still built, still linkable, still in the feed. Search
+  is how you reach one on purpose, so it is here, flagged, and the result is
+  marked unlisted rather than quietly mixed in with the rest.
+{%- endcomment -%}
+"hidden": {{ post.hidden | default: false | jsonify }},
+"title": {{ post.title | strip_html | jsonify }},
+"subtitle": {{ post.subtitle | default: "" | strip_html | jsonify }},
+"url": {{ post.url | relative_url | jsonify }},
+"date": {{ post.date | date: site.minima.date_format | jsonify }},
+"thumbnail": {{ post.thumbnail | default: "/assets/thumbs/default.png" | jsonify }},
+"tags": {{ post.tags | jsonify }},
+{%- comment -%}
+  Block ends become full stops before the tags are stripped, so that two blocks
+  running together do not weld their last and first words into one token —
+  "…the endNext heading…" — which is both a word nobody will search for and a
+  match nobody will get.
+{%- endcomment -%}
+"content": {{ post.content
+  | replace: '</h', ' . </h'
+  | replace: '</p', ' . </p'
+  | replace: '</li', ' . </li'
+  | replace: '</td', ' . </td'
+  | replace: '<hr', ' . <hr'
+  | strip_html
+  | remove: '[['
+  | remove: ']]'
+  | normalize_whitespace
+  | strip
+  | jsonify }}
+}
+{%- endfor -%}
+
+{%- comment -%} ---- tags ----------------------------------------------- {%- endcomment -%}
+{%- for stub in titled -%}
+{%- if stub.layout == 'tagpage' -%},
+{
+"type": "tag",
+"hidden": {{ stub.hidden | default: false | jsonify }},
+"title": {{ stub.title | strip_html | jsonify }},
+"subtitle": {{ stub.description | default: "" | strip_html | jsonify }},
+"url": {{ stub.url | relative_url | jsonify }},
+"date": "",
+"thumbnail": "",
+{%- comment -%}
+  The bare tag as well as the written title, so that searching "food" reaches
+  "Food & Recipes" and searching "uiux" reaches "UI/UX Projects".
+{%- endcomment -%}
+"tags": {{ stub.tag | split: ',' | jsonify }},
+"content": {{ stub.description | default: "" | strip_html | jsonify }}
+}
+{%- endif -%}
+{%- endfor -%}
+
+{%- comment -%} ---- pages ---------------------------------------------- {%- endcomment -%}
+{%- for p in titled -%}
+{%- unless p.layout == 'tagpage' or p.layout == 'home' or p.layout == nil -%},
+{
+"type": "page",
+"hidden": {{ p.hidden | default: false | jsonify }},
+"title": {{ p.title | strip_html | jsonify }},
+"subtitle": {{ p.subtitle | default: p.description | default: "" | strip_html | jsonify }},
+"url": {{ p.url | relative_url | jsonify }},
+"date": "",
+"thumbnail": "",
+"tags": [],
+"content": {{ p.content | strip_html | normalize_whitespace | strip | jsonify }}
+}
+{%- endunless -%}
+{%- endfor -%}
+
+{%- comment -%} ---- the teaching collection, which is pages too --------- {%- endcomment -%}
+{%- for course in site.teaching -%},
+{
+"type": "page",
+"hidden": {{ course.hidden | default: false | jsonify }},
+"title": {{ course.title | strip_html | jsonify }},
+"subtitle": {{ course.subtitle | default: "" | strip_html | jsonify }},
+"url": {{ course.url | relative_url | jsonify }},
+"date": "",
+"thumbnail": {{ course.thumbnail | default: "" | jsonify }},
+"tags": [],
+"content": {{ course.content | strip_html | normalize_whitespace | strip | jsonify }}
+}
+{%- endfor -%}
+]

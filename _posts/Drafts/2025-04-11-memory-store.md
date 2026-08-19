@@ -6,7 +6,6 @@ tags:
   - work
   - branding
   - website
-  - video
 thumbnail: /assets/thumbs/pk/memory-store-thumbnail.jpg
 external_url: https://memory.store/
 date: 11-04-2025

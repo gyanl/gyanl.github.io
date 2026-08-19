@@ -6,7 +6,6 @@ tags:
   - work
   - branding
   - website
-  - video
 thumbnail: /assets/thumbs/pk/presentations-ai-thumbnail.jpg
 external_url: https://presentations.ai/
 date: 11-04-2026

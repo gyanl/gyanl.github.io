@@ -1,13 +1,121 @@
 {%- comment -%}
-  Wordmark. The home page overlays it on the hero (position: absolute) via the
-  `hero` variant; every other page renders it in normal flow above the nav.
+  The header bar, on every page that uses _layouts/default.html. The home page
+  carries its own, much larger, mark in the hero and includes none of this.
+
+  Three things, and the mark is the only one always present:
+
+    left    a way back up, where there is somewhere to go back to
+    centre  the mark
+    right   search
+
+  Both the back button and the search control are placed absolutely against the
+  row rather than sitting in flow beside the mark. In flow they would be
+  siblings competing for the row's width and the mark would centre against
+  whatever was left over — so it would sit in a different place on a tag page
+  than on /about, which is exactly the kind of drift a fixed mark should not
+  have.
 {%- endcomment -%}
-<a class="logo-text{% if include.variant == 'hero' %} logo-text--hero fade-in delay-anim{% endif %}"
-  href="{{ '/' | relative_url }}">
-  <div class="align-left">
-    gyan<span class="sans pad-left-2px">*</span>
-  </div>
-  <div class="align-right">
-    <span class="sans">/</span> lakhwani
-  </div>
-</a>
+<div class="logo-mark-row">
+
+  {%- comment -%}
+    Where "back" goes depends on what this page is. An article or a tag page is
+    a leaf of the writing index, so both go up to /writing; /writing and
+    /archive are themselves indexes, so they go up to the home page.
+
+    page.date is what separates a real article from the two pages that borrow
+    the post layout — /about and /now have no date, and they are top-level
+    destinations with nothing above them.
+  {%- endcomment -%}
+  {%- assign back_url = nil -%}
+  {%- assign back_label = nil -%}
+  {%- if page.layout == 'tagpage' -%}
+  {%- assign back_url = '/writing' -%}{%- assign back_label = 'Back to all writing' -%}
+  {%- endif -%}
+  {%- if page.layout == 'post' and page.date -%}
+  {%- assign back_url = '/writing' -%}{%- assign back_label = 'Back to all writing' -%}
+  {%- endif -%}
+  {%- if page.layout == 'archive' -%}
+  {%- assign back_url = '/' -%}{%- assign back_label = 'Back to the home page' -%}
+  {%- endif -%}
+
+  {%- if back_url %}
+  <a class="logo-back" href="{{ back_url | relative_url }}" aria-label="{{ back_label }}">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+      <path d="M15 5L8 12L15 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+  </a>
+  {%- endif %}
+
+  <a class="logo-mark" href="{{ '/writing' | relative_url }}" aria-label="{{ site.title | escape }} — writing">
+    <svg class="logo-mark__art" viewBox="0.6 0 30 32" preserveAspectRatio="xMidYMid meet" aria-hidden="true"
+      focusable="false">
+      {%- comment -%}
+        viewBox starts at 0.6 rather than 0 for the same optical reason as the
+        hero: the left of a g is a full round bowl and the right is the thin tip
+        of the tail, so the ink sits right of centre and the mark reads as
+        pushed over unless the window is nudged left.
+
+        The geometry is declared once and cloned with <use>: stroke-dasharray
+        and stroke-dashoffset are inherited SVG properties, so setting them on
+        the <use> reaches the cloned path. The hero spells all seven out instead
+        because its layers are retimed every frame during the scroll and cannot
+        afford the indirection; this one animates only on hover.
+      {%- endcomment -%}
+      <defs>
+        <path id="logo-mark-path" fill="none" stroke-linecap="round"
+          d="M23.8326 12.3853C21.5978 3.03697 8.80447 6.61133 8.01136 14.2183C7.71351 17.075 10.366 17.9043 12.1341 17.075C15.035 15.7144 17.9829 10.7714 19.2775 12.4842C18.998 14.8005 18.6154 17.9133 17.9214 20.1594C17.2555 22.3142 16.1714 24.1607 14.2323 25.1695C10.272 27.2297 7.24628 22.7721 11.262 21.0448C13.206 20.2085 15.5549 20.1704 17.9214 20.1594C21.1448 20.1443 24.9709 19.3507 27.207 16.7084C29.2698 14.2708 30.1401 8.34162 25.8142 4.41172C20.209 -0.680449 11.2472 0.280726 5.94998 4.96162C0.652749 9.64251 -1.17446 20.1224 4.39203 26.4434C9.95853 32.7645 24.8036 33.3636 29 22.7418" />
+      </defs>
+
+      {%- comment -%}
+        Least-lagged first, because document order is paint order and a layer
+        only shows where the ones after it have not reached yet: green leads at
+        the tip of the stroke, ink trails at its start. All seven are timed to
+        finish together, so the reveal resolves to the plain mark.
+      {%- endcomment -%}
+      <use class="g-reveal-layer" href="#logo-mark-path" stroke="#61BB46" data-lag="0.0" />
+      <use class="g-reveal-layer" href="#logo-mark-path" stroke="#FDB827" data-lag="0.08" />
+      <use class="g-reveal-layer" href="#logo-mark-path" stroke="#F5821F" data-lag="0.16" />
+      <use class="g-reveal-layer" href="#logo-mark-path" stroke="#E03A3E" data-lag="0.24" />
+      <use class="g-reveal-layer" href="#logo-mark-path" stroke="#963D97" data-lag="0.32" />
+      <use class="g-reveal-layer" href="#logo-mark-path" stroke="#009DDC" data-lag="0.4" />
+      <use class="g-reveal-layer" href="#logo-mark-path" stroke="currentColor" data-lag="0.52" />
+
+      {%- comment -%}
+        The stroke's own round cap at the path's start point, drawn explicitly.
+        Mid-reveal, when the stroke is still retracted past this point, it is
+        the ball the mark grows out of; once drawn it is exactly under the cap
+        and invisible. Sized from the stroke width in main.css.
+      {%- endcomment -%}
+      <circle class="logo-mark__dot" cx="23.8326" cy="12.3853" r="0.56" />
+    </svg>
+  </a>
+
+  {%- comment -%}
+    The scheme switcher, opposite the back button. Placed absolutely for the
+    same reason it is: in flow it would be a sibling competing for the row's
+    width and the mark would centre against whatever was left over.
+
+    The icon and the label are written by assets/js/theme-toggle.js, which knows
+    the resolved scheme — the server does not, since with no stored choice it is
+    the reader's system that decides. Starts on the moon so the button is not an
+    empty circle for the moment before that script runs.
+
+    No switcher on the home page: it is pinned dark by design and there is
+    nothing there to switch. That page includes none of this anyway; the guard
+    is for the day someone gives it a header.
+  {%- endcomment -%}
+  {%- unless page.layout == 'home' %}
+  <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">
+    <i class="ph ph-moon theme-toggle__icon" aria-hidden="true"></i>
+  </button>
+  {%- endunless %}
+</div>
+
+{%- comment -%}
+  Search gets a line of its own beneath the bar, at both widths. Sharing the bar
+  meant a field narrow enough to sit beside the mark on a desktop and a
+  collapsing, expanding-over-the-mark affair on a phone; a full-width row is one
+  behaviour instead of two, and a wider field besides.
+{%- endcomment -%}
+{% include site/search.html %}

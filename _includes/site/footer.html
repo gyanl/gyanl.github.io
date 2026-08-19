@@ -1,10 +1,13 @@
 {%- comment -%}
-  The footer, and there is deliberately not much of it: the mark, one line, and
-  the places to find him. The page scrolls off it (see .footer in main.css), so
-  it is the last thing anyone sees and it earns its keep by being short.
+  The footer: the mark, one line, the page links and the places to find him. The
+  page scrolls off it (see .footer in main.css), so it is the last thing anyone
+  sees.
 
-  No page links here any more — the nav carries those, and repeating them at the
-  foot only made the page taller for no one's benefit.
+  The links live here rather than in a bar at the top because the bar was hidden
+  below the mobile breakpoint — it deferred to a tab bar that no layout actually
+  includes, so a phone had no navigation at all. The footer is rendered at every
+  width, so putting them here is what makes them reachable rather than a second
+  copy of something else.
 {%- endcomment -%}
 <footer class="footer">
   <div class="container-width footer-inner">
@@ -21,6 +24,17 @@
     </svg>
 
     <p class="footer-line">Made with love in New Delhi, India</p>
+
+    {%- comment -%}
+      The same four destinations the top bar used to carry. A real <nav>, since
+      this is now the only navigation on the site.
+    {%- endcomment -%}
+    <nav class="footer-nav" aria-label="Primary navigation">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/about' | relative_url }}">About</a>
+      <a href="{{ '/writing' | relative_url }}">Writing</a>
+      <a href="{{ '/now' | relative_url }}">Now</a>
+    </nav>
 
     <div class="footer-socials">
       {%- assign social = site.minima.social_links -%}

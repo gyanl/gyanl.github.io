@@ -22,4 +22,4 @@ permalink: now
 - 💻  Slowly adding older projects to this site
 
 #### Fun
-- 👾  Playing Valorant
+- 👾  Playing Rocket League

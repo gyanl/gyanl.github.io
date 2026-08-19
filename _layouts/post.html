@@ -14,10 +14,20 @@ layout: default
     <div class="entry-subtitle">{{ page.subtitle }}</div>
     {%- endif %}
 
+    {%- comment -%}
+      The format is defaulted BEFORE it is used, not after. Written as
+      `date: site.minima.date_format | default: "%b %-d, %Y"` the default lands
+      on the formatted date rather than on the format, so any page reaching here
+      without a date printed the format string itself — which is what /about and
+      /now were showing, both being pages that borrow this layout.
+    {%- endcomment -%}
+    {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
     <div class="entry-meta">
+      {%- if page.date %}
       <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-        {{- page.date | date: site.minima.date_format | default: "%b %-d, %Y" -}}
+        {{- page.date | date: date_format -}}
       </time>
+      {%- endif %}
       {%- if page.author %}
       <span itemprop="author" itemscope itemtype="http://schema.org/Person">
         <span class="p-author h-card" itemprop="name">{{ page.author | escape }}</span>

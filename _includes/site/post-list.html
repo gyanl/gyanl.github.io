@@ -1,10 +1,18 @@
 {%- comment -%}
   Shared post listing for the archive and tag pages.
-  Caller sets `list_posts` before including.
+  Caller sets `posts` before including.
+
+  `hidden: true` in a post's front matter keeps it out of every listing on the
+  site — this one, which is what /writing, /archive and every tag page render.
+  It is not private: the post is still built, still at its own URL, still in the
+  feed and the sitemap, and still findable in search, where it is marked as
+  unlisted. It is for things worth having a link to but not worth putting in
+  front of someone reading down the page.
 {%- endcomment -%}
 
 <div class="listing">
   {%- for post in include.posts %}
+  {%- if post.hidden %}{% continue %}{% endif %}
   <a class="listing-item" href="{{ post.url | relative_url }}">
     <img class="listing-thumbnail"
       src="{{ post.thumbnail | default: '/assets/thumbs/default.png' }}"

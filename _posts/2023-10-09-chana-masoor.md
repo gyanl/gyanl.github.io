@@ -6,6 +6,7 @@ subtitle: "I'm having chana dal. I'm having masoor dal. I'm having combination c
 tags: food
 date modified: 10-10-2023
 date: 09-10-2023
+hidden: true
 ---
 
 A slightly complicated dal prepared in two stages to ensure each type of dal is cooked to the right consistency.

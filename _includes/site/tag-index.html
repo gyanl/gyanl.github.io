@@ -1,0 +1,29 @@
+{%- comment -%}
+  Every tag that has posts, each linking to its own page.
+
+  Built from site.tags — the same map the tag pages themselves read — so this
+  index cannot drift from what those pages will actually list. Sorting a hash in
+  Liquid yields [key, value] pairs ordered by key, so tag[0] is the name and
+  tag[1] the posts carrying it.
+
+  The count is of VISIBLE posts, not of site.tags[tag].size: a hidden post is
+  still tagged and still in that map, so counting it would promise a post the
+  tag page then declines to show. A tag carried only by hidden posts drops out
+  of this index altogether, its page being empty.
+
+  Every tag here needs a matching tag/<name>.md stub or its link 404s; that is a
+  standing rule of the site, see CLAUDE.md. Nothing filters the list against the
+  stubs, because Liquid cannot test for a file — adding a tag to a post means
+  adding the stub, and this index is where a missing one shows up first.
+{%- endcomment -%}
+<nav class="tag-index" aria-label="Browse by tag">
+  {%- assign sorted_tags = site.tags | sort %}
+  {%- for tag in sorted_tags %}
+  {%- assign shown = tag[1] | where_exp: "post", "post.hidden != true" %}
+  {%- if shown.size > 0 %}
+  <a class="tag" href="{{ tag[0] | slugify | prepend: '/tag/' | relative_url }}">
+    {{ tag[0] }}<span class="tag-index__count">{{ shown.size }}</span>
+  </a>
+  {%- endif %}
+  {%- endfor %}
+</nav>

@@ -19,4 +19,13 @@ layout: default
 <div class="prose measure">{{ content }}</div>
 {%- endif %}
 
+{%- comment -%}
+  The way into the tag pages. Sits above the listing on both pages that use this
+  layout (/writing and /archive) — they are the site's two full indexes, and a
+  reader narrowing down by tag starts at one of them.
+{%- endcomment -%}
+<div class="measure">
+  {% include site/tag-index.html %}
+</div>
+
 {% include site/post-list.html posts=site.posts %}

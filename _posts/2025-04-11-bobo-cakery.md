@@ -5,7 +5,6 @@ subtitle: A bespoke e-commerce website for Bobo Cakery, a bakery specialising in
 tags:
   - work
   - uiux
-  - strategy
   - branding
   - featured
 thumbnail: /assets/thumbs/pk/bobo-thumbnail.jpg

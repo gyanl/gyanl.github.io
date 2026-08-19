@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: 'en' }}" class="no-js">
+{%- comment -%}
+  The home page is pinned dark and stamped here at build time. It is written as
+  a light hero crossfading into a dark page — neither half is a preference, the
+  crossfade is the reveal — so it is the one page that neither follows the
+  system nor offers the switcher. Every other page leaves the attribute off and
+  lets the media query decide, until a reader says otherwise.
+{%- endcomment -%}
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}" class="no-js"
+  {%- if page.layout == 'home' %} data-theme="dark" data-page="home"{% endif %}>
 
 <head>
   <meta charset="utf-8">
@@ -10,24 +18,41 @@
     bars sit in the browser's own grey and the page appears to start below a
     band that belongs to nothing.
 
-    No media queries: the site does not follow the system scheme, it is dark.
-    The home page is the exception and opens on the hero, which is white — it
-    crossfades to the dark below, but a meta tag cannot follow that, so it names
-    the colour the page actually opens on.
+    Home names the colour it opens on — the hero is white, and a meta tag cannot
+    follow the crossfade into the dark body. Everywhere else the two are given
+    with `media`, so the tag follows the system on its own; assets/js/theme-
+    toggle.js overwrites the content when a reader pins a scheme, which is the
+    case `media` cannot express.
   {%- endcomment -%}
   {%- if page.layout == 'home' %}
   <meta name="theme-color" content="#FFFFFF">
   {%- else %}
-  <meta name="theme-color" content="#1a1a1a">
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
   {%- endif %}
 
   {%- comment -%}
-    Tells the browser to render its own widgets — form controls, scrollbars —
-    dark, since the page is.
-  {%- endcomment -%}
-  <meta name="color-scheme" content="dark">
+    No <meta name="color-scheme"> any more: the browser's own furniture is told
+    what to do by the `color-scheme` property in main.css, which can follow
+    data-theme where a meta tag cannot.
 
-  <script>document.documentElement.classList.remove('no-js');</script>
+    The scheme is resolved here, before the stylesheet below is applied, because
+    doing it any later is a visible flash of the wrong palette. Home already
+    carries the attribute from the <html> tag above and is left alone.
+  {%- endcomment -%}
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.classList.remove('no-js');
+      if (root.hasAttribute('data-theme')) return;
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+      } catch (error) {
+        /* Private mode, or storage disabled: the system scheme stands. */
+      }
+    })();
+  </script>
 
   <link rel="preload" href="{{ '/assets/css/main.css' | relative_url }}" as="style">
   <link rel="preload" href="{{ '/assets/fonts/TASAExplorer-latin.woff2' | relative_url }}" as="font"
@@ -53,6 +78,28 @@
   <script src="{{ '/assets/js/hero-sticker-tips.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   <script src="{{ '/assets/js/animate-hero-thinking.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   <script src="{{ '/assets/js/stack-resume.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+  {%- else %}
+  {%- comment -%}
+    The mark above the page redraws itself on hover. Every layout but home
+    carries it; home has its own, much larger, in the hero.
+  {%- endcomment -%}
+  <script src="{{ '/assets/js/logo-mark-reveal.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+  {%- comment -%}
+    Wraps the slideshow strips around. The strip works without it; this only
+    makes it endless. Post bodies are the only place a slideshow appears.
+  {%- endcomment -%}
+  <script src="{{ '/assets/js/slideshow-loop.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+  {%- comment -%}
+    Search. It lives in the header bar, so it is on every page this branch
+    covers. This file is the box's behaviour and nothing else — Lunr and the
+    index are fetched by it on first use, so what loads here is a couple of kB.
+  {%- endcomment -%}
+  <script src="{{ '/assets/js/search.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+  {%- comment -%}
+    The scheme switcher. The scheme itself is already resolved by the inline
+    script above; this only draws the button and flips it.
+  {%- endcomment -%}
+  <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   {%- endif %}
 
   {%- seo -%}

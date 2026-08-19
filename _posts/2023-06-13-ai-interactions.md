@@ -2,7 +2,7 @@
 layout: post
 title: AI Interactions beyond Chat
 subtitle: How can you integrate LLMs into interfaces without chat or prompt boxes?
-tags: ideas
+tags: misc
 thumbnail: /assets/thumbs/default.png
 date modified: 15-06-2023
 ---

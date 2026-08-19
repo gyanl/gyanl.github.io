@@ -1,0 +1,34 @@
+{%- comment -%}
+  Search, on its own line beneath the header bar and in the same column as the
+  content below it. One shape at every width — the field is simply there.
+
+  Neither Lunr nor the index is referenced here as a <script> or a preload: both
+  are fetched by assets/js/search.js the first time the box is used. Together
+  they are about 150kB gzipped, nearly all of it post bodies, and a reader who
+  came to read one post should not pay for a search they never run. The URLs are
+  handed over as data attributes so Liquid still owns them and the JavaScript
+  needs no knowledge of where the site is mounted.
+
+  Hidden entirely without JavaScript — see .no-js .search in main.css. An inert
+  search box is worse than none.
+{%- endcomment -%}
+<div class="search" data-search data-search-index="{{ '/search.json' | relative_url }}"
+  data-search-lunr="{{ '/assets/js/vendor/lunr.min.js' | relative_url }}">
+
+  <div class="search__field">
+    <label class="search__label" for="search-input">Search</label>
+    <i class="ph ph-magnifying-glass search__icon" aria-hidden="true"></i>
+    <input class="search__input" type="search" id="search-input" placeholder="Search posts, tags and pages"
+      autocomplete="off" spellcheck="false">
+  </div>
+
+  {%- comment -%}
+    Results hang below the field as a panel rather than pushing the page down —
+    this sits at the top of every page, and a list that shoved the article
+    downward on every keystroke would be unusable.
+  {%- endcomment -%}
+  <div class="search__panel" hidden>
+    <p class="search__status" role="status" aria-live="polite"></p>
+    <div class="search__results"></div>
+  </div>
+</div>

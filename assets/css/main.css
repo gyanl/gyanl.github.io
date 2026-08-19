@@ -226,7 +226,18 @@
     --reveal-5: #963D97;
     --reveal-6: #009DDC;
 
-    --scheme-t: 0;
+    /* 1 means "the page's own colour", 0 means "the hero's white", and the
+       crossfade between them is what the home page scrubs on scroll.
+
+       Every other page has no hero, so 1 is its resting value — and it has to be
+       the DEFAULT rather than home's 0. body's background is one of the things
+       mixed against this, and html has no background of its own, so body's
+       propagates to the canvas: at 0 the overscroll area and anything the
+       content did not cover stayed white however dark the page was. Invisible
+       while the site was dark-only and the footer covered the gap; not
+       invisible once a reader can switch schemes. animate-g-logo.js writes this
+       inline on :root while scrolling the hero, which outranks both rules. */
+    --scheme-t: 1;
     /* The other two figures animate-g-logo.js publishes from scroll position.
        --hero-progress is the reveal's raw 0..1; --sticker-burst is that same
        run eased and squeezed into its head, and is what throws the hero's
@@ -290,6 +301,12 @@
     --font-size-2xl: 28px;
     --font-size-3xl: 32px;
     --font-size-4xl: 48px;
+
+    /* The mark above the page. Stroke is in viewBox units, so it holds its
+       weight relative to the mark at whatever height the mark is drawn — the
+       two are only retuned together if the mark is meant to look heavier. */
+    --logo-mark-size: 44px;
+    --logo-mark-stroke: 1.12;
 
     /* Layout & spacing */
     --max-width: 1920px;
@@ -401,11 +418,79 @@
     }
 }
 
-/* The dark palette, applied unconditionally — the site does not follow the
-   system any more, it is simply dark. The hero is the one exception: it pins
-   its own light tokens and a white ground, so the page opens light and
-   crossfades into this as the mark settles. See .hero-spacer. */
+/* ===== The dark palette =====
+ *
+   The block above is the light one. This one used to sit here unconditional, so
+   the site was simply dark; it is now conditional in the two ways a scheme can
+   be chosen:
+
+     1. the system asks for dark, and the reader has not overridden it
+     2. the reader picked dark, via the switcher in the header
+
+   The home page is case 2 by fiat: _includes/site/head.html stamps
+   data-theme="dark" on <html> at build time, because that page is written as a
+   light hero crossfading into a dark body and neither half is a preference.
+   That is also why it renders no switcher.
+
+   THE TWO BLOCKS BELOW MUST BE KEPT IDENTICAL. CSS has no way to hand one set
+   of declarations to both a media query and a plain selector, and the
+   alternative — light-dark() on every token — makes every colour on the site
+   fail at once on a browser that does not support it. Two copies is the dull,
+   safe option: change one, change the other.
+
+   The hero is unaffected either way. It pins its own light tokens and a white
+   ground regardless of scheme. See .hero-spacer. */
+
+/* Home opens on the hero's white and crossfades down into the page. */
+:root[data-page="home"] {
+    --scheme-t: 0;
+}
+
+/* color-scheme is what makes the browser's own furniture — scrollbars, form
+   controls, the default canvas — follow along. Left as `light dark` it tracks
+   the system; the explicit choices below pin it. */
 :root {
+    color-scheme: light dark;
+}
+
+:root[data-theme="light"] {
+    color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+/* (1) The system asks for dark, and no explicit choice overrides it. */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --text-reg: #E8E8E8;
+        --text-secondary: rgba(255, 255, 255, .75);
+        --background-color: #1a1a1a;
+
+        --accent-s: 80%;
+        --accent-l: 65%;
+
+        --slightly-warm-gray: #2C2C2C;
+        --charcoal: #E8E8E8;
+        --white: #181717;
+        --black: #ffffff;
+        --black-20: rgba(255, 255, 255, .2);
+        --black-10: rgba(255, 255, 255, 0.1);
+        --black-5: rgba(255, 255, 255, 0.05);
+        --black-3: rgba(255, 255, 255, 0.03);
+        --code-background: #12121c;
+
+        --header-background: rgba(30, 30, 30, 0.4);
+        --header-shadow: rgba(0, 0, 0, 0.3);
+        --footer-background: rgba(0, 0, 0, 0.9);
+        --footer-ground: #121212;
+        --glass-edge: rgba(0, 0, 0, 0.75);
+    }
+}
+
+/* (2) The reader picked dark — or this is the home page, which is stamped. */
+:root[data-theme="dark"] {
     --text-reg: #E8E8E8;
     --text-secondary: rgba(255, 255, 255, .75);
     --background-color: #1a1a1a;
@@ -1099,25 +1184,151 @@ button {
     }
 }
 
-/* Wordmark. In normal flow on every page; the home hero carries no text. */
-.logo-text {
-    font-family: var(--font-heading);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-size: var(--font-size-3xl);
-    line-height: 1.15;
-    letter-spacing: var(--letter-spacing-tight);
-    color: var(--text-reg);
-    transition: color var(--transition-fast);
-    /* Same 90vw column as .site-nav, so the wordmark and the bar share a left edge. */
-    width: var(--width-desktop);
-    max-width: var(--max-width);
+/* The mark, in normal flow on every page; the home hero carries its own.
+   The row holds the 90vw column so it lines up with the body text; the anchor
+   inside is only as wide as the mark, so the hit area is the mark rather than
+   the whole width of the page. */
+/* The same column as the content below it: back button flush with the left edge
+   of the text, search flush with the right.
+ *
+   --header-gutter is the padding, and the absolutely-placed controls have to be
+   inset by it by hand. An absolute box resolves against its ancestor's PADDING
+   box, not its content box, so `left: 0` would put the back button hard against
+   the row's outer edge and a whole gutter out of line with the prose beneath. */
+.logo-mark-row {
+    --header-gutter: var(--spacing-xl);
+    position: relative;
+    width: 100%;
+    max-width: var(--measure);
     margin: var(--spacing-4xl) auto var(--spacing-lg) auto;
+    padding: 0 var(--header-gutter);
+    box-sizing: border-box;
 }
 
-.logo-text:hover {
+/* Back to the listing, on tag pages only. Taken out of flow deliberately: in
+   flow it would be a sibling competing for the row's width and the mark would
+   centre against what was left of it rather than against the page. */
+/* The round controls either side of the mark: back on the left, and on mobile
+   the search toggle and its close button on the right.
+ *
+   Declared together, and that matters. One of these is an <a> and the others
+   are <button>s, and a button carries two user-agent defaults an anchor does
+   not: box-sizing: border-box, and padding: 1px 6px. Styled apart, the same
+   width and the same 55% icon came out 38px holding a 20x20 glyph on the
+   anchor and 36px holding a 12x18 one on the buttons — a visibly smaller,
+   squashed icon in a slightly smaller circle. Both defaults are reset here so
+   the three are the same control wearing different glyphs. */
+.logo-back,
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 0;
+    width: var(--logo-mark-size);
+    height: var(--logo-mark-size);
+    border-radius: 50%;
+    color: var(--text-secondary);
+    background-color: var(--black-5);
+    border: 1px solid rgba(128, 128, 128, 0);
+    transition: var(--transition-normal);
+    /* Buttons otherwise take the platform control font, not the page's. */
+    font: inherit;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.logo-back {
+    position: absolute;
+    left: var(--header-gutter);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.logo-back svg {
+    /* A fraction of the circle rather than a fixed figure, so glyph and circle
+       stay in proportion when --logo-mark-size drops at the mobile breakpoint.
+       Square, because the box it is a fraction of is now square on all three. */
+    width: 55%;
+    height: 55%;
+}
+
+.logo-back:hover,
+.theme-toggle:hover {
+    color: var(--text-reg);
+    background-color: var(--background-color);
+    border: 1px solid var(--black-5);
+    box-shadow: 0 0 0 1px var(--black-5);
+}
+
+.logo-back:focus-visible,
+.theme-toggle:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+}
+
+.logo-mark {
+    display: block;
+    width: fit-content;
+    /* Centred in the column rather than hung off its left edge. fit-content is
+       what makes auto margins bite — a block at full width has nothing to
+       centre. */
+    margin-inline: auto;
+    color: var(--text-reg);
+    transition: color var(--transition-fast);
+}
+
+.logo-mark:hover {
     color: var(--black);
+}
+
+.logo-mark__art {
+    display: block;
+    /* Height, not width: the viewBox is taller than it is wide, and the mark is
+       read against the line of text beneath it. */
+    height: var(--logo-mark-size);
+    width: auto;
+    overflow: visible;
+}
+
+/* Every layer drawn, so the resting mark is the finished one — the state with
+   JavaScript off. The dash figure is the path's own length; logo-mark-reveal.js
+   winds the offset up from here and back down again on hover. */
+.logo-mark__art .g-reveal-layer {
+    fill: none;
+    stroke-width: var(--logo-mark-stroke);
+    stroke-linecap: round;
+    stroke-dasharray: 166.2067;
+    stroke-dashoffset: 0;
+}
+
+/* At rest only the ink layer shows.
+ *
+   The six colour layers sit exactly under it, and covering them by painting the
+   ink one last is only reliable while the stroke is wide enough for its
+   antialiased fringe not to matter. The hero is drawn hundreds of pixels tall
+   and gets away with it; here the mark is 44px, the 1.12-unit stroke lands at
+   about a pixel and a half, and the fringe is a real fraction of it — so all six
+   colours bled out around the ink as a rainbow halo. Hidden outright instead,
+   and shown only while the reveal is actually running. */
+.logo-mark__art .g-reveal-layer {
+    opacity: 0;
+}
+
+.logo-mark__art .g-reveal-layer:last-of-type {
+    opacity: 1;
+}
+
+.logo-mark.is-revealing .g-reveal-layer {
+    opacity: 1;
+}
+
+.logo-mark__dot {
+    fill: currentColor;
+    /* r is in viewBox units and the cap is half the stroke. Kept in step with
+       --logo-mark-stroke so the ball is exactly the cap it sits under. */
+    r: calc(var(--logo-mark-stroke) / 2);
 }
 
 /**
@@ -1944,49 +2155,6 @@ button {
     gap: var(--spacing-4xl);
 }
 
-.site-nav {
-    position: sticky;
-    top: var(--spacing-2xl);
-    left: 0;
-    right: 0;
-    z-index: var(--z-nav);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: var(--spacing-lg);
-    text-transform: uppercase;
-    font-family: var(--font-body);
-    font-size: var(--font-size-sm);
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: var(--border-radius-md);
-    width: var(--width-desktop);
-    max-width: var(--max-width);
-    /* border-box so 90vw is the rendered width, padding included — otherwise
-       the bar sits wider than every other 90vw element on the page. */
-    box-sizing: border-box;
-    margin: auto;
-    background: var(--header-background);
-    border: 0.5px solid var(--black-10);
-    backdrop-filter: var(--backdrop-blur);
-    -webkit-backdrop-filter: var(--backdrop-blur);
-    box-shadow: 0 2px 12px var(--header-shadow);
-}
-
-.site-nav a {
-    color: var(--black);
-    text-decoration: none;
-}
-
-.site-nav a:hover {
-    color: var(--black);
-}
-
-.nav-links {
-    display: flex;
-    flex-direction: row;
-    gap: var(--spacing-lg);
-}
-
 .section-title {
     text-align: left;
     font-family: var(--font-body);
@@ -2524,6 +2692,269 @@ button {
     color: var(--text-reg);
     border: 1px solid rgba(128, 128, 128, 0);
     transition: var(--transition-normal);
+}
+
+/* ===== Search, in the header bar =====
+
+   Desktop is the plain case: the field sits at the right of the bar, opposite
+   the back button, with the mark centred between them. The mobile rules further
+   down collapse it to a circle and expand it across the whole bar. */
+
+/* Opposite the back button, where the search field used to sit. */
+.theme-toggle {
+    position: absolute;
+    right: var(--header-gutter);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* A row of its own under the bar, in the site's one column — same max-width and
+   same gutter as .measure, the listing and the header above it. Positioned so
+   the results panel has something to hang off. */
+.search {
+    position: relative;
+    width: 100%;
+    max-width: var(--measure);
+    margin: 0 auto var(--spacing-2xl) auto;
+    padding: 0 var(--spacing-xl);
+    box-sizing: border-box;
+}
+
+/* The icon is a font glyph, not an SVG, so it is sized by font-size rather than
+   by the shared svg rule. 55% of the circle, to match the drawn icons either
+   side of it. */
+.theme-toggle__icon {
+    font-size: calc(var(--logo-mark-size) * 0.55);
+    line-height: 1;
+}
+
+/* An inert box is worse than none: the tag index and the full listing both work
+   without a line of JavaScript, and the header still has its mark. */
+.no-js .search {
+    display: none;
+}
+
+/* The magnifier sits inside the field rather than beside it, so the row is one
+   object. Positioned rather than laid out, because the input is what fills the
+   row and a flex sibling would take width from it. */
+.search__field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search__icon {
+    position: absolute;
+    left: var(--spacing-lg);
+    font-size: var(--font-size-xl);
+    line-height: 1;
+    color: var(--text-secondary);
+    pointer-events: none;
+}
+
+/* The visible label is the placeholder; this is for anyone who cannot see it. */
+.search__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.search__input {
+    box-sizing: border-box;
+    width: 100%;
+    height: var(--logo-mark-size);
+    /* Left padding clears the magnifier. */
+    padding: 0 var(--spacing-lg) 0 calc(var(--spacing-lg) + var(--font-size-xl) + var(--spacing-sm));
+    font-family: var(--font-body);
+    font-size: var(--font-size-md);
+    color: var(--text-reg);
+    background-color: var(--black-5);
+    border: 1px solid rgba(128, 128, 128, 0);
+    /* A pill, to sit with the round back button across the bar from it. */
+    border-radius: calc(var(--logo-mark-size) / 2);
+    transition: var(--transition-normal);
+    /* Safari draws its own rounded, inset box for type=search and ignores most
+       of the above until this is off. */
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.search__input::placeholder {
+    color: var(--text-secondary);
+}
+
+/* Neutral on focus, not the accent. The accent is the site's one loud colour
+   and it is used to mark things worth noticing — a search box that lights up
+   red merely because the caret is in it reads as an error, and this is the one
+   control a reader is in most of the time. A tonal ring is still a perfectly
+   visible focus indicator; both states are named so the plain :focus a click
+   gives does not fall through to the accent rule. */
+.search__input:focus,
+.search__input:focus-visible {
+    outline: none;
+    background-color: var(--background-color);
+    border-color: var(--black-20);
+    box-shadow: 0 0 0 3px var(--black-5);
+}
+
+/* The results hang off the bar rather than pushing the page down — this sits at
+   the top of every page, and a list that shoved the article downward on every
+   keystroke would be unusable. */
+.search__panel {
+    position: absolute;
+    top: calc(100% + var(--spacing-sm));
+    /* Inset to match the field, which sits inside the row's gutter. */
+    left: var(--spacing-xl);
+    right: var(--spacing-xl);
+    max-height: min(70vh, 560px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: var(--spacing-md);
+    box-sizing: border-box;
+    background: var(--header-background);
+    border: 0.5px solid var(--black-10);
+    border-radius: var(--border-radius-md);
+    backdrop-filter: var(--backdrop-blur);
+    -webkit-backdrop-filter: var(--backdrop-blur);
+    box-shadow: 0 8px 32px var(--header-shadow);
+    z-index: var(--z-nav);
+}
+
+.search__panel[hidden] {
+    display: none;
+}
+
+.search__status {
+    margin: 0 0 var(--spacing-sm) 0;
+    padding: 0 var(--spacing-sm);
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.search-group+.search-group {
+    margin-top: var(--spacing-md);
+}
+
+.search-group__label {
+    margin: 0 0 var(--spacing-xs) 0;
+    padding: 0 var(--spacing-sm);
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--text-secondary);
+}
+
+.search-hit {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    text-decoration: none;
+    color: var(--text-reg);
+    transition: background-color var(--transition-fast);
+}
+
+/* What kind of thing this is, at a glance — in the same container the header's
+   own controls wear, at the same size, so the two read as one family. A rounded
+   square rather than the header's circle: those are buttons and this is not,
+   and the difference in corner is what says so without a second colour.
+
+   flex: none so a long title cannot squeeze it. */
+.search-hit__icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: var(--logo-mark-size);
+    height: var(--logo-mark-size);
+    border-radius: var(--border-radius-md);
+    background-color: var(--black-5);
+    /* The same 55% of the container the drawn icons in the header use. */
+    font-size: calc(var(--logo-mark-size) * 0.55);
+    line-height: 1;
+    color: var(--text-secondary);
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.search-hit:hover .search-hit__icon,
+.search-hit:focus-visible .search-hit__icon {
+    color: var(--text-reg);
+    background-color: var(--black-10);
+}
+
+.search-hit:hover,
+.search-hit:focus-visible {
+    background-color: var(--black-5);
+}
+
+.search-hit__body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    /* A flex item will not shrink below its content by default, so without this
+       the detail line never ellipsises — it just widens the row instead. */
+    min-width: 0;
+}
+
+.search-hit__title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-md);
+    color: var(--text-reg);
+}
+
+/* Unlisted: findable here, deliberately absent from every listing. A quiet
+   chip rather than another icon — the row already carries one saying what kind
+   of thing this is, and a second glyph would compete with it. */
+.search-hit__flag {
+    display: inline-block;
+    vertical-align: baseline;
+    padding: 1px var(--spacing-xs);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--black-5);
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--text-secondary);
+}
+
+/* Colour, not another size, is what separates the two lines — the same rule the
+   listing rows and the work cards follow. */
+.search-hit__detail {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    /* One line: a long subtitle should not make a result three rows tall in a
+       dropdown that is trying to show three groups at once. */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* The tag index above the two full listings. Wraps freely — it is as long as
+   the site has tags, and there is no sensible fixed count to plan for. */
+.tag-index {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-2xl);
+}
+
+/* The count rides inside the chip rather than beside it, so the two never wrap
+   apart from each other. */
+.tag-index__count {
+    margin-left: var(--spacing-sm);
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
 }
 
 a.tag:hover {
@@ -3065,6 +3496,36 @@ a.tag:hover {
     color: var(--text-secondary);
 }
 
+/* The site's navigation, and the only copy of it. Wraps rather than scrolls:
+   four short words fit one line on a phone, but the footer is centred and a
+   fifth would otherwise push off the edge rather than dropping to a new row. */
+.footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    font-family: var(--font-body);
+    font-size: var(--font-size-md);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+}
+
+.footer-nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-normal);
+}
+
+.footer-nav a:hover {
+    color: var(--text-reg);
+}
+
+.footer-nav a:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+    border-radius: var(--border-radius-sm);
+}
+
 .footer-socials {
     display: flex;
     flex-wrap: wrap;
@@ -3168,25 +3629,17 @@ a.tag:hover {
         width: var(--width-mobile);
     }
 
-    /* The bottom tab bar is the mobile nav; the sticky top bar would just
-       duplicate it and eat vertical space. */
-    .site-nav {
-        display: none;
+    /* Set on the row rather than :root so it cascades to the mark and its dot
+       without a second breakpoint-scoped :root block. */
+    .logo-mark-row {
+        --logo-mark-size: 36px;
+        margin-top: var(--spacing-2xl);
     }
 
-    .logo-text {
-        top: 92px;
-        left: var(--spacing-lg);
-        font-size: var(--font-size-2xl);
-        padding: 0;
-    }
+    /* Search is a full-width row of its own at every width now, so it needs no
+       mobile treatment beyond the smaller control height it inherits from
+       --logo-mark-size. */
 
-    .container {
-        padding-top: var(--spacing-lg);
-        position: relative;
-        border-radius: 0;
-        bottom: 0;
-    }
 
     .about-section {
         padding: var(--spacing-lg) 0 var(--spacing-3xl) 0;
@@ -3391,7 +3844,12 @@ a.tag:hover {
     width: 100%;
     max-width: var(--measure);
     margin: 0 auto;
-    padding: 0 var(--spacing-lg);
+    /* This padding is also the gutter the prose lists hang their bullets and
+       numbers into — see .prose ul/.prose ol. It is sized to clear a
+       single-digit marker, which is what the writing here actually uses; an
+       ordered list that runs past 9 will have the tens digit tight against the
+       edge on a viewport no wider than the measure. */
+    padding: 0 var(--spacing-xl);
     box-sizing: border-box;
 }
 
@@ -3558,6 +4016,33 @@ a.tag:hover {
     margin-top: calc(var(--spacing-sm) * -1);
 }
 
+/* Hanging markers.
+ *
+   The browser's default is padding-inline-start: 40px on the list, which indents
+   the list TEXT and tucks the markers into that indent — so every list steps in
+   from the measure and breaks the vertical line the paragraphs hold. Zeroing the
+   padding puts the list text flush with the paragraphs and, with markers
+   positioned outside, hangs the bullets and numbers out in the gutter beside it.
+
+   The gutter they hang into is .measure's own horizontal padding, which is why
+   that padding cannot be dropped: without it the markers would hang off the
+   edge of the viewport rather than into a margin. It is sized for a single
+   digit, which is what the lists here run to. */
+.prose ul,
+.prose ol {
+    padding-left: 0;
+    list-style-position: outside;
+}
+
+/* Nested lists keep an indent — flush is for the top level, which is what sits
+   against the paragraphs. A nested list read flush against its parent would not
+   show as nested at all. */
+.prose li ul,
+.prose li ol {
+    padding-left: var(--spacing-xl);
+    margin-bottom: 0;
+}
+
 .prose li {
     margin-bottom: var(--spacing-sm);
 }
@@ -3661,7 +4146,9 @@ a.tag:hover {
     width: 100%;
     max-width: var(--measure);
     margin: 0 auto;
-    padding: 0 var(--spacing-lg);
+    /* The same gutter as .measure and the header row — these three are the
+       site's one column and any of them differing shows as a step. */
+    padding: 0 var(--spacing-xl);
     box-sizing: border-box;
 }
 
@@ -3800,6 +4287,16 @@ a.tag:hover {
         background-color: var(--black-20);
         cursor: pointer;
         transition: background-color .2s;
+    }
+
+    /* The looping clones get no dot of their own. Every slide in the strip
+       carries a ::scroll-marker, so the copies slideshow-loop.js adds either
+       side of the real set would otherwise show the count three times over —
+       nine dots for three pictures. The reader is parked on the real set and
+       shifted back onto it whenever they drift, so the dot for whatever they
+       are actually looking at is a real one nearly all the time. */
+    .prose .slideshow>img[data-slideshow-clone]::scroll-marker {
+        content: none;
     }
 
     .prose .slideshow>img::scroll-marker:hover,

@@ -4,6 +4,7 @@ title: "Ginger Beer Recipe"
 subtitle: "This is my grandfather's recipe for ginger beer, finely tuned over the years."
 tags: food
 thumbnail: /assets/thumbs/ginger.png
+hidden: true
 ---
 
 ### Ingredients

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Contributing to OpenStreetMap"
-tags: idc foss
+tags: idc
 categories: [design]
 ---
 
