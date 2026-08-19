@@ -36,16 +36,30 @@
   // The icon is Phosphor, which the site already loads for the footer and the
   // work cards — so a result carries its kind at a glance without a second
   // icon set, and without the heading being the only thing that says so.
+  //
+  // A group is a predicate rather than a bare `type`, because Projects and
+  // Articles are both type `article` in the index and separate on `is_repo` —
+  // a repo-backed post is written up here but its page is a standalone repo of
+  // the same name (gyanl.com/rish-e is the `rish-e` repo's own Pages site), so
+  // it behaves like somewhere to go rather than something to read. Projects
+  // sits above Articles for the same reason the others are ordered as they are:
+  // narrower kinds first, the catch-all last.
+  //
+  // Order matters twice over — this is also the order groupFor() tests in, so
+  // the Articles entry must stay last, being the one that would swallow both.
   var GROUPS = [
-    { type: 'tag', label: 'Tags', icon: 'ph-tag' },
-    { type: 'page', label: 'Pages', icon: 'ph-browser' },
-    { type: 'article', label: 'Articles', icon: 'ph-article' }
+    { key: 'tag', label: 'Tags', icon: 'ph-tag', match: function (doc) { return doc.type === 'tag'; } },
+    { key: 'page', label: 'Pages', icon: 'ph-browser', match: function (doc) { return doc.type === 'page'; } },
+    { key: 'repo', label: 'Projects', icon: 'ph-arrow-up-right', match: function (doc) { return doc.type === 'article' && doc.is_repo; } },
+    { key: 'article', label: 'Articles', icon: 'ph-article', match: function (doc) { return doc.type === 'article'; } }
   ];
 
-  var ICONS = GROUPS.reduce(function (map, group) {
-    map[group.type] = group.icon;
-    return map;
-  }, {});
+  function groupFor(doc) {
+    for (var i = 0; i < GROUPS.length; i++) {
+      if (GROUPS[i].match(doc)) return GROUPS[i];
+    }
+    return null;
+  }
 
   var index = null;
   var docs = null;
@@ -162,14 +176,18 @@
   // is the site's own writing, but it is still content flowing into markup, and
   // a title containing a bracket should not be able to reshape the page.
   function renderHit(doc) {
+    var group = groupFor(doc);
+
     var item = document.createElement('a');
-    item.className = 'search-hit search-hit--' + doc.type;
+    item.className = 'search-hit search-hit--' + (group ? group.key : doc.type);
     item.href = doc.url;
 
     // Decorative: the heading above already names the kind, and the icon would
-    // only repeat it to a screen reader.
+    // only repeat it to a screen reader. It comes from the group rather than
+    // from the type, so a Project carries the outbound arrow that its own
+    // heading is titled with.
     var icon = document.createElement('i');
-    icon.className = 'ph ' + (ICONS[doc.type] || 'ph-file') + ' search-hit__icon';
+    icon.className = 'ph ' + ((group && group.icon) || 'ph-file') + ' search-hit__icon';
     icon.setAttribute('aria-hidden', 'true');
     item.appendChild(icon);
 
@@ -221,7 +239,7 @@
     // typing a phrase from a post puts Articles on top, instead of burying
     // whichever the reader plainly meant under a heading they did not.
     var grouped = GROUPS.map(function (group) {
-      var members = hits.filter(function (hit) { return docs[hit.ref].type === group.type; });
+      var members = hits.filter(function (hit) { return groupFor(docs[hit.ref]) === group; });
       return { label: group.label, members: members, best: members.length ? members[0].score : -1 };
     }).filter(function (group) {
       return group.members.length;

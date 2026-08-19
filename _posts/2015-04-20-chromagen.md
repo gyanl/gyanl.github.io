@@ -1,5 +1,6 @@
 ---
 layout: post
+is_repo: true
 title: "Color Generator"
 subtitle: Generate colors and gradients
 permalink: /ChromaGen

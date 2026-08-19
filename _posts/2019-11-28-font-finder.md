@@ -1,5 +1,6 @@
 ---
 layout: post
+is_repo: true
 title: "Font Finder"
 subtitle: Find fonts using combinations of adjective.
 tags: code idc

@@ -41,6 +41,14 @@ sitemap: false
   marked unlisted rather than quietly mixed in with the rest.
 {%- endcomment -%}
 "hidden": {{ post.hidden | default: false | jsonify }},
+{%- comment -%}
+  `is_repo` marks a post whose URL is served by a standalone repo rather than
+  by this site (see _includes/site/post-list.html). Search shows it with the
+  outbound arrow as its leading icon, in place of the article one — a result
+  that leaves the site is a different kind of destination, and the icon column
+  is where a result already says what kind of thing it is.
+{%- endcomment -%}
+"is_repo": {{ post.is_repo | default: false | jsonify }},
 "title": {{ post.title | strip_html | jsonify }},
 "subtitle": {{ post.subtitle | default: "" | strip_html | jsonify }},
 "url": {{ post.url | relative_url | jsonify }},

@@ -40,6 +40,23 @@ The design system (tokens, glass nav, card grid) is lifted from the sibling repo
 
 `home_tags` in `_config.yml` used to drive the filter buttons and **is now read by no template at all** — it survives as documentation of the section order and because the `tag/*.md` stubs mirror it. Editing it changes nothing on the site. The `teaching` collection is likewise no longer surfaced in the grid, but it still outputs the `/dv`, `/ergo`, `/tech1` fallback pages, so leave it alone.
 
+### Repo-backed posts (`is_repo`)
+
+Eleven posts describe projects that live in **their own GitHub repo of the same name**. Because those repos have Pages enabled and the account's user site carries the custom domain, GitHub serves them at `gyanl.com/<repo>` — and that path *shadows* whatever Jekyll builds at the same URL. So `/rish-e` is the `rish-e` repo's site, not the post page in this repo, and the post's own body is effectively unreachable.
+
+`is_repo: true` in the front matter marks these. The post stays a normal post — it keeps its listing row, its tags, its search entry and its thumbnail — and no URL rewriting is needed, since the post's slug already *is* the path. The flag exists purely so the site can say the link leaves it:
+
+- **Listings** (`post-list.html`): a small arrow in a circle after the title (`.listing-title__repo`), sized in `em` so it tracks the title. Quiet, because it is an extra mark inside a line of text.
+- **Search** (`search.js`): its own **Projects** group with the outbound arrow as the group icon, so these are not mixed in with Articles. Groups are predicates rather than a bare `type` — Projects and Articles are both type `article` in the index and separate on `is_repo` — and the Articles entry must stay **last** in `GROUPS`, since `groupFor()` tests in order and Articles would otherwise swallow both.
+
+To find new candidates after adding a repo, cross-check the Pages-enabled repos against post slugs:
+
+```bash
+gh api "users/gyanl/repos?per_page=100&type=owner" --paginate --jq '.[] | select(.has_pages==true) | .name'
+```
+
+Same origin, so these links carry no `target`/`rel` — they open in place like any other.
+
 ### The work-card parallax
 
 The card's frame (`.project-media`) is given a **wider** aspect ratio than the artwork (`--project-media-aspect: 16 / 9` against the thumbnails' 1000×640), so the image keeps its full width and overflows the frame vertically — that overflow is the travel. Never `object-fit: cover` here: it would scale the image to fill the taller box and crop the sides, which is the thing this layout is avoiding.

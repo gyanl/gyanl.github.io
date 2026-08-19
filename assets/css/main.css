@@ -4038,6 +4038,43 @@ a.tag:hover {
     margin: 0;
 }
 
+/* A post whose page is a standalone repo (`is_repo`). The listing treatment is
+   deliberately quieter than search's: there the arrow REPLACES the type icon in
+   a column that is already there, so it can be full size; here it is an extra
+   mark inside a line of text, and a full-size one would read as punctuation the
+   title did not ask for.
+
+   Sized in em so it tracks the title, and set on the baseline-ish middle rather
+   than after a space — the margin is the gap, so the title never wraps away
+   from its own marker. */
+.listing-title__repo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 1.5em;
+    height: 1.5em;
+    margin-left: 0.4em;
+    border-radius: 50%;
+    /* --black-10, not --black-5: at this size the disc is only a few pixels of
+       fill and the lighter wash never resolves as a circle — it just looks like
+       a bare glyph sitting after the title. */
+    background-color: var(--black-10);
+    color: var(--text-secondary);
+    font-size: 0.6em;
+    line-height: 1;
+    vertical-align: middle;
+    /* The circle is a chip on the text baseline; without this it rides high on
+       the cap height and sits above the title's optical centre. */
+    position: relative;
+    top: -0.08em;
+}
+
+.listing-item:hover .listing-title__repo {
+    background-color: var(--black-10);
+    color: var(--text-reg);
+}
+
 .listing-meta {
     font-family: var(--font-body);
     font-size: var(--font-size-sm);

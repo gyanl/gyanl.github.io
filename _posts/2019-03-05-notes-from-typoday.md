@@ -1,5 +1,6 @@
 ---
 layout: post
+is_repo: true
 title: "Typoday 2019"
 subtitle: Sketch notes on some of the talks given at Typoday 2019.
 tags: sketchnotes

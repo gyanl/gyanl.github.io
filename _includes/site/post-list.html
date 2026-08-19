@@ -13,12 +13,32 @@
 <div class="listing">
   {%- for post in include.posts %}
   {%- if post.hidden %}{% continue %}{% endif %}
-  <a class="listing-item" href="{{ post.url | relative_url }}">
+  {%- comment -%}
+    `is_repo: true` marks a post whose page is not this site's: the path is
+    served by a standalone repo of the same name (gyanl.com/rish-e is the
+    `rish-e` repo's own Pages site, which shadows anything Jekyll builds at
+    that path). The post stays here for its listing, its tags and its search
+    entry; the link just lands on the project instead of on a post page.
+
+    Same origin, so no target/rel — this opens in place like any other link.
+  {%- endcomment -%}
+  <a class="listing-item{% if post.is_repo %} listing-item--repo{% endif %}" href="{{ post.url | relative_url }}">
     <img class="listing-thumbnail"
       src="{{ post.thumbnail | default: '/assets/thumbs/default.png' }}"
       alt="{{ post.title | escape }}" loading="lazy">
     <div class="listing-body">
-      <h3 class="listing-title">{{ post.title | escape }}</h3>
+      <h3 class="listing-title">
+        {{- post.title | escape -}}
+        {%- if post.is_repo %}
+        {%- comment -%}
+          After the title, not before it: the listing is read title-first, and
+          a glyph in front of every such row would be a second column the eye
+          has to step over. aria-hidden — the destination is not a different
+          kind of thing to a screen reader, it is the same link.
+        {%- endcomment -%}
+        <i class="ph ph-arrow-up-right listing-title__repo" aria-hidden="true"></i>
+        {%- endif %}
+      </h3>
       {%- if post.subtitle %}
       <div class="secondary">{{ post.subtitle }}</div>
       {%- endif %}
