@@ -78,6 +78,12 @@
   <script src="{{ '/assets/js/hero-sticker-tips.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   <script src="{{ '/assets/js/animate-hero-thinking.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   <script src="{{ '/assets/js/stack-resume.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+  {%- comment -%}
+    Parallax on the work cards, whose frames are shorter than their images. The
+    grid is home-only, so this is too. It exits immediately if it finds nothing
+    to track or if the reader asked for reduced motion.
+  {%- endcomment -%}
+  <script src="{{ '/assets/js/animate-parallax.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   {%- else %}
   {%- comment -%}
     The mark above the page redraws itself on hover. Every layout but home

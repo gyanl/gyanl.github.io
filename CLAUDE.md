@@ -40,6 +40,16 @@ The design system (tokens, glass nav, card grid) is lifted from the sibling repo
 
 `home_tags` in `_config.yml` used to drive the filter buttons and **is now read by no template at all** — it survives as documentation of the section order and because the `tag/*.md` stubs mirror it. Editing it changes nothing on the site. The `teaching` collection is likewise no longer surfaced in the grid, but it still outputs the `/dv`, `/ergo`, `/tech1` fallback pages, so leave it alone.
 
+### The work-card parallax
+
+The card's frame (`.project-media`) is given a **wider** aspect ratio than the artwork (`--project-media-aspect: 16 / 9` against the thumbnails' 1000×640), so the image keeps its full width and overflows the frame vertically — that overflow is the travel. Never `object-fit: cover` here: it would scale the image to fill the taller box and crop the sides, which is the thing this layout is avoiding.
+
+Both scalars live on the **frame** and inherit down to the image; declaring either on the image shadows the inherited value and the parallax silently stops. `--parallax` (−1 entering, +1 leaving) is the position; `--parallax-overflow` is measured in px by `animate-parallax.js`, since it depends on the column width and CSS cannot derive it.
+
+Two drivers, and only one is ever live: where `animation-timeline: view()` exists the movement is a scroll-driven animation, off the main thread, and the script exits early; elsewhere the script publishes `--parallax` from one rAF-throttled scroll listener with an IntersectionObserver so only on-screen cards are measured. Two traps, both hit while building this: the animation must go on the **frame**, not the image — `view()` resolves against the nearest scroll container and `.project-media` is `overflow: hidden`, so an animation on the image sits frozen at one progress value; and it must use the `animation-*` longhands, because the `animation` shorthand resets duration to `0s` and a timeline-driven animation never progresses. `--parallax` is registered with `@property` so it interpolates as a number rather than swapping discretely.
+
+The radius belongs to the frame alone — a radius on the travelling image shows its own rounded corners drifting inside the frame's.
+
 ### The hero
 
 `assets/js/animate-g-logo.js` drives the whole thing from **one** scroll listener and one `render()` per frame. Everything it animates is a phase in that method with its own band in `config` (`swellStart`, `shrinkStart`, `schemeStart`, `burstEnd`) and its own ease. Add effects as another phase there rather than a second scroll listener — anything on its own listener drifts a frame out of step with the mark, which is visible.

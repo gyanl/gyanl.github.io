@@ -33,7 +33,16 @@
     {%- assign parts = card | strip | split: "|" %}
     <a class="project" href="{{ parts[3] }}" target="_blank" rel="noopener noreferrer">
       <div class="project-media">
-        <img class="project-thumbnail" src="{{ parts[2] }}" alt="{{ parts[0] }}" loading="lazy">
+        {%- comment -%}
+          decoding="async" keeps a large thumbnail's decode off the main thread,
+          so it cannot land mid-scroll and stall a frame. width/height are the
+          art's own 1000x640 — they set the ratio, not the size, and reserve the
+          card's box before the file arrives (the CSS sizes it to the column).
+          Every thumbnail in this grid is that size; a differently-shaped one
+          would need its own numbers, or none.
+        {%- endcomment -%}
+        <img class="project-thumbnail" src="{{ parts[2] }}" alt="{{ parts[0] }}"
+          width="1000" height="640" loading="lazy" decoding="async">
         <span class="pill-button project-live" aria-hidden="true"><i class="ph ph-arrow-up-right"></i></span>
       </div>
       <div class="project-body">

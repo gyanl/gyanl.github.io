@@ -350,6 +350,12 @@
        NOTE: the 144px source art upscales badly at this width. */
     --project-thumbnail-max-height: 480px;
 
+    /* The work card's frame. Wider than the 1.56 the thumbnails themselves are,
+       so the image overflows it vertically at full width — that overflow is
+       what the parallax travels through. Widen it for a deeper effect and a
+       tighter crop; at the art's own ratio the parallax stops entirely. */
+    --project-media-aspect: 16 / 9;
+
     /* Radii */
     --border-radius-sm: 4px;
     --border-radius-md: 8px;
@@ -2403,8 +2409,9 @@ button {
 }
 
 /* The frame the artwork is seen through: it holds the badge in place, and it is
-   what the image is cropped to when it grows on hover. The corner lives here
-   rather than only on the image, since this is now the edge doing the cutting.
+   what crops the taller image sliding behind it. The corner lives here and
+   ONLY here — this is the edge doing the cutting, and a radius on the image
+   too would show its own rounded corners travelling inside the frame's.
 
    Without it the badge would resolve to .project and sit against the card's
    whole height, title and all. */
@@ -2413,29 +2420,6 @@ button {
     display: block;
     overflow: hidden;
     border-radius: var(--border-radius-thumbnail);
-}
-
-/* Hover pushes the image out past its frame rather than resizing anything: the
-   card, the grid and the text below it never move, and only the crop changes.
-   Done with `scale` — the independent property, so it composes with any
-   transform instead of replacing it — and NOT with width or height, which
-   would relayout the page on every hover for the same picture. */
-.project-thumbnail {
-    transition: scale var(--transition-normal);
-}
-
-.project:hover .project-thumbnail {
-    scale: 1.05;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .project-thumbnail {
-        transition: none;
-    }
-
-    .project:hover .project-thumbnail {
-        scale: 1;
-    }
 }
 
 /* Over the artwork's top right corner. Rides on the .pill-button treatment, so
@@ -2530,14 +2514,117 @@ button {
     transform: translateY(-2px);
 }
 
-.project-thumbnail {
-    border-radius: var(--border-radius-thumbnail);
-    width: 100%;
+/* The frame is what has a height; the image inside is deliberately taller than
+   it by --parallax-overflow and slides within it as the card crosses the
+   viewport. Radius lives on the frame alone (.project-media clips), never on
+   the image — a radius on a child that is being translated shows its own
+   rounded corners drifting inside the frame's.
+
+   --parallax is published per card by animate-parallax.js: -1 when the card is
+   entering at the bottom of the window, +1 when it is leaving at the top. The
+   :root default of 0 is the centred crop, so this resolves correctly on first
+   paint and with JS off. */
+/* The frame is deliberately WIDER than the artwork's own ratio, which is what
+   makes it shorter than the image at full width — that difference is the
+   parallax travel, and without it there is nothing to slide. The thumbnails are
+   all 1500x960 (1.56); at 16/9 the frame keeps their full width and crops a
+   band off the height.
+
+   Capped, so the frame cannot outgrow the old fixed height on a wide column. */
+.project-media {
+    aspect-ratio: var(--project-media-aspect);
     max-height: var(--project-thumbnail-max-height);
-    object-fit: cover;
-    object-position: top;
+
+    /* Both scalars live on the FRAME and are inherited by the image, never
+       declared on the image itself: the scroll-driven animation below runs on
+       this element, and a local --parallax on the image would shadow the value
+       coming down from it — the animation would run and nothing would move.
+       0 is the centred crop, so the resting state is right with no JS and no
+       animation support. */
+    --parallax: 0;
+    --parallax-overflow: 0px;
+}
+
+.project-thumbnail {
+    /* Full width at natural proportions, so the clipping is only ever vertical.
+       object-fit: cover would scale the image to fill a box taller than itself
+       and crop the sides, which is what we do not want here. */
+    width: 100%;
+    height: auto;
     display: block;
     background-color: var(--black-5);
+
+    /* The image is top-aligned in flow, so its whole overflow hangs off the
+       bottom and the travel is 0 (top flush) to -overflow (bottom flush) —
+       never positive, which would drop the image's top edge into the frame and
+       show a sliver of background behind it. Mapping [-1, +1] onto that:
+
+           --parallax = +1  ->  0            (top flush)
+           --parallax =  0  ->  -overflow/2  (centred, the JS-off default)
+           --parallax = -1  ->  -overflow    (bottom flush)
+
+       translate, not `top`/`margin`: this is a composited property, so the
+       browser moves an already-painted layer instead of relaying out the card
+       on every frame. */
+    translate: 0 calc((var(--parallax) - 1) * (var(--parallax-overflow) / 2));
+}
+
+/* The parallax is the effect; with reduced motion the frame just holds a still,
+   centred crop. The scalar is ignored rather than the script being stopped, so
+   there is nothing to re-enable if the preference changes. */
+@media (prefers-reduced-motion: reduce) {
+    .project-thumbnail {
+        translate: 0 calc(var(--parallax-overflow) / -2);
+    }
+}
+
+/* Where the browser has scroll-driven animations, the whole effect runs off the
+   main thread: no scroll listener, no per-frame JS, nothing to jank. It drives
+   exactly the same --parallax the script would, so the geometry above is the
+   single definition of the movement either way, and animate-parallax.js checks
+   for this support and skips its listener so only one driver is ever live.
+ *
+ * The animation goes on the FRAME, not on the image. `view()` resolves against
+ * the subject's nearest scroll container, and .project-media is one — it is
+ * `overflow: hidden` — so an animation on the image inside it measures that
+ * clipped box, where the image never moves, and sits frozen at one progress
+ * value. The frame itself has the viewport as its scroller, which is what the
+ * effect is supposed to track.
+ *
+ * --parallax has to be registered for this: an unregistered custom property is
+ * a token stream, animatable only by discrete swap, and the image would jump
+ * between the two endpoints instead of sweeping. Registered as a number, it
+ * interpolates, and `inherits: true` is what carries it down to the image. */
+@supports (animation-timeline: view()) {
+    @property --parallax {
+        syntax: '<number>';
+        initial-value: 0;
+        inherits: true;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .project-media {
+            animation-name: project-parallax;
+            animation-timing-function: linear;
+            animation-fill-mode: both;
+            /* Longhands, NOT the `animation` shorthand: the shorthand resets
+               duration to its initial 0s, and a timeline-driven animation with
+               a zero duration never progresses — it sits on its first keyframe.
+               `auto` is what hands pacing to the timeline. */
+            animation-duration: auto;
+            animation-timeline: view();
+        }
+
+        @keyframes project-parallax {
+            from {
+                --parallax: -1;
+            }
+
+            to {
+                --parallax: 1;
+            }
+        }
+    }
 }
 
 /* The title now carries weight and a step of size, where it used to match its
