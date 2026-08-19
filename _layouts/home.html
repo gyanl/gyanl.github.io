@@ -8,6 +8,24 @@
   {%- endcomment -%}
   <h1 class="sr-only">Gyan Lakhwani, Interaction Designer, New Delhi</h1>
 
+  {%- comment -%}
+    The header bar, the same one every other layout gets through default.html.
+    It leads the page rather than sitting inside .page-shell, because this
+    layout has no shell — the hero is full-bleed and starts immediately below.
+
+    It is not sticky here or anywhere (see .logo-mark-row), so it scrolls away
+    with the top of the page and the hero keeps the window to itself. That also
+    means it costs the reveal nothing: animate-g-logo.js derives the runway by
+    measuring .hero-spacer, so a header above it shifts where the runway starts
+    without changing how long it is.
+
+    The mark inside it points at /writing, as everywhere else — on this page it
+    is the only route into the archive, since the hero mark is decorative and
+    the footer is a scroll away. The scheme switcher stays suppressed: this page
+    is stamped dark and there is nothing on it to switch (see site/logo.html).
+  {%- endcomment -%}
+  {% include site/logo.html %}
+
   <div class="controls-panel display-none" id="controls-panel">
     <p>Congrats on unlocking<br> the Logo Controls!</p>
     <div class="control-group">

@@ -1152,6 +1152,72 @@ button {
    inset by it by hand. An absolute box resolves against its ancestor's PADDING
    box, not its content box, so `left: 0` would put the back button hard against
    the row's outer edge and a whole gutter out of line with the prose beneath. */
+/* The home page is stamped dark, but the top of it — where the header sits,
+   above the hero — is painted white by .hero-spacer's ground crossfade. Left
+   alone the bar inherits the dark scheme's near-white ink and 5%-white fills
+   and renders white on white: present, focusable, and completely invisible.
+ *
+   So the header is pinned light there, exactly as .hero-spacer pins itself,
+   and by redeclaring the same tokens rather than hardcoding colours on each of
+   the mark, the field and the buttons. It is safe to pin rather than crossfade
+   because the bar is not sticky: it scrolls away with the top of the page and
+   is only ever seen against the light end of that fade.
+ *
+   Scoped to [data-page="home"], which only the home layout carries — every
+   other page's header sits on the page's own background and must follow the
+   reader's scheme. */
+:root[data-page="home"] .logo-mark-row,
+:root[data-page="home"] .search {
+    --text-reg: rgb(42, 42, 42);
+    --text-secondary: rgba(42, 42, 42, .7);
+    --black-5: rgba(0, 0, 0, .05);
+    --black-10: rgba(0, 0, 0, .1);
+    --black-20: rgba(0, 0, 0, .2);
+    --white: #FFFFFF;
+    --charcoal: #2A2A2A;
+    --slightly-warm-gray: #faf9f9;
+
+    /* The rest of the bar's states, not just its resting one. The focused
+       field fills with --background-color and the results panel is
+       --header-background over --header-shadow — all three dark-scheme values
+       on this page, which left a near-black glass panel and a black focused
+       field hanging under a light header. The accent goes back to the light
+       scheme's darker, less saturated rose for the same reason: the bright
+       dark-mode one is mixed to carry against black, and on white it glares. */
+    --background-color: #FFFFFF;
+    --header-background: rgba(255, 255, 255, 0.4);
+    --header-shadow: rgba(0, 0, 0, 0.1);
+    --accent-s: 70%;
+    --accent-l: 40%;
+
+    /* The tokens above only reach what reads them. Inherited `color` comes from
+       body, which is still the dark scheme's near-white here, so anything in
+       the bar that does not set its own colour would arrive invisible. Every
+       part currently does set one; this is so the next one added does not have
+       to know that. */
+    color: var(--text-reg);
+}
+
+/* On a wide window the home header is narrowed to a 360px column in the middle.
+   The hero is the page here and the bar is a utility on top of it — at the
+   site's full 760px measure it reads as a banner across the artwork, and it
+   takes a 760px bite out of the middle of the sticker field, which is the one
+   part of the ring the eye actually lands on.
+ *
+   Home only, and desktop only. Every other page's header is a real header over
+   a reading column and keeps the measure; below 800px this one does too, since
+   a 360px bar on a 375px phone is the same full-width row with wasted gutters.
+   Either way the solver reads the bar's measured box (see the obstacle list in
+   layout-hero-stickers.js), so the stickers follow whatever this resolves to
+   rather than a number copied into the script. */
+@media (min-width: 801px) {
+
+    :root[data-page="home"] .logo-mark-row,
+    :root[data-page="home"] .search {
+        max-width: 360px;
+    }
+}
+
 .logo-mark-row {
     --header-gutter: var(--spacing-xl);
     position: relative;
@@ -1395,9 +1461,12 @@ button {
        and the floor never applies. */
     --ring-x: max(27vw, 35vmin);
     --ring-y: max(28svh, 24vmin);
+
+    /* Widened on a desktop — see the media block below. */
     /* How much further out they are thrown by the end of the fade, as a
        multiple of the ring. 1.6 carries them past the corner of the window. */
     --sticker-throw: 1.6;
+
 
     /* Sized off the shorter axis, so a sticker is the same size relative to the
        mark on a phone as on a desktop, and clamped at both ends so it stays
@@ -1410,6 +1479,31 @@ button {
     --sticker-size: clamp(6.75rem, 24vmin, 17.25rem);
     --sticker-unit: calc(var(--sticker-size) / 512);
 }
+
+/* The sticker ring is dealt WIDER on a desktop. The ring is where each sticker
+   is dealt, and the deal is the only thing that ever puts one in a corner —
+   relaxation from there pushes neighbours apart locally, it does not go looking
+   for empty room. At 27vw the ellipse covers about the middle half of a 1280px
+   window, so the top left and top right were never candidates: the solver
+   scored them as holes and had no way to fill them, which is why they came up
+   empty nearly every deal. Reaching further out gives it somewhere to deal
+   into, and the grid cost already in the scorer is what then prefers the
+   arrangements that use it.
+
+   Above the breakpoint only. On a phone the vmin floors are already doing this
+   work and the field is full either way.
+
+   Written as its own block rather than nested inside .hero-stickers: this
+   stylesheet is served as authored with no build step, and CSS nesting is
+   younger than the browsers it has to survive. A nested rule that failed to
+   parse here would silently leave the desktop ring at its narrow value. */
+@media (min-width: 801px) {
+    .hero-stickers {
+        --ring-x: max(38vw, 35vmin);
+        --ring-y: max(34svh, 24vmin);
+    }
+}
+
 
 /* On a phone the ring comes in but the stickers do not: 24vmin is the size in
    both, so a sticker holds the same proportion of the screen wherever it is

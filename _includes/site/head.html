@@ -71,6 +71,17 @@
   {%- endcomment -%}
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 
+  {%- comment -%}
+    Header scripts, outside the branch below because EVERY layout now carries
+    the header bar — home included, since it composes site/logo.html directly.
+
+      logo-mark-reveal  the small mark redraws itself on hover
+      search            the box's behaviour only; Lunr and the index are
+                        fetched on first use, so this is a couple of kB
+  {%- endcomment -%}
+  <script src="{{ '/assets/js/logo-mark-reveal.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+  <script src="{{ '/assets/js/search.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+
   {%- if page.layout == 'home' %}
   <script src="{{ '/assets/js/animate-g-logo.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   <script src="{{ '/assets/js/animate-about-chat.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
@@ -86,21 +97,10 @@
   <script src="{{ '/assets/js/animate-parallax.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   {%- else %}
   {%- comment -%}
-    The mark above the page redraws itself on hover. Every layout but home
-    carries it; home has its own, much larger, in the hero.
-  {%- endcomment -%}
-  <script src="{{ '/assets/js/logo-mark-reveal.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
-  {%- comment -%}
     Wraps the slideshow strips around. The strip works without it; this only
     makes it endless. Post bodies are the only place a slideshow appears.
   {%- endcomment -%}
   <script src="{{ '/assets/js/slideshow-loop.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
-  {%- comment -%}
-    Search. It lives in the header bar, so it is on every page this branch
-    covers. This file is the box's behaviour and nothing else — Lunr and the
-    index are fetched by it on first use, so what loads here is a couple of kB.
-  {%- endcomment -%}
-  <script src="{{ '/assets/js/search.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   {%- comment -%}
     The scheme switcher. The scheme itself is already resolved by the inline
     script above; this only draws the button and flips it.
