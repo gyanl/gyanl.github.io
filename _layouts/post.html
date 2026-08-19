@@ -80,7 +80,23 @@ layout: default
       resolve against the post URL and 404.
     {%- endcomment -%}
     {% assign replacedcontent = replacedcontent | replace: '](assets/', '](/assets/' | replace: 'src="assets/', 'src="/assets/' %}
-    {{ replacedcontent | markdownify }}
+    {%- comment -%}
+      Stamp intrinsic width/height onto every post image so the browser
+      reserves its box before the file arrives — no layout shift on slow
+      loads. Dimensions come from _data/image_dims.yml, regenerated with
+      script/image-dims.py whenever a post gains an image; an image with no
+      entry just renders unsized, as before. The CSS's height:auto keeps
+      the attributes from distorting anything.
+    {%- endcomment -%}
+    {% capture rendered %}{{ replacedcontent | markdownify }}{% endcapture %}
+    {% for img in site.data.image_dims %}
+        {% assign needle = 'src="/' | append: img.path | append: '"' %}
+        {% if rendered contains needle %}
+            {% assign sized = needle | append: ' width="' | append: img.w | append: '" height="' | append: img.h | append: '"' %}
+            {% assign rendered = rendered | replace: needle, sized %}
+        {% endif %}
+    {% endfor %}
+    {{ rendered }}
   </div>
 
   {%- if site.disqus.shortname -%}

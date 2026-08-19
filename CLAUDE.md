@@ -14,6 +14,7 @@ script/server      # bundle exec jekyll serve — local preview at localhost:400
 script/build       # bundle exec jekyll build → _site/
 script/cibuild     # build, assert _site/index.html exists, delete _site, gem build minima.gemspec
 script/slice-stickers.py   # re-cut assets/stickers/*.png out of assets/stickers.png
+script/image-dims.py       # regenerate _data/image_dims.yml — run after adding an image to a post
 ```
 
 **The local build needs a UTF-8 locale.** Under the default `LANG` on this machine, Ruby reads source files as US-ASCII and the build dies on the first non-ASCII character. Prefix with `LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8` if you hit `Invalid US-ASCII character`. GitHub Pages builds fine because its locale is already UTF-8.
@@ -93,6 +94,8 @@ thumbnail: /assets/thumbs/drm.png
 `permalink` is site-wide `/:title`, so an explicit `permalink:` only overrides the filename slug. `subtitle` is used as the card/listing description.
 
 **Asset paths in post bodies are bare — `assets/...`, no leading slash.** The vault root is `_posts` and a gitignored local symlink `_posts/assets → ../assets` makes bare paths resolve in Obsidian; `_layouts/post.html` rewrites `](assets/` and `src="assets/` to root-relative before markdownify, which is what makes them work on the published site — posts live at `/:title`, so an unrewritten bare path would resolve against the post URL and 404. Consequences: the rewrite only exists in the `post` layout, so **content rendered anywhere else still needs root-relative `/assets/...`** — that includes front-matter `thumbnail:` values, includes, and pages. Absolute `https://gyanl.com/...` works in production but breaks local preview; don't use it. If the symlink is missing (fresh clone), recreate it: `ln -s ../assets _posts/assets`.
+
+**Post images get intrinsic width/height stamped at build time** — `_layouts/post.html` rewrites each `src="/assets/..."` with the dimensions in `_data/image_dims.yml`, so slow image loads cause no layout shift. That file is generated: run `script/image-dims.py` after adding an image to a post or page. A missing entry is harmless — the image just renders unsized.
 
 **Thumbnails are cropped differently in each of the three places they appear**, so there is no single right size:
 
