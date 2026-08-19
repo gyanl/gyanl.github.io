@@ -1,0 +1,218 @@
+/* gyanl.com in Obsidian — tokens and prose styling ported from
+   assets/css/main.css so drafting in the vault looks like the published post.
+   Light/dark values mirror the site's two schemes; the accent is the site's
+   hsl(348, …) rose in both. */
+
+body {
+    /* Site tokens, verbatim */
+    --gy-accent: hsl(348, 70%, 40%);
+    --gy-text-reg: rgb(42, 42, 42);
+    --gy-text-secondary: rgba(42, 42, 42, .7);
+    --gy-bg: #FFFFFF;
+    --gy-black-20: rgba(0, 0, 0, .2);
+    --gy-black-10: rgba(0, 0, 0, .1);
+    --gy-black-5: rgba(0, 0, 0, .05);
+    --gy-black-3: rgba(0, 0, 0, .03);
+    --gy-warm-gray: #faf9f9;
+    --gy-code-bg: #21244c;
+    --gy-code-color: #e6e6f0;
+    --gy-radius-sm: 4px;
+    --gy-radius-md: 8px;
+    --gy-radius-lg: 10px;
+
+    /* The site's type stack: ui-rounded is what actually resolves
+       SF Pro Rounded; the family name alone does not. */
+    --font-text-theme: ui-rounded, 'SF Pro Rounded', 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-monospace-theme: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --file-line-width: 760px; /* --measure */
+}
+
+.theme-dark {
+    --gy-accent: hsl(348, 80%, 65%);
+    --gy-text-reg: #E8E8E8;
+    --gy-text-secondary: rgba(255, 255, 255, .75);
+    --gy-bg: #1a1a1a;
+    --gy-black-20: rgba(255, 255, 255, .2);
+    --gy-black-10: rgba(255, 255, 255, .1);
+    --gy-black-5: rgba(255, 255, 255, .05);
+    --gy-black-3: rgba(255, 255, 255, .03);
+    --gy-warm-gray: #2C2C2C;
+    --gy-code-bg: #12121c;
+}
+
+body {
+    /* Feed the site's palette into Obsidian's own variables so the whole app
+       follows, not just the prose. */
+    --background-primary: var(--gy-bg);
+    --text-normal: var(--gy-text-reg);
+    --text-muted: var(--gy-text-secondary);
+    --text-accent: var(--gy-accent);
+    --text-accent-hover: var(--gy-accent);
+    --interactive-accent: var(--gy-accent);
+    --blockquote-border-color: var(--gy-accent);
+    --code-background: var(--gy-black-5);
+    --hr-color: var(--gy-black-10);
+    --line-height-normal: 1.7;
+
+    /* App chrome: sidebars sit on the site's warm gray, hairlines on its
+       10% black, selections on a wash of the accent. */
+    --background-secondary: var(--gy-warm-gray);
+    --background-secondary-alt: var(--gy-warm-gray);
+    --background-modifier-border: var(--gy-black-10);
+    --background-modifier-hover: var(--gy-black-5);
+    --background-modifier-active-hover: var(--gy-black-10);
+    --text-selection: hsla(348, 70%, 40%, .18);
+    --text-highlight-bg: hsla(348, 70%, 55%, .22);
+    --titlebar-background: var(--gy-warm-gray);
+    --titlebar-background-focused: var(--gy-warm-gray);
+    --tab-background-active: var(--gy-bg);
+    --divider-color: var(--gy-black-10);
+    --scrollbar-thumb-bg: var(--gy-black-20);
+    --scrollbar-bg: transparent;
+    --checkbox-color: var(--gy-accent);
+    --checkbox-color-hover: var(--gy-accent);
+    --tag-color: var(--gy-accent);
+    --tag-background: var(--gy-black-5);
+    --link-external-color: var(--gy-text-reg);
+    --link-color: var(--gy-text-reg);
+    --link-color-hover: var(--gy-accent);
+}
+
+/* ===== Prose, matching .prose ===== */
+
+.markdown-rendered h1, .markdown-source-view.mod-cm6 .HyperMD-header-1,
+.markdown-rendered h2, .markdown-source-view.mod-cm6 .HyperMD-header-2,
+.markdown-rendered h3, .markdown-source-view.mod-cm6 .HyperMD-header-3,
+.markdown-rendered h4, .markdown-source-view.mod-cm6 .HyperMD-header-4 {
+    letter-spacing: 0.01em;
+    font-weight: 600;
+}
+
+/* h5 on the site is an uppercase secondary label */
+.markdown-rendered h5,
+.markdown-source-view.mod-cm6 .HyperMD-header-5 {
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gy-text-secondary);
+    font-weight: 600;
+}
+
+/* h6 on the site is a pull-quote / aside, not a heading */
+.markdown-rendered h6,
+.markdown-source-view.mod-cm6 .HyperMD-header-6 {
+    font-size: 16px;
+    font-weight: normal;
+    border-left: 3px solid var(--gy-accent);
+    padding-left: 12px;
+    color: var(--gy-accent);
+    line-height: 1.6;
+    text-transform: none;
+}
+
+.markdown-rendered a {
+    color: var(--gy-text-reg);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gy-black-20);
+}
+
+.markdown-rendered a:hover {
+    color: var(--text-normal);
+    border-bottom-color: currentColor;
+}
+
+.markdown-rendered blockquote {
+    border-left: 3px solid var(--gy-accent);
+    padding: 8px 20px;
+    background-color: var(--gy-black-3);
+    border-radius: 0 var(--gy-radius-md) var(--gy-radius-md) 0;
+    font-size: 1.2em;
+}
+
+.markdown-rendered code {
+    background-color: var(--gy-black-5);
+    border-radius: var(--gy-radius-sm);
+    padding: 2px 6px;
+    font-size: 0.85em;
+}
+
+.markdown-rendered pre {
+    background-color: var(--gy-code-bg);
+    color: var(--gy-code-color);
+    border-radius: var(--gy-radius-md);
+    padding: 12px 20px;
+}
+
+.markdown-rendered pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+
+/* Footnote chips, matching .prose sup */
+.markdown-rendered sup,
+.markdown-rendered .footnote-ref {
+    padding: 0 4px;
+    margin-left: 2px;
+    background-color: var(--gy-black-5);
+    border-radius: var(--gy-radius-sm);
+    font-weight: 500;
+    display: inline-block;
+    vertical-align: baseline;
+    transform: translateY(-2px);
+    font-size: 14px;
+}
+
+.markdown-rendered sup a {
+    border-bottom: none;
+}
+
+/* Images: rounded like .prose img */
+.markdown-rendered img,
+.markdown-source-view.mod-cm6 img {
+    border-radius: var(--gy-radius-lg);
+    max-width: 100%;
+}
+
+.markdown-rendered th {
+    background-color: var(--gy-black-5);
+    font-weight: 500;
+}
+
+.markdown-rendered th,
+.markdown-rendered td {
+    border: 1px solid var(--gy-black-10);
+    padding: 8px 12px;
+}
+
+.markdown-rendered tr:nth-child(even) td {
+    background-color: var(--gy-black-3);
+}
+
+/* ===== Slideshow preview =====
+   On the site, a paragraph of images tagged `{: .slideshow }` becomes a
+   scroll-snap strip. Kramdown IALs don't render in Obsidian, so approximate:
+   any reading-mode paragraph holding more than one image becomes the same
+   horizontal snap strip, so multi-image paragraphs read as they will publish. */
+.markdown-rendered p:has(> img:nth-of-type(2)) {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.markdown-rendered p:has(> img:nth-of-type(2))::-webkit-scrollbar {
+    display: none;
+}
+
+.markdown-rendered p:has(> img:nth-of-type(2)) > img {
+    flex: none;
+    width: min(480px, 86%);
+    max-width: none;
+    height: auto;
+    margin: 0;
+    scroll-snap-align: center;
+}
