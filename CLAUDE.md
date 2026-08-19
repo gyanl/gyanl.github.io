@@ -117,8 +117,6 @@ Drafts go in `_posts/Drafts/`, excluded in `_config.yml`. Files in `_posts/` who
 
 Leftovers from earlier versions of the site. None of it breaks anything, but don't "fix" any of it thinking it's live — it has no effect on the rendered page:
 
-- **`setup-anime.js` and the anime.js CDN script.** Both load on the home page only. `setup-anime.js` animates `.service-card` and `.team-card`, and neither class exists anywhere in this repo — they are `publicknowledgestudio.github.io` classes. The character-stagger this file used to do was retired with `.huge-text`.
-- **The `radial-flowers.mp4` preload** in `head.html`, also home-only. It is referenced nowhere else: the video hero it belonged to was replaced by the g-logo reveal, so this fetches a video that never plays.
 - **`_includes/home/writing.html` and `_includes/site/tabbar.html`** are included by no layout.
 - **`home_tags` in `_config.yml`**, as above — read by nothing.
 - `minima.gemspec` and `_config.yml`'s `theme: jekyll-theme-minimal`, both vestigial from the fork.
