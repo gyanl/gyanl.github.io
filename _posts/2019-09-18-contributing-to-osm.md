@@ -51,7 +51,7 @@ out body;
 out skel qt; {% endraw %}
 ```
 
-![Overpass Turbo Website](/assets/overpass.png)
+![Overpass Turbo Website](assets/overpass.png)
 
 On the right pane, navigate to the area you mapped and you should be able to see all your accepted changes. If you can't see the changes, they might be under review by the OSM community, and you can check in later.
 

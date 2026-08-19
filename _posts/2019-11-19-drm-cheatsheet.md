@@ -12,7 +12,7 @@ date modified: 07-10-2022
 
 Fair warning: These might not make sense outside of the context of the course since some of these slides refer to material distributed during the course.
 
-![Class photo](/assets/talk-curves.jpeg)
+![Class photo](assets/talk-curves.jpeg)
 
 > Nobody even cracked a smile when I showed this slide, which tells you just how stressed people were about this course. Photo courtesy of [Bhawna](https://www.behance.net/sonibhawna)
 

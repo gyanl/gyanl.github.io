@@ -11,14 +11,14 @@ date modified: 19-06-2023
 
 Classplus is an app specially designed for tutors and coaching institutes. It provides features to manage a coaching institute. Classplus wanted something modern and dynamic to represent their brand.
 
-![Classplus logo](/assets/classplus-brand.png)
+![Classplus logo](assets/classplus-brand.png)
 
 ###### Logo, colors and fonts
 
-![Classplus branding](/assets/classplus-brand-elements.png)
+![Classplus branding](assets/classplus-brand-elements.png)
 
 ###### Other brand elements
 
-![Classplus on Times Square](/assets/classplus-timessquare.jpg)
+![Classplus on Times Square](assets/classplus-timessquare.jpg)
 
 ###### 2022 Update: The Classplus logo was featured on the Nasdaq tower on Times Square!

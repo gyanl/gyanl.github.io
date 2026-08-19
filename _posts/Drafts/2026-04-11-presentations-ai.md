@@ -15,7 +15,7 @@ Presentations.ai generates finished slide decks in minutes. We worked on the bra
 
 There's a nice recursion in designing the brand for a product that designs presentations: everything we made was implicitly a demonstration of the standard the output should meet. It kept us honest.
 
-<video src="/assets/pks-presentations-ai-animation.mp4"
+<video src="assets/pks-presentations-ai-animation.mp4"
   poster="/assets/pks-presentations-ai-animation-poster.jpg"
   autoplay muted loop playsinline controls preload="metadata"
   aria-label="An animated logo option for Presentations.ai that was not selected"></video>

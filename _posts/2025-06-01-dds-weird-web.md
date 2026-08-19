@@ -12,14 +12,14 @@ date modified: 07-06-2025
 
 DDS is the Annual Design Degree Showcase at the Department of Design, IIT Delhi. Charu and I conducted a workshop that talked about how we’ve adopted AI tools into our workflows, and some suggestions for how to avoid the cookie-cutter responses you’ll get from LLMs unless you are specific enough with your prompts.
 
-![Description](/assets/dds-iit-delhi-poster.jpg)
+![Description](assets/dds-iit-delhi-poster.jpg)
 
 ###### Event invite
 
-![Description](/assets/dds-iit-delhi-title.jpg)
+![Description](assets/dds-iit-delhi-title.jpg)
 
 ###### Title slide for the talk
 
-![Description](/assets/dds-iit-delhi.jpg)
+![Description](assets/dds-iit-delhi.jpg)
 
 ###### The participants skewed younger than most previous speaking engagements I’ve taken up, and our youngest participant was a 10th grader!

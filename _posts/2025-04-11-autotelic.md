@@ -15,7 +15,7 @@ Autotelic was founded by my friend Diwank as a research lab, with the intention 
 
 I had previously worked with Diwank on [Kea.ai](https://gyanl.com/kea), so this was a return to a long collaboration. At Public Knowledge Studio we designed an identity and a website that felt as futuristic as their vision.
 
-![Concentric gradient circles in ochre, red, violet and magenta on a warm grey ground](/assets/pks-autotelic-circles.png)
+![Concentric gradient circles in ochre, red, violet and magenta on a warm grey ground](assets/pks-autotelic-circles.png)
 
 ###### From the identity system.
 

@@ -8,23 +8,23 @@ date: 23-09-2022
 date modified: 31-03-2024
 ---
 
-![Plutonium Sans](/assets/plutonium.png)
+![Plutonium Sans](assets/plutonium.png)
 
 A few months ago, I worked on a script typeface based on my handwriting. I called it [Lettuce Party](/lettuce-party). It was my first foray into type design, and I came out of the experience with a lot of insights into what not to do when you are trying to design a typeface. This summer, I read [Never Use Futura](http://www.neverusefutura.com/) and decided to work on my own sans serif inspired by the geometric forms of Futura. This was the result.
 
-![Plutonium Sans](/assets/plutonium-weights.png)
+![Plutonium Sans](assets/plutonium-weights.png)
 
 ###### Plutonium Sans
 
-![Plutonium Sans](/assets/plutonium-sample.png)
+![Plutonium Sans](assets/plutonium-sample.png)
 
 ###### Type sample
 
-![Plutonium Sans](/assets/plutonium-lower.png)
+![Plutonium Sans](assets/plutonium-lower.png)
 
 ###### Lowercase letters (bold weight)
 
-![Plutonium Sans](/assets/plutonium-capitals.png)
+![Plutonium Sans](assets/plutonium-capitals.png)
 
 ###### Capitals (regular weight)
 
@@ -36,13 +36,13 @@ I started Lettuce Party with no previous experience or research into type design
 
 I had previously used Birdfont, a free & open source font editor, but had found it confusing and badly documented. I was keen to try out other font editors, and settled on Glyphs for Mac. It’s a paid software with a 30 day trial that I used, and their website has some great [tutorials](https://glyphsapp.com/tutorials) to get you started.
 
-![Glyphs for Mac](/assets/glyphs-characterset.png)
+![Glyphs for Mac](assets/glyphs-characterset.png)
 
 ###### Glyphs for Mac
 
 I used Illustrator to draw the HOno as control characters to define the look and feel of the typeface. I used Illustrator since that was what I was comfortable with, but I moved to Glyphs soon after and the pen tool quickly grew on me. Before long I had completed a first draft of the lowercase letters.
 
-![Glyphs for Mac](/assets/plutonium-abc.png)
+![Glyphs for Mac](assets/plutonium-abc.png)
 
 ###### Early version of the lowercase letters from a to t.
 
@@ -50,31 +50,31 @@ I used Illustrator to draw the HOno as control characters to define the look and
 
 I started stringing letters into words to check how they looked together. Certain combinations of letters looked off, and it was helpful to compare characters side by side to see what worked and what didn’t. I tweaked things as I went along, and took screenshots of anything I liked so I could come back to ideas.
 
-!["adhesion"](/assets/plutonium-adhesion.png)
+!["adhesion"](assets/plutonium-adhesion.png)
 
 ###### ‘adhesion’ was one of the early words I used to test the font, and it also became my work in progress name for the font. 
 
 The early lowercase ‘_a_’ had a teardrop shape to it which felt a bit odd to me. I later tried a double storey ‘_a_’, and eventually abandoned for a more traditional geometric form.
 
-!["asteroid"](/assets/plutonium-asteroid.png)
+!["asteroid"](assets/plutonium-asteroid.png)
 
 ###### Double storey ‘_a_’ in an exploration for an italic weight.
 
-!["Alpine joke"](/assets/plutonium-alpine-joke.png)
+!["Alpine joke"](assets/plutonium-alpine-joke.png)
 
 ###### Alpine joke
 
-!["fjord"](/assets/plutonium-fjord.png)
+!["fjord"](assets/plutonium-fjord.png)
 
 ###### Fjord
 
-!["The quick brown fox jumps over the lazy dog."](/assets/plutonium-qbf.png)
+!["The quick brown fox jumps over the lazy dog."](assets/plutonium-qbf.png)
 
 ###### Final lowercase glyphs
 
 A few days later I was happy with my lowercase letters, and it was time to work on the uppercase. I followed a similar process of trial and error, creating a few characters and then stringing them together and making any modifications that felt appropriate. I did not want the typeface to look too formal, so I allowed myself to have some fun with some of the letters. I was particularly happy with how the **_k_** and **_y_** came out.
 
-!["Upper and lower case letters"](/assets/plutonium-unlc.png)
+!["Upper and lower case letters"](assets/plutonium-unlc.png)
 
 ###### Upper and Lower case letters
 
@@ -86,7 +86,7 @@ Plutonium is free for use for commercial or private projects. You can [download 
 
 #### Before you use
 
-!["Kerning is hard."](/assets/plutonium-kerning.png)
+!["Kerning is hard."](assets/plutonium-kerning.png)
 
 1. No kerning whatsoever (I still haven’t fully wrapped my head around how to do it).
 2. The numerals and punctuation are a little rough.

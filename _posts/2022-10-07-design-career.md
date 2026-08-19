@@ -9,7 +9,7 @@ date modified: 14-06-2023
 
 > I was invited by [Metvy Learn](https://www.metvy.com/) to give a talk on starting a career in Design. These are some things the talk covered.
 
-![Title slide for the talk](/assets/design-job.jpeg)
+![Title slide for the talk](assets/design-job.jpeg)
 
 ###### Title Slide
 

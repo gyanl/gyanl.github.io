@@ -72,6 +72,14 @@ layout: default
         {% assign replacedcontent = replacedcontent | replace: bracketlink,linktext %}
     {% endfor %}
 
+    {%- comment -%}
+      Posts reference assets bare — `assets/...`, no leading slash — so they
+      resolve in Obsidian, where the vault root is _posts and a local
+      _posts/assets symlink points at ../assets. Rewrite them root-relative
+      here, because posts publish at /:title and a bare path would otherwise
+      resolve against the post URL and 404.
+    {%- endcomment -%}
+    {% assign replacedcontent = replacedcontent | replace: '](assets/', '](/assets/' | replace: 'src="assets/', 'src="/assets/' %}
     {{ replacedcontent | markdownify }}
   </div>
 

@@ -92,7 +92,7 @@ thumbnail: /assets/thumbs/drm.png
 
 `permalink` is site-wide `/:title`, so an explicit `permalink:` only overrides the filename slug. `subtitle` is used as the card/listing description.
 
-**Asset paths are root-relative — `/assets/...`, with the leading slash.** That resolves identically on `localhost:4000` and on `gyanl.com`, because `_config.yml` sets no `baseurl`. Don't write bare `assets/...` (no slash): posts live at `/:title`, so a bare path resolves against the post URL and 404s. Absolute `https://gyanl.com/...` also works in production but breaks every image in local preview, which is why the site moved off it. Nothing on the site puts a thumbnail in `og:image`, so there's no meta-tag reason to keep URLs absolute.
+**Asset paths in post bodies are bare — `assets/...`, no leading slash.** The vault root is `_posts` and a gitignored local symlink `_posts/assets → ../assets` makes bare paths resolve in Obsidian; `_layouts/post.html` rewrites `](assets/` and `src="assets/` to root-relative before markdownify, which is what makes them work on the published site — posts live at `/:title`, so an unrewritten bare path would resolve against the post URL and 404. Consequences: the rewrite only exists in the `post` layout, so **content rendered anywhere else still needs root-relative `/assets/...`** — that includes front-matter `thumbnail:` values, includes, and pages. Absolute `https://gyanl.com/...` works in production but breaks local preview; don't use it. If the symlink is missing (fresh clone), recreate it: `ln -s ../assets _posts/assets`.
 
 **Thumbnails are cropped differently in each of the three places they appear**, so there is no single right size:
 

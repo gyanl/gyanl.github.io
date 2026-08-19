@@ -10,7 +10,7 @@ date: 05-06-2025
 
 > I didn’t want to implement rate limiting, so I have $10 in my OpenAI account and this project will stop working when the credits run out. You can fork it yourself and run it on Vercel using the details on the Github project
 
-![Description](/assets/anything-api.jpg)
+![Description](assets/anything-api.jpg)
 
 ###### Try it at the playground [api.gyanl.com](http://api.gyanl.com)
 

@@ -13,6 +13,6 @@ In the face of this growing digital threat, the Internet Freedom Foundation laun
 
 {: .slideshow }
 
-![Landing Page](/assets/plugthebreach-0.jpg)![Landing Page](/assets/plugthebreach-1.jpg)![Landing Page](/assets/plugthebreach-2.jpg)
+![Landing Page](assets/plugthebreach-0.jpg)![Landing Page](assets/plugthebreach-1.jpg)![Landing Page](assets/plugthebreach-2.jpg)
 
 You can check out [plugthebreach.in](https://plugthebreach.in) now!

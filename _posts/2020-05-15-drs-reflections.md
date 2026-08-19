@@ -38,13 +38,13 @@ Without any sort of external organisation to help with recruiting users, or real
 
 It took me about a week just to transcribe my recordings. I had not anticipated it would take this much time, or be this boring. Eventually I got it done, and then spent some time trying to highlight interesting sections in Google docs to get started on finding themes. This was very slow, and I eventually shifted to printouts with large margins so I could highlight sections and add annotations.
 
-![Highlighting sections on printouts](/assets/drs-1.jpeg)
+![Highlighting sections on printouts](assets/drs-1.jpeg)
 
 ###### Highlighting sections on printouts
 
 I was also taking notes on loose sheets, and sometimes on the margins of my printouts, and adding to a Google doc as I was writing my paper in parallel. At one point my room had papers strewn all over it because it was getting so hard to keep track of multiple trains of thought at once.
 
-![Simultaneously using 3 different sources for information processing: a recipe for disaster](/assets/drs-2.jpeg)
+![Simultaneously using 3 different sources for information processing: a recipe for disaster](assets/drs-2.jpeg)
 
 ###### Simultaneously using 3 different sources for information processing: a recipe for disaster
 

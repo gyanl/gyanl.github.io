@@ -13,7 +13,7 @@ _A gaming monitor that I used for gaming as well as design work. The high refres
 
 _Bought on Amazon in August 2022, selling because I don’t play video games anymore._
 
-![](/assets/sale-dell-monitor.jpg)
+![](assets/sale-dell-monitor.jpg)
 
 **Specs on Dell Website:** [Dell 27 Inch Gaming Monitor: S2721DGF](https://www.dell.com/en-us/shop/dell-27-gaming-monitor-s2721dgf/apd/210-axeh/monitors-monitor-accessories)
 
@@ -28,7 +28,7 @@ _Bought on Amazon in August 2022, selling because I don’t play video games any
 
 _You can throw a party with just one of these, it sounds really good and gets super loud. It's a solid smart speaker if you're mostly in the Apple ecosystem, and especially if you use Apple music._
 
-![](/assets/sale-homepod.jpg)
+![](assets/sale-homepod.jpg)
 
 **Flipkart:** [HomePod](https://www.flipkart.com/apple-homepod-siri-assistant-smart-speaker/p/itmd613189c4a516) (19,900)  
 
@@ -55,7 +55,7 @@ _Not sold yet, but someone has expressed interest. If you want one of these reac
 
 #### Google Chromecast Audio
 
-![](/assets/sale-chromecast-audio.jpg)
+![](assets/sale-chromecast-audio.jpg)
 
 *Do you have an old pair of speakers lying around that still sound good, but it's just too much hassle to actually use them anymore? Hook up this Chromecast to it with a 3.5mm audio cable and it can now play music over WiFi. (Also supports digital audio but you'll need to separately buy a Mini Toslink to Toslink cable for that.)*
 
@@ -75,7 +75,7 @@ Note: This machine works best with a grind size that’s closer to commercial es
 
 {: .slideshow }
 
-![Front Profile for Caffé Birraio Decoris Home Espresso Machine](/assets/sale-caffe-birraio-0.jpg)![Side Profile for Caffé Birraio Decoris Home Espresso Machine](/assets/sale-caffe-birraio-1.jpg)![Close up of display for Caffé Birraio Decoris Home Espresso Machine](/assets/sale-caffe-birraio-2.jpg)
+![Front Profile for Caffé Birraio Decoris Home Espresso Machine](assets/sale-caffe-birraio-0.jpg)![Side Profile for Caffé Birraio Decoris Home Espresso Machine](assets/sale-caffe-birraio-1.jpg)![Close up of display for Caffé Birraio Decoris Home Espresso Machine](assets/sale-caffe-birraio-2.jpg)
 
 **Original Price:** [30,500 on Caffe Birraio](https://caffebirraio.com/products/decoris-home-espresso-machine?variant=49713223401745)
 
@@ -89,7 +89,7 @@ Note: This machine works best with a grind size that’s closer to commercial es
 
 *My friend [Ratik](https://x.com/ratixyz) bought these sick kicks from VegNonVeg. UK 8, Worn only once. Ask him about them!*
 
-![](/assets/sale-ratik-shoes.jpg)
+![](assets/sale-ratik-shoes.jpg)
 
 **Ratik’s Price:** 9.5k + Shipping
 
@@ -101,7 +101,7 @@ Note: This machine works best with a grind size that’s closer to commercial es
 
 _A comfortable office chair with a red cushioned base. Selling cheap because the back support and height adjustment lever has gone bad. It could probably be fixed, but I don’t have a car and can’t carry it to a repair shop so I don’t really know what to do with it._
 
-![](/assets/sale-chair.jpg)
+![](assets/sale-chair.jpg)
 
 **Original price:** 5k
 

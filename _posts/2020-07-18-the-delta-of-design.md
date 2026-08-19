@@ -8,7 +8,7 @@ thumbnail: /assets/thumbs/delta.png
 
 This article is inspired by a similar [article written by Rohit Gupta](http://rohitg.in/2018/07/04/deltadesign/), a senior at IDC.
 
-![Exterior of the IDC Building.](/assets/idc-exterior.jpg)
+![Exterior of the IDC Building.](assets/idc-exterior.jpg)
 
 ###### The IDC logo at the main entrance of the building.
 
@@ -34,6 +34,6 @@ I perhaps understand what this meant now that I have spent two years at IDC Ther
 
 I have barely left my house over the past four months, and it has started to almost feel status quo. One of the most distressing thing about the pandemic for me has been how the future just seems impossible to predict anymore. I have only been thinking of my life in terms of the next few days and every day feels the same: working interspersed by [doomscrolling](https://www.merriam-webster.com/words-at-play/doomsurfing-doomscrolling-words-were-watching) on the internet. My entire world is reduced to rectangular screens through which I do work, meet friends, and find amusement.
 
-![6 people sitting on a metallic tube. Behind them is a busy road and the David Sassoon Library building.](/assets/idc-kalaghoda.jpg)
+![6 people sitting on a metallic tube. Behind them is a busy road and the David Sassoon Library building.](assets/idc-kalaghoda.jpg)
 
 ###### In better times—A trip to Kalaghoda to visit the Chhatrapati Shivaji Maharaj Vastu Sangrahalaya and National Gallery of Modern Art. Mumbai, September 2018.

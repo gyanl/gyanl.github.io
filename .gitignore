@@ -10,6 +10,9 @@ _posts/.obsidian/workspace
 _posts/.obsidian/core-plugins.json
 _posts/.obsidian/core-plugins-migration.json
 _posts/.smart-connections/
+# Local symlink to ../assets so bare asset paths resolve in Obsidian.
+# Never committed: GitHub Pages must not see it.
+_posts/assets
 # Bundler's gem path, at the repo root. Anchored with a leading slash: bare
 # `vendor` matches a directory of that name at ANY depth, which silently
 # swallowed assets/js/vendor/ — so the vendored Lunr was never committed and

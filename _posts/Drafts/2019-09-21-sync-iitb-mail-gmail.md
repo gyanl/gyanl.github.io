@@ -6,7 +6,7 @@ permalink: /fix-mail
 
 So you're at IIT Bombay, and you have a fancy @iitb.ac.in email. You go to the [Webmail interface](https://webmail.iitb.ac.in/) and are greeted by this:
 
-![Webmail Screenshot](/assets/webmail-screenshot.png)
+![Webmail Screenshot](assets/webmail-screenshot.png)
 
 It would be so much nicer if you could use Gmail, right? Well, you can.
 

@@ -15,7 +15,7 @@ My friend Diwank reached out about the new AI lab he was working on. That was [A
 
 We did the brand identity, the website, and the launch video.
 
-<video src="/assets/pks-memory-store.mp4"
+<video src="assets/pks-memory-store.mp4"
   poster="/assets/pks-memory-store-poster.jpg"
   autoplay muted loop playsinline controls preload="metadata"
   aria-label="The Memory Store brand in motion"></video>

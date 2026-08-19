@@ -12,15 +12,15 @@ date: 23-09-2022
 
 I made these wallpapers as a reminder to plan out what I want to do, do one thing at a time, and try new things. They have now become a personal meme of sorts. Watch me ruthlessly prioritize getting Biryani twice a week and eat it with singular focus. Typeset in Space Grotesk, one of my current favorite fonts.
 
-![Ruthless Prioritization](/assets/ruthless.png)
+![Ruthless Prioritization](assets/ruthless.png)
 
 ###### <a href="/assets/ruthless.png" download>Download</a>
 
-![Singular Focus](/assets/singular.png)
+![Singular Focus](assets/singular.png)
 
 ###### <a href="/assets/singular.png" download>Download</a>
 
-![Radical Innovation](/assets/radical.png)
+![Radical Innovation](assets/radical.png)
 
 ###### <a href="/assets/radical.png" download>Download</a>
 
@@ -28,7 +28,7 @@ I made these wallpapers as a reminder to plan out what I want to do, do one thin
 
 I got really into glitch art, and made this using pixel sorting. 
 
-![Pixel city](/assets/pixelcity.png)
+![Pixel city](assets/pixelcity.png)
 
 ###### <a href="/assets/pixelcity.png" download>Download</a>
 
@@ -36,7 +36,7 @@ I got really into glitch art, and made this using pixel sorting.
 
 Midjourney prompt hacking. My prompt was “Abstract elements in cool, saturated neon gradients on a dark background, flowing layers of materials with reflections, holographic iridescent glass, shadows, 8k, hd render, masterpiece, space themed --s 750 --weird 3000 --ar 16:9”
 
-![Skateboard](/assets/skateboard-4k.png)
+![Skateboard](assets/skateboard-4k.png)
 
 ###### <a href="/assets/skateboard-4k.png" download>Download</a>
 
@@ -44,6 +44,6 @@ Midjourney prompt hacking. My prompt was “Abstract elements in cool, saturate
 
 Also made with midjourney. I like using this on my second monitor, which I like being mostly black so it feels like the windows are floating over emptiness.
 
-![Orb Wallpaper](/assets/orb.png)
+![Orb Wallpaper](assets/orb.png)
 
 ###### <a href="/assets/orb.png" download>Download</a>

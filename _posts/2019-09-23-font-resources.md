@@ -13,7 +13,7 @@ I worked on a tool to search and browse for fonts in my third semester at IDC. I
 
 {: .slideshow }
 
-![One](/assets/font-finder-0.png)![Two](/assets/font-finder-1.png)![Three](/assets/font-finder-2.png)
+![One](assets/font-finder-0.png)![Two](assets/font-finder-1.png)![Three](assets/font-finder-2.png)
 
 ###### Font Finder interface
 

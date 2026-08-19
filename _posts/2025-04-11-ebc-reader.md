@@ -16,7 +16,7 @@ We worked on the landing page and the product design for the eReader, helping th
 
 An eReader for lawyers is not really a reading app. Nobody curls up with a digest. The reading is instrumental — you are looking for a passage, marking it, and carrying it into an argument — so the parts that matter are search across the whole library at once, annotation that survives, notebooks you can collate research into, and sync that means the note you made on a phone is on your desktop when you sit down. The page-turn is the least of it.
 
-![The EBC Reader feature list — Advanced Search, AI Recommendations, Permanent Links and Annotations, Text to Speech, TruePrint — beside the search panel](/assets/pks-ebc-reader-features.png)
+![The EBC Reader feature list — Advanced Search, AI Recommendations, Permanent Links and Annotations, Text to Speech, TruePrint — beside the search panel](assets/pks-ebc-reader-features.png)
 
 ###### Advanced Search, with AI Recommendations arriving in Platinum V.2.
 

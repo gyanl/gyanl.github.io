@@ -13,6 +13,6 @@ Fleetcraft is an AI-native aviation startup building tools that help aircraft ma
 
 We designed and built the website, translating a fairly technical mission into a clear digital presence. Aviation maintenance is an unglamorous, heavily regulated corner of a glamorous industry, and the site had to hold both — credible enough for the people who sign off on airworthiness, ambitious enough for the people funding it.
 
-![The Fleetcraft identity and website, showing voice-to-logbook capture and the data privacy section](/assets/pks-fleetcraft-board.jpg)
+![The Fleetcraft identity and website, showing voice-to-logbook capture and the data privacy section](assets/pks-fleetcraft-board.jpg)
 
 ###### The site, and the voice-to-logbook flow at the centre of the product.

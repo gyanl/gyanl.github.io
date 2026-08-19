@@ -17,7 +17,7 @@ Conducting effective user research is crucial for understanding your users' need
 
 A well-defined research plan ensures that you and your team have a clear purpose for the study. Start by questioning your assumptions about the problem. Use tools like a modified Johari window to structure your thoughts.
 
-![A modified Johari window with 4 quadrants](/assets/quadrants.png) _A modified Johari window_
+![A modified Johari window with 4 quadrants](assets/quadrants.png) _A modified Johari window_
 
 #### Recruit the Right People
 
