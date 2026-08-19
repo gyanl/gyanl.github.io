@@ -1,7 +1,7 @@
 {
   "baseFontSize": 15,
-  "cssTheme": "Border",
-  "accentColor": "#303030",
+  "cssTheme": "",
+  "accentColor": "#212121",
   "theme": "system",
   "interfaceFontFamily": "",
   "textFontFamily": "",

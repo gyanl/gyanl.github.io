@@ -117,6 +117,5 @@ Drafts go in `_posts/Drafts/`, excluded in `_config.yml`. Files in `_posts/` who
 
 Leftovers from earlier versions of the site. None of it breaks anything, but don't "fix" any of it thinking it's live — it has no effect on the rendered page:
 
-- **`_includes/home/writing.html` and `_includes/site/tabbar.html`** are included by no layout.
 - **`home_tags` in `_config.yml`**, as above — read by nothing.
 - `minima.gemspec` and `_config.yml`'s `theme: jekyll-theme-minimal`, both vestigial from the fork.

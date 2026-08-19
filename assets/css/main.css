@@ -516,7 +516,6 @@
 }
 
 
-
 /* ===== Base ===== */
 
 body {
@@ -623,47 +622,9 @@ button {
 
 .secondary {
     color: var(--text-secondary);
-}
-
-.line-height-tight {
-    line-height: var(--line-height-tight);
-}
-
-.align-left {
-    text-align: left;
-}
-
-.align-right {
-    text-align: right;
-}
-
-.pad-left-2px {
-    padding-left: 2px;
-}
-
-.mg-top-md {
-    margin-top: var(--spacing-md);
-}
-
-.space-between {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.display-none {
+}.display-none {
     display: none;
-}
-
-.desktop-only {
-    display: block;
-}
-
-.mobile-only {
-    display: none;
-}
-
-.sr-only {
+}.sr-only {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -679,17 +640,7 @@ button {
     max-width: var(--max-width);
     width: var(--width-desktop);
     margin: auto;
-}
-
-.flex-row {
-    display: flex;
-    flex-direction: row;
-    gap: var(--spacing-3xl);
-    justify-content: space-between;
-}
-
-
-/* ===== Hero ===== */
+}/* ===== Hero ===== */
 
 /* The hero mark. A stroked g-logo pinned to the viewport; animate-g-logo.js
    drives its draw-on and stroke weight from scroll position. */
@@ -2403,19 +2354,7 @@ button {
 .chat {
     --chat-bubble-bg: #0A84FF;
     --chat-bubble-fg: #FFFFFF;
-}
-
-
-.about-links {
-    font-family: var(--font-body);
-    font-size: var(--font-size-md);
-    margin-top: var(--spacing-2xl);
-    letter-spacing: var(--letter-spacing-regular);
-    text-transform: uppercase;
-}
-
-
-/* ===== Work grid ===== */
+}/* ===== Work grid ===== */
 
 .work-section {
     display: flex;
@@ -2424,55 +2363,7 @@ button {
     /* Room under the last card before the page ends and the footer is revealed
        behind it — without it the grid runs straight into the fold. */
     padding-bottom: var(--spacing-6xl);
-}
-
-.project-filters {
-    width: var(--width-desktop);
-    max-width: var(--max-width);
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm);
-}
-
-.project-filter {
-    text-transform: uppercase;
-    font-size: var(--font-size-md);
-    font-family: var(--font-body);
-    padding: var(--spacing-xs) var(--spacing-md);
-    background-color: var(--black-5);
-    border-radius: 100px;
-    color: var(--text-reg);
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: var(--transition-normal);
-}
-
-.project-filter:hover {
-    background-color: var(--background-color);
-    border: 1px solid var(--black-5);
-    box-shadow: 0 0 0 1px var(--black-5);
-    transform: translateY(-2px);
-}
-
-.project-filter.active {
-    background-color: var(--charcoal);
-    color: var(--white);
-    border-color: var(--charcoal);
-}
-
-.project-filter.active:hover {
-    background-color: var(--charcoal);
-    border-color: var(--charcoal);
-    box-shadow: none;
-}
-
-.filter-count {
-    opacity: 0.5;
-    margin-left: 2px;
-}
-
-/**
+}/**
  * Work cards — the design imported from publicknowledge.co (its _includes/work.html
  * and the .project rules in its assets/css/style.css), retitled onto this site's
  * tokens. Cards are full-bleed: a wide thumbnail across the top, then title,
@@ -2671,17 +2562,7 @@ button {
        flat colour instead of letting the background through the letterforms. */
     color: color-mix(in srgb, var(--text-secondary) 68%, var(--background-color));
     padding: var(--spacing-xs) 0 var(--spacing-md) 0;
-}
-
-
-.tag-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm);
-    margin-left: -2px;
-}
-
-.tag {
+}.tag {
     text-transform: uppercase;
     font-size: var(--font-size-sm);
     padding: var(--spacing-xs) var(--spacing-md);
@@ -3292,80 +3173,6 @@ a.tag:hover {
    band across the page. */
 
 
-
-
-
-
-
-/* ===== Mobile bottom nav ===== */
-
-.tabbar {
-    display: none;
-}
-
-@media (max-width: 800px) {
-    /* Floats as a glass pill, mirroring .site-nav on desktop — same width,
-       hairline border, blur and shadow — so the nav reads as one component
-       that simply moves to the bottom on small screens. */
-    .tabbar {
-        display: flex;
-        position: fixed;
-        /* Sits above the iOS home indicator rather than tucking under it. */
-        bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px));
-        left: 50%;
-        transform: translateX(-50%);
-        width: var(--width-mobile);
-        box-sizing: border-box;
-        z-index: var(--z-nav);
-        padding: var(--spacing-xs) 0;
-        border-radius: var(--border-radius-md);
-        background: var(--header-background);
-        border: 0.5px solid var(--black-10);
-        backdrop-filter: var(--backdrop-blur);
-        -webkit-backdrop-filter: var(--backdrop-blur);
-        box-shadow: 0 2px 12px var(--header-shadow);
-    }
-
-    .tabbar .tab {
-        flex: 1 1 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2px;
-        padding: var(--spacing-sm) 0;
-        text-decoration: none;
-        color: var(--text-secondary);
-    }
-
-    .tabbar .tab-img {
-        width: 28px;
-        height: 28px;
-        /* Icons are flat PNGs; desaturate the inactive ones rather than ship
-           a second set. */
-        filter: grayscale(1);
-        opacity: .5;
-        transition: var(--transition-fast);
-    }
-
-    .tabbar .tab-active .tab-img {
-        filter: none;
-        opacity: 1;
-    }
-
-    .tabbar .tab-text {
-        font-family: var(--font-body);
-        font-size: 10px;
-        font-weight: 600;
-        letter-spacing: var(--letter-spacing-wide);
-    }
-
-    .tabbar .tab-active .tab-text {
-        color: var(--text-reg);
-    }
-
-}
-
-
 /* ===== Writing list ===== */
 
 .writing-list {
@@ -3554,20 +3361,6 @@ a.tag:hover {
 }
 
 
-
-
-
-/* ===== Entrance animations ===== */
-
-.fade-in {
-    animation: fadeIn 1s both;
-    will-change: opacity;
-}
-
-.delay-anim {
-    animation-delay: 1000ms;
-}
-
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -3590,13 +3383,7 @@ a.tag:hover {
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-
-    .fade-in {
-        animation: none;
-    }
-
-    .project {
+@media (prefers-reduced-motion: reduce) {.project {
         opacity: 1;
         transform: none;
     }
@@ -3613,19 +3400,7 @@ a.tag:hover {
     body {
         font-size: var(--font-size-sm);
         line-height: 1.5;
-    }
-
-    .desktop-only {
-        display: none;
-    }
-
-    /* :not(.tabbar) so this generic rule doesn't override the tab bar's own
-       display: flex — same specificity, and it comes later in the file. */
-    .mobile-only:not(.tabbar) {
-        display: block;
-    }
-
-    .container-width {
+    }.container-width {
         width: var(--width-mobile);
     }
 
@@ -3672,18 +3447,7 @@ a.tag:hover {
         font-size: var(--font-size-lg);
         padding: 9px 14px;
         max-width: 75vw;
-    }
-
-    .flex-row {
-        flex-direction: column;
-        gap: 0;
-    }
-
-    .project-filters {
-        width: var(--width-mobile);
-    }
-
-    .project-container {
+    }.project-container {
         width: var(--width-mobile);
         gap: var(--spacing-2xl);
         margin: 0 auto;
@@ -3740,8 +3504,6 @@ a.tag:hover {
     .resume__period {
         font-size: var(--font-size-sm);
     }
-
-
 
 
     .pill-button {
