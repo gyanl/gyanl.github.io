@@ -1,0 +1,24 @@
+{
+  "pluginEnabledStatus": {
+    "file-explorer": true,
+    "global-search": true,
+    "switcher": true,
+    "graph": true,
+    "backlink": true,
+    "page-preview": true,
+    "command-palette": true,
+    "markdown-importer": true,
+    "word-count": true,
+    "open-with-default-app": true,
+    "file-recovery": true
+  },
+  "alwaysUpdateLinks": true,
+  "promptDelete": false,
+  "legacyEditor": false,
+  "livePreview": true,
+  "foldHeading": false,
+  "propertiesInDocument": "visible",
+  "showInlineTitle": true,
+  "showLineNumber": true,
+  "attachmentFolderPath": "assets"
+}

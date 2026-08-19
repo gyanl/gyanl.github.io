@@ -1,0 +1,12 @@
+{
+  "baseFontSize": 15,
+  "cssTheme": "Border",
+  "accentColor": "#a37b7b",
+  "theme": "system",
+  "interfaceFontFamily": "",
+  "textFontFamily": "",
+  "translucency": true,
+  "nativeMenus": false,
+  "monospaceFontFamily": "JetBrains Mono",
+  "showViewHeader": false
+}
