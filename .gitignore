@@ -5,9 +5,8 @@ _site
 *.gem
 _posts/.DS_Store
 .DS_Store
-_posts/.obsidian/workspace.json
-_posts/.obsidian/core-plugins.json
-_posts/.obsidian/core-plugins-migration.json
+_posts/.obsidian/
+_posts/.smart-connections/
 # Bundler's gem path, at the repo root. Anchored with a leading slash: bare
 # `vendor` matches a directory of that name at ANY depth, which silently
 # swallowed assets/js/vendor/ — so the vendored Lunr was never committed and
