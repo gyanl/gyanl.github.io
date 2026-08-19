@@ -1,69 +1,46 @@
 {%- comment -%}
-  Grid of recent work: the posts tagged `featured`, newest first. Apply the tag
-  by hand in a post's front matter to add one.
+  Grid of recent work, hardcoded. It used to be driven by the `featured` tag,
+  but the project posts moved to _posts/Drafts (excluded from the build) until
+  their case studies are written, which emptied the grid. Every card links out
+  to the live site for now; as each case study lands, point its card at the
+  post URL instead and drop the target/rel and the arrow badge.
 
-  There is no filter switcher and no tag chips on the cards any more, so neither
-  `home_tags` in _config.yml nor the `teaching` collection feeds this. Both are
-  still used elsewhere (tag/*.md stubs, the course minisites at /dv, /ergo,
-  /tech1), so neither has been removed.
+  The card markup matches what the tag loop produced: the whole card is the
+  link, and the arrow pill is a badge, not a button — an anchor inside an
+  anchor is not something a browser can make sense of. aria-hidden because the
+  link is already named by the card title.
 {%- endcomment -%}
 
-{%- comment -%}
-  Ordered by `featured_order` in each post's front matter — the grid is a
-  sequence someone chose, not a feed, and the dates are when the work happened
-  rather than how it should be read.
-
-  It replaced a sort by date with a `featured_first: true` flag promoting one
-  post to the top, which could say "this one leads" and nothing about the rest.
-
-  A post tagged `featured` with no order sorts last, since Liquid reads the
-  missing value as an empty string and `sort` puts those after the numbers. It
-  will appear — it just wants a number.
-{%- endcomment -%}
-{%- comment -%}
-  Hidden posts are dropped here too. The grid is a listing like any other, and a
-  post kept off /writing and off its own tag pages should not then be the first
-  thing on the front page.
-{%- endcomment -%}
-{%- assign visible_featured = site.tags.featured | where_exp: "post", "post.hidden != true" -%}
-{%- assign featured_posts = visible_featured | sort: "featured_order" -%}
+{%- assign work_cards = "" | split: "" -%}
+{%- assign work_data =
+  "Sycamore|Branding and web for Sycamore – build, deploy and orchestrate autonomous AI agents with enterprise-grade security.|/assets/thumbs/pk/sycamore-thumbnail.jpg|https://sycamore.so/;;
+   Sarvam|Landing page design and development for new product launches at Sarvam, India's full-stack sovereign AI platform.|/assets/thumbs/pk/sarvam-thumbnail.webp|https://www.sarvam.ai/;;
+   Literary Map by Hammock Mag|An interactive literary map for Hammock Mag, visualising authors' geographies with data-rich storytelling.|/assets/thumbs/pk/hammock-thumbnail.jpg|https://map.hammockmag.com;;
+   NeuroSonic|A landing page for a medical device that makes stroke prevention faster, cheaper and dramatically more accessible.|/assets/thumbs/pk/neuro-sonic-thumbnail.jpg|https://www.neuro-sonic.com/;;
+   Bobo Cakery|A bespoke e-commerce website for Bobo Cakery, a bakery specialising in highly customised artisanal cakes.|/assets/thumbs/pk/bobo-thumbnail.jpg|https://bobocakery.com/;;
+   Brunk|A precise Brand and Website for Brunk, a precision hardware manufacturer that has made over a billion components for medical devices.|/assets/thumbs/brunk-thumbnail.webp|https://www.brunk.com/;;
+   Anant Foundation for the Arts|A website for AFA, an arts foundation supporting modern and contemporary South Asian art practices.|/assets/thumbs/pk/afa-thumbnail.webp|https://anantfoundation.art;;
+   Neels.ai|Branding and landing pages for an IT service desk automation startup using AI to make MSPs faster.|/assets/thumbs/pk/neels-ai-thumbnail.webp|https://neels.ai/"
+-%}
 
 <section class="work-section">
   <h2 class="section-heading">Recent work</h2>
   <p class="section-lede">A selection of projects I have shipped recently.</p>
 
   <div class="project-container">
-    {%- for post in featured_posts %}
-    {%- comment -%}
-      The whole card is the link. A project with an external_url goes straight
-      to the live site — that is what the card is offering — and anything else
-      goes to its own page here.
-    {%- endcomment -%}
-    <a class="project" href="{{ post.external_url | default: post.url | relative_url }}"
-      {% if post.external_url %}target="_blank" rel="noopener noreferrer"{% endif %}>
+    {%- assign cards = work_data | split: ";;" %}
+    {%- for card in cards %}
+    {%- assign parts = card | strip | split: "|" %}
+    <a class="project" href="{{ parts[3] }}" target="_blank" rel="noopener noreferrer">
       <div class="project-media">
-        <img class="project-thumbnail"
-          src="{{ post.thumbnail | default: '/assets/thumbs/default.png' }}"
-          alt="{{ post.title | escape }}" loading="lazy">
-        {%- if post.external_url %}
-        {%- comment -%}
-          A badge, not a button: the card around it is already the link, and an
-          anchor inside an anchor is not something a browser can make sense of.
-          The arrow alone, with no label — it marks the card as going somewhere
-          else, and the card's own title says where. aria-hidden for the same
-          reason: the link is already named by that title.
-        {%- endcomment -%}
+        <img class="project-thumbnail" src="{{ parts[2] }}" alt="{{ parts[0] }}" loading="lazy">
         <span class="pill-button project-live" aria-hidden="true"><i class="ph ph-arrow-up-right"></i></span>
-        {%- endif %}
       </div>
       <div class="project-body">
-        <div class="project-title">{{ post.title | escape }}</div>
-        {%- if post.subtitle %}
-        <div class="project-description">{{ post.subtitle }}</div>
-        {%- endif %}
+        <div class="project-title">{{ parts[0] }}</div>
+        <div class="project-description">{{ parts[1] }}</div>
       </div>
     </a>
     {%- endfor %}
-
   </div>
 </section>
