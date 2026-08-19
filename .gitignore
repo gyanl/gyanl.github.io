@@ -12,3 +12,4 @@ _posts/.smart-connections/
 # swallowed assets/js/vendor/ — so the vendored Lunr was never committed and
 # search 404'd in production while working perfectly in local preview.
 /vendor
+.obsidian/
