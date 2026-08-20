@@ -1258,6 +1258,18 @@ button {
     pointer-events: auto;
 }
 
+/* Tucked closer to the caption on a desktop. The gap is set in --mark-unit, so
+   it scales with the lockup — but the lockup is drawn off the SHORT axis and a
+   desktop window is short and wide, which left the field further below the
+   words than it reads as belonging to. A phone keeps the looser figure above:
+   there the unit is small enough that the same number of them is a modest gap
+   already. */
+@media (min-width: 801px) {
+    .hero-search {
+        --hero-search-top: calc(50vh + 6.5 * var(--mark-unit));
+    }
+}
+
 /* The panel opens from the middle of the window here rather than from a bar at
    the top, so the shared 70vh cap would run it off the bottom of the screen —
    560px of results starting at 568px down an 800px window. Bounded by what is
