@@ -20,6 +20,16 @@
     <i class="ph ph-magnifying-glass search__icon" aria-hidden="true"></i>
     <input class="search__input" type="search" id="search-input" placeholder="Search posts, tags and pages"
       autocomplete="off" spellcheck="false">
+    {%- comment -%}
+      How many matches, as a disc at the end of the field — where the count is
+      next to the thing that produced it rather than being a line of prose at
+      the top of the results.
+
+      aria-hidden because it is a duplicate: .search__status below is the live
+      region, and it still announces "N matches" to a screen reader even in the
+      state where it is not drawn.
+    {%- endcomment -%}
+    <span class="search__count" hidden aria-hidden="true"></span>
   </div>
 
   {%- comment -%}

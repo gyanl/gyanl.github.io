@@ -15,6 +15,18 @@
   than on /about, which is exactly the kind of drift a fixed mark should not
   have.
 {%- endcomment -%}
+{%- comment -%}
+  No mark row on the home page. The mark is the only thing in it there — the
+  back button needs somewhere to go up to and the scheme switcher is suppressed
+  (see below) — and that page already carries the same g, many times the size,
+  a few hundred pixels below it. Two of the same mark stacked reads as a
+  duplicate rather than as a header.
+
+  The whole row goes rather than just the <a>: an empty row would still hold its
+  margins and leave a gap above the search field for nothing. Search is outside
+  this guard and still renders, so the bar keeps the part that does a job.
+{%- endcomment -%}
+{%- unless page.layout == 'home' %}
 <div class="logo-mark-row">
 
   {%- comment -%}
@@ -111,6 +123,7 @@
   </button>
   {%- endunless %}
 </div>
+{%- endunless %}
 
 {%- comment -%}
   Search gets a line of its own beneath the bar, at both widths. Sharing the bar

@@ -401,6 +401,13 @@
     --mark-unit: calc(min(100vw, 100vh) * 0.0171875);
 
     --backdrop-blur: blur(20px) contrast(130%) saturate(250%);
+
+    /* The search results panel's own glass, heavier and less blurred than the
+       header's above — it is a block of reading matter, and it can open over
+       the sticker field. Redeclared for dark mode with the rest of the palette,
+       and again on the home page where the bar is pinned light. */
+    --search-panel-bg: rgba(255, 255, 255, 0.94);
+    --search-panel-blur: blur(8px) saturate(140%);
 }
 
 /* Body copy runs four pixels smaller on a desktop. The xl tier is the home
@@ -488,6 +495,7 @@
         --code-background: #12121c;
 
         --header-background: rgba(30, 30, 30, 0.4);
+        --search-panel-bg: rgba(28, 28, 28, 0.94);
         --header-shadow: rgba(0, 0, 0, 0.3);
         --footer-background: rgba(0, 0, 0, 0.9);
         --footer-ground: #121212;
@@ -515,6 +523,7 @@
     --code-background: #12121c;
 
     --header-background: rgba(30, 30, 30, 0.4);
+    --search-panel-bg: rgba(28, 28, 28, 0.94);
     --header-shadow: rgba(0, 0, 0, 0.3);
     --footer-background: rgba(0, 0, 0, 0.9);
     --footer-ground: #121212;
@@ -1186,6 +1195,7 @@ button {
        dark-mode one is mixed to carry against black, and on white it glares. */
     --background-color: #FFFFFF;
     --header-background: rgba(255, 255, 255, 0.4);
+    --search-panel-bg: rgba(255, 255, 255, 0.94);
     --header-shadow: rgba(0, 0, 0, 0.1);
     --accent-s: 70%;
     --accent-l: 40%;
@@ -1216,6 +1226,13 @@ button {
     :root[data-page="home"] .search {
         max-width: 360px;
     }
+}
+
+/* Home has no mark row (see site/logo.html), so the search field is the first
+   thing on the page and has to bring its own top margin — the row's is what
+   was holding the bar off the top edge everywhere else. */
+:root[data-page="home"] .search {
+    margin-top: var(--spacing-4xl);
 }
 
 .logo-mark-row {
@@ -2878,11 +2895,20 @@ button {
     overscroll-behavior: contain;
     padding: var(--spacing-md);
     box-sizing: border-box;
-    background: var(--header-background);
+    /* Its own fill and blur rather than the header's --header-background and
+       --backdrop-blur. That pair is tuned for a bar sitting over a reading
+       column, where there is little behind it and 40% glass reads as a pane;
+       this panel is a block of text that can come up over anything — the
+       sticker field on the home page especially — and at that opacity the
+       artwork behind it competed with the result titles. Mostly opaque, with
+       the blur eased off to match: the heavier the fill, the less there is for
+       a strong blur to do, and 20px of it over a nearly solid ground is spent
+       on an effect nobody can see. */
+    background: var(--search-panel-bg);
     border: 0.5px solid var(--black-10);
     border-radius: var(--border-radius-md);
-    backdrop-filter: var(--backdrop-blur);
-    -webkit-backdrop-filter: var(--backdrop-blur);
+    backdrop-filter: var(--search-panel-blur);
+    -webkit-backdrop-filter: var(--search-panel-blur);
     box-shadow: 0 8px 32px var(--header-shadow);
     z-index: var(--z-nav);
 }
@@ -2891,12 +2917,65 @@ button {
     display: none;
 }
 
+/* The match count, on the field rather than above the results. Absolute like
+   the magnifying glass at the other end, so it does not take part in the
+   field's flex row and the input keeps the full width — the input's right
+   padding is what actually holds the text off it. */
+.search__count {
+    position: absolute;
+    right: var(--spacing-md);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    /* min-width, not width: "12" and "99+" are wider than a single digit, and a
+       fixed circle would either clip them or be sized for the widest case all
+       the time. Padding opens it into a stadium as the number grows. */
+    min-width: 24px;
+    height: 24px;
+    padding: 0 7px;
+    border-radius: 999px;
+    background-color: var(--black-10);
+    color: var(--text-reg);
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.search__count[hidden] {
+    display: none;
+}
+
+/* Room for it, so a long query does not run underneath the disc. Matched on the
+   left by the icon's own inset, which the base rule already allows for. */
+.search__input {
+    padding-right: calc(var(--spacing-md) + 24px + var(--spacing-sm));
+}
+
 .search__status {
     margin: 0 0 var(--spacing-sm) 0;
     padding: 0 var(--spacing-sm);
     font-family: var(--font-body);
     font-size: var(--font-size-sm);
     color: var(--text-secondary);
+}
+
+/* When the disc is carrying the number, the panel does not repeat it in words.
+   Taken out of sight rather than emptied: this is the live region, and a screen
+   reader should still hear "12 matches" even though nothing draws it. The other
+   things it says — "No matches.", "Loading search…", a load failure — have no
+   disc to move to and stay visible. */
+.search__status--quiet {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
 }
 
 .search-group+.search-group {

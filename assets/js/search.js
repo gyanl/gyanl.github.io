@@ -28,6 +28,28 @@
   var panel = root.querySelector('.search__panel');
   var results = root.querySelector('.search__results');
   var status = root.querySelector('.search__status');
+  var count = root.querySelector('.search__count');
+
+  // The match count, shown as a disc at the end of the field. Hidden when there
+  // is no number to show — a query with no matches says so in words instead, and
+  // an empty box says nothing at all.
+  //
+  // The status element keeps the wording either way, because it is the live
+  // region a screen reader hears; when the disc is carrying the number, status
+  // is dropped to sr-only rather than emptied, so the announcement survives
+  // without the panel gaining a line of prose above the results.
+  function setCount(n) {
+    if (!count) return;
+    if (n === null) {
+      count.hidden = true;
+      count.textContent = '';
+      status.classList.remove('search__status--quiet');
+      return;
+    }
+    count.hidden = false;
+    count.textContent = n > 99 ? '99+' : String(n);
+    status.classList.add('search__status--quiet');
+  }
 
   var DEBOUNCE_MS = 120;
   var PER_GROUP = 8;
@@ -132,6 +154,7 @@
         });
       })
       .catch(function (error) {
+        setCount(null);
         status.textContent = 'Search could not load.';
         // Cleared so a later keystroke retries rather than being stuck on a
         // promise that already rejected.
@@ -228,10 +251,12 @@
     results.textContent = '';
 
     if (!hits.length) {
+      setCount(null);
       status.textContent = 'No matches.';
       return;
     }
 
+    setCount(hits.length);
     status.textContent = hits.length === 1 ? '1 match' : hits.length + ' matches';
 
     // Grouped by kind, but the groups are ordered by their own best hit rather
@@ -272,6 +297,7 @@
     if (text === '') {
       lastQuery = null;
       results.textContent = '';
+      setCount(null);
       status.textContent = '';
       panel.hidden = true;
       return;
@@ -281,7 +307,10 @@
     lastQuery = text;
 
     panel.hidden = false;
-    if (!index) status.textContent = 'Loading search…';
+    if (!index) {
+      setCount(null);
+      status.textContent = 'Loading search…';
+    }
 
     build().then(function () {
       // The index may have failed, or the box may have been cleared or changed
