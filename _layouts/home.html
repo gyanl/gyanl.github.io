@@ -8,23 +8,6 @@
   {%- endcomment -%}
   <h1 class="sr-only">Gyan Lakhwani, Interaction Designer, New Delhi</h1>
 
-  {%- comment -%}
-    The header bar, the same one every other layout gets through default.html.
-    It leads the page rather than sitting inside .page-shell, because this
-    layout has no shell — the hero is full-bleed and starts immediately below.
-
-    It is not sticky here or anywhere (see .logo-mark-row), so it scrolls away
-    with the top of the page and the hero keeps the window to itself. That also
-    means it costs the reveal nothing: animate-g-logo.js derives the runway by
-    measuring .hero-spacer, so a header above it shifts where the runway starts
-    without changing how long it is.
-
-    The mark inside it points at /writing, as everywhere else — on this page it
-    is the only route into the archive, since the hero mark is decorative and
-    the footer is a scroll away. The scheme switcher stays suppressed: this page
-    is stamped dark and there is nothing on it to switch (see site/logo.html).
-  {%- endcomment -%}
-  {% include site/logo.html %}
 
   <div class="controls-panel display-none" id="controls-panel">
     <p>Congrats on unlocking<br> the Logo Controls!</p>
@@ -53,6 +36,33 @@
     own aria-hidden instead — the mark, the sticker ring and the greeting.
   {%- endcomment -%}
   <div class="hero-spacer">
+    {%- comment -%}
+      Search, under the caption. A SIBLING of .hero-greeting rather than a child
+      of it: that element is aria-hidden — it is a drawn lockup, not content —
+      and a text field inside an aria-hidden subtree is announced to nobody
+      while still taking a tab stop. The same trap the scroll cue was in.
+
+      Positioned the way the greeting is, absolute against .hero-spacer, so the
+      two scroll as one and the field stays under the words it belongs to. Not
+      one of the zero-height sticky layers: those pin for the whole runway, and
+      this should leave with the lockup rather than ride down the page over the
+      work below.
+
+      The sticker solver reads '.search' from its obstacle list, so the ring
+      opens around wherever this lands with nothing to keep in step by hand.
+
+      FIRST in the spacer, so it is the first tab stop on the page: after it
+      come twelve sticker buttons and the scroll cue, and a reader pressing Tab
+      to search should not have to walk the whole ring to reach the field. It
+      is absolutely positioned, so leading the spacer costs no flow height and
+      does not shorten the mark's runway — the rule about zero-height sticky
+      layers is about elements that are IN flow, and this is not one. It still
+      paints over the ring, which is two layers below the content one.
+    {%- endcomment -%}
+    <div class="hero-search">
+      {% include site/search.html %}
+    </div>
+
     {%- comment -%}
       The stickers and the scroll cue lead the runway on purpose. Both are
       zero-height sticky layers, so they pin to the viewport for the whole
@@ -204,6 +214,7 @@
       <p class="hero-thinking"><span class="hero-thinking__line">Gyan is <span
             class="hero-thinking__word">arranging stickers</span></span></p>
     </div>
+
   </div>
 
   <div class="container">

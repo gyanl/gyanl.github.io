@@ -1228,11 +1228,50 @@ button {
     }
 }
 
-/* Home has no mark row (see site/logo.html), so the search field is the first
-   thing on the page and has to bring its own top margin — the row's is what
-   was holding the bar off the top edge everywhere else. */
-:root[data-page="home"] .search {
-    margin-top: var(--spacing-4xl);
+/* On home the field is not in a header at all: it sits under the lockup's
+   caption, inside .hero-spacer (see _layouts/home.html). Absolute against the
+   spacer, the way .hero-greeting is, so the two travel together.
+ *
+   Placed off --mark-unit rather than a pixel figure, because everything else in
+   the lockup is: the mark, the bubble and the caption all resize with it, and a
+   fixed offset here would drift away from the caption at other window sizes.
+   50vh is the lockup's own centre line; the rest clears the caption below it. */
+.hero-search {
+    /* Named, because the panel below has to subtract it from the viewport to
+       know how much room it has left underneath. */
+    --hero-search-top: calc(50vh + 8.4 * var(--mark-unit));
+
+    position: absolute;
+    top: var(--hero-search-top);
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(360px, calc(100vw - var(--spacing-xl) * 2));
+    /* Over the sticker ring, which is two below the content layer, so a sticker
+       dealt nearby cannot land on top of the field. The solver keeps them off
+       it anyway; this is what happens if it ever cannot. */
+    z-index: var(--z-content);
+    /* .hero-spacer stops hit-testing for the whole hero — everything in there
+       is something to look at, not something to press — so a real control
+       inside it has to take clicks back, exactly as .hero-scroll-cue__ring
+       does. Without this the field is visible, focusable by keyboard, and
+       completely dead to the mouse. */
+    pointer-events: auto;
+}
+
+/* The panel opens from the middle of the window here rather than from a bar at
+   the top, so the shared 70vh cap would run it off the bottom of the screen —
+   560px of results starting at 568px down an 800px window. Bounded by what is
+   actually left underneath the field instead, and dvh so a phone's collapsing
+   address bar does not leave it short. */
+:root[data-page="home"] .search__panel {
+    max-height: min(70vh, 560px,
+            calc(100dvh - var(--hero-search-top) - var(--logo-mark-size) - var(--spacing-sm) - var(--spacing-xl)));
+}
+
+/* The margins it carried as a header row are the header's, not this one's. */
+:root[data-page="home"] .hero-search .search {
+    margin: 0;
+    padding: 0;
 }
 
 .logo-mark-row {
@@ -2946,6 +2985,27 @@ button {
 
 .search__count[hidden] {
     display: none;
+}
+
+/* The resting state: the key that focuses the field, not a number. Lighter than
+   a count — it is an offer, and the counts it alternates with are the answer to
+   something the reader asked for. */
+.search__count--hint {
+    background-color: var(--black-5);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    text-transform: lowercase;
+    letter-spacing: var(--letter-spacing-wide);
+}
+
+/* No Tab key to press on a touch device, and nothing there to hover a hint out
+   of either — so the disc simply does not appear until it has a count to give.
+   `hover: none` rather than a width breakpoint: a small window on a laptop
+   still has the keyboard the hint is about. */
+@media (hover: none) {
+    .search__count--hint {
+        display: none;
+    }
 }
 
 /* Room for it, so a long query does not run underneath the disc. Matched on the

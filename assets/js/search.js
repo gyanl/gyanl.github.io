@@ -40,6 +40,7 @@
   // without the panel gaining a line of prose above the results.
   function setCount(n) {
     if (!count) return;
+    count.classList.remove('search__count--hint');
     if (n === null) {
       count.hidden = true;
       count.textContent = '';
@@ -49,6 +50,21 @@
     count.hidden = false;
     count.textContent = n > 99 ? '99+' : String(n);
     status.classList.add('search__status--quiet');
+  }
+
+  // The resting state: no query yet, so the disc carries the key that gets you
+  // here instead of a number. Tab reaches this field before anything else on
+  // the page, and the hint is what says so — it is the same shape the count
+  // will take once there is one, so nothing moves when it is replaced.
+  //
+  // Not shown where there is no Tab key to press: see the hover/pointer query
+  // on .search__count--hint in main.css.
+  function setHint() {
+    if (!count) return;
+    count.hidden = false;
+    count.textContent = 'tab';
+    count.classList.add('search__count--hint');
+    status.classList.remove('search__status--quiet');
   }
 
   var DEBOUNCE_MS = 120;
@@ -297,7 +313,7 @@
     if (text === '') {
       lastQuery = null;
       results.textContent = '';
-      setCount(null);
+      setHint();
       status.textContent = '';
       panel.hidden = true;
       return;
@@ -351,4 +367,10 @@
     if (root.contains(event.target)) return;
     panel.hidden = true;
   });
+
+  // The resting hint, drawn once the script is running. It is not in the markup
+  // because the disc is a JavaScript affordance: with the script dead the field
+  // is hidden entirely (.no-js .search), and a "tab" chip promising a search
+  // that never answers would be worse than no chip.
+  setHint();
 })();
