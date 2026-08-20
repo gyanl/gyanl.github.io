@@ -30,6 +30,19 @@
       state where it is not drawn.
     {%- endcomment -%}
     <span class="search__count" hidden aria-hidden="true"></span>
+
+    {%- comment -%}
+      Only ever drawn in the immersive mode the home page opens on a phone — see
+      .search.is-immersive in main.css. Everywhere else the field sits in the
+      header and there is nothing to come back from, so the button would be a
+      control that does nothing.
+
+      Kept in the markup rather than built in JS so the icon set, the focus ring
+      and the hit area are the ones the rest of the site already defines.
+    {%- endcomment -%}
+    <button class="search__close" type="button" hidden aria-label="Close search">
+      <i class="ph ph-x" aria-hidden="true"></i>
+    </button>
   </div>
 
   {%- comment -%}

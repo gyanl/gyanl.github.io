@@ -33,7 +33,16 @@ The design system (tokens, glass nav, card grid) is lifted from the sibling repo
 
 **On home the field is pinned light**, via a `:root[data-page="home"] .search` block redeclaring the light tokens. The page is stamped `data-theme="dark"` while the top of it is painted white by the hero's ground, so it would otherwise render the dark scheme's near-white ink and 5%-white fills on white and be invisible — which is what happened first time. It takes more than the ink tokens: the focused field uses `--background-color`, the results panel `--header-background`/`--header-shadow`, and the block sets an explicit `color` too, since inherited colour comes from `body` and is still dark-scheme there.
 
-**The disc at the end of the field** is the match count, and `tab` when the box is empty — the key that focuses it. `.search__status` stays the live region and drops to sr-only while the disc carries the number, so a screen reader still hears "24 matches" with nothing drawn above the results; "No matches." and the load states have no disc and stay visible. The hint is hidden under `@media (hover: none)`, there being no Tab key to press on a phone.
+**Focusing the field opens the immersive search** — every page, every width. `search.js` puts `.is-immersive` on the `.search` root, which goes `position: fixed` over the window, and `.is-search-immersive` on `<html>`, which freezes the page behind it. Four things worth knowing:
+
+- **The page behind is dimmed and blurred by the overlay's own translucent ground and `backdrop-filter`, never by fading the page.** Fading it cannot work: on every layout but home the field lives *inside* `.page-shell`, so dropping that element's opacity takes the search down with it — an ancestor's opacity is not something a descendant can undo.
+- **The freeze offsets the body** (`position: fixed; top: -<scrollY>px`) rather than setting `overflow: hidden`. Overflow collapses the scrollable height and the browser *clamps* the scroll offset, so the page jumps before it is restored — invisible under an opaque overlay, obvious under one that fades in.
+- **The offset to restore is read from the scroll event, not at open time.** Focusing an element scrolls it into view *before* dispatching `focus`, so a handler reading `scrollY` sees wherever the field is, not where the reader was.
+- **Home's own rules are scoped `:not(.is-immersive)`.** The 360px cap and the panel's height bound are `(0,3,0)` against the overlay's `(0,2,0)`, so unscoped they win — the overlay comes out a 360px strip with the results capped inside it.
+
+**`search-recommend: yes`** in front matter puts an entry in the "Start here" list the search shows before anything is typed (About, Resume, and the Work tag today). Read in `search.json` as `post['search-recommend']` — bracket syntax, because Liquid parses the hyphen in a dotted path as a minus sign and `post.search-recommend` silently yields nothing.
+
+**The disc at the end of the field**
 
 **Layout chain:** `_layouts/default.html` is standalone — it emits `<html>` itself via `_includes/site/head.html`, then `site/logo.html`, `{{ content }}`, and `_includes/site/footer.html` (which closes `</body></html>`). `post`, `page`, `archive`, and `tagpage` all extend it. `home` does *not*: it needs a full-bleed hero, so it composes the site includes directly — and carries **no header bar at all**, just head, the hero (search inside it), the content container, `site/contact.html` and the footer.
 

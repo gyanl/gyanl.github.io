@@ -49,6 +49,13 @@ sitemap: false
   is where a result already says what kind of thing it is.
 {%- endcomment -%}
 "is_repo": {{ post.is_repo | default: false | jsonify }},
+{%- comment -%}
+  `search-recommend: yes` puts an entry in the short list the search offers
+  before anything is typed. Read with bracket syntax because Liquid parses a
+  hyphen in a dotted path as a minus sign — post.search-recommend is
+  `post.search` minus `recommend`, which is not an error, just silently nothing.
+{%- endcomment -%}
+"recommend": {% if post['search-recommend'] %}true{% else %}false{% endif %},
 "title": {{ post.title | strip_html | jsonify }},
 "subtitle": {{ post.subtitle | default: "" | strip_html | jsonify }},
 "url": {{ post.url | relative_url | jsonify }},
@@ -82,6 +89,7 @@ sitemap: false
 {
 "type": "tag",
 "hidden": {{ stub.hidden | default: false | jsonify }},
+"recommend": {% if stub['search-recommend'] %}true{% else %}false{% endif %},
 "title": {{ stub.title | strip_html | jsonify }},
 "subtitle": {{ stub.description | default: "" | strip_html | jsonify }},
 "url": {{ stub.url | relative_url | jsonify }},
@@ -103,6 +111,7 @@ sitemap: false
 {
 "type": "page",
 "hidden": {{ p.hidden | default: false | jsonify }},
+"recommend": {% if p['search-recommend'] %}true{% else %}false{% endif %},
 "title": {{ p.title | strip_html | jsonify }},
 "subtitle": {{ p.subtitle | default: p.description | default: "" | strip_html | jsonify }},
 "url": {{ p.url | relative_url | jsonify }},

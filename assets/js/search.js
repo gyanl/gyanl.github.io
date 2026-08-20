@@ -29,6 +29,99 @@
   var results = root.querySelector('.search__results');
   var status = root.querySelector('.search__status');
   var count = root.querySelector('.search__count');
+  var closeButton = root.querySelector('.search__close');
+
+  /* ---- immersive mode ----------------------------------------------------
+   *
+   * Focusing the field takes the search out of the page and gives it the whole
+   * window, on every page and at every width. Dismissing puts the reader back
+   * exactly where they were.
+   *
+   * That last part needs doing by hand. Freezing the page with `overflow:
+   * hidden` collapses its scrollable height, and the browser CLAMPS the scroll
+   * position to what is left — from 900px down the home hero to 76. Nobody sees
+   * it happen, the overlay being opaque and the size of the window, but let go
+   * of it and the reader is returned to a different page than they left. So the
+   * offset is taken before the freeze and put back after it.
+   */
+  var immersive = false;
+  var heldScroll = 0;
+  var leaveTimer = null;
+
+  /* Where the page was before the field was focused — NOT read at open time.
+   *
+   * Focusing an element scrolls it into view first and dispatches `focus`
+   * second, so by the time the handler runs the browser has already jumped the
+   * page to wherever the field is: on a header search that is the very top, and
+   * the offset to restore on the way out reads as 0 no matter how far down the
+   * reader was. This is updated from the scroll event instead, which the
+   * scroll-into-view fires only AFTER the focus handler has been and gone — and
+   * the guard keeps that one from overwriting the value we want.
+   */
+  var lastScroll = window.pageYOffset || 0;
+
+  window.addEventListener('scroll', function () {
+    if (!immersive) lastScroll = window.pageYOffset || document.documentElement.scrollTop || 0;
+  }, { passive: true });
+
+  // Kept in step with --search-immersive-ms in main.css: the class comes off
+  // only once the leaving animation has finished, or the overlay would vanish
+  // mid-fade.
+  var IMMERSIVE_MS = 260;
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function openImmersive() {
+    if (immersive) return;
+    immersive = true;
+
+    window.clearTimeout(leaveTimer);
+    root.classList.remove('is-leaving');
+
+    heldScroll = lastScroll;
+    // The page is held by taking the body out of flow at minus its own scroll
+    // offset, so every pixel stays where it was — see the note on
+    // .is-search-immersive body in main.css for why not `overflow: hidden`.
+    document.body.style.top = (-heldScroll) + 'px';
+
+    root.classList.add('is-immersive');
+    document.documentElement.classList.add('is-search-immersive');
+    if (closeButton) closeButton.hidden = false;
+
+    // Something to look at straight away. The index may not be here yet — the
+    // same focus that opened this is what starts fetching it — so this runs
+    // again when it lands.
+    if (input.value.trim() === '') {
+      if (docs) renderSuggestions();
+      else build().then(function () {
+        if (immersive && input.value.trim() === '') renderSuggestions();
+      });
+    }
+  }
+
+  function closeImmersive() {
+    if (!immersive) return;
+    immersive = false;
+
+    // The page comes back first and animates in on its own transition, while
+    // the overlay spends the same beat fading out over it.
+    document.documentElement.classList.remove('is-search-immersive');
+    document.body.style.top = '';
+    window.scrollTo({ top: heldScroll, left: 0, behavior: 'instant' });
+
+    if (closeButton) closeButton.hidden = true;
+    panel.hidden = true;
+    results.textContent = '';
+
+    if (still.matches) {
+      root.classList.remove('is-immersive');
+      return;
+    }
+
+    root.classList.add('is-leaving');
+    leaveTimer = window.setTimeout(function () {
+      root.classList.remove('is-immersive', 'is-leaving');
+    }, IMMERSIVE_MS);
+  }
 
   // The match count, shown as a disc at the end of the field. Hidden when there
   // is no number to show — a query with no matches says so in words instead, and
@@ -98,6 +191,8 @@
     }
     return null;
   }
+
+  var SUGGEST_MAX = 3;
 
   var index = null;
   var docs = null;
@@ -263,6 +358,46 @@
     return item;
   }
 
+  /* What the search offers before it has been asked anything: the handful of
+   * entries carrying `search-recommend: yes` in their front matter. An empty
+   * box with an empty panel under it is a dead end, and these are the pages
+   * someone opening the search most often turned out to want.
+   *
+   * Hand-picked rather than "most recent" or "most linked": the point is the
+   * three things worth reading first, and neither of those orderings knows
+   * which they are.
+   */
+  function renderSuggestions() {
+    results.textContent = '';
+    status.textContent = '';
+
+    if (!docs) return;
+
+    var picks = docs.filter(function (doc) {
+      return doc.recommend && !doc.hidden;
+    }).slice(0, SUGGEST_MAX);
+
+    if (!picks.length) {
+      panel.hidden = true;
+      return;
+    }
+
+    var section = document.createElement('div');
+    section.className = 'search-group';
+
+    var heading = document.createElement('p');
+    heading.className = 'search-group__label';
+    heading.textContent = 'Start here';
+    section.appendChild(heading);
+
+    picks.forEach(function (doc) {
+      section.appendChild(renderHit(doc));
+    });
+
+    results.appendChild(section);
+    panel.hidden = false;
+  }
+
   function render(hits) {
     results.textContent = '';
 
@@ -312,10 +447,18 @@
 
     if (text === '') {
       lastQuery = null;
-      results.textContent = '';
       setHint();
-      status.textContent = '';
-      panel.hidden = true;
+
+      // In the mode, an empty box shows the suggestions rather than nothing;
+      // in the header it just puts the panel away, there being no mode to fill.
+      if (immersive) {
+        if (docs) renderSuggestions();
+        else build().then(function () { if (immersive && input.value.trim() === '') renderSuggestions(); });
+      } else {
+        results.textContent = '';
+        status.textContent = '';
+        panel.hidden = true;
+      }
       return;
     }
 
@@ -345,6 +488,11 @@
   // is finished.
   input.addEventListener('focus', build, { once: true });
 
+  // Focus is the trigger, not click: a tap on the field focuses it, and so does
+  // reaching it any other way. Pointerdown would open the mode and then move the
+  // field out from under the finger before the tap finished landing on it.
+  input.addEventListener('focus', openImmersive);
+
   // Re-show a panel the reader clicked away from, without re-querying.
   input.addEventListener('focus', function () {
     if (input.value.trim() !== '' && results.childNodes.length) panel.hidden = false;
@@ -355,6 +503,7 @@
     input.value = '';
     run();
     input.blur();
+    closeImmersive();
   });
 
   // A type=search box has its own clear affordance, which fires `search` rather
@@ -367,6 +516,40 @@
     if (root.contains(event.target)) return;
     panel.hidden = true;
   });
+
+  /* Tapping the blurred page behind the search dismisses it — the page is
+   * visible back there, and reaching for it is the obvious way to say "not
+   * this". The overlay covers the window, so "behind" means the overlay's own
+   * ground: a press that lands on the element itself rather than on the field,
+   * a result, or the close button, all of which sit in front of it.
+   *
+   * pointerdown, so a finger and a mouse take the same path — and ahead of the
+   * click, which on the ground would first blur the input and hand a half-done
+   * dismissal to anything listening for that.
+   */
+  root.addEventListener('pointerdown', function (event) {
+    if (!immersive) return;
+    // The overlay's own ground, or the empty space below the results — the
+    // panel fills the window once there are any, so the ground alone would be a
+    // strip around the field and there would be nowhere left to tap. Anything
+    // in front of either (the field, a result, the close button) is itself.
+    if (event.target !== root && event.target !== panel) return;
+    event.preventDefault();
+    dismiss();
+  });
+
+  function dismiss() {
+    input.value = '';
+    run();
+    input.blur();
+    closeImmersive();
+  }
+
+  // Dismissing: back to the page, at the scroll position it was left at.
+  if (closeButton) {
+    closeButton.addEventListener('click', dismiss);
+  }
+
 
   // The resting hint, drawn once the script is running. It is not in the markup
   // because the disc is a JavaScript affordance: with the script dead the field

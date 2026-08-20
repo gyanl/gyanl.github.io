@@ -1176,6 +1176,7 @@ button {
    other page's header sits on the page's own background and must follow the
    reader's scheme. */
 :root[data-page="home"] .logo-mark-row,
+:root[data-page="home"] .hero-search,
 :root[data-page="home"] .search {
     --text-reg: rgb(42, 42, 42);
     --text-secondary: rgba(42, 42, 42, .7);
@@ -1222,8 +1223,12 @@ button {
    rather than a number copied into the script. */
 @media (min-width: 801px) {
 
+    /* :not(.is-immersive), because this selector is (0,3,0) and the immersive
+       rule is (0,2,0) — left alone, the cap wins and the full-window overlay
+       comes out a 360px strip down the left of the screen with the rest of the
+       page still live beside it. */
     :root[data-page="home"] .logo-mark-row,
-    :root[data-page="home"] .search {
+    :root[data-page="home"] .search:not(.is-immersive) {
         max-width: 360px;
     }
 }
@@ -1270,18 +1275,262 @@ button {
     }
 }
 
+/* ===== Immersive search =====
+ *
+   Every page, every width: focusing the field takes the search out of the page
+   and gives it the whole window. It started as a phone-only answer to the home
+   page, where the field sits in the middle of a 250vh scroll runway and a
+   results panel anchored to it would ride the mark shrinking and the stickers
+   throwing. It reads better everywhere — the header panel was a 560px box of
+   results hanging off a bar, and this is a page that does one thing — so it is
+   what the field does now, and closing it puts the reader back exactly where
+   they were.
+
+   .is-immersive goes on the .search root, which every layout has; the html
+   class beside it freezes the page underneath. Both are set by search.js. */
+.search__close {
+    display: none;
+}
+
+/* Going in and coming out.
+ *
+   The page does not cut to the overlay, it recedes behind it: the search fades
+   up out of the field it was, and the page dims and blurs away behind it as it
+   comes. Going out is the same animation run backwards, so the mode has no seam
+   at either end.
+
+   The blur is what makes it read as depth rather than as one screen replacing
+   another: the page is still there, just out of focus behind the thing now in
+   front of it. Cheap, too — opacity and filter are both composited, and the
+   page underneath is frozen for the duration, so nothing reflows.
+
+   All of it is skipped under prefers-reduced-motion, where the mode simply
+   appears. search.js checks the same preference before it animates. */
+:root {
+    --search-immersive-ms: 260ms;
+    --search-immersive-ease: cubic-bezier(0.2, 0, 0.1, 1);
+}
+
+/* The page behind is dimmed and blurred by the overlay itself, NOT by fading
+   the page. Fading it was the first attempt and it cannot work: on every layout
+   but home the field lives INSIDE .page-shell, so dropping the shell's opacity
+   took the search down with it — an ancestor's opacity is not something a
+   descendant can undo, and the screen went to a blurred page with no search on
+   it. The home page has the same trap one level in, .hero-search sitting inside
+   .hero-spacer.
+
+   A translucent ground with a backdrop-filter behind it gets the same picture
+   with none of that: the page is untouched and out of focus behind the thing in
+   front of it, and both the dim and the blur ramp up with the overlay's own
+   fade because that is what is fading. Composited, and the page underneath is
+   frozen for the duration, so nothing reflows. */
+
+/* The mode arriving. Fading the overlay in from just below where the field was
+   reads as the field growing into it, without any of the measuring a real morph
+   between two boxes would need. */
+@keyframes search-immersive-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.search.is-immersive {
+    /* Out of whatever laid it out — the header column on most pages, the hero's
+       absolute box on home — and onto the window. Every placement property the
+       resting rules set has to be undone, not just position: a leftover
+       max-width or auto margin would leave the overlay a narrow strip. */
+    position: fixed;
+    inset: 0;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: var(--spacing-lg) var(--spacing-md) 0 var(--spacing-md);
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Not quite opaque, so the page reads as still being there. The blur is
+       what keeps it from competing — at this radius nothing behind resolves
+       into anything legible. */
+    background-color: color-mix(in srgb, var(--background-color) 86%, transparent);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    /* Over the nav layer as well as the hero: this is a mode, and nothing
+       underneath should show through or take a click. */
+    z-index: var(--z-controls);
+
+    animation: search-immersive-in var(--search-immersive-ms) var(--search-immersive-ease) both;
+}
+
+/* Leaving. The class stays on for the length of the animation — search.js takes
+   it off on a timer — because the moment it goes the element snaps back to the
+   header or the hero, and there is nothing left in place to fade. */
+@keyframes search-immersive-out {
+    from {
+        opacity: 1;
+        transform: none;
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(8px) scale(0.985);
+    }
+}
+
+.search.is-immersive.is-leaving {
+    animation-name: search-immersive-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .search.is-immersive,
+    .search.is-immersive.is-leaving {
+        animation: none;
+    }
+}
+
+/* A reading column on a wide window rather than a field stretched over 1280px
+   and results tracking the full width of the screen. The same measure the rest
+   of the site sets its text in. */
+.is-immersive .search__field,
+.is-immersive .search__panel {
+    width: 100%;
+    max-width: var(--measure);
+}
+
+/* position: fixed resolves against a transformed ancestor rather than the
+   window, and .hero-search is translated to centre itself — so on the home page
+   the overlay would be laid out inside that 360px box in the middle of the
+   hero. Dropping the transform for the duration is what puts it on the window.
+   The property is only ever set there, so this reaches nothing else. */
+:root.is-search-immersive .hero-search {
+    transform: none;
+}
+
+/* The close button sits BESIDE the field, not inside it. Inside, it was a
+   second disc crowded against the count with the pill's own rounded end around
+   both — three circles in a row, and an X reading as something that clears the
+   text rather than as the way out of the mode. Out here it is plainly a control
+   of its own, and the field simply gets shorter.
+
+   The field is already a flex row (the icon and the count are absolute inside
+   it), so the button only has to stop being absolute to take its place. */
+.is-immersive .search__field {
+    gap: var(--spacing-sm);
+}
+
+.is-immersive .search__input {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+}
+
+.is-immersive .search__close {
+    position: static;
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    /* The field's own height, so the two read as one row rather than as a
+       control parked beside a taller thing. */
+    width: var(--logo-mark-size);
+    height: var(--logo-mark-size);
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: var(--black-5);
+    color: var(--text-reg);
+    font-size: var(--font-size-lg);
+    line-height: 1;
+    cursor: pointer;
+    appearance: none;
+}
+
+.is-immersive .search__close:hover,
+.is-immersive .search__close:active {
+    background-color: var(--black-10);
+}
+
+/* Measured from the field's right edge, which the button now occupies the end
+   of — so this is the button, the gap, and the inset the count had on its own. */
+.is-immersive .search__count {
+    right: calc(var(--logo-mark-size) + var(--spacing-sm) + var(--spacing-md));
+}
+
+/* The panel stops being a panel: no glass, no shadow, no cap — it is the body
+   of the screen now, and it scrolls on its own so the page behind it does not
+   have to. */
+.is-immersive .search__panel {
+    position: static;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
+    margin-top: var(--spacing-md);
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* An empty flex child still holds its margin, which drew a hairline of nothing
+   under the field before anything was typed. */
+.is-immersive .search__panel[hidden] {
+    display: none;
+}
+
+/* The page does not scroll while the mode is open, so the hero cannot advance
+   underneath it — a thumb dragging down a list of results should not also be
+   shrinking the mark behind it.
+
+   Done by taking the body out of flow at a negative offset — search.js sets
+   `top: -<scrollY>px` and puts the offset back on the way out — rather than
+   with `overflow: hidden` on the root. Overflow was the first attempt and it
+   is the reason this comment is long: collapsing the scrollable height makes
+   the browser CLAMP the scroll offset to whatever is left, so the page behind
+   jumped from 900px down the hero to 76 the moment the mode opened. Invisible
+   under an opaque overlay, but not under one that fades in — and the whole
+   page lurching behind the fade was the first thing the animation showed up.
+   Offsetting the body instead holds every pixel exactly where it was. */
+:root.is-search-immersive body {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+
 /* The panel opens from the middle of the window here rather than from a bar at
    the top, so the shared 70vh cap would run it off the bottom of the screen —
    560px of results starting at 568px down an 800px window. Bounded by what is
    actually left underneath the field instead, and dvh so a phone's collapsing
-   address bar does not leave it short. */
-:root[data-page="home"] .search__panel {
+   address bar does not leave it short.
+
+   Scoped off the immersive overlay — (0,3,0) against its (0,2,0) — or the mode
+   opens full-screen and then holds the results to a few hundred pixels of it,
+   with the rest of the window empty underneath. */
+:root[data-page="home"] .search:not(.is-immersive) .search__panel {
     max-height: min(70vh, 560px,
             calc(100dvh - var(--hero-search-top) - var(--logo-mark-size) - var(--spacing-sm) - var(--spacing-xl)));
 }
 
 /* The margins it carried as a header row are the header's, not this one's. */
-:root[data-page="home"] .hero-search .search {
+/* :not(.is-immersive) for the same reason as the cap above — this is (0,4,0)
+   and would otherwise strip the overlay's own padding, putting the field hard
+   against the top left corner of the window. */
+:root[data-page="home"] .hero-search .search:not(.is-immersive) {
     margin: 0;
     padding: 0;
 }

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: About
+search-recommend: yes
 subtitle: My place on the internet.
 permalink: /about
 ---
