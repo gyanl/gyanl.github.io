@@ -2,7 +2,7 @@
 layout: post
 title: About
 search-recommend: yes
-subtitle: My place on the internet.
+subtitle: Who is Gyan?
 permalink: /about
 ---
 

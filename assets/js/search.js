@@ -87,15 +87,40 @@
     if (immersive) return;
     immersive = true;
 
+    // Where the reader goes back to on dismiss — always where they were.
     heldScroll = lastScroll;
-    // The page is held by taking the body out of flow at minus its own scroll
-    // offset, so every pixel stays where it was — see the note on
-    // .is-search-immersive body in main.css for why not `overflow: hidden`.
-    document.body.style.top = (-heldScroll) + 'px';
 
-    measurePanelRoom();
+    /* Where the page is HELD, which is usually the same thing but not always.
+     *
+     * The mode does not move the field, so a field that is off the top of the
+     * window stays off the top of the window: reach it with Tab from halfway
+     * down an article and the search opens onto a blurred page with nothing on
+     * it. (Focusing it normally scrolls it into view — this file undoes that on
+     * purpose, so the offset to restore survives.)
+     *
+     * So when the field would be above the fold, the page is held far enough up
+     * to show it instead. The page moves; nothing on the page moves relative to
+     * anything else, which is the part that was worth keeping. Dismissing puts
+     * the reader back at heldScroll regardless.
+     */
+    var freezeAt = heldScroll;
+
+    if (field) {
+      var rect = field.getBoundingClientRect();
+      var docTop = rect.top + (window.pageYOffset || document.documentElement.scrollTop || 0);
+      var margin = 24;
+      if (docTop - margin < heldScroll) freezeAt = Math.max(0, docTop - margin);
+    }
+
+    // Held by taking the body out of flow at minus that offset — see the note
+    // on .is-search-immersive body in main.css for why not `overflow: hidden`.
+    document.body.style.top = (-freezeAt) + 'px';
+
     root.classList.add('is-immersive');
     document.documentElement.classList.add('is-search-immersive');
+
+    // After the freeze, so the field is measured where it has actually ended up.
+    measurePanelRoom();
 
     if (input.value.trim() === '' && docs) renderSuggestions();
 
@@ -200,7 +225,12 @@
     return null;
   }
 
-  var SUGGEST_MAX = 3;
+  // How many "Start here" entries are drawn. Five is about the most a reader
+  // will take in before it stops being a shortlist and starts being a menu —
+  // and more than that starts pushing the results they came to type for below
+  // the fold on a phone. Anything flagged beyond this is simply not shown, in
+  // whatever order the index happens to hold them.
+  var SUGGEST_MAX = 5;
 
   var index = null;
   var docs = null;

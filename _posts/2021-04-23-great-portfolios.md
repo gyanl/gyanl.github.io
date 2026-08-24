@@ -2,6 +2,7 @@
 thumbnail: /assets/thumbs/default.png
 layout: post
 title: Great Portfolio Sites
+search-recommend: yes
 subtitle: A list of websites that I think do a great job of showing design work.
 permalink: portfolios
 tags: resources
