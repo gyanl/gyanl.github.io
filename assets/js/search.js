@@ -46,7 +46,6 @@
    */
   var immersive = false;
   var heldScroll = 0;
-  var leaveTimer = null;
 
   /* Where the page was before the field was focused — NOT read at open time.
    *
@@ -64,39 +63,29 @@
     if (!immersive) lastScroll = window.pageYOffset || document.documentElement.scrollTop || 0;
   }, { passive: true });
 
-  // Kept in step with --search-immersive-ms in main.css: the class comes off
-  // only once the leaving animation has finished, or the overlay would vanish
-  // mid-fade.
-  var IMMERSIVE_MS = 260;
   var still = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  /* The field morphs between the header and the overlay rather than the whole
-   * overlay fading in over it — the browser does the measuring, given a
-   * view-transition-name on .search__field and the state change made inside the
-   * callback below.
-   *
-   * The class tells main.css to drop its own fade where this is available, so
-   * the two do not both run. Where it is not, that fade IS the animation.
-   */
-  var canMorph = typeof document.startViewTransition === 'function';
-  if (canMorph) document.documentElement.classList.add('has-view-transitions');
+  var field = root.querySelector('.search__field');
 
-  function withMorph(change) {
-    // Reduced motion takes the instant path in both directions: a view
-    // transition is still a moving picture, whatever it is morphing.
-    if (!canMorph || still.matches) {
-      change();
-      return;
-    }
-    document.startViewTransition(change);
+  /* How much room the results have: the window, less wherever the field sits.
+   *
+   * Measured rather than written in CSS, because it depends on how far down the
+   * page the bar happens to be — the header on most pages, the middle of the
+   * hero on home — and CSS has no way to ask. Published as a custom property
+   * for .is-immersive .search__panel to read.
+   *
+   * Taken while the field is still where it will stay: the mode moves nothing,
+   * so this is as true after the class goes on as before it.
+   */
+  function measurePanelRoom() {
+    if (!field) return;
+    var room = window.innerHeight - field.getBoundingClientRect().bottom - 24;
+    root.style.setProperty('--search-panel-room', Math.max(160, room) + 'px');
   }
 
   function openImmersive() {
     if (immersive) return;
     immersive = true;
-
-    window.clearTimeout(leaveTimer);
-    root.classList.remove('is-leaving');
 
     heldScroll = lastScroll;
     // The page is held by taking the body out of flow at minus its own scroll
@@ -104,18 +93,11 @@
     // .is-search-immersive body in main.css for why not `overflow: hidden`.
     document.body.style.top = (-heldScroll) + 'px';
 
-    withMorph(function () {
-      root.classList.add('is-immersive');
-      document.documentElement.classList.add('is-search-immersive');
-      if (closeButton) closeButton.hidden = false;
+    measurePanelRoom();
+    root.classList.add('is-immersive');
+    document.documentElement.classList.add('is-search-immersive');
 
-      // Inside the callback, so the suggestions are part of the state the
-      // browser captures as "after". Rendered once it has finished capturing —
-      // which is what calling this after withMorph() did — the panel appears
-      // out of nowhere partway through the animation and relayouts the thing
-      // being animated. That was the other half of the judder.
-      if (input.value.trim() === '' && docs) renderSuggestions();
-    });
+    if (input.value.trim() === '' && docs) renderSuggestions();
 
     // The index may not be here yet: the same focus that opened this is what
     // starts fetching it. Nothing to capture in that case, so this one lands
@@ -134,7 +116,6 @@
     document.body.style.top = '';
     window.scrollTo({ top: heldScroll, left: 0, behavior: 'instant' });
 
-    if (closeButton) closeButton.hidden = true;
     panel.hidden = true;
     results.textContent = '';
   }
@@ -143,30 +124,11 @@
     if (!immersive) return;
     immersive = false;
 
-    if (canMorph && !still.matches) {
-      // Everything comes off inside the callback, so the browser has a before
-      // and an after to morph the field between — the overlay's rect and the
-      // resting one — with no measuring here at all.
-      withMorph(function () {
-        teardown();
-        root.classList.remove('is-immersive');
-      });
-      return;
-    }
-
+    // Nothing to unwind but the class: the ground fades out on its own
+    // transition and the close button slides back out on its own, both from
+    // .is-immersive coming off (see main.css).
+    root.classList.remove('is-immersive');
     teardown();
-
-    if (still.matches) {
-      root.classList.remove('is-immersive');
-      return;
-    }
-
-    // No morph to be had: the overlay fades out where it stands instead, which
-    // is why the class has to outlive the state change by the length of it.
-    root.classList.add('is-leaving');
-    leaveTimer = window.setTimeout(function () {
-      root.classList.remove('is-immersive', 'is-leaving');
-    }, IMMERSIVE_MS);
   }
 
   // The match count, shown as a disc at the end of the field. Hidden when there

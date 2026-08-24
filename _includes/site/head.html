@@ -55,10 +55,12 @@
   </script>
 
   <link rel="preload" href="{{ '/assets/css/main.css' | relative_url }}" as="style">
-  <link rel="preload" href="{{ '/assets/fonts/TASAExplorer-latin.woff2' | relative_url }}" as="font"
-    type="font/woff2" crossorigin>
-  <link rel="preload" href="{{ '/assets/fonts/TASAOrbiter-latin.woff2' | relative_url }}" as="font" type="font/woff2"
-    crossorigin>
+  {%- comment -%}
+    No font preloads: the site sets its type in the system stack now, so there
+    is no webfont on the critical path to hurry along. The @font-face rules for
+    TASA are still in main.css but nothing references the families, so nothing
+    fetches them.
+  {%- endcomment -%}
   {%- comment -%}
     ?v= is the build timestamp. Browsers cache these aggressively enough that an
     edited stylesheet or script keeps being served from cache after a rebuild;

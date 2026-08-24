@@ -88,7 +88,12 @@
     </svg>
   </a>
 
-  <a class="logo-mark" href="{{ '/writing' | relative_url }}" aria-label="{{ site.title | escape }} — writing">
+  {%- comment -%}
+    The mark goes home, as a site's mark does everywhere else on the web. It
+    used to point at /writing, which made it a second route to the archive
+    beside the back button rather than the way out to the front of the site.
+  {%- endcomment -%}
+  <a class="logo-mark" href="{{ '/' | relative_url }}" aria-label="{{ site.title | escape }} — home">
     <svg class="logo-mark__art" viewBox="0.6 0 30 32" preserveAspectRatio="xMidYMid meet" aria-hidden="true"
       focusable="false">
       {%- comment -%}

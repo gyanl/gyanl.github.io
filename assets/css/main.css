@@ -9,45 +9,12 @@
  * listings → post-embedded widgets → syntax highlighting → mobile overrides.
  */
 
-/* TASA Explorer — variable display face, no italic. Sets headings and display
-   type. Self-hosted from Google Fonts, same as its sibling TASA Orbiter: one
-   variable file per subset covers the whole 400–800 range. */
-@font-face {
-    font-family: 'TASA Explorer';
-    src: url('../fonts/TASAExplorer-latin.woff2') format('woff2');
-    font-weight: 400 800;
-    font-style: normal;
-    font-display: swap;
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-    font-family: 'TASA Explorer';
-    src: url('../fonts/TASAExplorer-latin-ext.woff2') format('woff2');
-    font-weight: 400 800;
-    font-style: normal;
-    font-display: swap;
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-
-/* TASA Orbiter — variable grotesque, no italic. Body copy and UI chrome. */
-@font-face {
-    font-family: 'TASA Orbiter';
-    src: url('../fonts/TASAOrbiter-latin.woff2') format('woff2');
-    font-weight: 400 800;
-    font-style: normal;
-    font-display: swap;
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-    font-family: 'TASA Orbiter';
-    src: url('../fonts/TASAOrbiter-latin-ext.woff2') format('woff2');
-    font-weight: 400 800;
-    font-style: normal;
-    font-display: swap;
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
+/* No @font-face here any more: the site sets its type in the system stack (see
+   --font-body below), so nothing is downloaded for text. The four TASA
+   declarations that used to sit here went with it — they declared families no
+   rule referenced, which is a fetch waiting to happen the moment someone names
+   one by mistake. The .woff2 files are still in assets/fonts/ if the faces are
+   ever wanted back. */
 
 /* The scroll-driven scalars, declared as TYPED custom properties.
  *
@@ -261,23 +228,22 @@
      * above), which keeps it a number the engine can track rather than another
      * token stream. */
 
-    /* Typography — SF Pro Rounded leads both stacks.
-     *
-       `ui-rounded` is the token that actually resolves it, and it has to come
-       first: the family name alone does not, since it ships as a system-only
-       face, and platforms without the generic simply skip past it. Nunito is
-       the rounded webfont fallback for those, and is not self-hosted.
+    /* Typography — the system font stack: whatever the reader's OS sets its own interface
+       in. Nothing is downloaded for text any more — the self-hosted TASA faces
+       and the Nunito fallback are both out of the stacks, so the first paint is
+       the final one and there is no swap.
 
-       `-apple-system` sits behind them rather than in front. It resolves to
-       plain SF Pro, which is the right thing to land on when there is no
-       rounded face — but ahead of ui-rounded it would win on every Apple device
-       and the rounding would never appear at all.
+       -apple-system and BlinkMacSystemFont are the same San Francisco by two
+       names, one for Safari and one for Chrome; 'Segoe UI' is Windows, Roboto
+       is Android and most Linux, and the last three are the long tail. The
+       generic at the end is what a browser falls back to having matched none of
+       them.
 
-       Behind all of that the original faces are unchanged: TASA Explorer sets
-       headings and display, TASA Orbiter body copy and UI chrome, both variable
-       across 400–800 with no italic. */
-    --font-heading: ui-rounded, 'SF Pro Rounded', 'Nunito', -apple-system, 'TASA Explorer', Georgia, serif;
-    --font-body: ui-rounded, 'SF Pro Rounded', 'Nunito', -apple-system, BlinkMacSystemFont, 'TASA Orbiter', 'Segoe UI', Roboto, sans-serif;
+       Both tokens are the same stack. They were different when the site set its
+       display type in TASA Explorer; keeping two names is what lets headings be
+       given their own face again without touching every rule that reads one. */
+    --font-heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
     --line-height-base: 1.4;
     --line-height-tight: 1.1;
     --line-height-sans-base: 1.5;
@@ -1228,7 +1194,7 @@ button {
        comes out a 360px strip down the left of the screen with the rest of the
        page still live beside it. */
     :root[data-page="home"] .logo-mark-row,
-    :root[data-page="home"] .search:not(.is-immersive) {
+    :root[data-page="home"] .search {
         max-width: 360px;
     }
 }
@@ -1277,133 +1243,38 @@ button {
 
 /* ===== Immersive search =====
  *
-   Every page, every width: focusing the field takes the search out of the page
-   and gives it the whole window. It started as a phone-only answer to the home
-   page, where the field sits in the middle of a 250vh scroll runway and a
-   results panel anchored to it would ride the mark shrinking and the stickers
-   throwing. It reads better everywhere — the header panel was a 560px box of
-   results hanging off a bar, and this is a page that does one thing — so it is
-   what the field does now, and closing it puts the reader back exactly where
-   they were.
+   Focusing the field dims and blurs the page behind it and opens the results
+   over the top. NOTHING MOVES: the field stays in the header (or in the hero)
+   exactly where it was, at the width it was, and the panel opens beneath it the
+   way it always did. The mode is a change of ground, not of layout.
 
-   .is-immersive goes on the .search root, which every layout has; the html
-   class beside it freezes the page underneath. Both are set by search.js. */
-.search__close {
-    display: none;
-}
+   It used to lift the field to the top of a full-window overlay, which meant
+   every element in the bar jumped on open and jumped back on dismiss — and then
+   needed a morph animation to cover the jump. Leaving it where it is costs
+   nothing and needs nothing.
 
-/* Going in and coming out.
- *
-   The page does not cut to the overlay, it recedes behind it: the search fades
-   up out of the field it was, and the page dims and blurs away behind it as it
-   comes. Going out is the same animation run backwards, so the mode has no seam
-   at either end.
-
-   The blur is what makes it read as depth rather than as one screen replacing
-   another: the page is still there, just out of focus behind the thing now in
-   front of it. Cheap, too — opacity and filter are both composited, and the
-   page underneath is frozen for the duration, so nothing reflows.
-
-   All of it is skipped under prefers-reduced-motion, where the mode simply
-   appears. search.js checks the same preference before it animates. */
-:root {
-    --search-immersive-ms: 260ms;
-    --search-immersive-ease: cubic-bezier(0.2, 0, 0.1, 1);
-}
-
-/* The page behind is dimmed and blurred by the overlay itself, NOT by fading
-   the page. Fading it was the first attempt and it cannot work: on every layout
-   but home the field lives INSIDE .page-shell, so dropping the shell's opacity
-   took the search down with it — an ancestor's opacity is not something a
-   descendant can undo, and the screen went to a blurred page with no search on
-   it. The home page has the same trap one level in, .hero-search sitting inside
-   .hero-spacer.
-
-   A translucent ground with a backdrop-filter behind it gets the same picture
-   with none of that: the page is untouched and out of focus behind the thing in
-   front of it, and both the dim and the blur ramp up with the overlay's own
-   fade because that is what is fading. Composited, and the page underneath is
-   frozen for the duration, so nothing reflows. */
-
-/* The mode arriving. Fading the overlay in from just below where the field was
-   reads as the field growing into it, without any of the measuring a real morph
-   between two boxes would need. */
-@keyframes search-immersive-in {
-    from {
-        opacity: 0;
-        transform: translateY(8px) scale(0.985);
-    }
-
-    to {
-        opacity: 1;
-        transform: none;
-    }
-}
-
+   .is-immersive goes on the .search root; the html class beside it freezes the
+   page underneath. Both are set by search.js. */
+/* Above the ground below, and above the frozen page. The field and the results
+   are this element's children, so one number lifts the lot. */
 .search.is-immersive {
-    /* Out of whatever laid it out — the header column on most pages, the hero's
-       absolute box on home — and onto the window. Every placement property the
-       resting rules set has to be undone, not just position: a leftover
-       max-width or auto margin would leave the overlay a narrow strip. */
-    position: fixed;
-    inset: 0;
-    width: auto;
-    max-width: none;
-    margin: 0;
-    padding: var(--spacing-lg) var(--spacing-md) 0 var(--spacing-md);
-    box-sizing: border-box;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* The ground is on ::before rather than here, so it can fade on its own
-       while this element — which carries the field — does not. Fading the
-       container would take the field down with it, which is the whole thing the
-       morph is trying not to do. */
-    /* Over the nav layer as well as the hero: this is a mode, and nothing
-       underneath should show through or take a click. */
     z-index: var(--z-controls);
-
-    animation: search-immersive-in var(--search-immersive-ms) var(--search-immersive-ease) both;
 }
 
-/* The header rides ABOVE the search rather than under it: back, the mark and
-   the scheme switcher stay visible and stay clickable while the mode is open.
-   They are the page's own furniture, not the content the ground is there to
-   push back, and losing them meant the only way out was the close button.
-
-   Pinned to the window, because the page underneath is frozen wherever the
-   reader happened to be — left in flow it would be its natural position at the
-   top of the document, which on a scrolled page is off-screen entirely.
-
-   z-index against .search (--z-controls) rather than against the page: both are
-   children of .page-shell, so they order directly against each other. The
-   ground is that element's own ::before and rides with it, so one number clears
-   both. */
+/* The header comes with it: back, the mark and the switcher stay visible and
+   stay clickable, rather than being blurred out with the page they sit on. In
+   flow and unmoved — only the layer changes. */
 :root.is-search-immersive .logo-mark-row {
-    position: fixed;
-    top: var(--spacing-lg);
-    left: 0;
-    right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
     z-index: calc(var(--z-controls) + 1);
 }
 
-/* Room for it, so the field starts below the header instead of behind it. The
-   overlay's own top padding is the first term; the row and a gap after it are
-   the rest. */
-.search.is-immersive {
-    padding-top: calc(var(--spacing-lg) + var(--logo-mark-size) + var(--spacing-lg));
-}
-
-/* The dimmed, blurred ground. Its own layer and its own view-transition-name,
-   so the browser fades just this in and out — it exists only in the immersive
-   state, which is exactly what an old-to-new fade wants.
+/* The dimmed, blurred ground: a fixed layer behind the field and the results,
+   inside .search so it shares a stacking context with them.
 
    Not quite opaque, so the page reads as still being there. The blur is what
    keeps it from competing: at this radius nothing behind resolves into anything
-   legible. */
+   legible. Only its opacity is animated — the one thing that can appear without
+   shifting a pixel of anything else. */
 .search.is-immersive::before {
     content: '';
     position: fixed;
@@ -1411,81 +1282,54 @@ button {
     background-color: color-mix(in srgb, var(--background-color) 86%, transparent);
     backdrop-filter: blur(16px) saturate(120%);
     -webkit-backdrop-filter: blur(16px) saturate(120%);
-    /* Behind the field and the results, which are this element's children and
-       paint above a z-index of -1 on its own pseudo. */
     z-index: -1;
-    view-transition-name: search-ground;
+    animation: search-ground-in var(--search-immersive-ms) var(--search-immersive-ease) both;
 }
 
-::view-transition-group(search-ground) {
-    animation-duration: var(--search-immersive-ms);
-    animation-timing-function: var(--search-immersive-ease);
-}
-
-/* Where the browser morphs the field itself (see view-transition-name above)
-   the whole-overlay fade is redundant, and running both reads as the panel
-   sliding while the field it belongs to moves separately. search.js stamps
-   .has-view-transitions on the root when it has them. */
-:root.has-view-transitions .search.is-immersive,
-:root.has-view-transitions .search.is-immersive.is-leaving {
-    animation: none;
-}
-
-/* Leaving. The class stays on for the length of the animation — search.js takes
-   it off on a timer — because the moment it goes the element snaps back to the
-   header or the hero, and there is nothing left in place to fade. */
-@keyframes search-immersive-out {
+@keyframes search-ground-in {
     from {
-        opacity: 1;
-        transform: none;
+        opacity: 0;
     }
 
     to {
-        opacity: 0;
-        transform: translateY(8px) scale(0.985);
+        opacity: 1;
     }
 }
 
-.search.is-immersive.is-leaving {
-    animation-name: search-immersive-out;
-}
-
 @media (prefers-reduced-motion: reduce) {
-
-    .search.is-immersive,
-    .search.is-immersive.is-leaving {
+    .search.is-immersive::before {
         animation: none;
     }
 }
 
-/* A reading column on a wide window rather than a field stretched over 1280px
-   and results tracking the full width of the screen. The same measure the rest
-   of the site sets its text in. */
-.is-immersive .search__field,
-.is-immersive .search__panel {
-    width: 100%;
-    max-width: var(--measure);
-}
-
-/* position: fixed resolves against a transformed ancestor rather than the
+/* position: fixed resolves against a TRANSFORMED ancestor rather than the
    window, and .hero-search is translated to centre itself — so on the home page
-   the overlay would be laid out inside that 360px box in the middle of the
-   hero. Dropping the transform for the duration is what puts it on the window.
-   The property is only ever set there, so this reaches nothing else. */
+   the ground would be trapped inside that 360px box. The transform has to go,
+   and the same centring has to be put back as a `left` or the field moves,
+   which is the one thing this mode does not do: at the capped width that is
+   half the window minus half of 360, and below the cap the field is already
+   inset by the page gutter on both sides. */
 :root.is-search-immersive .hero-search {
     transform: none;
+    left: max(var(--spacing-xl), calc(50% - 180px));
 }
 
-/* The close button sits BESIDE the field, not inside it. Inside, it was a
-   second disc crowded against the count with the pill's own rounded end around
-   both — three circles in a row, and an X reading as something that clears the
-   text rather than as the way out of the mode. Out here it is plainly a control
-   of its own, and the field simply gets shorter.
+/* The close button sits beside the field — the only thing the mode adds to the
+   bar, appearing in the room that was already to its right.
 
-   The field is already a flex row (the icon and the count are absolute inside
-   it), so the button only has to stop being absolute to take its place. */
+   It slides in FROM the right on a plain CSS transition, which means it has to
+   exist before it can move: `hidden` would take it out of layout entirely and
+   there would be nothing to transition from. search.js sets .is-immersive and
+   leaves the attribute alone, and the states below are the whole animation.
+
+   The field's gap opens on the same transition, so the input gives up its width
+   at the same rate the button takes it. */
 .is-immersive .search__field {
     gap: var(--spacing-sm);
+}
+
+.search__field {
+    transition: gap var(--search-immersive-ms) var(--search-immersive-ease);
 }
 
 .is-immersive .search__input {
@@ -1494,26 +1338,52 @@ button {
     min-width: 0;
 }
 
-.is-immersive .search__close {
-    position: static;
-    flex: none;
+/* Resting: no width, no room taken, parked to the right of where it will sit.
+   Kept in the layout rather than hidden so there is something to move. */
+.search__close {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    /* The field's own height, so the two read as one row rather than as a
-       control parked beside a taller thing. */
-    width: var(--logo-mark-size);
+    flex: none;
+    width: 0;
     height: var(--logo-mark-size);
     padding: 0;
     border: 0;
     border-radius: 50%;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(var(--logo-mark-size));
+    pointer-events: none;
+    /* Not just invisible: a zero-width button with opacity 0 is still a tab
+       stop, and Tab would land on nothing between the field and the page. */
+    visibility: hidden;
     background-color: var(--black-5);
     color: var(--text-reg);
     font-size: var(--font-size-lg);
     line-height: 1;
     cursor: pointer;
     appearance: none;
+    transition: width var(--search-immersive-ms) var(--search-immersive-ease),
+        opacity var(--search-immersive-ms) var(--search-immersive-ease),
+        transform var(--search-immersive-ms) var(--search-immersive-ease),
+        visibility var(--search-immersive-ms);
+}
+
+.is-immersive .search__close {
+    width: var(--logo-mark-size);
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .search__close,
+    .search__field {
+        transition: none;
+    }
 }
 
 .is-immersive .search__close:hover,
@@ -1521,37 +1391,27 @@ button {
     background-color: var(--black-10);
 }
 
-/* Measured from the field's right edge, which the button now occupies the end
-   of — so this is the button, the gap, and the inset the count had on its own. */
-.is-immersive .search__count {
-    right: calc(var(--logo-mark-size) + var(--spacing-sm) + var(--spacing-md));
-}
+/* The results run to the bottom of the window instead of stopping at the shared
+   cap — the ground behind them is the whole screen, so a 560px box floating in
+   the middle of it reads as a leftover panel. --search-panel-room is measured by
+   search.js: the window, less wherever the field ended up. It cannot be written
+   here, since that depends on how far down the page the bar happens to be.
 
-/* The panel stops being a panel: no glass, no shadow, no cap — it is the body
-   of the screen now, and it scrolls on its own so the page behind it does not
-   have to. */
+   Everything else about the panel is left alone. It is absolutely positioned
+   under the field at rest and stays exactly there. */
 .is-immersive .search__panel {
-    position: static;
-    flex: 1 1 auto;
-    min-height: 0;
-    max-height: none;
-    margin-top: var(--spacing-md);
-    padding: 0;
+    max-height: var(--search-panel-room, 70vh);
     background: none;
     border: 0;
-    border-radius: 0;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     box-shadow: none;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
-}
-
-/* An empty flex child still holds its margin, which drew a hairline of nothing
-   under the field before anything was typed. */
-.is-immersive .search__panel[hidden] {
-    display: none;
+    /* No padding either. The 12px is the inset from the panel's own glass edge,
+       and with the glass gone it is just a step: the rows and the group labels
+       came out 12px inboard of the field they hang under, which reads as a
+       column that does not line up with anything. At zero the rows share the
+       field's edges, so the hover highlight runs the full width of it. */
+    padding: 0;
 }
 
 /* The page does not scroll while the mode is open, so the hero cannot advance
@@ -1583,7 +1443,7 @@ button {
    Scoped off the immersive overlay — (0,3,0) against its (0,2,0) — or the mode
    opens full-screen and then holds the results to a few hundred pixels of it,
    with the rest of the window empty underneath. */
-:root[data-page="home"] .search:not(.is-immersive) .search__panel {
+:root[data-page="home"] .search__panel {
     max-height: min(70vh, 560px,
             calc(100dvh - var(--hero-search-top) - var(--logo-mark-size) - var(--spacing-sm) - var(--spacing-xl)));
 }
@@ -1592,7 +1452,8 @@ button {
 /* :not(.is-immersive) for the same reason as the cap above — this is (0,4,0)
    and would otherwise strip the overlay's own padding, putting the field hard
    against the top left corner of the window. */
-:root[data-page="home"] .hero-search .search:not(.is-immersive) {
+:root[data-page="home"] .hero-search .search {
+    --search-gutter: 0px;
     margin: 0;
     padding: 0;
 }
@@ -3160,12 +3021,18 @@ button {
 /* A row of its own under the bar, in the site's one column — same max-width and
    same gutter as .measure, the listing and the header above it. Positioned so
    the results panel has something to hang off. */
+/* --search-gutter is the field's inset from this element's edge, and the panel
+   below reads the same value so the two always line up. Written as a token
+   rather than repeated, because home zeroes it: there the field is already the
+   full width of its own box, and a panel insetting itself by another 24px came
+   out visibly narrower than the field it hangs under. */
 .search {
+    --search-gutter: var(--spacing-xl);
     position: relative;
     width: 100%;
     max-width: var(--measure);
     margin: 0 auto var(--spacing-2xl) auto;
-    padding: 0 var(--spacing-xl);
+    padding: 0 var(--search-gutter);
     box-sizing: border-box;
 }
 
@@ -3190,45 +3057,6 @@ button {
     position: relative;
     display: flex;
     align-items: center;
-}
-
-/* The field is the ONE thing that exists in both states — in the header (or the
-   hero) at rest, at the top of the overlay in the mode — so it is lifted out of
-   the page snapshot and given to the browser to morph between the two rects.
-   Everything else cross-fades with the root, which is what turns the ground and
-   the blur on.
-
-   A view-transition-name has to be unique in the document; there is exactly one
-   of these. Unsupporting browsers ignore the property and take the CSS fade
-   below instead. */
-.search__field {
-    view-transition-name: search-field;
-}
-
-::view-transition-group(search-field) {
-    animation-duration: var(--search-immersive-ms);
-    animation-timing-function: var(--search-immersive-ease);
-}
-
-/* The field's two snapshots are near enough identical — the same pill, a
-   different width — so cross-fading them just doubles the text for a moment.
-   Holding both at full opacity lets the group's own move-and-resize do the
-   work, which is the part worth seeing. */
-::view-transition-old(search-field),
-::view-transition-new(search-field) {
-    animation: none;
-    mix-blend-mode: normal;
-}
-
-/* The page behind does NOT cross-fade. It is frozen for the duration and its
-   two snapshots are identical, so the fade buys nothing — and it costs a great
-   deal: a full-window bitmap of the whole document, twice, composited every
-   frame underneath a 16px backdrop blur. That was most of the judder. What
-   moves is the field and the ground, both of which are their own layers. */
-::view-transition-old(root),
-::view-transition-new(root) {
-    animation: none;
-    mix-blend-mode: normal;
 }
 
 .search__icon {
@@ -3296,9 +3124,9 @@ button {
 .search__panel {
     position: absolute;
     top: calc(100% + var(--spacing-sm));
-    /* Inset to match the field, which sits inside the row's gutter. */
-    left: var(--spacing-xl);
-    right: var(--spacing-xl);
+    /* Inset to match the field, whatever that inset happens to be. */
+    left: var(--search-gutter);
+    right: var(--search-gutter);
     max-height: min(70vh, 560px);
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -3375,6 +3203,25 @@ button {
 @media (hover: none) {
     .search__count--hint {
         display: none;
+    }
+}
+
+/* The disc travels with the input's right edge. In the mode the close button
+   takes the end of the row and the input gives up that much width, so an inset
+   measured from the field alone would leave the count sitting on top of the
+   button. Transitioned on the same curve as the button and the field's gap, so
+   the three move as one thing. */
+.search__count {
+    transition: right var(--search-immersive-ms) var(--search-immersive-ease);
+}
+
+.is-immersive .search__count {
+    right: calc(var(--logo-mark-size) + var(--spacing-sm) + var(--spacing-md));
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .search__count {
+        transition: none;
     }
 }
 
