@@ -70,6 +70,27 @@
   var IMMERSIVE_MS = 260;
   var still = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+  /* The field morphs between the header and the overlay rather than the whole
+   * overlay fading in over it — the browser does the measuring, given a
+   * view-transition-name on .search__field and the state change made inside the
+   * callback below.
+   *
+   * The class tells main.css to drop its own fade where this is available, so
+   * the two do not both run. Where it is not, that fade IS the animation.
+   */
+  var canMorph = typeof document.startViewTransition === 'function';
+  if (canMorph) document.documentElement.classList.add('has-view-transitions');
+
+  function withMorph(change) {
+    // Reduced motion takes the instant path in both directions: a view
+    // transition is still a moving picture, whatever it is morphing.
+    if (!canMorph || still.matches) {
+      change();
+      return;
+    }
+    document.startViewTransition(change);
+  }
+
   function openImmersive() {
     if (immersive) return;
     immersive = true;
@@ -83,27 +104,32 @@
     // .is-search-immersive body in main.css for why not `overflow: hidden`.
     document.body.style.top = (-heldScroll) + 'px';
 
-    root.classList.add('is-immersive');
-    document.documentElement.classList.add('is-search-immersive');
-    if (closeButton) closeButton.hidden = false;
+    withMorph(function () {
+      root.classList.add('is-immersive');
+      document.documentElement.classList.add('is-search-immersive');
+      if (closeButton) closeButton.hidden = false;
 
-    // Something to look at straight away. The index may not be here yet — the
-    // same focus that opened this is what starts fetching it — so this runs
-    // again when it lands.
-    if (input.value.trim() === '') {
-      if (docs) renderSuggestions();
-      else build().then(function () {
+      // Inside the callback, so the suggestions are part of the state the
+      // browser captures as "after". Rendered once it has finished capturing —
+      // which is what calling this after withMorph() did — the panel appears
+      // out of nowhere partway through the animation and relayouts the thing
+      // being animated. That was the other half of the judder.
+      if (input.value.trim() === '' && docs) renderSuggestions();
+    });
+
+    // The index may not be here yet: the same focus that opened this is what
+    // starts fetching it. Nothing to capture in that case, so this one lands
+    // after the animation and simply appears.
+    if (input.value.trim() === '' && !docs) {
+      build().then(function () {
         if (immersive && input.value.trim() === '') renderSuggestions();
       });
     }
   }
 
-  function closeImmersive() {
-    if (!immersive) return;
-    immersive = false;
-
-    // The page comes back first and animates in on its own transition, while
-    // the overlay spends the same beat fading out over it.
+  // Putting the page back: unfrozen, at the offset it was held at, with the
+  // panel emptied. Shared by both paths out of the mode.
+  function teardown() {
     document.documentElement.classList.remove('is-search-immersive');
     document.body.style.top = '';
     window.scrollTo({ top: heldScroll, left: 0, behavior: 'instant' });
@@ -111,12 +137,32 @@
     if (closeButton) closeButton.hidden = true;
     panel.hidden = true;
     results.textContent = '';
+  }
+
+  function closeImmersive() {
+    if (!immersive) return;
+    immersive = false;
+
+    if (canMorph && !still.matches) {
+      // Everything comes off inside the callback, so the browser has a before
+      // and an after to morph the field between — the overlay's rect and the
+      // resting one — with no measuring here at all.
+      withMorph(function () {
+        teardown();
+        root.classList.remove('is-immersive');
+      });
+      return;
+    }
+
+    teardown();
 
     if (still.matches) {
       root.classList.remove('is-immersive');
       return;
     }
 
+    // No morph to be had: the overlay fades out where it stands instead, which
+    // is why the class has to outlive the state change by the length of it.
     root.classList.add('is-leaving');
     leaveTimer = window.setTimeout(function () {
       root.classList.remove('is-immersive', 'is-leaving');

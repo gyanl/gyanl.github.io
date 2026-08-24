@@ -1356,17 +1356,79 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Not quite opaque, so the page reads as still being there. The blur is
-       what keeps it from competing — at this radius nothing behind resolves
-       into anything legible. */
-    background-color: color-mix(in srgb, var(--background-color) 86%, transparent);
-    backdrop-filter: blur(16px) saturate(120%);
-    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    /* The ground is on ::before rather than here, so it can fade on its own
+       while this element — which carries the field — does not. Fading the
+       container would take the field down with it, which is the whole thing the
+       morph is trying not to do. */
     /* Over the nav layer as well as the hero: this is a mode, and nothing
        underneath should show through or take a click. */
     z-index: var(--z-controls);
 
     animation: search-immersive-in var(--search-immersive-ms) var(--search-immersive-ease) both;
+}
+
+/* The header rides ABOVE the search rather than under it: back, the mark and
+   the scheme switcher stay visible and stay clickable while the mode is open.
+   They are the page's own furniture, not the content the ground is there to
+   push back, and losing them meant the only way out was the close button.
+
+   Pinned to the window, because the page underneath is frozen wherever the
+   reader happened to be — left in flow it would be its natural position at the
+   top of the document, which on a scrolled page is off-screen entirely.
+
+   z-index against .search (--z-controls) rather than against the page: both are
+   children of .page-shell, so they order directly against each other. The
+   ground is that element's own ::before and rides with it, so one number clears
+   both. */
+:root.is-search-immersive .logo-mark-row {
+    position: fixed;
+    top: var(--spacing-lg);
+    left: 0;
+    right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    z-index: calc(var(--z-controls) + 1);
+}
+
+/* Room for it, so the field starts below the header instead of behind it. The
+   overlay's own top padding is the first term; the row and a gap after it are
+   the rest. */
+.search.is-immersive {
+    padding-top: calc(var(--spacing-lg) + var(--logo-mark-size) + var(--spacing-lg));
+}
+
+/* The dimmed, blurred ground. Its own layer and its own view-transition-name,
+   so the browser fades just this in and out — it exists only in the immersive
+   state, which is exactly what an old-to-new fade wants.
+
+   Not quite opaque, so the page reads as still being there. The blur is what
+   keeps it from competing: at this radius nothing behind resolves into anything
+   legible. */
+.search.is-immersive::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-color: color-mix(in srgb, var(--background-color) 86%, transparent);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    /* Behind the field and the results, which are this element's children and
+       paint above a z-index of -1 on its own pseudo. */
+    z-index: -1;
+    view-transition-name: search-ground;
+}
+
+::view-transition-group(search-ground) {
+    animation-duration: var(--search-immersive-ms);
+    animation-timing-function: var(--search-immersive-ease);
+}
+
+/* Where the browser morphs the field itself (see view-transition-name above)
+   the whole-overlay fade is redundant, and running both reads as the panel
+   sliding while the field it belongs to moves separately. search.js stamps
+   .has-view-transitions on the root when it has them. */
+:root.has-view-transitions .search.is-immersive,
+:root.has-view-transitions .search.is-immersive.is-leaving {
+    animation: none;
 }
 
 /* Leaving. The class stays on for the length of the animation — search.js takes
@@ -3128,6 +3190,45 @@ button {
     position: relative;
     display: flex;
     align-items: center;
+}
+
+/* The field is the ONE thing that exists in both states — in the header (or the
+   hero) at rest, at the top of the overlay in the mode — so it is lifted out of
+   the page snapshot and given to the browser to morph between the two rects.
+   Everything else cross-fades with the root, which is what turns the ground and
+   the blur on.
+
+   A view-transition-name has to be unique in the document; there is exactly one
+   of these. Unsupporting browsers ignore the property and take the CSS fade
+   below instead. */
+.search__field {
+    view-transition-name: search-field;
+}
+
+::view-transition-group(search-field) {
+    animation-duration: var(--search-immersive-ms);
+    animation-timing-function: var(--search-immersive-ease);
+}
+
+/* The field's two snapshots are near enough identical — the same pill, a
+   different width — so cross-fading them just doubles the text for a moment.
+   Holding both at full opacity lets the group's own move-and-resize do the
+   work, which is the part worth seeing. */
+::view-transition-old(search-field),
+::view-transition-new(search-field) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+/* The page behind does NOT cross-fade. It is frozen for the duration and its
+   two snapshots are identical, so the fade buys nothing — and it costs a great
+   deal: a full-window bitmap of the whole document, twice, composited every
+   frame underneath a 16px backdrop blur. That was most of the judder. What
+   moves is the field and the ground, both of which are their own layers. */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
 }
 
 .search__icon {

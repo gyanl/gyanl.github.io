@@ -18,11 +18,14 @@ I was a founding designer at [Public Knowledge Studio](https://publicknowledge.c
 
 I started teaching in 2025 as an extension of my design practice. I document my course materials on course microsites as open courseware for my students and for anyone else who might like to take a look.
 
-2025
+**2025**
+
 [Data Visualisation](/dv) at Department of Design, Delhi Technological University.
+
 [Ergonomics](/ergo) at Ecole Intuit Lab, Delhi
 
-2026
+**2026**
+
 [Technology & Design](/tech1) at Ecole Intuit Lab, Delhi
 
 #### Education
