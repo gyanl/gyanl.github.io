@@ -1,4 +1,22 @@
 {%- comment -%}
+  Search gets a line of its own beneath the bar, at both widths. Sharing the bar
+  meant a field narrow enough to sit beside the mark on a desktop and a
+  collapsing, expanding-over-the-mark affair on a phone; a full-width row is one
+  behaviour instead of two, and a wider field besides.
+
+  It is emitted FIRST so that it is the first tab stop on every page — Tab from
+  a fresh load reaches search before the back button, the mark and the scheme
+  switcher, which is what it is for. The bar is put back above it visually by
+  `order: -1` on .logo-mark-row (see main.css); .page-shell is a flex column, so
+  the two can be ordered independently of the source.
+
+  This is the one place on the site where focus order and visual order differ,
+  and deliberately: the field is the thing a keyboard reader most often wants,
+  and the three controls it now precedes are all still one Tab away.
+{%- endcomment -%}
+{% include site/search.html %}
+
+{%- comment -%}
   The header bar, on every page that uses _layouts/default.html. The home page
   carries its own, much larger, mark in the hero and includes none of this.
 
@@ -135,11 +153,3 @@
   {%- endunless %}
 </div>
 {%- endunless %}
-
-{%- comment -%}
-  Search gets a line of its own beneath the bar, at both widths. Sharing the bar
-  meant a field narrow enough to sit beside the mark on a desktop and a
-  collapsing, expanding-over-the-mark affair on a phone; a full-width row is one
-  behaviour instead of two, and a wider field besides.
-{%- endcomment -%}
-{% include site/search.html %}

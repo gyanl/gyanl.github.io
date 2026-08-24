@@ -1535,7 +1535,15 @@ button {
     padding: 0;
 }
 
+/* Above the search field, though it comes after it in the source — the field is
+   emitted first so it is the first tab stop (see site/logo.html), and this puts
+   the row back on top. .page-shell is a flex column and both are direct
+   children of it, so the two are free to be ordered apart from the source.
+
+   -1 rather than reordering everything: .page-main and the rest keep the
+   default 0 and stay in source order behind the field. */
 .logo-mark-row {
+    order: -1;
     --header-gutter: var(--spacing-xl);
     position: relative;
     width: 100%;
