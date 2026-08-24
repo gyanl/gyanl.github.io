@@ -6,10 +6,14 @@
   Liquid yields [key, value] pairs ordered by key, so tag[0] is the name and
   tag[1] the posts carrying it.
 
-  The count is of VISIBLE posts, not of site.tags[tag].size: a hidden post is
-  still tagged and still in that map, so counting it would promise a post the
-  tag page then declines to show. A tag carried only by hidden posts drops out
-  of this index altogether, its page being empty.
+  The count is of VISIBLE posts, not of site.tags[tag].size — and NOT because
+  the tag page would decline to show the rest; since show_hidden it lists them
+  all. It is because this index is the browse list, and an unlisted post is one
+  kept out of browsing: a tag carried only by unlisted posts advertising itself
+  here, with a count, would put the whole thread back in front of exactly the
+  reader it was taken away from. Such a tag drops out of the index altogether.
+  Its page is still there, still full, and still reached from the tag chips on
+  the posts themselves and from search.
 
   Every tag here needs a matching tag/<name>.md stub or its link 404s; that is a
   standing rule of the site, see CLAUDE.md. Nothing filters the list against the

@@ -10,4 +10,8 @@ layout: default
 
 {%- comment -%} Bracket indexing isn't valid in an include param, so bind it first. {%- endcomment -%}
 {%- assign tag_posts = site.tags[page.tag] -%}
-{% include site/post-list.html posts=tag_posts %}
+{%- comment -%}
+  show_hidden: an unlisted post still belongs on the page for its own tag. The
+  reader asked for this subject by name — see the note in the include.
+{%- endcomment -%}
+{% include site/post-list.html posts=tag_posts show_hidden=true %}

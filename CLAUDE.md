@@ -147,6 +147,8 @@ thumbnail: /assets/thumbs/drm.png
 
 The older `assets/thumbs/` set is 144×144 (some 100×100) and still serves the two square slots fine. A post that will appear on the home grid wants a wide thumbnail; anywhere else, square is right.
 
+**`hidden: true` is "unlisted", and tag pages are the exception.** It keeps a post off `/writing` and `/archive`, but `_layouts/tagpage.html` passes `show_hidden=true` to `post-list.html`, so the post still appears on the page for its own tag — nobody arrives at `/tag/birthdays` by scrolling, they asked for that subject by name. The post is still built, still at its URL, still in the feed and sitemap, and still in search marked *Unlisted*. The tag chips on `/writing` are the one place that still counts visible posts only: a tag carried entirely by unlisted posts drops out of that index rather than advertising the thread back to the reader it was taken from — its page stays reachable from the posts' own chips and from search.
+
 Drafts go in `_posts/Drafts/`, excluded in `_config.yml`. Files in `_posts/` whose names don't match the date convention (`AA 2022-11-18-designer.md`, `sale backup.md`) are silently skipped by Jekyll.
 
 ## Gotchas
