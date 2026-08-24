@@ -2301,6 +2301,9 @@ button {
             var(--background-color) calc(var(--scheme-t) * 100%),
             #FFFFFF);
     padding-top: var(--spacing-4xl);
+    /* The same end-of-page breathing room .page-main gets. Home has no
+       .page-shell, so this element is the one that runs out. */
+    padding-bottom: var(--spacing-5xl);
     z-index: var(--z-content);
     gap: var(--spacing-4xl);
 }
@@ -3984,9 +3987,17 @@ a.tag:hover {
     border-bottom-right-radius: var(--border-radius-page);
 }
 
+/* The page's own end. The footer is fixed BEHIND the sheet and revealed as the
+   sheet scrolls off it, so the last line of a post used to sit hard against the
+   sheet's rounded bottom edge with nothing under it — the text ran out and the
+   page ended in the same pixel.
+
+   Bottom is larger than top on purpose: the top gap is measured against the
+   header above it, and this one against nothing at all. */
 .page-main {
     flex: 1 0 auto;
     padding-top: var(--spacing-4xl);
+    padding-bottom: var(--spacing-5xl);
 }
 
 /* Reading column. Prose wants a measure, not the full 90vw the home grid uses. */
@@ -4459,6 +4470,20 @@ a.tag:hover {
         scroll-marker-group: after;
     }
 
+    /* Room for the dots, taken from whatever follows the strip rather than from
+       the strip itself. The group takes no part in flow and is painted at the
+       END of the strip's margin box — which is exactly where the next element
+       begins — so a bigger margin on the strip does not open a gap, it just
+       carries the dots further down the page with it. That was the first
+       attempt, and the dots stayed exactly as overlapped as before.
+
+       The figure is the group's own height, its padding-block-start plus a dot,
+       and then a gap under it. A strip that ends a post has no sibling to push
+       and needs none: the page's own end padding is already there. */
+    .prose .slideshow+* {
+        margin-block-start: calc(var(--spacing-md) + 8px + var(--spacing-md));
+    }
+
     .prose .slideshow::scroll-marker-group {
         display: flex;
         justify-content: center;
@@ -4474,16 +4499,6 @@ a.tag:hover {
         background-color: var(--black-20);
         cursor: pointer;
         transition: background-color .2s;
-    }
-
-    /* The looping clones get no dot of their own. Every slide in the strip
-       carries a ::scroll-marker, so the copies slideshow-loop.js adds either
-       side of the real set would otherwise show the count three times over —
-       nine dots for three pictures. The reader is parked on the real set and
-       shifted back onto it whenever they drift, so the dot for whatever they
-       are actually looking at is a real one nearly all the time. */
-    .prose .slideshow>img[data-slideshow-clone]::scroll-marker {
-        content: none;
     }
 
     .prose .slideshow>img::scroll-marker:hover,

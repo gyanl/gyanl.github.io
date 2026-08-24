@@ -106,11 +106,6 @@
   {%- endcomment -%}
   <script src="{{ '/assets/js/search.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   {%- comment -%}
-    Wraps the slideshow strips around. The strip works without it; this only
-    makes it endless. Post bodies are the only place a slideshow appears.
-  {%- endcomment -%}
-  <script src="{{ '/assets/js/slideshow-loop.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
-  {%- comment -%}
     The scheme switcher. The scheme itself is already resolved by the inline
     script above; this only draws the button and flips it.
   {%- endcomment -%}
