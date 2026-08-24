@@ -20,6 +20,28 @@
       ],
       "port": 4001,
       "autoPort": false
+    },
+    {
+      "name": "dv",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": [
+        "-c",
+        "cd /Users/gyanlakhwani/Documents/GitHub/dv && LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 exec bundle exec jekyll serve --host 0.0.0.0 --port 4010 --livereload --livereload-port 35740"
+      ],
+      "port": 4010,
+      "autoPort": false,
+      "url": "http://localhost:4010"
+    },
+    {
+      "name": "ergo",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": [
+        "-c",
+        "cd /Users/gyanlakhwani/Documents/GitHub/ergo && LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 exec bundle exec jekyll serve --host 0.0.0.0 --port 4011 --livereload --livereload-port 35741"
+      ],
+      "port": 4011,
+      "autoPort": false,
+      "url": "http://localhost:4011"
     }
   ]
 }
