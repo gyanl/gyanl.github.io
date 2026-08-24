@@ -12,10 +12,20 @@ Hello, my name is Gyan Lakhwani. I am a designer and a nerd, and this website is
 ###### A photo of me
 
 #### Work
-I'm currently a co-founder at [Public Knowledge Studio](https://publicknowledge.co). Previously, I worked on digital experiences at Microsoft and Zomato. 
+I was a founding designer at [Public Knowledge Studio](https://publicknowledge.co), a design agency for startups. Previously, I worked as a product designer at Microsoft, where I worked on Voice experiences across Microsoft Office Suite, and then later on Product Experiences across Microsoft Word, PowerPoint and Designer.
+
+#### Teaching
+
+I started teaching in 2025 as an extension of my design practice. I document my course materials on course microsites as open courseware for my students and for anyone else who might like to take a look.
+
+2025
+[Data Visualisation](/dv) at Department of Design, Delhi Technological University.
+[Ergonomics](/ergo) at Ecole Intuit Lab, Delhi
+
+2026
+[Technology & Design](/tech1) at Ecole Intuit Lab, Delhi
 
 #### Education
-In 2025, I taught a course on [Data Visualisation](/dv) at Department of Design, Delhi Technological University.
 
 I have a Master's degree in Interaction Design from IDC School of Design at IIT Bombay and a Bachelor's degree in IT Engineering from IP University, Delhi.
 

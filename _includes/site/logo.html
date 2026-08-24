@@ -4,7 +4,7 @@
 
   Three things, and the mark is the only one always present:
 
-    left    a way back up, where there is somewhere to go back to
+    left    back — the browser's, with the page's parent as the fallback
     centre  the mark
     right   search
 
@@ -30,34 +30,45 @@
 <div class="logo-mark-row">
 
   {%- comment -%}
-    Where "back" goes depends on what this page is. An article or a tag page is
-    a leaf of the writing index, so both go up to /writing; /writing and
-    /archive are themselves indexes, so they go up to the home page.
+    Back. The button's JOB is the browser's own back — it is on every page and
+    it always means "where I just came from". The href is only what to do when
+    there is no such place: someone who landed here from a search engine, a
+    shared link, or a new tab has nothing to go back to, and the button should
+    still take them somewhere sensible rather than sit there dead.
+
+    So the fallback is the page's parent in the site, not its history: an
+    article or a tag page is a leaf of the writing index, /writing and /archive
+    are indexes in their own right, and everything else — /about, /now, the
+    course pages — answers to the home page.
 
     page.date is what separates a real article from the two pages that borrow
-    the post layout — /about and /now have no date, and they are top-level
-    destinations with nothing above them.
+    the post layout, neither of which has one.
+
+    Rendered as a plain <a> so it works with no JavaScript at all: without
+    back-button.js it is simply a link to the parent, which is what it used to
+    be. The script only upgrades it to history.back() when there is history.
   {%- endcomment -%}
-  {%- assign back_url = nil -%}
-  {%- assign back_label = nil -%}
+  {%- assign back_url = '/' -%}
+  {%- assign back_label = 'Go back' -%}
+  {%- comment -%}
+    Two ifs rather than `tagpage or post and date`: Liquid evaluates its
+    operators RIGHT TO LEFT with no precedence between them, so that line reads
+    as `tagpage or (post and date)` only by luck of the ordering. Written out,
+    it cannot be broken by someone rearranging it.
+  {%- endcomment -%}
   {%- if page.layout == 'tagpage' -%}
-  {%- assign back_url = '/writing' -%}{%- assign back_label = 'Back to all writing' -%}
+  {%- assign back_url = '/writing' -%}
   {%- endif -%}
   {%- if page.layout == 'post' and page.date -%}
-  {%- assign back_url = '/writing' -%}{%- assign back_label = 'Back to all writing' -%}
-  {%- endif -%}
-  {%- if page.layout == 'archive' -%}
-  {%- assign back_url = '/' -%}{%- assign back_label = 'Back to the home page' -%}
+  {%- assign back_url = '/writing' -%}
   {%- endif -%}
 
-  {%- if back_url %}
-  <a class="logo-back" href="{{ back_url | relative_url }}" aria-label="{{ back_label }}">
+  <a class="logo-back" href="{{ back_url | relative_url }}" aria-label="{{ back_label }}" data-back>
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
       <path d="M15 5L8 12L15 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
         stroke-linejoin="round" />
     </svg>
   </a>
-  {%- endif %}
 
   <a class="logo-mark" href="{{ '/writing' | relative_url }}" aria-label="{{ site.title | escape }} — writing">
     <svg class="logo-mark__art" viewBox="0.6 0 30 32" preserveAspectRatio="xMidYMid meet" aria-hidden="true"
