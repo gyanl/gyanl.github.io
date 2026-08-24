@@ -1127,120 +1127,6 @@ button {
    inset by it by hand. An absolute box resolves against its ancestor's PADDING
    box, not its content box, so `left: 0` would put the back button hard against
    the row's outer edge and a whole gutter out of line with the prose beneath. */
-/* The home page is stamped dark, but the top of it — where the header sits,
-   above the hero — is painted white by .hero-spacer's ground crossfade. Left
-   alone the bar inherits the dark scheme's near-white ink and 5%-white fills
-   and renders white on white: present, focusable, and completely invisible.
- *
-   So the header is pinned light there, exactly as .hero-spacer pins itself,
-   and by redeclaring the same tokens rather than hardcoding colours on each of
-   the mark, the field and the buttons. It is safe to pin rather than crossfade
-   because the bar is not sticky: it scrolls away with the top of the page and
-   is only ever seen against the light end of that fade.
- *
-   Scoped to [data-page="home"], which only the home layout carries — every
-   other page's header sits on the page's own background and must follow the
-   reader's scheme. */
-:root[data-page="home"] .logo-mark-row,
-:root[data-page="home"] .hero-search,
-:root[data-page="home"] .search {
-    --text-reg: rgb(42, 42, 42);
-    --text-secondary: rgba(42, 42, 42, .7);
-    --black-5: rgba(0, 0, 0, .05);
-    --black-10: rgba(0, 0, 0, .1);
-    --black-20: rgba(0, 0, 0, .2);
-    --white: #FFFFFF;
-    --charcoal: #2A2A2A;
-    --slightly-warm-gray: #faf9f9;
-
-    /* The rest of the bar's states, not just its resting one. The focused
-       field fills with --background-color and the results panel is
-       --header-background over --header-shadow — all three dark-scheme values
-       on this page, which left a near-black glass panel and a black focused
-       field hanging under a light header. The accent goes back to the light
-       scheme's darker, less saturated rose for the same reason: the bright
-       dark-mode one is mixed to carry against black, and on white it glares. */
-    --background-color: #FFFFFF;
-    --header-background: rgba(255, 255, 255, 0.4);
-    --search-panel-bg: rgba(255, 255, 255, 0.94);
-    --header-shadow: rgba(0, 0, 0, 0.1);
-    --accent-s: 70%;
-    --accent-l: 40%;
-
-    /* The tokens above only reach what reads them. Inherited `color` comes from
-       body, which is still the dark scheme's near-white here, so anything in
-       the bar that does not set its own colour would arrive invisible. Every
-       part currently does set one; this is so the next one added does not have
-       to know that. */
-    color: var(--text-reg);
-}
-
-/* On a wide window the home header is narrowed to a 360px column in the middle.
-   The hero is the page here and the bar is a utility on top of it — at the
-   site's full 760px measure it reads as a banner across the artwork, and it
-   takes a 760px bite out of the middle of the sticker field, which is the one
-   part of the ring the eye actually lands on.
- *
-   Home only, and desktop only. Every other page's header is a real header over
-   a reading column and keeps the measure; below 800px this one does too, since
-   a 360px bar on a 375px phone is the same full-width row with wasted gutters.
-   Either way the solver reads the bar's measured box (see the obstacle list in
-   layout-hero-stickers.js), so the stickers follow whatever this resolves to
-   rather than a number copied into the script. */
-@media (min-width: 801px) {
-
-    /* :not(.is-immersive), because this selector is (0,3,0) and the immersive
-       rule is (0,2,0) — left alone, the cap wins and the full-window overlay
-       comes out a 360px strip down the left of the screen with the rest of the
-       page still live beside it. */
-    :root[data-page="home"] .logo-mark-row,
-    :root[data-page="home"] .search {
-        max-width: 360px;
-    }
-}
-
-/* On home the field is not in a header at all: it sits under the lockup's
-   caption, inside .hero-spacer (see _layouts/home.html). Absolute against the
-   spacer, the way .hero-greeting is, so the two travel together.
- *
-   Placed off --mark-unit rather than a pixel figure, because everything else in
-   the lockup is: the mark, the bubble and the caption all resize with it, and a
-   fixed offset here would drift away from the caption at other window sizes.
-   50vh is the lockup's own centre line; the rest clears the caption below it. */
-.hero-search {
-    /* Named, because the panel below has to subtract it from the viewport to
-       know how much room it has left underneath. */
-    --hero-search-top: calc(50vh + 8.4 * var(--mark-unit));
-
-    position: absolute;
-    top: var(--hero-search-top);
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(360px, calc(100vw - var(--spacing-xl) * 2));
-    /* Over the sticker ring, which is two below the content layer, so a sticker
-       dealt nearby cannot land on top of the field. The solver keeps them off
-       it anyway; this is what happens if it ever cannot. */
-    z-index: var(--z-content);
-    /* .hero-spacer stops hit-testing for the whole hero — everything in there
-       is something to look at, not something to press — so a real control
-       inside it has to take clicks back, exactly as .hero-scroll-cue__ring
-       does. Without this the field is visible, focusable by keyboard, and
-       completely dead to the mouse. */
-    pointer-events: auto;
-}
-
-/* Tucked closer to the caption on a desktop. The gap is set in --mark-unit, so
-   it scales with the lockup — but the lockup is drawn off the SHORT axis and a
-   desktop window is short and wide, which left the field further below the
-   words than it reads as belonging to. A phone keeps the looser figure above:
-   there the unit is small enough that the same number of them is a modest gap
-   already. */
-@media (min-width: 801px) {
-    .hero-search {
-        --hero-search-top: calc(50vh + 6.5 * var(--mark-unit));
-    }
-}
-
 /* ===== Immersive search =====
  *
    Focusing the field dims and blurs the page behind it and opens the results
@@ -1300,18 +1186,6 @@ button {
     .search.is-immersive::before {
         animation: none;
     }
-}
-
-/* position: fixed resolves against a TRANSFORMED ancestor rather than the
-   window, and .hero-search is translated to centre itself — so on the home page
-   the ground would be trapped inside that 360px box. The transform has to go,
-   and the same centring has to be put back as a `left` or the field moves,
-   which is the one thing this mode does not do: at the capped width that is
-   half the window minus half of 360, and below the cap the field is already
-   inset by the page gutter on both sides. */
-:root.is-search-immersive .hero-search {
-    transform: none;
-    left: max(var(--spacing-xl), calc(50% - 180px));
 }
 
 /* The close button sits beside the field — the only thing the mode adds to the
@@ -1434,30 +1308,7 @@ button {
     width: 100%;
 }
 
-/* The panel opens from the middle of the window here rather than from a bar at
-   the top, so the shared 70vh cap would run it off the bottom of the screen —
-   560px of results starting at 568px down an 800px window. Bounded by what is
-   actually left underneath the field instead, and dvh so a phone's collapsing
-   address bar does not leave it short.
-
-   Scoped off the immersive overlay — (0,3,0) against its (0,2,0) — or the mode
-   opens full-screen and then holds the results to a few hundred pixels of it,
-   with the rest of the window empty underneath. */
-:root[data-page="home"] .search__panel {
-    max-height: min(70vh, 560px,
-            calc(100dvh - var(--hero-search-top) - var(--logo-mark-size) - var(--spacing-sm) - var(--spacing-xl)));
-}
-
 /* The margins it carried as a header row are the header's, not this one's. */
-/* :not(.is-immersive) for the same reason as the cap above — this is (0,4,0)
-   and would otherwise strip the overlay's own padding, putting the field hard
-   against the top left corner of the window. */
-:root[data-page="home"] .hero-search .search {
-    --search-gutter: 0px;
-    margin: 0;
-    padding: 0;
-}
-
 /* Above the search field, though it comes after it in the source — the field is
    emitted first so it is the first tab stop (see site/logo.html), and this puts
    the row back on top. .page-shell is a flex column and both are direct

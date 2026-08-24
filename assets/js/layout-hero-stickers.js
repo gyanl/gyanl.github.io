@@ -143,16 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var obstacles = function () {
         var out = [];
 
-        // The header bar and its search row are in here for the same reason as
-        // the lockup: they sit over the field and must stay legible. Measured
-        // like everything else, so the 360px desktop cap and the full-width
-        // phone row both come out right with no breakpoint in this file.
-        //
-        // Safe to take their viewport rects even though they scroll away and
-        // the ring does not: the solve runs once, at the top of the page, where
-        // the two coordinate spaces agree.
-        ['.logo-mark-row', '.search',
-            '.hero-greeting__photo', '.hero-greeting__blob', '.hero-thinking', '.hero-scroll-cue__ring']
+        ['.hero-greeting__photo', '.hero-greeting__blob', '.hero-thinking', '.hero-scroll-cue__ring']
             .forEach(function (selector) {
                 var el = document.querySelector(selector);
                 if (!el) return;

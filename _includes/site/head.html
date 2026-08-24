@@ -73,17 +73,6 @@
   {%- endcomment -%}
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 
-  {%- comment -%}
-    Search is on every layout, home included: that page has no mark row but it
-    does have the field. This file is the box's behaviour and nothing else —
-    Lunr and the index are fetched on first use, so what loads here is a couple
-    of kB.
-
-    logo-mark-reveal.js stays in the non-home branch below with the mark it
-    animates.
-  {%- endcomment -%}
-  <script src="{{ '/assets/js/search.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
-
   {%- if page.layout == 'home' %}
   <script src="{{ '/assets/js/animate-g-logo.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   <script src="{{ '/assets/js/animate-about-chat.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
@@ -109,6 +98,13 @@
     button itself.
   {%- endcomment -%}
   <script src="{{ '/assets/js/back-button.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+  {%- comment -%}
+    Search. It lives in the header bar, so it is on every page this branch
+    covers and on none of the ones it does not — home has no search field at
+    all. This file is the box's behaviour and nothing else: Lunr and the index
+    are fetched by it on first use, so what loads here is a couple of kB.
+  {%- endcomment -%}
+  <script src="{{ '/assets/js/search.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   {%- comment -%}
     Wraps the slideshow strips around. The strip works without it; this only
     makes it endless. Post bodies are the only place a slideshow appears.
