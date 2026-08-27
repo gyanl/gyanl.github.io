@@ -2536,6 +2536,14 @@ button {
        is on that corner, so growing out of it reads as the message coming from
        the thread rather than inflating in place. */
     transform-origin: 0 100%;
+    /* Promoted to its own layer, because --send is republished every scroll
+       frame and the scale is fractional. Unpromoted, the bubble is repainted
+       into the page's own tiles each frame and the invalidation rect is
+       computed from a sub-pixel box: mobile Safari rounds it inward and leaves
+       a sliver of stale blue off the right edge, which only clears when that
+       tile is next re-rasterised. The right edge alone because transform-origin
+       pins the left and bottom — nothing moves there to be left behind. */
+    will-change: transform, opacity;
 }
 
 @media (prefers-reduced-motion: reduce) {
