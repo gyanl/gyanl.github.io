@@ -8,11 +8,7 @@
   cards below do; numbers, chips and table labels are set at the label size.
 {%- endcomment -%}
 
-<section class="services" aria-labelledby="services-heading">
-  <h2 class="section-heading" id="services-heading">How we can work together</h2>
-  <p class="section-lede">I create brands, design systems, landing pages, pitch decks, sales decks and digital
-    products.</p>
-
+<section class="services" aria-label="How we can work together">
   <div class="services__list">
 
     <article class="service">
@@ -25,8 +21,12 @@
           loading="lazy" decoding="async">
       </div>
       <h3 class="service__title">Launch packages</h3>
-      <p class="service__body">For startups looking to define their brand and communicate their value with clarity.
-        Everything you need to launch, designed and built end to end.</p>
+      <p class="service__body">Are you finding it hard to be taken seriously in customer conversations as a new
+        startup in a saturated market? Your product, landing page, sales deck, LinkedIn banner and booth at a
+        conference are all signals for potential customers. You need an MVB: a Minimum Viable Business.</p>
+      <p class="service__body">Luckily for you, we can fix it, and quick. I work with recently funded startups to
+        launch their brand, tell their story, and communicate their value to customers with clarity. Your first
+        logo, website, deck and online presence &mdash; designed, built and shipped end to end.</p>
 
       {%- comment -%}
         What you walk away with, one per ruled line: the deliverable in full
@@ -41,12 +41,21 @@
         <li><span><strong>Investor and sales decks</strong> or templates to build them from</span></li>
         <li><span><strong>Product UI/UX audit</strong> of what you have already shipped</span></li>
       </ul>
+
+      <div class="service__book">
+        <span class="service__duration"><i class="ph ph-timer" aria-hidden="true"></i>1&ndash;3 months</span>
+        <a class="book-button" href="{{ site.booking_url }}" target="_blank" rel="noopener noreferrer">
+          <span>Book a call</span>
+          <span class="book-button__arrow" aria-hidden="true"><i class="ph ph-arrow-up-right"></i></span>
+        </a>
+      </div>
     </article>
 
     <article class="service service--sprint">
       <h3 class="service__title">Unslop sprint for AI products</h3>
       <p class="service__body">You understand the problem. Your agents have coded the solution. It works, but it
-        doesn&rsquo;t yet feel trustworthy, coherent, or production ready.</p>
+        doesn&rsquo;t yet feel trustworthy, coherent, or production ready. Work with me to bring human taste and
+        production quality to products built at AI speed.</p>
 
       {%- comment -%}
         The questions a founder asks of a vibe-coded product, as a little
@@ -58,8 +67,6 @@
         <span class="service__doubt service__doubt--grey">Does this feel vibe coded?</span>
         <span class="service__doubt">Is this the best version of the product?</span>
       </div>
-
-      <p class="service__pitch">Bring human taste and production quality to products built at AI speed.</p>
 
       <ol class="service__numbered">
         <li>
@@ -82,8 +89,7 @@
       <div class="service__footer">
         <p class="service__label" id="sprint-fit">Great for</p>
         <ul class="service__fit" aria-labelledby="sprint-fit">
-          <li>AI-generated MVPs</li>
-          <li>SaaS products finding traction</li>
+          <li>AI-generated MVPs finding traction</li>
           <li>Internal tools becoming customer facing</li>
         </ul>
 

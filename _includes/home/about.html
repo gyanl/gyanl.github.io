@@ -44,14 +44,14 @@
         their users can understand and love.</p>
       {%- comment -%}
         The booking link, sent as the last message of the thread: an iMessage
-        rich link, with the site's own link-preview image over a grey footer
+        rich link, with a photo of me at my desk over a grey footer
         that names the page and its domain. It is a .chat__bubble so the send
         animation picks it up, and it carries the tail, which takes the
         footer's grey through --chat-bubble-bg.
       {%- endcomment -%}
       <a class="chat__bubble chat__bubble--tail chat__link" href="{{ site.booking_url }}" target="_blank"
         rel="noopener noreferrer">
-        <img class="chat__link-image" src="{{ '/assets/gyanl-og-image.jpg' | relative_url }}" alt=""
+        <img class="chat__link-image" src="{{ '/assets/intro-call.webp' | relative_url }}" alt=""
           width="1200" height="630" loading="lazy" decoding="async">
         <span class="chat__link-meta">
           <span class="chat__link-title">Intro Call with Gyan</span>
