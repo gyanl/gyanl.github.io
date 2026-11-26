@@ -1,6 +1,10 @@
 title: Gyan Lakhwani
 email: hello@gyanl.com
 
+# Where every "Book a call" button on the home page points. One place, so a new
+# scheduling page is a one-line change.
+booking_url: https://calendar.app.google/bC5V5tBn8kZGPod87
+
 # What a link preview and a search result say under the title. It used to be
 # "Made with <3 in New Delhi, India", which is the footer's line — charming
 # there, and no use at all to someone deciding whether to click.
