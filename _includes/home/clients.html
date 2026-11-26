@@ -1,0 +1,44 @@
+{%- comment -%}
+  Trust strip: clients and employers, as one-colour wordmarks sliding past
+  in a loop.
+
+  Each logo is painted through a CSS mask rather than shown as an <img>, so
+  every mark comes out in the page's own secondary ink whatever its brand
+  colours are, and follows the scheme. The files live in assets/logos/clients/.
+  --logo-h evens out optical size: a wordmark with a tall mark beside it needs
+  less height than a plain word to look the same weight. --logo-r is the
+  file's own width over height; a mask has no intrinsic size, so the box has
+  to be given the artwork's shape.
+
+  The list is written out twice. The track slides left by exactly half its
+  width, which is one full copy, so the loop restarts on a frame identical to
+  the first. The second copy is hidden from screen readers, which hear each
+  client once.
+
+  Rows are name|file|height|ratio.
+{%- endcomment -%}
+{%- assign clients_data =
+  "Microsoft|microsoft.svg|32px|4.689;;
+   Zomato|zomato.svg|25px|4.670;;
+   Sarvam|sarvam.svg|21px|6.313;;
+   Ressl AI|ressl.svg|37px|3.929;;
+   Sycamore|sycamore.svg|46px|3.840;;
+   Absentia Labs|absentia.png|30px|5.804"
+-%}
+{%- assign clients = clients_data | split: ";;" %}
+
+<section class="clients" aria-label="Teams I have worked with">
+  <div class="clients__viewport">
+    <ul class="clients__track">
+      {%- for copy in (1..2) %}
+      {%- for client in clients %}
+      {%- assign parts = client | strip | split: "|" %}
+      <li class="clients__item"{% if copy == 2 %} aria-hidden="true"{% endif %}>
+        <span class="clients__logo" role="img" aria-label="{{ parts[0] }}"
+          style="--logo: url('{{ '/assets/logos/clients/' | append: parts[1] | relative_url }}'); --logo-h: {{ parts[2] }}; --logo-r: {{ parts[3] }};"></span>
+      </li>
+      {%- endfor %}
+      {%- endfor %}
+    </ul>
+  </div>
+</section>

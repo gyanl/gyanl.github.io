@@ -40,8 +40,24 @@
       {%- comment -%}
         Only the last bubble of a run gets a tail, as iMessage does it.
       {%- endcomment -%}
-      <p class="chat__bubble chat__bubble--tail">These days I consult independently and teach a course on Technology
-        &amp; Design at &Eacute;cole Intuit Lab, Delhi.</p>
+      <p class="chat__bubble">These days I consult with startups to help founding teams launch brands and products
+        their users can understand and love.</p>
+      {%- comment -%}
+        The booking link, sent as the last message of the thread: an iMessage
+        rich link, with the site's own link-preview image over a grey footer
+        that names the page and its domain. It is a .chat__bubble so the send
+        animation picks it up, and it carries the tail, which takes the
+        footer's grey through --chat-bubble-bg.
+      {%- endcomment -%}
+      <a class="chat__bubble chat__bubble--tail chat__link" href="{{ site.booking_url }}" target="_blank"
+        rel="noopener noreferrer">
+        <img class="chat__link-image" src="{{ '/assets/gyanl-og-image.jpg' | relative_url }}" alt=""
+          width="1200" height="630" loading="lazy" decoding="async">
+        <span class="chat__link-meta">
+          <span class="chat__link-title">Intro Call with Gyan</span>
+          <span class="chat__link-domain">Schedule a conversation now!</span>
+        </span>
+      </a>
     </div>
   </div>
 </div>

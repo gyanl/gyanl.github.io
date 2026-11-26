@@ -1,0 +1,105 @@
+{%- comment -%}
+  The ways to hire me, laid out after the "Work with Gyan" deck: launch
+  packages as a ticked list of deliverables under the work they produced, and
+  the sprint as the questions founders ask, then three big-numbered steps. Rates are left
+  out on purpose: they are for the call, not the page.
+
+  Titles and descriptions share one size and differ by colour, as the work
+  cards below do; numbers, chips and table labels are set at the label size.
+{%- endcomment -%}
+
+<section class="services" aria-labelledby="services-heading">
+  <h2 class="section-heading" id="services-heading">How we can work together</h2>
+  <p class="section-lede">I create brands, design systems, landing pages, pitch decks, sales decks and digital
+    products.</p>
+
+  <div class="services__list">
+
+    <article class="service">
+      <div class="service__gallery" aria-hidden="true">
+        <img src="{{ '/assets/thumbs/pk/gameramp.webp' | relative_url }}" alt="" width="1000" height="640"
+          loading="lazy" decoding="async">
+        <img src="{{ '/assets/thumbs/pk/ressl-thumbnail.jpg' | relative_url }}" alt="" width="1000" height="640"
+          loading="lazy" decoding="async">
+        <img src="{{ '/assets/thumbs/pk/sycamore-thumbnail.jpg' | relative_url }}" alt="" width="1000" height="640"
+          loading="lazy" decoding="async">
+      </div>
+      <h3 class="service__title">Launch packages</h3>
+      <p class="service__body">For startups looking to define their brand and communicate their value with clarity.
+        Everything you need to launch, designed and built end to end.</p>
+
+      {%- comment -%}
+        What you walk away with, one per ruled line: the deliverable in full
+        ink, what it contains knocked back beside it.
+      {%- endcomment -%}
+      <ul class="service__deliverables" aria-label="Deliverables">
+        <li><span><strong>Brand identity</strong> logo, typography, colours, brand elements</span></li>
+        <li><span><strong>Website</strong> designed, built in code, performant, AI + SEO, CMS for content</span></li>
+        <li><span><strong>Brand design system</strong> documented for your team and their coding agents</span></li>
+        <li><span><strong>UI design system</strong> in Figma and as design.md</span></li>
+        <li><span><strong>Marketing assets</strong> for social, print and launch day</span></li>
+        <li><span><strong>Investor and sales decks</strong> or templates to build them from</span></li>
+        <li><span><strong>Product UI/UX audit</strong> of what you have already shipped</span></li>
+      </ul>
+    </article>
+
+    <article class="service service--sprint">
+      <h3 class="service__title">Unslop sprint for AI products</h3>
+      <p class="service__body">You understand the problem. Your agents have coded the solution. It works, but it
+        doesn&rsquo;t yet feel trustworthy, coherent, or production ready.</p>
+
+      {%- comment -%}
+        The questions a founder asks of a vibe-coded product, as a little
+        thread, tipped the way the deck tips them. Decorative: the paragraph
+        above says the same thing in prose.
+      {%- endcomment -%}
+      <div class="service__doubts" aria-hidden="true">
+        <span class="service__doubt">Can enterprise customers trust this?</span>
+        <span class="service__doubt service__doubt--grey">Does this feel vibe coded?</span>
+        <span class="service__doubt">Is this the best version of the product?</span>
+      </div>
+
+      <p class="service__pitch">Bring human taste and production quality to products built at AI speed.</p>
+
+      <ol class="service__numbered">
+        <li>
+          <h4>Product experience audit</h4>
+          <p>Onboarding, hierarchy, inconsistencies, interactivity, UI/UX, error states and tone of voice, delivered
+            as an annotated audit with suggested fixes, or filed as tickets in your tracker.</p>
+        </li>
+        <li>
+          <h4>AI-friendly product design kit</h4>
+          <p>A brand-compliant, high fidelity design system that lives in Figma, in code, and as AI skills and
+            design.md guidelines that keep your coding agents on brand.</p>
+        </li>
+        <li>
+          <h4>Redesign key screens</h4>
+          <p>Together with your team, I apply the system to five of your most important customer-facing surfaces,
+            which then guide the rest of the overhaul.</p>
+        </li>
+      </ol>
+
+      <div class="service__footer">
+        <p class="service__label" id="sprint-fit">Great for</p>
+        <ul class="service__fit" aria-labelledby="sprint-fit">
+          <li>AI-generated MVPs</li>
+          <li>SaaS products finding traction</li>
+          <li>Internal tools becoming customer facing</li>
+        </ul>
+
+        {%- comment -%}
+          The deck closes this card on a ruled line with the length on the left
+          and the price on the right. The price is for the call, so the call
+          takes its place.
+        {%- endcomment -%}
+        <div class="service__book">
+          <span class="service__duration"><i class="ph ph-timer" aria-hidden="true"></i>2 week sprint</span>
+          <a class="book-button" href="{{ site.booking_url }}" target="_blank" rel="noopener noreferrer">
+            <span>Book a call</span>
+            <span class="book-button__arrow" aria-hidden="true"><i class="ph ph-arrow-up-right"></i></span>
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>

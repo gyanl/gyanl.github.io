@@ -4869,3 +4869,505 @@ li.todo.done {
         font-size: var(--font-size-md);
     }
 }
+
+
+/* ===== Hire me: booking link, client strip, services ===== */
+
+/* The booking link, sent as the thread's last message: an iMessage rich link.
+   Preview image on top, then a grey footer with the title and the domain. The
+   grey is iMessage's own link-preview grey on a dark thread, and it is set as
+   --chat-bubble-bg so the tail comes out the same colour as the footer it
+   hangs off. No overflow: hidden, which would clip the tail; the image rounds
+   its own top corners instead. */
+.chat__link {
+    --chat-bubble-bg: #2C2C2E;
+    --chat-bubble-fg: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 340px);
+    padding: 0;
+    text-decoration: none;
+}
+
+.chat__link:hover {
+    --chat-bubble-bg: #3A3A3C;
+}
+
+.chat__link:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+}
+
+.chat__link-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1200 / 630;
+    object-fit: cover;
+    border-radius: var(--chat-bubble-radius) var(--chat-bubble-radius) 0 0;
+}
+
+.chat__link-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 16px 12px 16px;
+    font-size: var(--font-size-md);
+    line-height: 1.3;
+}
+
+.chat__link-title {
+    font-weight: 600;
+}
+
+.chat__link-domain {
+    color: rgba(235, 235, 245, 0.6);
+}
+
+.clients {
+    width: 100%;
+    max-width: var(--width-thread);
+    margin: 0 auto;
+}
+
+/* The window the track slides through. Its edges fade out so a logo drifts
+   in and out of view rather than being cut off at a hard line. */
+.clients__viewport {
+    overflow: hidden;
+    -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* Two copies of the list in one row. The spacing is each item's right
+   padding rather than a flex gap, so the row is exactly two equal halves and
+   -50% lands on the start of the second copy. */
+.clients__track {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: clients-slide 36s linear infinite;
+}
+
+.clients__item {
+    display: flex;
+    align-items: center;
+    flex: none;
+    padding-right: var(--spacing-4xl);
+}
+
+@keyframes clients-slide {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* Still, and scrolled by hand instead. The duplicate copy goes, since nothing
+   needs it to loop. */
+@media (prefers-reduced-motion: reduce) {
+    .clients__viewport {
+        overflow-x: auto;
+    }
+
+    .clients__track {
+        animation: none;
+    }
+
+    .clients__item[aria-hidden="true"] {
+        display: none;
+    }
+}
+
+/* Painted through the artwork rather than showing it, so every mark is the
+   same ink. --logo, --logo-h and --logo-r come from home/clients.html. */
+.clients__logo {
+    display: block;
+    height: var(--logo-h);
+    width: calc(var(--logo-h) * var(--logo-r));
+    background-color: var(--text-secondary);
+    -webkit-mask: var(--logo) left center / contain no-repeat;
+    mask: var(--logo) left center / contain no-repeat;
+}
+
+/* Laid out as .work-section is, so .section-lede's pull-up under the heading
+   (which cancels that section's flex gap) lands the same here. */
+.services {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.services__list {
+    width: 100%;
+    max-width: var(--width-thread);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+/* The experience cards' glass, held still. */
+.service {
+    --service-radius: 1.375rem;
+    padding: var(--spacing-xl);
+    border-radius: var(--service-radius);
+    background: var(--pane-fill) padding-box, var(--pane-ring) border-box;
+    border: 1px solid transparent;
+}
+
+.service__title {
+    margin: 0 0 var(--spacing-sm) 0;
+    font-family: var(--font-body);
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--text-reg);
+}
+
+.service__body {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--font-size-xl);
+    line-height: 1.4;
+    color: color-mix(in srgb, var(--text-secondary) 68%, var(--background-color));
+    text-wrap: pretty;
+}
+
+.service__chips {
+    list-style: none;
+    margin: var(--spacing-lg) 0 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.service__chips li {
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 999px;
+    background: var(--black-5);
+    border: 1px solid var(--black-10);
+    font-family: var(--font-body);
+    font-size: var(--font-size-md);
+    color: var(--text-reg);
+}
+
+/* Body copy at the shared size, knocked back. Pulled out as a custom
+   property because every list in the cards below uses it. */
+.service {
+    --service-ink: color-mix(in srgb, var(--text-secondary) 68%, var(--background-color));
+    --service-rule: 1px solid var(--black-10);
+}
+
+/* Launch packages: the work the packages produced, three across, standing in
+   for the deck's column of mockups. */
+.service__gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
+}
+
+.service__gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1000 / 640;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Launch deliverables: one per ruled line with a check, the deliverable in
+   full ink and what it contains knocked back after it. */
+.service__deliverables {
+    list-style: none;
+    margin: var(--spacing-xl) 0 0 0;
+    padding: 0;
+}
+
+.service__deliverables li {
+    display: grid;
+    grid-template-columns: 1.6rem 1fr;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) 0;
+    border-top: var(--service-rule);
+    font-family: var(--font-body);
+    font-size: var(--font-size-xl);
+    line-height: 1.4;
+    color: var(--service-ink);
+    text-wrap: pretty;
+}
+
+.service__deliverables li:last-child {
+    padding-bottom: 0;
+}
+
+/* Phosphor's check, by codepoint, so the list needs no icon markup. */
+.service__deliverables li::before {
+    content: "\e182";
+    font-family: "Phosphor";
+    color: var(--text-reg);
+    line-height: 1.4;
+}
+
+.service__deliverables strong {
+    font-weight: 600;
+    color: var(--text-reg);
+}
+
+/* Unslop sprint: the questions a founder asks, as a tipped little thread. */
+.service__doubts {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-xl) 0;
+}
+
+.service__doubt {
+    padding: 6px 14px;
+    border-radius: 18px;
+    background: #0A84FF;
+    color: #FFFFFF;
+    font-family: var(--font-body);
+    font-size: var(--font-size-md);
+    rotate: -2deg;
+}
+
+.service__doubt--grey {
+    align-self: flex-end;
+    background: #3A3A3C;
+    rotate: 3deg;
+}
+
+.service__pitch {
+    margin: 0 0 var(--spacing-xl) 0;
+    font-family: var(--font-body);
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text-reg);
+    text-wrap: balance;
+}
+
+/* Big numerals beside each step, ruled between, as the deck sets them. */
+.service__numbered {
+    list-style: none;
+    counter-reset: sprint;
+    margin: 0;
+    padding: 0;
+}
+
+.service__numbered li {
+    counter-increment: sprint;
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    /* Columns only: the title and its paragraph are two rows of the second
+       column, spaced by the title's own margin. */
+    gap: 0 var(--spacing-md);
+    padding: var(--spacing-lg) 0;
+    border-top: var(--service-rule);
+}
+
+.service__numbered h4,
+.service__numbered p {
+    grid-column: 2;
+}
+
+.service__numbered li::before {
+    content: counter(sprint) ".";
+    grid-row: 1 / span 2;
+    font-family: var(--font-body);
+    font-size: var(--font-size-3xl);
+    font-weight: 600;
+    line-height: 1;
+    color: var(--text-secondary);
+}
+
+.service__numbered h4 {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-family: var(--font-body);
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--text-reg);
+}
+
+.service__numbered p {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--font-size-xl);
+    line-height: 1.4;
+    color: var(--service-ink);
+    text-wrap: pretty;
+}
+
+.service__footer {
+    padding-top: var(--spacing-lg);
+    border-top: var(--service-rule);
+}
+
+.service__label {
+    margin: 0 0 var(--spacing-sm) 0;
+    font-family: var(--font-body);
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* Who it is for, as the deck lists it: plain lines with a small dot. */
+.service__fit {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.service__fit li {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-md);
+    font-family: var(--font-body);
+    font-size: var(--font-size-xl);
+    line-height: 1.4;
+    color: var(--text-reg);
+}
+
+.service__fit li::before {
+    content: "";
+    flex: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-secondary);
+    translate: 0 -0.2em;
+}
+
+/* The ruled closing line: how long on the left, the way in on the right. */
+.service__book {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: var(--service-rule);
+}
+
+.service__duration {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-family: var(--font-body);
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    color: var(--text-reg);
+}
+
+.service__duration .ph {
+    font-size: 1.25em;
+    color: var(--text-secondary);
+}
+
+/* The booking button: a filled pill in the page's ink with the arrow set in
+   its own disc at the end, which nudges toward where the link goes on hover. */
+.book-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: 6px 6px 6px var(--spacing-lg);
+    border-radius: 999px;
+    background: var(--text-reg);
+    color: var(--background-color);
+    font-family: var(--font-body);
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform var(--transition-normal), background-color var(--transition-normal);
+}
+
+.book-button:hover {
+    color: var(--background-color);
+    background: color-mix(in srgb, var(--text-reg) 88%, var(--background-color));
+    transform: translateY(-2px);
+}
+
+.book-button:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+}
+
+.book-button__arrow {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--background-color);
+    color: var(--text-reg);
+    font-size: 1.1em;
+}
+
+.book-button__arrow .ph {
+    transition: transform var(--transition-normal);
+}
+
+.book-button:hover .book-button__arrow .ph {
+    transform: translate(2px, -2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .book-button,
+    .book-button__arrow .ph {
+        transition: none;
+    }
+
+    .book-button:hover,
+    .book-button:hover .book-button__arrow .ph {
+        transform: none;
+    }
+}
+
+@media (max-width: 800px) {
+    .clients,
+    .services__list {
+        width: var(--width-mobile);
+    }
+
+    .clients__item {
+        padding-right: var(--spacing-3xl);
+    }
+
+    /* A size down per logo, so three still fit across a phone. */
+    .clients__logo {
+        height: calc(var(--logo-h) * 0.75);
+        width: calc(var(--logo-h) * 0.75 * var(--logo-r));
+    }
+
+    .service {
+        padding: var(--spacing-lg);
+    }
+
+    .service__title,
+    .service__body,
+    .service__deliverables li,
+    .service__pitch,
+    .service__numbered h4,
+    .service__numbered p,
+    .service__fit li {
+        font-size: var(--font-size-lg);
+    }
+
+    .service__numbered li::before {
+        font-size: var(--font-size-2xl);
+    }
+    /* The thread's mobile bubble rule sets padding and a 75vw cap on every
+       bubble; the link card keeps its own. */
+    .chat__link {
+        padding: 0;
+        max-width: 75vw;
+    }
+}
