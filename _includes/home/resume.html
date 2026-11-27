@@ -15,10 +15,42 @@
 {%- endcomment -%}
 
 <section class="resume">
-  <h2 class="section-heading">Experience</h2>
+  {%- comment -%}
+    Radios rather than buttons: one choice of three is what a radio group is,
+    and with :has() in main.css the filter works with no script at all.
+  {%- endcomment -%}
+  <div class="resume__header">
+    <h2 class="section-heading">Experience</h2>
+    <fieldset class="segmented">
+      <legend class="sr-only">Show</legend>
+      <input class="sr-only" type="radio" name="resume-filter" id="resume-filter-design" value="design" checked>
+      <label for="resume-filter-design">Design</label>
+      <input class="sr-only" type="radio" name="resume-filter" id="resume-filter-teaching" value="teaching">
+      <label for="resume-filter-teaching">Teaching</label>
+      <input class="sr-only" type="radio" name="resume-filter" id="resume-filter-all" value="all">
+      <label for="resume-filter-all">All</label>
+    </fieldset>
+  </div>
 
   <ol class="resume__list">
-    <li class="resume__row">
+    {%- comment -%}
+      The open slot: a plus where the logo goes, since the client is whoever
+      books the call.
+    {%- endcomment -%}
+    <li class="resume__row" data-kind="design">
+      <div class="resume__detail">
+        <span class="resume__plate resume__plate--open" aria-hidden="true"><i class="ph ph-plus"></i></span>
+        <div class="resume__text">
+          <div class="resume__head">
+            <div class="resume__role">Design Consultant</div>
+            <div class="resume__period">Sep &rsquo;26 &ndash; Present</div>
+          </div>
+          <div class="resume__org">Your startup? <a class="resume__link" href="{{ site.booking_url }}" target="_blank"
+              rel="noopener noreferrer">Let&rsquo;s chat<i class="ph ph-arrow-up-right" aria-hidden="true"></i></a></div>
+        </div>
+      </div>
+    </li>
+    <li class="resume__row" data-kind="teaching">
       <div class="resume__detail">
         <span class="resume__plate">
           <img class="resume__logo" src="{{ '/assets/logos/ecole-intuit-lab.webp' | relative_url }}" alt=""
@@ -33,7 +65,7 @@
         </div>
       </div>
     </li>
-    <li class="resume__row">
+    <li class="resume__row" data-kind="other">
       <div class="resume__detail">
         <span class="resume__plate">
           <img class="resume__logo" src="{{ '/assets/logos/south-park-commons.webp' | relative_url }}" alt=""
@@ -48,7 +80,7 @@
         </div>
       </div>
     </li>
-    <li class="resume__row">
+    <li class="resume__row" data-kind="teaching">
       <div class="resume__detail">
         <span class="resume__plate">
           <img class="resume__logo" src="{{ '/assets/logos/ecole-intuit-lab.webp' | relative_url }}" alt=""
@@ -63,7 +95,7 @@
         </div>
       </div>
     </li>
-    <li class="resume__row">
+    <li class="resume__row" data-kind="design">
       <div class="resume__detail">
         <span class="resume__plate">
           <img class="resume__logo" src="{{ '/assets/logos/public-knowledge.webp' | relative_url }}" alt=""
@@ -78,7 +110,7 @@
         </div>
       </div>
     </li>
-    <li class="resume__row">
+    <li class="resume__row" data-kind="teaching">
       <div class="resume__detail">
         <span class="resume__plate">
           <img class="resume__logo" src="{{ '/assets/logos/dtu.webp' | relative_url }}" alt=""
@@ -93,7 +125,7 @@
         </div>
       </div>
     </li>
-    <li class="resume__row">
+    <li class="resume__row" data-kind="design">
       <div class="resume__detail">
         <span class="resume__plate">
           <img class="resume__logo" src="{{ '/assets/logos/microsoft.webp' | relative_url }}" alt=""
@@ -108,7 +140,7 @@
         </div>
       </div>
     </li>
-    <li class="resume__row">
+    <li class="resume__row" data-kind="design">
       <div class="resume__detail">
         <span class="resume__plate">
           <img class="resume__logo" src="{{ '/assets/logos/microsoft.webp' | relative_url }}" alt=""
@@ -123,7 +155,7 @@
         </div>
       </div>
     </li>
-    <li class="resume__row">
+    <li class="resume__row" data-kind="design teaching">
       <div class="resume__detail">
         <span class="resume__plate">
           <img class="resume__logo" src="{{ '/assets/logos/iit-bombay.webp' | relative_url }}" alt=""
@@ -138,7 +170,7 @@
         </div>
       </div>
     </li>
-    <li class="resume__row">
+    <li class="resume__row" data-kind="design">
       <div class="resume__detail">
         <span class="resume__plate">
           <img class="resume__logo" src="{{ '/assets/logos/microsoft.webp' | relative_url }}" alt=""
@@ -153,7 +185,7 @@
         </div>
       </div>
     </li>
-    <li class="resume__row">
+    <li class="resume__row" data-kind="design">
       <div class="resume__detail">
         <span class="resume__plate">
           <img class="resume__logo" src="{{ '/assets/logos/zomato.webp' | relative_url }}" alt=""

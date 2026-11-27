@@ -73,6 +73,9 @@ document.addEventListener('DOMContentLoaded', function () {
             var top = listTop + run;
             var height = row.offsetHeight;
 
+            // filtered out by the experience switcher: no box, so no gap after it either.
+            if (!height) return { top: top, height: 0, hidden: true };
+
             run += height + gap;
 
             return { top: top, height: height };
@@ -91,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // The line this card would be pinned at. Above it the card is out
             // in the page and reading normally; below it, it is still waiting.
             var line = scrolled + viewport - restLine - slot.height;
-            var waiting = slot.top > line;
+            var waiting = !slot.hidden && slot.top > line;
 
             // Counted in document order, so the first card still waiting is the
             // front of the pile. It gets 1, not 0 — 0 means released, and a

@@ -3283,6 +3283,71 @@ a.tag:hover {
     margin: 0 auto;
 }
 
+/* the heading and the filter share one row, so the header takes the column and the heading gives up its own. */
+.resume__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    width: 100%;
+    max-width: var(--width-thread);
+    margin: 0 auto var(--spacing-2xl) auto;
+}
+
+.resume__header .section-heading {
+    width: auto;
+    margin: 0;
+}
+
+/* an iOS segmented control on the same dark glass as the cards below it. */
+.segmented {
+    display: inline-flex;
+    margin: 0;
+    padding: 3px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: var(--pane-fill) padding-box, var(--pane-ring) border-box;
+}
+
+.segmented label {
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    line-height: var(--line-height-base);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background-color 0.18s ease-out, color 0.18s ease-out;
+}
+
+.segmented label:hover {
+    color: var(--text-reg);
+}
+
+.segmented input:checked + label {
+    background-color: var(--black-20);
+    color: var(--text-reg);
+}
+
+.segmented input:focus-visible + label {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+}
+
+/* without :has() every row shows, which is the All view and still reads fine. */
+.resume:has(#resume-filter-design:checked) .resume__row:not([data-kind~="design"]),
+.resume:has(#resume-filter-teaching:checked) .resume__row:not([data-kind~="teaching"]) {
+    display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .segmented label {
+        transition: none;
+    }
+}
+
 /* Shared heading for the home page's own sections (work, experience). Sits in
    the same narrow column as the content beneath it — which is the thread's
    column, so the whole page reads down one width. */
@@ -3504,6 +3569,55 @@ a.tag:hover {
        it is the ring that has to be right. */
     border: 1px solid transparent;
     background: var(--pane-fill) padding-box, var(--pane-ring) border-box;
+}
+
+/* no logo yet: the plate holds a plus, centred, in the card's secondary ink. */
+.resume__plate--open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-2xl);
+    color: var(--text-secondary);
+}
+
+.resume__link {
+    color: var(--text-reg);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+}
+
+/* the link stretches over its whole card; the sticky row is its containing block. */
+.resume__link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--card-radius);
+}
+
+.resume__link:focus-visible {
+    outline: none;
+}
+
+.resume__link:focus-visible::after {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+}
+
+.resume__row:has(.resume__link:hover) {
+    background: var(--pane-fill-hover) padding-box, var(--pane-ring) border-box;
+}
+
+.resume__row:has(.resume__link:hover) .resume__link {
+    text-decoration-thickness: 2px;
+}
+
+/* inline-block keeps the underline off the arrow. */
+.resume__link .ph {
+    display: inline-block;
+    margin-left: 0.15em;
+    font-size: 0.85em;
+    vertical-align: -0.05em;
 }
 
 .resume__logo {
@@ -3883,9 +3997,14 @@ a.tag:hover {
     }
 
     .resume__list,
+    .resume__header,
     .section-heading,
     .section-lede {
         width: var(--width-mobile);
+    }
+
+    .resume__header .section-heading {
+        width: auto;
     }
 
     /* The card keeps its shape on a phone — this is the arrangement a phone
@@ -5029,16 +5148,8 @@ li.todo.done {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
-}
-
-/* The experience cards' glass, held still. */
-.service {
-    --service-radius: 1.375rem;
-    padding: var(--spacing-xl);
-    border-radius: var(--service-radius);
-    background: var(--pane-fill) padding-box, var(--pane-ring) border-box;
-    border: 1px solid transparent;
+    /* no cards to hold them apart, so the space between the two offers does it. */
+    gap: var(--spacing-5xl);
 }
 
 /* Each card's name is the title of what you are buying, so it is set at
@@ -5369,10 +5480,6 @@ li.todo.done {
     .clients__logo {
         height: calc(var(--logo-h) * 0.75);
         width: calc(var(--logo-h) * 0.75 * var(--logo-r));
-    }
-
-    .service {
-        padding: var(--spacing-lg);
     }
 
     .service__body,
